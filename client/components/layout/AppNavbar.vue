@@ -27,13 +27,19 @@
           </b-button>
         </b-navbar-item>
 
-        <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left">
+        <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left" append-to-body :trap-focus="true">
           <template #trigger="{ active }">
             <b-button
-              label="Click me!"
               type="is-primary"
               :icon-right="active ? 'menu-up' : 'menu-down'"
-            />
+            >
+              <span class="is-flex is-align-items-center">
+                <figure class="image is-32x32 mr-2">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+                Mandrican Andrei
+              </span>
+            </b-button>
           </template>
 
           <b-dropdown-item aria-role="listitem">
