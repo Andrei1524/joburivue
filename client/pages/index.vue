@@ -1,6 +1,8 @@
 <template>
   <div class="app">
-    <AppNavbar />
+    <div class="container">
+      <AppNavbar />
+    </div>
   </div>
 </template>
 

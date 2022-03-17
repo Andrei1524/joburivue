@@ -1,5 +1,5 @@
 <template>
-  <b-navbar>
+  <b-navbar class="py-2">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         JoburiVue
@@ -18,16 +18,35 @@
     </template>
 
     <template #end>
-      <b-navbar-item tag="div">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
-        </div>
-      </b-navbar-item>
+      <div class="is-flex is-align-items-center">
+        <b-navbar-item>
+          <b-button
+            type="is-primary"
+          >
+            Delete
+          </b-button>
+        </b-navbar-item>
+
+        <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left">
+          <template #trigger="{ active }">
+            <b-button
+              label="Click me!"
+              type="is-primary"
+              :icon-right="active ? 'menu-up' : 'menu-down'"
+            />
+          </template>
+
+          <b-dropdown-item aria-role="listitem">
+            Action
+          </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem">
+            Another action
+          </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem">
+            Something else
+          </b-dropdown-item>
+        </b-dropdown>
+      </div>
     </template>
   </b-navbar>
 </template>
