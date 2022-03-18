@@ -7,6 +7,8 @@
           Angajați dezvoltatori Vue.js & găsiți locuri de muncă cu Vue.js
         </p>
         <p class="subtitle" />
+
+        <FeaturedCompanies />
       </div>
     </div>
   </section>
@@ -14,9 +16,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import FeaturedCompanies from '~/components/_shared/FeaturedCompanies.vue'
 
 export default Vue.extend({
-  name: 'AppNavbar',
+  name: 'AppHero',
+  components: {
+    FeaturedCompanies
+  },
 
   data () {
     return {}
