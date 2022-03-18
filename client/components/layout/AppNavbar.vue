@@ -2,7 +2,7 @@
   <b-navbar class="py-2" transparent>
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        JoburiVue
+        <Logo />
       </b-navbar-item>
     </template>
     <template #start>
@@ -59,9 +59,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Logo from '~/components/layout/Logo.vue'
 
 export default Vue.extend({
   name: 'AppNavbar',
+  components: {
+    Logo
+  },
 
   data () {
     return {}
