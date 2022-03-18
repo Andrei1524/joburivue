@@ -5,17 +5,20 @@
         <AppNavbar />
       </div>
     </div>
+    <Hero />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import AppNavbar from '~/components/layout/AppNavbar.vue'
+import Hero from '~/components/homepage/Hero.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
-    AppNavbar
+    AppNavbar,
+    Hero
   }
 })
 </script>
