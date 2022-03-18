@@ -28,4 +28,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './design/variables';
+
+.hero-body {
+  background: url('~assets/hero.jpg');
+}
 </style>
