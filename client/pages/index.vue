@@ -1,5 +1,7 @@
 <template>
-  <Hero />
+  <div class="homepage">
+    <Hero />
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,4 +18,5 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './design/variables';
+
 </style>

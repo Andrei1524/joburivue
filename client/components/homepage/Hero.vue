@@ -1,5 +1,6 @@
 <template>
-  <section class="hero is-success is-halfheight">
+  <section class="hero is-success is-halfheight position-relative">
+    <div class="hero-wrapper" />
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
       <div class="container has-text-centered">
@@ -32,6 +33,13 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './design/variables';
+
+.hero-wrapper {
+  background: #212940b0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
 
 .hero-body {
   background: url('~assets/hero.jpg');
