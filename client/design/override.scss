@@ -8,5 +8,9 @@
       border: 2px solid $chambray-blue;
       border-radius: 50%;
     }
+
+    &:focus:not(:active) {
+      box-shadow: none !important;
+    }
   }
 }

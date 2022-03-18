@@ -68,3 +68,11 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+@import './design/variables';
+
+nav {
+  background: $white;
+}
+</style>
