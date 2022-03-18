@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="py-2">
+  <b-navbar class="py-2" transparent>
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         JoburiVue
@@ -23,7 +23,7 @@
           <b-button
             type="is-primary"
           >
-            Delete
+            Adauga Job
           </b-button>
         </b-navbar-item>
 
