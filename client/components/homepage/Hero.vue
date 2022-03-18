@@ -4,11 +4,9 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">
-          Title
+          Angajați dezvoltatori Vue.js & găsiți locuri de muncă cu Vue.js
         </p>
-        <p class="subtitle">
-          Subtitle
-        </p>
+        <p class="subtitle" />
       </div>
     </div>
   </section>
