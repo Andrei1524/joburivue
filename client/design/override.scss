@@ -1,0 +1,27 @@
+.nav-dropdown {
+  .button.is-primary {
+    height: 100%;
+    background-color: transparent;
+    color: $gray;
+
+    .image {
+      border: 2px solid $chambray-blue;
+      border-radius: 50%;
+    }
+
+    &:focus:not(:active) {
+      box-shadow: none !important;
+    }
+  }
+}
+
+// ovveride navbar bg
+.navbar {
+  background: transparent;
+}
+
+
+// override dropdowns
+.dropdown-content {
+  background: #FFF;
+}

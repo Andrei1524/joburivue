@@ -1,22 +1,21 @@
 <template>
-  <div class="homepage">
-    <Hero />
+  <div class="job-item">
+    job item
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Hero from '~/components/homepage/Hero.vue'
 
 export default Vue.extend({
-  name: 'IndexPage',
-  components: {
-    Hero
+  name: 'JobItem',
+
+  data () {
+    return {}
   }
 })
 </script>
 
 <style lang="scss" scoped>
 @import './design/variables';
-
 </style>
