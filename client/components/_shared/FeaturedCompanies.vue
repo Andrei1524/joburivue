@@ -1,7 +1,7 @@
 <template>
-  <div class="columns is-centered">
-    <div class="column is-6 featured-companies">
-      <h6 class="title is-6 has-text-left">
+  <div class="container is-max-desktop">
+    <div class="featured-companies pt-2 px-4 pb-5">
+      <h6 class="title is-6 has-text-left mb-5">
         Companii Recomandate
       </h6>
       <JobItem />
