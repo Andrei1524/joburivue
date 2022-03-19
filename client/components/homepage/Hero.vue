@@ -7,9 +7,7 @@
         <p class="title">
           Angajați dezvoltatori Vue.js & găsiți locuri de muncă cu Vue.js
         </p>
-        <p class="subtitle" />
-
-        <FeaturedCompanies />
+        <FeaturedCompanies class="mt-6" />
       </div>
     </div>
   </section>
