@@ -14,9 +14,8 @@
       </h6>
     </div>
     <div class="column is-flex is-justify-content-end">
-      <Tag :tag-type="'salary-range'">
-        />
-      </tag>
+      <Tag class="mr-2" :value="'$1.5k - $2k'" :tag-type="'salary-range'" />
+      <Tag :value="'Romania'" :tag-type="'location'" />
     </div>
   </div>
 </template>

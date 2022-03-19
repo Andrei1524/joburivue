@@ -1,6 +1,6 @@
 <template>
-  <div :class="{'tag': true, 'salary-range-tag': tagType === 'salary-range'}">
-    tag
+  <div :class="{'tag': true, 'salary-range-tag': tagType === 'salary-range', 'location-tag': tagType === 'location'}">
+    {{ value }}
   </div>
 </template>
 
@@ -11,6 +11,10 @@ import { TagType } from '~/types/TagType'
 export default Vue.extend({
   name: 'AppTag',
   props: {
+    value: {
+      type: String,
+      required: true
+    },
     tagType: {
       type: String as PropType<TagType>,
       required: true
@@ -28,6 +32,11 @@ export default Vue.extend({
 
 .salary-range-tag {
   background-color: $queen-blue;
+  color: $basic-white;
+}
+
+.location-tag {
+  background-color: $gray;
   color: $basic-white;
 }
 </style>
