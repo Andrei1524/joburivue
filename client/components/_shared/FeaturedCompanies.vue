@@ -1,18 +1,23 @@
 <template>
   <div class="columns is-centered">
     <div class="column is-6 featured-companies">
-      <h5 class="title is-5 has-text-left">
-        Title 3
-      </h5>
+      <h6 class="title is-6 has-text-left">
+        Companii Recomandate
+      </h6>
+      <JobItem />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import JobItem from '~/components/_shared/JobItem.vue'
 
 export default Vue.extend({
   name: 'AppFeaturedCompanies',
+  components: {
+    JobItem
+  },
 
   data () {
     return {}
@@ -24,6 +29,7 @@ export default Vue.extend({
 @import './design/variables';
 
 .featured-companies {
-  background-color: $queen-blue;
+  background: linear-gradient(#3B668C, #3b668c00);
+  border-radius: 5px;
 }
 </style>
