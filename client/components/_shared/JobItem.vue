@@ -13,15 +13,21 @@
         <span class="has-text-weight-bold">Streem</span> - Romania
       </h6>
     </div>
-    <div class="column" />
+    <div class="column is-flex is-justify-content-end">
+      <Tag />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Tag from '~/components/_shared/Tag.vue'
 
 export default Vue.extend({
   name: 'JobItem',
+  components: {
+    Tag
+  },
 
   data () {
     return {}
