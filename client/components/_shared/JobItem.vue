@@ -1,11 +1,15 @@
 <template>
-  <div class="columns job-item">
-    <div class="column">
+  <div class="columns is-gapless job-item p-2">
+    <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
         <img src="~assets/job-item-logo-example.png">
       </figure>
     </div>
-    <div class="column" />
+    <div class="column is-narrow">
+      <h5 class="title is-5">
+        Frontend Developer - Vue/Typescript
+      </h5>
+    </div>
     <div class="column" />
   </div>
 </template>
@@ -26,8 +30,12 @@ export default Vue.extend({
 @import './design/variables';
 
 .columns {
-  margin-left: 0;
-  margin-right: 0;
+  //margin-left: 0;
+  //margin-right: 0;
+}
+
+.title {
+  color: $yankees-blue !important;
 }
 
 .job-item {
