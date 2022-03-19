@@ -14,7 +14,9 @@
       </h6>
     </div>
     <div class="column is-flex is-justify-content-end">
-      <Tag />
+      <Tag :tag-type="'salary-range'">
+        />
+      </tag>
     </div>
   </div>
 </template>
@@ -37,11 +39,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './design/variables';
-
-.columns {
-  //margin-left: 0;
-  //margin-right: 0;
-}
 
 .title {
   color: $yankees-blue !important;
