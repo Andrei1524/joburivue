@@ -9,6 +9,9 @@
       <h5 class="title is-5">
         Frontend Developer - Vue/Typescript
       </h5>
+      <h6 class="subtitle has-text-left is-6">
+        <span class="has-text-weight-bold">Streem</span> - Romania
+      </h6>
     </div>
     <div class="column" />
   </div>
@@ -36,6 +39,10 @@ export default Vue.extend({
 
 .title {
   color: $yankees-blue !important;
+}
+
+.subtitle {
+  color: $gray !important;
 }
 
 .job-item {
