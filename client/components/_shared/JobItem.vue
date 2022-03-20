@@ -13,9 +13,15 @@
         <span class="has-text-weight-bold">Streem</span> - Romania
       </h6>
     </div>
-    <div class="column is-flex is-justify-content-end">
-      <Tag class="mr-2" :value="'$1.5k - $2k'" :tag-type="'salary-range'" />
-      <Tag :value="'Romania'" :tag-type="'location'" />
+    <div class="column is-flex is-flex-direction-column">
+      <div class="tags is-align-self-flex-end">
+        <Tag class="mr-2" :value="'$1.5k - $2k'" :tag-type="'salary-range'" />
+        <Tag :value="'Romania'" :tag-type="'location'" />
+      </div>
+      <div class="job-info is-align-self-flex-end">
+        <span class="has-text-weight-bold mr-2">Full-Time</span>
+        1hr ago
+      </div>
     </div>
   </div>
 </template>
@@ -39,11 +45,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import './design/variables';
 
+.tag {
+  margin-bottom: 0;
+}
+
 .title {
   color: $yankees-blue !important;
 }
 
-.subtitle {
+.subtitle, .job-info {
   color: $gray !important;
 }
 
