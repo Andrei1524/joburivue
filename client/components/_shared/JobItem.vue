@@ -45,7 +45,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import './design/variables';
 
-.tags {
+.tags, .tag {
   margin-bottom: 0;
 }
 
