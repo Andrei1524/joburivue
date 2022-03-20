@@ -1,7 +1,7 @@
 <template>
   <div class="container is-max-desktop">
     <div class="featured-companies pt-2 px-4 pb-5">
-      <h6 class="title is-6 has-text-left mb-5">
+      <h6 class="title is-6 has-text-left mb-4">
         Companii Recomandate
       </h6>
       <JobItem />
