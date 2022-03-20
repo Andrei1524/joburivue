@@ -4,6 +4,7 @@
       <h6 class="title is-6 has-text-left mb-4">
         Companii Recomandate
       </h6>
+      <JobItem class="mb-3" />
       <JobItem />
     </div>
   </div>
