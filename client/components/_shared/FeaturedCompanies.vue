@@ -6,21 +6,21 @@
       </h6>
       <JobItem class="mb-3" />
       <JobItem />
+    </div>
 
-      <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center">
-        <b-button
-          type="is-primary"
-          size="is-medium"
-          class="orange-btn"
-        >
-          Vezi toate joburile
-        </b-button>
-        <b-icon
-          class="see-all-jobs-icon"
-          icon="chevron-triple-down"
-          size="is-medium"
-        />
-      </div>
+    <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5">
+      <b-button
+        type="is-primary"
+        size="is-medium"
+        class="orange-btn mb-2"
+      >
+        Vezi toate joburile
+      </b-button>
+      <b-icon
+        class="see-all-jobs-icon"
+        icon="chevron-triple-down"
+        size="is-medium"
+      />
     </div>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default Vue.extend({
 .see-all-jobs-icon {
   animation: MoveUpDown 1s ease-in-out infinite;
   position: absolute;
-  bottom: -40px;
+  bottom: -15px;
   transform: translateY(0px);
   will-change: transform;
 }

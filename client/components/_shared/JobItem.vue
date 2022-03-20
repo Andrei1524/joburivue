@@ -62,7 +62,7 @@ export default Vue.extend({
 }
 
 .job-item {
-  height: 80px;
+  //height: 80px;
   background-color: $basic-white;
 }
 </style>
