@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-gapless job-item p-2">
+  <div class="columns is-gapless is-align-items-center job-item p-2">
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
         <img src="~assets/job-item-logo-example.png">
@@ -13,7 +13,7 @@
         <span class="has-text-weight-bold">Streem</span> - Romania
       </h6>
     </div>
-    <div class="column is-flex is-flex-direction-column">
+    <div class="column is-flex is-flex-direction-column is-justify-content-space-between">
       <div class="tags is-align-self-flex-end">
         <Tag class="mr-2" :value="'$1.5k - $2k'" :tag-type="'salary-range'" />
         <Tag :value="'Romania'" :tag-type="'location'" />
@@ -49,6 +49,10 @@ export default Vue.extend({
   margin-bottom: 0;
 }
 
+.column:last-child {
+  height: 100%;
+}
+
 .title {
   color: $yankees-blue !important;
 }
@@ -58,6 +62,7 @@ export default Vue.extend({
 }
 
 .job-item {
+  height: 80px;
   background-color: $basic-white;
 }
 </style>
