@@ -6,6 +6,21 @@
       </h6>
       <JobItem class="mb-3" />
       <JobItem />
+
+      <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center">
+        <b-button
+          type="is-primary"
+          size="is-medium"
+          class="orange-btn"
+        >
+          Vezi toate joburile
+        </b-button>
+        <b-icon
+          class="see-all-jobs-icon"
+          icon="chevron-triple-down"
+          size="is-medium"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -32,5 +47,22 @@ export default Vue.extend({
 .featured-companies {
   background: linear-gradient(#3B668C, #3b668c00);
   border-radius: 5px;
+}
+
+.see-all-jobs-icon {
+  animation: MoveUpDown 1s ease-in-out infinite;
+  position: absolute;
+  bottom: -40px;
+  transform: translateY(0px);
+  will-change: transform;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(15px);;
+  }
 }
 </style>
