@@ -1,10 +1,26 @@
 <template>
-  <div class="columns is-centered">
-    <div class="column is-6 featured-companies">
-      <h6 class="title is-6 has-text-left">
+  <div class="container is-max-desktop">
+    <div class="featured-companies pt-2 px-4 pb-5">
+      <h6 class="title is-6 has-text-left mb-4">
         Companii Recomandate
       </h6>
+      <JobItem class="mb-3" />
       <JobItem />
+    </div>
+
+    <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5">
+      <b-button
+        type="is-primary"
+        size="is-medium"
+        class="orange-btn mb-2"
+      >
+        Vezi toate joburile
+      </b-button>
+      <b-icon
+        class="see-all-jobs-icon"
+        icon="chevron-triple-down"
+        size="is-medium"
+      />
     </div>
   </div>
 </template>
@@ -31,5 +47,22 @@ export default Vue.extend({
 .featured-companies {
   background: linear-gradient(#3B668C, #3b668c00);
   border-radius: 5px;
+}
+
+.see-all-jobs-icon {
+  animation: MoveUpDown 1s ease-in-out infinite;
+  position: absolute;
+  bottom: -15px;
+  transform: translateY(0px);
+  will-change: transform;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(15px);;
+  }
 }
 </style>
