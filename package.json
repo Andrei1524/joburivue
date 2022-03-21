@@ -4,12 +4,12 @@
   "main": "index.js",
   "repository": "https://github.com/Andrei1524/joburivue.git",
   "scripts": {
-    "install-client": "npm install --prefix client",
-    "install-server": "npm install --prefix server",
-    "deploy": "npm run build-prod --prefix client && npm start --prefix server",
-    "server": "npm run watch --prefix server",
-    "client": "npm run dev --prefix client",
-    "watch": "concurrently \"npm run server\" \"npm run client\""
+    "install-client": "yarn install --prefix client",
+    "install-server": "yarn install --prefix server",
+    "deploy": "yarn run build-prod --prefix client && yarn start --prefix server",
+    "server": "yarn run watch --prefix server",
+    "client": "yarn run dev --prefix client",
+    "watch": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "author": "Mandrican Andrei <adyta094@gmail.com>",
   "license": "MIT",
