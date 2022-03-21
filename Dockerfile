@@ -8,15 +8,15 @@ WORKDIR /app
 COPY package*.json ./
 
 COPY client/package*.json client/
-RUN yarn run install-client --only=production
+RUN npm run install-client --only=production
 
 COPY server/package*.json server/
-RUN yarn run install-server --only=production
+RUN npm run install-server --only=production
 
 #build our client (this will put build files into the /public IN server)
 
 COPY client/ client/
-RUN yarn run build-prod --prefix client
+RUN npm run build-prod --prefix client
 
 COPY server/ server/
 
