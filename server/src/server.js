@@ -4,7 +4,7 @@ const appServer = require('./app')
 
 const httpServer = http.createServer(appServer)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 
 function startServer () {
   // await mongoConnect()
