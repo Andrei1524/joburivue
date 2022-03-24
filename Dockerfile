@@ -26,4 +26,4 @@ USER node
 CMD ["npm", "start", "--prefix", "server"]
 
 # port
-EXPOSE 3000
+EXPOSE 4000
