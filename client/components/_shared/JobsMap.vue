@@ -3,6 +3,12 @@
     <client-only>
       <l-map ref="myMap" :zoom="13" :center="[55.9464418,8.1277591]">
         <l-tile-layer url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=jptvrcCyLPSDDAHfJvLx" />
+
+        <l-icon
+          :icon-size="[32, 37]"
+          :icon-anchor="[16, 37]"
+          icon-url="static/images/baseball-marker.png"
+        />
       </l-map>
     </client-only>
   </div>
