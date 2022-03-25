@@ -1,7 +1,7 @@
 <template>
   <div class="homepage">
     <Hero />
-    <JobsMap />
+    <JobsMap :disable-map-scrolling="true" />
   </div>
 </template>
 

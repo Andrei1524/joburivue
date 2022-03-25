@@ -13,6 +13,11 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'JobsMap',
+  props: {
+    disableMapScrolling: {
+      type: Boolean
+    }
+  },
 
   data () {
     return {}
@@ -31,12 +36,15 @@ export default Vue.extend({
 
   mounted () {
     this.$nextTick(() => {
+      const map = this.$refs.myMap?.mapObject
       // disable map scrolling
-      this.$refs.myMap.mapObject.scrollWheelZoom.disable()
+      if (this.disableMapScrolling) {
+        map.scrollWheelZoom.disable()
+      }
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          this.$refs.myMap.mapObject.setView([position.coords.latitude, position.coords.longitude], 8)
+          map.setView([position.coords.latitude, position.coords.longitude], 8)
         })
       } else {
         // Geolocation is not supported by this browser.
