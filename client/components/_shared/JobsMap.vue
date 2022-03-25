@@ -1,9 +1,8 @@
 <template>
-  <div id="map-wrap" style="height: 100vh">
+  <div id="map-wrap" style="height: 600px">
     <client-only>
       <l-map ref="myMap" :zoom="13" :center="[55.9464418,8.1277591]">
         <l-tile-layer url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=jptvrcCyLPSDDAHfJvLx" />
-        <l-marker :lat-lng="[55.9464418,8.1277591]" />
       </l-map>
     </client-only>
   </div>
