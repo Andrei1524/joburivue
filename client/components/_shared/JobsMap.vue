@@ -31,9 +31,11 @@ export default Vue.extend({
 
   mounted () {
     this.$nextTick(() => {
+      // disable map scrolling
+      this.$refs.myMap.mapObject.scrollWheelZoom.disable()
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position.coords.longitude)
           this.$refs.myMap.mapObject.setView([position.coords.latitude, position.coords.longitude], 8)
         })
       } else {

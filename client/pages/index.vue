@@ -1,6 +1,7 @@
 <template>
   <div class="homepage">
     <Hero />
+    <JobsMap />
   </div>
 </template>
 
