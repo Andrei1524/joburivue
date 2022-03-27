@@ -1,7 +1,10 @@
 <template>
   <div class="homepage">
     <Hero />
-    <JobsList class="mt-6" />
+    <div class="container is-max-desktop mt-6">
+      <Search class="mb-5" />
+      <JobsList />
+    </div>
   </div>
 </template>
 
@@ -9,12 +12,14 @@
 import Vue from 'vue'
 import Hero from '~/components/homepage/Hero.vue'
 import JobsList from '~/components/_shared/JobsList.vue'
+import Search from '~/components/_shared/Search.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     Hero,
-    JobsList
+    JobsList,
+    Search
   }
 })
 </script>

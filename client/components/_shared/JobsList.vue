@@ -1,8 +1,6 @@
 <template>
   <section>
-    <div class="container is-max-desktop">
-      <JobItem v-for="job in jobs" :key="job.id" class="mb-3" :job="job" />
-    </div>
+    <JobItem v-for="job in jobs" :key="job.id" class="mb-3" :job="job" />
   </section>
 </template>
 

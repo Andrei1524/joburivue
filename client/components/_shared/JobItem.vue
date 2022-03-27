@@ -69,7 +69,7 @@ export default Vue.extend({
 }
 
 .job-item {
-  height: 75px;
+  //height: 75px;
   background-color: $basic-white;
   cursor: pointer;
 }
