@@ -7,10 +7,10 @@
     </div>
     <div class="column job-title is-narrow">
       <h5 class="title is-5">
-        Frontend Developer - Vue/Typescript
+        {{ job.title }}
       </h5>
       <h6 class="subtitle has-text-left is-6">
-        <span class="has-text-weight-bold">Streem</span> - Romania
+        <span class="has-text-weight-bold">{{ job.company.name }}</span> - {{ job.location }}
       </h6>
     </div>
     <div class="column job-info is-flex is-flex-direction-column is-justify-content-space-between">
@@ -19,7 +19,7 @@
         <Tag :value="'Romania'" :tag-type="'location'" />
       </div>
       <div class="job-info-text is-align-self-flex-end">
-        <span class="has-text-weight-bold mr-2">Full-Time</span>
+        <span class="has-text-weight-bold mr-2">{{ job.type }}</span>
         1hr ago
       </div>
     </div>
@@ -32,8 +32,15 @@ import Tag from '~/components/_shared/Tag.vue'
 
 export default Vue.extend({
   name: 'JobItem',
+
   components: {
     Tag
+  },
+  props: {
+    job: {
+      type: Object,
+      required: true
+    }
   },
 
   data () {
@@ -62,7 +69,7 @@ export default Vue.extend({
 }
 
 .job-item {
-  //height: 80px;
+  height: 75px;
   background-color: $basic-white;
 }
 

@@ -1,20 +1,20 @@
 <template>
   <div class="homepage">
     <Hero />
-    <!--    <JobsMap :disable-map-scrolling="true" />-->
+    <JobsList class="mt-6" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Hero from '~/components/homepage/Hero.vue'
-import JobsMap from '~/components/_shared/JobsMap.vue'
+import JobsList from '~/components/_shared/JobsList.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     Hero,
-    JobsMap
+    JobsList
   }
 })
 </script>
