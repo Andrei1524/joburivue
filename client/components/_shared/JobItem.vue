@@ -71,6 +71,7 @@ export default Vue.extend({
 .job-item {
   height: 75px;
   background-color: $basic-white;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 769px) {

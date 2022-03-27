@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container is-max-desktop">
-      <JobItem v-for="job in jobs" :key="job.id" :job="job" />
+      <JobItem v-for="job in jobs" :key="job.id" class="mb-3" :job="job" />
     </div>
   </section>
 </template>
@@ -29,7 +29,22 @@ export default Vue.extend({
           name: 'Streem',
           icon: '#'
         }
-      }]
+      },
+      {
+        id: 0,
+        title: 'Frontend Developer - Vue/Typescript',
+        type: 'Full Time',
+        currency: 'euros',
+        minSalary: '1500',
+        maxSalary: '2000',
+        location: 'Romania',
+        company: {
+          name: 'Streem',
+          icon: '#'
+        }
+      }
+
+      ]
     }
   }
 })
