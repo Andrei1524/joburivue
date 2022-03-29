@@ -18,6 +18,7 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
+    "include-media": "^1.4.10",
     "leaflet": "^1.7.1",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.21",

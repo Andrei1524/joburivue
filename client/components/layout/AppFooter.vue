@@ -68,6 +68,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import './design/variables';
+@import 'include-media';
 
 .footer {
   background-color: $yankees-blue;
@@ -101,6 +102,19 @@ export default Vue.extend({
       &:hover {
         color: $orange;
       }
+    }
+  }
+}
+
+$breakpoints: (phone: 640px,
+  tablet: 768px,
+  desktop: 1024px) !default;
+
+@include media("<tablet") {
+  .columns {
+    .column {
+      text-align: center !important;
+      justify-content: center;
     }
   }
 }
