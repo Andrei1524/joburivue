@@ -23,20 +23,26 @@
           <h4 class="lets-talk mb-0">
             Let's talk!
           </h4>
-          <a href="#">hello@joburivue.ro</a>
+          <a class="mail" href="#">hello@joburivue.ro</a>
           <div class="icons mt-2">
-            <b-icon
-              icon="facebook"
-              size="is-medium"
-            />
-            <b-icon
-              icon="linkedin"
-              size="is-medium"
-            />
-            <b-icon
-              icon="twitter"
-              size="is-medium"
-            />
+            <a href="#">
+              <b-icon
+                icon="facebook"
+                size="is-medium"
+              />
+            </a>
+            <a href="#">
+              <b-icon
+                icon="linkedin"
+                size="is-medium"
+              />
+            </a>
+            <a href="#">
+              <b-icon
+                icon="twitter"
+                size="is-medium"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -77,10 +83,25 @@ export default Vue.extend({
   a {
     color: $white;
     font-weight: 300;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .lets-talk {
     color: $orange;
+  }
+
+  .icons {
+    a {
+      margin-left: 5px;
+      transition: 0.4s;
+
+      &:hover {
+        color: $orange;
+      }
+    }
   }
 }
 </style>
