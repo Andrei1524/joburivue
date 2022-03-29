@@ -8,14 +8,14 @@
 
         <div class="column links is-flex">
           <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Terms & Policy</a></li>
+            <li><a href="#">Despre JoburiVue</a></li>
+            <li><a href="#">Preturi</a></li>
+            <li><a href="#">Termeni și politici</a></li>
           </ul>
           <ul>
-            <li><a href="#">Affiliate</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Terms and conditions</a></li>
+            <li><a href="#">Afiliere</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Termeni si conditii</a></li>
           </ul>
         </div>
 
