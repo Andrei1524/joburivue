@@ -1,6 +1,6 @@
 <template>
   <div :class="invertColors ? 'logo-inversed' : 'logo-normal'">
-    <h2 class="title is-4">
+    <h2 :class="['title', `is-${fontSize}`]">
       Joburi<span>V</span>ue
     </h2>
   </div>
@@ -15,6 +15,10 @@ export default Vue.extend({
     invertColors: {
       type: Boolean,
       default: false
+    },
+    fontSize: {
+      type: String,
+      default: '4'
     }
   }
 })

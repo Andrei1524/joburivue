@@ -1,9 +1,9 @@
 <template>
   <footer class="footer">
-    <div class="content">
+    <div class="content container is-max-desktop">
       <div class="columns">
         <div class="column">
-          <Logo :invert-colors="true" />
+          <Logo :invert-colors="true" :font-size="'3'" />
         </div>
       </div>
     </div>
