@@ -1,9 +1,43 @@
 <template>
-  <footer class="footer">
+  <footer class="footer py-6">
     <div class="content container is-max-desktop">
-      <div class="columns">
-        <div class="column">
+      <div class="columns is-vcentered">
+        <div class="column is-one-fifth">
           <Logo :invert-colors="true" :font-size="'3'" />
+        </div>
+
+        <div class="column links is-flex">
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Terms & Policy</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">Affiliate</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Terms and conditions</a></li>
+          </ul>
+        </div>
+
+        <div class="column has-text-right">
+          <h4 class="lets-talk mb-0">
+            Let's talk!
+          </h4>
+          <a href="#">hello@joburivue.ro</a>
+          <div class="icons mt-2">
+            <b-icon
+              icon="facebook"
+              size="is-medium"
+            />
+            <b-icon
+              icon="linkedin"
+              size="is-medium"
+            />
+            <b-icon
+              icon="twitter"
+              size="is-medium"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -31,5 +65,22 @@ export default Vue.extend({
 
 .footer {
   background-color: $yankees-blue;
+
+  ul {
+    list-style-type: none;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  a {
+    color: $white;
+    font-weight: 300;
+  }
+
+  .lets-talk {
+    color: $orange;
+  }
 }
 </style>
