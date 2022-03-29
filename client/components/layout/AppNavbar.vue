@@ -27,6 +27,23 @@
           </b-button>
         </b-navbar-item>
 
+        <b-navbar-item>
+          <b-dropdown aria-role="list">
+            <template #trigger="{ active }">
+              <b-button
+                :label="selectedLanguage"
+                type="is-primary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+                :icon-left="'translate'"
+              />
+            </template>
+
+            <b-dropdown-item v-for="language in languages" :key="language" aria-role="listitem" @click="selectedLanguage = language">
+              {{ language }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-navbar-item>
+
         <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left" append-to-body :trap-focus="true">
           <template #trigger="{ active }">
             <b-button
@@ -68,7 +85,10 @@ export default Vue.extend({
   },
 
   data () {
-    return {}
+    return {
+      selectedLanguage: 'ro',
+      languages: ['ro', 'en']
+    }
   }
 })
 </script>
