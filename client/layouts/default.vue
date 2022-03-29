@@ -6,7 +6,7 @@
       </div>
     </div>
     <Nuxt />
-    <AppFooter />
+    <AppFooter class="mt-6" />
   </div>
 </template>
 

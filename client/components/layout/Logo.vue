@@ -1,5 +1,5 @@
 <template>
-  <div class="logo">
+  <div :class="invertColors ? 'logo-inversed' : 'logo-normal'">
     <h2 class="title is-4">
       Joburi<span>V</span>ue
     </h2>
@@ -10,16 +10,32 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'AppLogo'
+  name: 'AppLogo',
+  props: {
+    invertColors: {
+      type: Boolean,
+      default: false
+    }
+  }
 })
 </script>
 
 <style lang="scss" scoped>
 @import './design/variables';
 
-.logo {
+.logo-normal {
   .title {
     color: $yankees-blue;
+
+    span {
+      color: $queen-blue;
+    }
+  }
+}
+
+.logo-inversed {
+  .title {
+    color: $basic-white;
 
     span {
       color: $queen-blue;
