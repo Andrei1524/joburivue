@@ -4,8 +4,8 @@
       <h6 class="title is-6 has-text-left mb-4">
         Companii Recomandate
       </h6>
-      <JobItem class="mb-3" />
-      <JobItem />
+
+      <JobItem v-for="job in featuredJobs" :key="job.id" :job="job" />
     </div>
 
     <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5">
@@ -36,7 +36,21 @@ export default Vue.extend({
   },
 
   data () {
-    return {}
+    return {
+      featuredJobs: [{
+        id: 0,
+        title: 'Frontend Developer - Vue/Typescript',
+        type: 'Full Time',
+        currency: 'euros',
+        minSalary: '1500',
+        maxSalary: '2000',
+        location: 'Romania',
+        company: {
+          name: 'Streem',
+          icon: '#'
+        }
+      }]
+    }
   }
 })
 </script>

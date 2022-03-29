@@ -5,7 +5,7 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">
-          Angajați dezvoltatori Vue.js & găsiți locuri de muncă cu Vue.js
+          Angajați developeri Vue.js & găsiți locuri de muncă cu Vue.js
         </p>
         <FeaturedCompanies class="mt-6" />
       </div>
