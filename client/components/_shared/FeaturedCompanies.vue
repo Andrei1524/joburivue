@@ -64,7 +64,7 @@ export default Vue.extend({
 }
 
 .see-all-jobs-icon {
-  animation: MoveUpDown 1s ease-in-out infinite;
+  animation: MoveUpDown 1.5s ease-in-out infinite;
   position: absolute;
   bottom: -15px;
   transform: translateY(0px);

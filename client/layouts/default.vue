@@ -6,16 +6,19 @@
       </div>
     </div>
     <Nuxt />
+    <AppFooter class="mt-6" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import AppNavbar from '~/components/layout/AppNavbar.vue'
+import AppFooter from '~/components/layout/AppFooter.vue'
 
 export default Vue.extend({
   components: {
-    AppNavbar
+    AppNavbar,
+    AppFooter
   }
 })
 </script>

@@ -27,6 +27,18 @@
           </b-button>
         </b-navbar-item>
 
+        <b-navbar-item>
+          <b-select v-model="selectedLanguage" :placeholder="selectedLanguage" icon="earth">
+            <option
+              v-for="lng in languages"
+              :key="lng"
+              :value="lng"
+            >
+              {{ lng }}
+            </option>
+          </b-select>
+        </b-navbar-item>
+
         <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left" append-to-body :trap-focus="true">
           <template #trigger="{ active }">
             <b-button
@@ -68,7 +80,10 @@ export default Vue.extend({
   },
 
   data () {
-    return {}
+    return {
+      selectedLanguage: 'ro',
+      languages: ['ro', 'en']
+    }
   }
 })
 </script>
