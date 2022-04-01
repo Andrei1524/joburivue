@@ -38,7 +38,7 @@
         </b-navbar-item>
 
         <!-- LOGGED OUT -->
-        <b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/login' }">
           <b-button type="is-primary" icon-left="account-plus">
             LOGIN / REGISTER
           </b-button>

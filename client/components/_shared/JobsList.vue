@@ -29,7 +29,7 @@ export default Vue.extend({
         }
       },
       {
-        id: 0,
+        id: 1,
         title: 'Frontend Developer - Vue/Typescript',
         type: 'Full Time',
         currency: 'euros',
