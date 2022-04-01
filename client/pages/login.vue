@@ -1,16 +1,17 @@
 <template>
   <div class="container is-max-desktop login">
-    <h1 class="title is-1 has-text-centered mt-6">
+    <h1 class="title is-1 has-text-centered mt-6 mb-5">
       Intră în contul tău
     </h1>
 
-    <div class="box">
+    <div class="box mt-4">
       <b-field
         label="Email"
         :message="''"
       >
         <b-input
           v-model="email"
+          placeholder="ex: your@gmail.com"
           type="email"
         />
       </b-field>
@@ -21,6 +22,7 @@
       >
         <b-input
           v-model="password"
+          placeholder="123456"
           password-reveal
           type="password"
         />
@@ -34,6 +36,10 @@
       >
         Login
       </b-button>
+
+      <p class="mt-4">
+        Ti-ai uitat parola? <a href="#">Resetați parola aici!</a>
+      </p>
     </div>
   </div>
 </template>
