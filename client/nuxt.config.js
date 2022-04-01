@@ -55,7 +55,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     ['nuxt-buefy', { css: false }],
     '@nuxtjs/axios',
-    'nuxt-leaflet'
+    'nuxt-leaflet',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
