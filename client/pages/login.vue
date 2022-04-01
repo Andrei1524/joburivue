@@ -5,41 +5,64 @@
     </h1>
 
     <div class="box mt-4">
-      <b-field
-        label="Email"
-        :message="''"
-      >
-        <b-input
-          v-model="email"
-          placeholder="ex: your@gmail.com"
-          type="email"
-        />
-      </b-field>
+      <div class="login">
+        <b-field
+          label="Email"
+          :message="''"
+        >
+          <b-input
+            v-model="email"
+            placeholder="ex: your@gmail.com"
+            type="email"
+          />
+        </b-field>
 
-      <b-field
-        label="Password"
-        :message="''"
-      >
-        <b-input
-          v-model="password"
-          placeholder="123456"
-          password-reveal
-          type="password"
-        />
-      </b-field>
+        <b-field
+          label="Password"
+          :message="''"
+        >
+          <b-input
+            v-model="password"
+            placeholder="123456"
+            password-reveal
+            type="password"
+          />
+        </b-field>
 
-      <b-button
-        type="is-primary"
-        size="is-medium"
-        class="orange-btn mt-5"
-        expanded
-      >
-        Login
-      </b-button>
+        <b-button
+          type="is-primary"
+          size="is-medium"
+          class="orange-btn mt-5"
+          icon-left="login"
+          expanded
+        >
+          Login
+        </b-button>
+      </div>
 
-      <p class="mt-4">
-        Ti-ai uitat parola? <a href="#">Resetați parola aici!</a>
-      </p>
+      <div class="reset-pass">
+        <p class="mt-4">
+          Ti-ai uitat parola? <a href="#">Resetați parola aici!</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <div class="register-acc">
+        <h5 class="title is-5 mt-2 mb-3">
+          Nu ai un cont?
+        </h5>
+        <b-button
+          tag="router-link"
+          to="register"
+          type="is-primary"
+          size="is-medium"
+          icon-left="account-plus"
+          expanded
+        >
+          Register
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
