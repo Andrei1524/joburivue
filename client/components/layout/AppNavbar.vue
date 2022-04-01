@@ -20,26 +20,32 @@
     <template #end>
       <div class="is-flex is-align-items-center">
         <b-navbar-item>
-          <b-button
-            type="is-primary"
-          >
+          <b-button type="is-primary">
             Adauga Job
           </b-button>
         </b-navbar-item>
 
         <b-navbar-item>
-          <b-select v-model="selectedLanguage" :placeholder="selectedLanguage" icon="earth">
-            <option
-              v-for="lng in languages"
-              :key="lng"
-              :value="lng"
-            >
+          <b-select
+            v-model="selectedLanguage"
+            :placeholder="selectedLanguage"
+            icon="earth"
+          >
+            <option v-for="lng in languages" :key="lng" :value="lng">
               {{ lng }}
             </option>
           </b-select>
         </b-navbar-item>
 
-        <b-dropdown class="nav-dropdown" aria-role="list" position="is-bottom-left" append-to-body :trap-focus="true">
+        <!-- LOGGED IN -->
+        <b-dropdown
+          v-if="$auth.loggedIn"
+          class="nav-dropdown"
+          aria-role="list"
+          position="is-bottom-left"
+          append-to-body
+          :trap-focus="true"
+        >
           <template #trigger="{ active }">
             <b-button
               type="is-primary"
@@ -47,7 +53,10 @@
             >
               <span class="is-flex is-align-items-center">
                 <figure class="image is-32x32 mr-2">
-                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                  <img
+                    class="is-rounded"
+                    src="https://bulma.io/images/placeholders/128x128.png"
+                  >
                 </figure>
                 Mandrican Andrei
               </span>
@@ -89,5 +98,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 </style>
