@@ -27,7 +27,7 @@ export default Vue.extend({
 @import './design/variables';
 
 .navbar-wrapper {
-  background: $white;
+  background: $basic-white;
   box-shadow: 0px 1px 7px #0000001a;
 }
 </style>
