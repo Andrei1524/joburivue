@@ -37,6 +37,12 @@
           </b-select>
         </b-navbar-item>
 
+        <!-- LOGGED OUT -->
+        <b-navbar-item>
+          <b-button type="is-primary" icon-left="account-plus">
+            LOGIN / REGISTER
+          </b-button>
+        </b-navbar-item>
         <!-- LOGGED IN -->
         <b-dropdown
           v-if="$auth.loggedIn"
