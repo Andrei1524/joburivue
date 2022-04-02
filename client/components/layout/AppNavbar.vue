@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="py-2" transparent>
+  <b-navbar class="py-2" transparent :close-on-click="false">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <Logo />
@@ -25,16 +25,18 @@
           </b-button>
         </b-navbar-item>
 
-        <b-navbar-item>
-          <b-select
-            v-model="selectedLanguage"
-            :placeholder="selectedLanguage"
-            icon="earth"
-          >
-            <option v-for="lng in languages" :key="lng" :value="lng">
-              {{ lng }}
-            </option>
-          </b-select>
+        <b-navbar-item tag="div">
+          <b-field>
+            <b-select
+              v-model="selectedLanguage"
+              :placeholder="selectedLanguage"
+              icon="earth"
+            >
+              <option v-for="lng in languages" :key="lng" :value="lng">
+                {{ lng }}
+              </option>
+            </b-select>
+          </b-field>
         </b-navbar-item>
 
         <!-- LOGGED OUT -->
