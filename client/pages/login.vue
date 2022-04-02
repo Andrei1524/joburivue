@@ -36,7 +36,7 @@
             icon-left="login"
             expanded
           >
-            Login
+            Intră in cont
           </b-button>
         </div>
 
@@ -60,7 +60,7 @@
             icon-left="account-plus"
             expanded
           >
-            Register
+            Creează cont
           </b-button>
         </div>
       </div>

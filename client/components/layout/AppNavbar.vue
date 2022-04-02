@@ -42,7 +42,7 @@
         <!-- LOGGED OUT -->
         <b-navbar-item tag="router-link" :to="{ path: '/login' }">
           <b-button type="is-primary" icon-left="account-plus">
-            LOGIN / REGISTER
+            Intră in cont / Creează cont
           </b-button>
         </b-navbar-item>
         <!-- LOGGED IN -->

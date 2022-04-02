@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'JoburiVue',
+    title: 'JoburiVue - Caută joburi vue!',
     htmlAttrs: {
       lang: 'en'
     },
