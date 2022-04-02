@@ -106,10 +106,6 @@ export default Vue.extend({
   }
 }
 
-$breakpoints: (phone: 640px,
-  tablet: 768px,
-  desktop: 1024px) !default;
-
 @include media("<tablet") {
   .columns {
     .column {

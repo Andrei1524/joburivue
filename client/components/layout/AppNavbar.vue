@@ -107,4 +107,13 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+@import 'include-media';
+
+@include media("<tablet") {
+  .navbar-end {
+    > div {
+      display: block !important;
+    }
+  }
+}
 </style>
