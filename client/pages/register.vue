@@ -50,6 +50,12 @@
             />
           </b-field>
 
+          <b-field class="mt-5">
+            <b-checkbox v-model="weeklyJobAlerts">
+              Trimite-mi săptămânal alerte de locuri de muncă și alte e-mailuri legate de Vue.js
+            </b-checkbox>
+          </b-field>
+
           <b-button
             type="is-primary"
             size="is-medium"
@@ -76,7 +82,8 @@ export default Vue.extend({
       name: '',
       email: '',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      weeklyJobAlerts: false
     }
   }
 })
