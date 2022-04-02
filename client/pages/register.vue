@@ -1,7 +1,7 @@
 <template>
   <div class="register-page">
     <h1 class="title is-1 has-text-centered mt-6">
-      Intră în contul tău
+      Creează-ti un cont!
     </h1>
     <div class="container is-max-desktop register">
       <div class="box mt-4">
