@@ -10,24 +10,23 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Hero from '~/components/homepage/Hero.vue'
-import JobsList from '~/components/_shared/JobsList.vue'
-import Search from '~/components/_shared/Search.vue'
-import Pagination from '~/components/_shared/Pagination.vue'
+import Vue from "vue";
+import Hero from "~/components/homepage/Hero.vue";
+import JobsList from "~/components/_shared/JobsList.vue";
+import Search from "~/components/_shared/Search.vue";
+import Pagination from "~/components/_shared/Pagination.vue";
 
 export default Vue.extend({
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
     Pagination,
     Hero,
     JobsList,
-    Search
-  }
-})
+    Search,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
-
+@import "./design/variables";
 </style>
