@@ -1,9 +1,9 @@
-const express = require("express");
+import express, { Request, Response } from "express";
 const app = express();
-const path = require("path");
+import path from "path";
 
-const cors = require("cors");
-const morgan = require("morgan");
+import cors from "cors";
+import morgan from "morgan";
 
 const api = require("./routes/api");
 
@@ -17,8 +17,7 @@ app.use(express.json()); // if we use json data
 // server public nuxt code
 app.use(express.static(path.join(__dirname, "..", "dist")));
 
-// app.use('/v1', api)
-
+app.use("/v1", api);
 app.get("/*", (req: Request, res: Response) => {
   // res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
 });
