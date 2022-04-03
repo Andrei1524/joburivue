@@ -5,7 +5,7 @@ const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
 
-// const api = require('./routes/api')
+const api = require("./routes/api");
 
 app.use(cors());
 
@@ -23,4 +23,4 @@ app.get("/*", (req: Request, res: Response) => {
   // res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
 });
 
-module.exports = app;
+export { app };
