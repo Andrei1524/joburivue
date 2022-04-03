@@ -1,15 +1,10 @@
 <template>
   <div class="login-page">
-    <h1 class="title is-1 has-text-centered mt-6">
-      Intră în contul tău
-    </h1>
+    <h1 class="title is-1 has-text-centered mt-6">Intră în contul tău</h1>
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <div class="login">
-          <b-field
-            label="Email"
-            :message="''"
-          >
+          <b-field label="Email" :message="''">
             <b-input
               v-model="email"
               placeholder="ex: your@gmail.com"
@@ -17,10 +12,7 @@
             />
           </b-field>
 
-          <b-field
-            label="Password"
-            :message="''"
-          >
+          <b-field label="Password" :message="''">
             <b-input
               v-model="password"
               placeholder="123456"
@@ -46,12 +38,10 @@
           </p>
         </div>
 
-        <hr>
+        <hr />
 
         <div class="register-acc">
-          <h5 class="title is-5 mt-2 mb-3">
-            Nu ai un cont?
-          </h5>
+          <h5 class="title is-5 mt-2 mb-3">Nu ai un cont?</h5>
           <b-button
             tag="router-link"
             to="register"
@@ -69,22 +59,22 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'AppLogin',
+  name: "AppLogin",
 
-  data () {
+  data() {
     return {
-      email: '',
-      password: ''
-    }
-  }
-})
+      email: "",
+      password: "",
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .login {
   max-width: 400px;
