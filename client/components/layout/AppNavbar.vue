@@ -19,7 +19,7 @@
 
     <template #end>
       <div class="is-flex is-align-items-center">
-        <b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{path: '/jobs/create'}">
           <b-button type="is-primary">
             Adauga Job
           </b-button>
