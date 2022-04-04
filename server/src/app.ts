@@ -5,7 +5,8 @@ import path from "path";
 import cors from "cors";
 import morgan from "morgan";
 
-const api = require("./routes/api");
+// const api = require("./routes/api");
+import api from "./routes/api";
 
 app.use(cors());
 
