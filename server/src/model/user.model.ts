@@ -1,6 +1,15 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+// Schema.Types.ObjectId
+//Types.ObjectId
+
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const UserSchema = new Schema<User>({
   name: {
     type: String,
     required: true,
@@ -15,5 +24,5 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = model<User>("User", UserSchema);
 export { User };
