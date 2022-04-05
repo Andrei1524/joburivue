@@ -1,15 +1,9 @@
 import { Schema, model } from "mongoose";
-
+import { UserInterface } from "../ts/interfaces/user.interfaces";
 // Schema.Types.ObjectId
 //Types.ObjectId
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
-
-const UserSchema = new Schema<User>({
+const UserSchema = new Schema<UserInterface>({
   name: {
     type: String,
     required: true,
@@ -22,7 +16,11 @@ const UserSchema = new Schema<User>({
     type: String,
     required: true,
   },
+  refreshToken: {
+    type: String,
+    required: false,
+  },
 });
 
-const User = model<User>("User", UserSchema);
-export { User };
+const User = model<UserInterface>("User", UserSchema);
+export = User;

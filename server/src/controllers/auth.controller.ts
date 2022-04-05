@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as AuthService from "../services/auth.service";
 const { check, validationResult } = require("express-validator");
-import { User } from "../model/user.model";
+import User from "../model/user.model";
 
 const registerValidate = [
   check("email", "Must be a valid email address")
@@ -25,23 +25,24 @@ const registerValidate = [
 ];
 
 async function login(req: Request, res: Response, next: NextFunction) {
-  try {
-    const user = await AuthService.login();
-    return res
-      .status(200)
-      .json({ status: 200, data: user, message: "Succesfully logged in" });
-  } catch (error) {
-    if (error instanceof Error) {
-      return res.status(400).json({ status: 400, message: error.message });
-    } else {
-      return res.status(400).json({ status: 400, message: "Unexpected error" });
-    }
-  }
+  // try {
+  //   // TODO: do login
+  //   const user = await AuthService.login();
+  //   return res
+  //     .status(200)
+  //     .json({ status: 200, data: user, message: "Succesfully logged in" });
+  // } catch (error) {
+  //   if (error instanceof Error) {
+  //     return res.status(400).json({ status: 400, message: error.message });
+  //   } else {
+  //     return res.status(400).json({ status: 400, message: "Unexpected error" });
+  //   }
+  // }
 }
 
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
-    const { email } = req.body;
+    const payload = req.body;
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -49,13 +50,15 @@ async function register(req: Request, res: Response, next: NextFunction) {
     }
 
     // find if email is already in use
-    const foundUserByEmail = await User.findOne({ email: email }).lean().exec();
+    const foundUserByEmail = await User.findOne({ email: payload.email })
+      .lean()
+      .exec();
 
     if (foundUserByEmail) {
       throw Error("A user with these credentials already exists");
     }
 
-    await AuthService.register();
+    await AuthService.register(payload);
     return res.status(200).json({ status: 200, message: "registered user" });
   } catch (error) {
     if (error instanceof Error) {
