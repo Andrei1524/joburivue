@@ -8,22 +8,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-require("dotenv").config();
-const app_1 = __importDefault(require("./app"));
-const mongo_service_1 = require("./services/mongo.service");
-const httpServer = http_1.default.createServer(app_1.default);
-const PORT = process.env.PORT || 4000;
-function startServer() {
+exports.mongoDisconnect = exports.mongoConnect = void 0;
+const mongoose = require("mongoose");
+const MONGO_URL = process.env.MONGO_URL;
+mongoose.connection.once("open", () => {
+    // event listener for connection
+    console.log("mongo db connection ready");
+});
+mongoose.connection.on("error", (error) => {
+    // event listener for connection, we put this anywhere we want
+    console.error(error);
+});
+function mongoConnect() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, mongo_service_1.mongoConnect)();
-        httpServer.listen(PORT, () => {
-            console.log("server listening on port, ", PORT);
+        yield mongoose.connect(MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
     });
 }
-startServer();
+exports.mongoConnect = mongoConnect;
+function mongoDisconnect() {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield mongoose.disconnect();
+    });
+}
+exports.mongoDisconnect = mongoDisconnect;

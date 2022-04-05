@@ -89,10 +89,8 @@ function register(req, res, next) {
             if (foundUserByEmail) {
                 throw Error("A user with these credentials already exists");
             }
-            const user = yield AuthService.register();
-            return res
-                .status(200)
-                .json({ status: 200, data: user, message: "registered user" });
+            yield AuthService.register();
+            return res.status(200).json({ status: 200, message: "registered user" });
         }
         catch (error) {
             if (error instanceof Error) {

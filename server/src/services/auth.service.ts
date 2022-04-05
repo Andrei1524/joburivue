@@ -13,12 +13,10 @@ async function login() {
 
 async function register() {
   try {
-    // const users = await User.find(query);
-    // return users;
-    return { user: { name: "blaba" } };
+    // TODO: register user in DB
   } catch (e) {
     // Log Errors
-    throw Error("Error while logging in");
+    throw Error("Error while registering in");
   }
 }
 

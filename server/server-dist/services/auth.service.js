@@ -1,4 +1,5 @@
 "use strict";
+// import User from "../model/user.model";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,22 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-require("dotenv").config();
-const app_1 = __importDefault(require("./app"));
-const mongo_service_1 = require("./services/mongo.service");
-const httpServer = http_1.default.createServer(app_1.default);
-const PORT = process.env.PORT || 4000;
-function startServer() {
+exports.register = exports.login = void 0;
+function login() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, mongo_service_1.mongoConnect)();
-        httpServer.listen(PORT, () => {
-            console.log("server listening on port, ", PORT);
-        });
+        try {
+            // const users = await User.find(query);
+            // return users;
+            return { user: { name: "blaba" } };
+        }
+        catch (e) {
+            // Log Errors
+            throw Error("Error while logging in");
+        }
     });
 }
-startServer();
+exports.login = login;
+function register() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            // TODO: register user in DB
+        }
+        catch (e) {
+            // Log Errors
+            throw Error("Error while registering in");
+        }
+    });
+}
+exports.register = register;
