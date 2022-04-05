@@ -47,8 +47,7 @@ function register(payload) {
             yield newUser.save();
         }
         catch (error) {
-            // Log Errors
-            throw Error(error);
+            throw error.message;
         }
     });
 }

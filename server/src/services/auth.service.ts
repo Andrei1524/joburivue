@@ -32,9 +32,8 @@ async function register(payload: UserInterface) {
     });
 
     await newUser.save();
-  } catch (error: any) {
-    // Log Errors
-    throw Error(error);
+  } catch (error) {
+    throw (error as Error).message;
   }
 }
 
