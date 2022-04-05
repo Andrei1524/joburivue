@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.register = exports.login = void 0;
 const AuthService = __importStar(require("../services/auth.services"));
 function login(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -53,3 +53,22 @@ function login(req, res, next) {
     });
 }
 exports.login = login;
+function register(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const user = yield AuthService.register();
+            return res
+                .status(200)
+                .json({ status: 200, data: user, message: "registered" });
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: "Unexpected error" });
+            }
+        }
+    });
+}
+exports.register = register;

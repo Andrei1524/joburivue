@@ -16,4 +16,19 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { login };
+async function register(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await AuthService.register();
+    return res
+      .status(200)
+      .json({ status: 200, data: user, message: "registered" });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: "Unexpected error" });
+    }
+  }
+}
+
+export { login, register };

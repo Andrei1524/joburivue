@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.register = exports.login = void 0;
 function login() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -25,3 +25,17 @@ function login() {
     });
 }
 exports.login = login;
+function register() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            // const users = await User.find(query);
+            // return users;
+            return { user: { name: "blaba" } };
+        }
+        catch (e) {
+            // Log Errors
+            throw Error("Error while logging in");
+        }
+    });
+}
+exports.register = register;
