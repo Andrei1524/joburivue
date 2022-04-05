@@ -20,6 +20,7 @@ async function register(payload: UserInterface) {
     const password = payload.password;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    // TODO: auto login after sign up & email verification
     // const refresh_token = jwt.sign({username: user.username}, process.env.JWT_REFRESH_TOKEN_SECRET)
     const refresh_token = null;
 

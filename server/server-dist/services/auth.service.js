@@ -35,6 +35,7 @@ function register(payload) {
             const saltRounds = 11;
             const password = payload.password;
             const hashedPassword = yield bcrypt.hash(password, saltRounds);
+            // TODO: auto login after sign up & email verification
             // const refresh_token = jwt.sign({username: user.username}, process.env.JWT_REFRESH_TOKEN_SECRET)
             const refresh_token = null;
             const newUser = yield new user_model_1.default({
