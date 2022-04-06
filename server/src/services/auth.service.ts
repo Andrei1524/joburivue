@@ -54,4 +54,11 @@ async function register(payload: RegisterInterface) {
   }
 }
 
-export { login, register };
+async function getCurrentUser(payload: string) {
+  try {
+    return await User.findOne({ email: payload }).lean().exec();
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+export { login, register, getCurrentUser };

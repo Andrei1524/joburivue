@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import { authenticateJWT } from "../middleware/authenticateJWT";
 
 import * as AuthController from "../controllers/auth.controller";
 
@@ -9,5 +10,6 @@ router.post(
   AuthController.registerValidate,
   AuthController.register
 );
+router.get("/me", authenticateJWT, AuthController.getCurrentUser);
 
 module.exports = router;

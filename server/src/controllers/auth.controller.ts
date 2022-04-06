@@ -95,4 +95,17 @@ async function register(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { login, register, registerValidate, loginValidate };
+async function getCurrentUser(req: Request, res: Response) {
+  try {
+    const currentUser = await AuthService.getCurrentUser(req.user.email);
+    if (currentUser) {
+      return res.status(200).json(currentUser);
+    } else {
+      return null;
+    }
+  } catch (err) {
+    throw Error(`Could not get logged user: ${err}`);
+  }
+}
+
+export { login, register, getCurrentUser, registerValidate, loginValidate };

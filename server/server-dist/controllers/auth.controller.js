@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginValidate = exports.registerValidate = exports.register = exports.login = void 0;
+exports.loginValidate = exports.registerValidate = exports.getCurrentUser = exports.register = exports.login = void 0;
 const bcrypt = require("bcrypt");
 const AuthService = __importStar(require("../services/auth.service"));
 const { check, validationResult } = require("express-validator");
@@ -133,3 +133,20 @@ function register(req, res, next) {
     });
 }
 exports.register = register;
+function getCurrentUser(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const currentUser = yield AuthService.getCurrentUser(req.user.email);
+            if (currentUser) {
+                return res.status(200).json(currentUser);
+            }
+            else {
+                return null;
+            }
+        }
+        catch (err) {
+            throw Error(`Could not get logged user: ${err}`);
+        }
+    });
+}
+exports.getCurrentUser = getCurrentUser;

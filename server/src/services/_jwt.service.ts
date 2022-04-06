@@ -7,11 +7,9 @@ interface JwtServiceInterface {
 }
 
 function createAccessToken(user: JwtServiceInterface) {
-  return jwt.sign(
-    { username: user.email },
-    process.env.JWT_ACCESS_TOKEN_SECRET,
-    { expiresIn: accessTokenExp }
-  );
+  return jwt.sign({ email: user.email }, process.env.JWT_ACCESS_TOKEN_SECRET, {
+    expiresIn: accessTokenExp,
+  });
 }
 
 function createRefreshToken(user: JwtServiceInterface) {
