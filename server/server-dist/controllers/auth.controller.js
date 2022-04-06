@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerValidate = exports.register = exports.login = void 0;
+exports.loginValidate = exports.registerValidate = exports.register = exports.login = void 0;
 const bcrypt = require("bcrypt");
 const AuthService = __importStar(require("../services/auth.service"));
 const { check, validationResult } = require("express-validator");
@@ -61,6 +61,21 @@ const registerValidate = [
         .custom((value, { req }) => value === req.body.password),
 ];
 exports.registerValidate = registerValidate;
+const loginValidate = [
+    check("email", "Must be a valid email address")
+        .isEmail()
+        .trim()
+        .escape()
+        .normalizeEmail(),
+    check("password")
+        .not()
+        .isEmpty()
+        .withMessage('"Must be a valid password"')
+        .trim()
+        .escape()
+        .exists(),
+];
+exports.loginValidate = loginValidate;
 function login(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

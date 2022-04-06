@@ -25,6 +25,21 @@ const registerValidate = [
     .custom((value: string, { req }: any) => value === req.body.password),
 ];
 
+const loginValidate = [
+  check("email", "Must be a valid email address")
+    .isEmail()
+    .trim()
+    .escape()
+    .normalizeEmail(),
+  check("password")
+    .not()
+    .isEmpty()
+    .withMessage('"Must be a valid password"')
+    .trim()
+    .escape()
+    .exists(),
+];
+
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { email, password } = req.body;
@@ -80,4 +95,4 @@ async function register(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { login, register, registerValidate };
+export { login, register, registerValidate, loginValidate };
