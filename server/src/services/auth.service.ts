@@ -56,7 +56,10 @@ async function register(payload: RegisterInterface) {
 
 async function getCurrentUser(payload: string) {
   try {
-    return await User.findOne({ email: payload }).lean().exec();
+    return await User.findOne({ email: payload })
+      .select(["-password"])
+      .lean()
+      .exec();
   } catch (error) {
     throw (error as Error).message;
   }

@@ -69,7 +69,10 @@ exports.register = register;
 function getCurrentUser(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            return yield user_model_1.default.findOne({ email: payload }).lean().exec();
+            return yield user_model_1.default.findOne({ email: payload })
+                .select(["-password"])
+                .lean()
+                .exec();
         }
         catch (error) {
             throw error.message;

@@ -13,21 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticateJWT = void 0;
-const _ = require("lodash");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = __importDefault(require("../model/user.model"));
 const authenticateJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
-        console.log(token);
         jsonwebtoken_1.default.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 return res.sendStatus(403);
             }
             // assign current user details to the req
-            req.user = yield user_model_1.default.findOne({ email: user.email }).lean().exec();
-            _.unset(req.user, "password");
+            req.user = yield user_model_1.default.findOne({ email: user.email })
+                .select(["-password"])
+                .lean()
+                .exec();
             if (req.user) {
                 next();
             }
