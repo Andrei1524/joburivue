@@ -1,6 +1,11 @@
 // import supertest from "supertest";
 // import app from "../app";
+import { Request, Response } from "express";
 import User from "../model/user.model";
+
+const app = require("../app"); // Link to your server file
+const supertest = require("supertest");
+const request = supertest(app);
 
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
@@ -28,5 +33,15 @@ describe("User Password Authentication", () => {
     confirmPassword: "1234567L",
   };
 
-  describe("It should register succesfully", () => {});
+  describe("It should register succesfully", () => {
+    app.post("/auth/register", { ...payload });
+
+    request(app)
+      .post("/auth/register")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end(function (err: Error, res: Response) {
+        throw (err as Error).message;
+      });
+  });
 });
