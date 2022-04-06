@@ -22,7 +22,6 @@ const authenticateJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const token = authHeader.split(" ")[1];
         console.log(token);
         jsonwebtoken_1.default.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log(user);
             if (err) {
                 return res.sendStatus(403);
             }

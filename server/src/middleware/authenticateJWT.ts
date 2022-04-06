@@ -17,7 +17,6 @@ const authenticateJWT = async (
       token,
       process.env.JWT_ACCESS_TOKEN_SECRET!,
       async (err: any, user: any) => {
-        console.log(user);
         if (err) {
           return res.sendStatus(403);
         }
