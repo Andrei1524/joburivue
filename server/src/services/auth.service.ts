@@ -6,29 +6,26 @@ import {
   RegisterInterface,
 } from "../ts/interfaces/user.interfaces";
 
+async function updateUserRefreshToken(email: string, newRefreshToken: string) {
+  const foundUser = await User.findOne({ email }).exec();
+  if (foundUser) {
+    foundUser.refreshToken = newRefreshToken;
+    foundUser.save();
+  }
+}
+
 async function login(payload: LoginInterface) {
   try {
-    const { email, password } = payload;
-    const user = await User.findOne({ email }).exec();
+    const { email } = payload;
 
-    if (!user) {
-      throw Error("Combinația de e-mail și parolă este invalidă");
-    }
+    const refresh_token = createRefreshToken({ email });
+    const access_token = createAccessToken({ email });
 
-    const passwordsMatch = await bcrypt.compare(password, user.password);
-
-    if (passwordsMatch) {
-      const refresh_token = createRefreshToken(user);
-      const access_token = createAccessToken(user);
-      user.refreshToken = refresh_token;
-      user.save();
-      return {
-        refresh_token,
-        access_token,
-      };
-    } else {
-      throw Error("Combinația de e-mail și parolă este invalidă");
-    }
+    await updateUserRefreshToken(email, refresh_token);
+    return {
+      refresh_token,
+      access_token,
+    };
   } catch (error) {
     throw (error as Error).message;
   }

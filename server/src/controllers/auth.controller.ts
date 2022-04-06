@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+const bcrypt = require("bcrypt");
 import * as AuthService from "../services/auth.service";
 const { check, validationResult } = require("express-validator");
 import User from "../model/user.model";
@@ -25,19 +26,29 @@ const registerValidate = [
 ];
 
 async function login(req: Request, res: Response, next: NextFunction) {
-  // try {
-  //   // TODO: do login
-  //   const user = await AuthService.login();
-  //   return res
-  //     .status(200)
-  //     .json({ status: 200, data: user, message: "Succesfully logged in" });
-  // } catch (error) {
-  //   if (error instanceof Error) {
-  //     return res.status(400).json({ status: 400, message: error.message });
-  //   } else {
-  //     return res.status(400).json({ status: 400, message: "Unexpected error" });
-  //   }
-  // }
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).exec();
+
+    if (!user) {
+      throw Error("Combinația de e-mail și parolă este invalidă");
+    }
+
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordsMatch) {
+      const tokens = await AuthService.login(req.body);
+      return res.status(200).json(tokens);
+    } else {
+      throw Error("Combinația de e-mail și parolă este invalidă");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
 }
 
 async function register(req: Request, res: Response, next: NextFunction) {
@@ -59,7 +70,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
     }
 
     await AuthService.register(payload);
-    return res.status(200).json({ status: 200, message: "registered user" });
+    return res.sendStatus(200);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });

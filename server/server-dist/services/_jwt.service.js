@@ -8,6 +8,8 @@ function createAccessToken(user) {
 }
 exports.createAccessToken = createAccessToken;
 function createRefreshToken(user) {
-    return jwt.sign({ username: user.email }, process.env.JWT_REFRESH_TOKEN_SECRET, { expiresIn: 60 * 60 * 24 * 30 }); // 30days
+    return jwt.sign({ email: user.email }, process.env.JWT_REFRESH_TOKEN_SECRET, {
+        expiresIn: 60 * 60 * 24 * 30,
+    }); // 30days
 }
 exports.createRefreshToken = createRefreshToken;
