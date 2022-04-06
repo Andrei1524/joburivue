@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
-import { UserInterface } from "../ts/interfaces/user.interfaces";
+import { RegisterInterface } from "../ts/interfaces/user.interfaces";
 // Schema.Types.ObjectId
 //Types.ObjectId
 
-const UserSchema = new Schema<UserInterface>({
+const UserSchema = new Schema<RegisterInterface>({
   name: {
     type: String,
     required: true,
@@ -22,5 +22,5 @@ const UserSchema = new Schema<UserInterface>({
   },
 });
 
-const User = model<UserInterface>("User", UserSchema);
+const User = model<RegisterInterface>("User", UserSchema);
 export = User;

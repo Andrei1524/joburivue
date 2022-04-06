@@ -14,17 +14,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = exports.login = void 0;
 const bcrypt = require("bcrypt");
+const _jwt_service_1 = require("./_jwt.service");
 const user_model_1 = __importDefault(require("../model/user.model"));
-function login() {
+function login(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // const users = await User.find(query);
-            // return users;
-            return { user: { name: "blaba" } };
+            const { email, password } = payload;
+            const user = yield user_model_1.default.findOne({ email }).exec();
+            if (!user) {
+                throw Error("Combinația de e-mail și parolă este invalidă");
+            }
+            const passwordsMatch = yield bcrypt.compare(password, user.password);
+            if (passwordsMatch) {
+                const refresh_token = (0, _jwt_service_1.createRefreshToken)(user);
+                const access_token = (0, _jwt_service_1.createAccessToken)(user);
+                user.refreshToken = refresh_token;
+                user.save();
+                return {
+                    refresh_token,
+                    access_token,
+                };
+            }
+            else {
+                throw Error("Combinația de e-mail și parolă este invalidă");
+            }
         }
-        catch (e) {
-            // Log Errors
-            throw Error("Error while logging in");
+        catch (error) {
+            throw error.message;
         }
     });
 }

@@ -2,7 +2,7 @@ import http from "http";
 require("dotenv").config();
 
 import appServer from "./app";
-import { mongoConnect } from "./services/mongo.service";
+import { mongoConnect } from "./services/_mongo.service";
 
 const httpServer = http.createServer(appServer);
 

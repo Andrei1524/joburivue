@@ -1,4 +1,4 @@
-interface UserInterface {
+interface RegisterInterface {
   name: string;
   email: string;
   password: string;
@@ -6,4 +6,9 @@ interface UserInterface {
   refreshToken: string;
 }
 
-export { UserInterface };
+interface LoginInterface {
+  email: string;
+  password: string;
+}
+
+export { RegisterInterface, LoginInterface };

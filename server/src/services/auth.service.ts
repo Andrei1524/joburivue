@@ -1,20 +1,40 @@
 const bcrypt = require("bcrypt");
-
+import { createRefreshToken, createAccessToken } from "./_jwt.service";
 import User from "../model/user.model";
-import { UserInterface } from "../ts/interfaces/user.interfaces";
+import {
+  LoginInterface,
+  RegisterInterface,
+} from "../ts/interfaces/user.interfaces";
 
-async function login() {
+async function login(payload: LoginInterface) {
   try {
-    // const users = await User.find(query);
-    // return users;
-    return { user: { name: "blaba" } };
-  } catch (e) {
-    // Log Errors
-    throw Error("Error while logging in");
+    const { email, password } = payload;
+    const user = await User.findOne({ email }).exec();
+
+    if (!user) {
+      throw Error("Combinația de e-mail și parolă este invalidă");
+    }
+
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordsMatch) {
+      const refresh_token = createRefreshToken(user);
+      const access_token = createAccessToken(user);
+      user.refreshToken = refresh_token;
+      user.save();
+      return {
+        refresh_token,
+        access_token,
+      };
+    } else {
+      throw Error("Combinația de e-mail și parolă este invalidă");
+    }
+  } catch (error) {
+    throw (error as Error).message;
   }
 }
 
-async function register(payload: UserInterface) {
+async function register(payload: RegisterInterface) {
   try {
     const saltRounds = 11;
     const password = payload.password;
