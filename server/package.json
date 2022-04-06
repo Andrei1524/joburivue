@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc && node server-dist/server.js",
     "watch": "tsc-watch --onSuccess \"node .\"",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "tsc && jest --watch"
   },
   "license": "MIT",
   "dependencies": {
