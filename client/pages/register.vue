@@ -113,10 +113,10 @@ export default Vue.extend({
   data() {
     return {
       form: {
-        name: "ad",
-        email: "adyta094@gmail.com",
-        password: "12345678",
-        confirmPassword: "12345678",
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
         weeklyJobAlerts: false,
       },
 
