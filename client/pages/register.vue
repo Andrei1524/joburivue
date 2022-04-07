@@ -75,7 +75,7 @@ export default Vue.extend({
 
   methods: {
     async register() {
-      await AuthService.registerUser(this.$axios);
+      await AuthService.registerUser(this, this.$axios);
     },
   },
 });
