@@ -4,7 +4,7 @@
   "main": "server-dist/server.js",
   "author": "Mandrican Andrei",
   "scripts": {
-    "start": "tsc && node server-dist/server.js",
+    "start": "node server-dist/server.js",
     "watch": "tsc-watch --onSuccess \"node .\"",
     "test": "mocha -r ts-node/register ./src/test/**test.ts"
   },
