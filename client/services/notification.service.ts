@@ -1,13 +1,33 @@
-export default function showAlert(vm: any, error: any) {
-  if (error.response.data.errors) {
+export const NotificationService = {
+  showError(vm: any, response: any) {
+    if (response.response.data.errors) {
+      vm.$buefy.toast.open({
+        queue: true,
+        duration: 50000,
+        message: response.response.data.errors.map((error: any, i: number) =>
+          i > 0 ? "\n" + error.msg : error.msg
+        ),
+        position: "is-top-right",
+        type: "is-danger",
+      });
+    } else {
+      vm.$buefy.toast.open({
+        queue: true,
+        duration: 507700,
+        message: response.response.data.message,
+        position: "is-top-right",
+        type: "is-danger",
+      });
+    }
+  },
+
+  showSuccess(vm: any, response: any) {
     vm.$buefy.toast.open({
       queue: true,
       duration: 507700,
-      message: error.response.data.errors.map((error: any, i: number) =>
-        i > 0 ? "\n" + error.msg : error.msg
-      ),
+      message: "Success!",
       position: "is-top-right",
-      type: "is-danger",
+      type: "is-success",
     });
-  }
-}
+  },
+};

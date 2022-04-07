@@ -4,52 +4,92 @@
     <div class="container is-max-desktop register">
       <div class="box mt-4">
         <div class="register">
-          <b-field label="Nume" :message="''">
-            <b-input v-model="name" placeholder="ex: john doe" />
-          </b-field>
+          <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              rules="required"
+              name="Nume"
+            >
+              <b-field
+                label="Nume"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input v-model="form.name" placeholder="ex: john doe" />
+              </b-field>
+            </ValidationProvider>
 
-          <b-field label="Email" :message="''">
-            <b-input
-              v-model="email"
-              placeholder="ex: your@gmail.com"
-              type="email"
-            />
-          </b-field>
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              rules="required|email"
+              name="Email"
+            >
+              <b-field
+                label="Email"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input v-model="form.email" type="email"></b-input>
+              </b-field>
+            </ValidationProvider>
 
-          <b-field label="Parola" :message="''">
-            <b-input
-              v-model="password"
-              placeholder="123456"
-              password-reveal
-              type="password"
-            />
-          </b-field>
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              vid="password"
+              rules="required|min:8"
+              name="Parola"
+            >
+              <b-field
+                label="Parola"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input
+                  v-model="form.password"
+                  placeholder="123456"
+                  password-reveal
+                  type="password"
+                />
+              </b-field>
+            </ValidationProvider>
 
-          <b-field label="Confirmă Parola" :message="''">
-            <b-input
-              v-model="passwordConfirm"
-              placeholder="123456"
-              type="password"
-            />
-          </b-field>
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              rules="required|confirmed:password"
+              name="Confirmă Parola"
+            >
+              <b-field
+                label="Confirmă Parola"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input
+                  v-model="form.confirmPassword"
+                  placeholder="123456"
+                  type="password"
+                />
+              </b-field>
+            </ValidationProvider>
 
-          <b-field class="mt-5">
-            <b-checkbox v-model="weeklyJobAlerts">
-              Trimite-mi săptămânal alerte de locuri de muncă și alte e-mailuri
-              legate de Vue.js
-            </b-checkbox>
-          </b-field>
+            <b-field class="mt-5">
+              <b-checkbox v-model="form.weeklyJobAlerts">
+                Trimite-mi săptămânal alerte de locuri de muncă și alte
+                e-mailuri legate de Vue.js
+              </b-checkbox>
+            </b-field>
 
-          <b-button
-            type="is-primary"
-            size="is-medium"
-            class="orange-btn mt-5"
-            icon-left="login"
-            expanded
-            @click="register"
-          >
-            Creează cont
-          </b-button>
+            <b-button
+              :loading="loading"
+              type="is-primary"
+              size="is-medium"
+              class="orange-btn mt-5"
+              icon-left="login"
+              expanded
+              @click="handleSubmit(submit)"
+            >
+              Creează cont
+            </b-button>
+          </ValidationObserver>
         </div>
       </div>
     </div>
@@ -57,25 +97,40 @@
 </template>
 
 <script lang="ts">
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Vue from "vue";
 import * as AuthService from "../services/auth.service";
 
 export default Vue.extend({
   name: "AppLogin",
 
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+  },
+
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
-      weeklyJobAlerts: false,
+      form: {
+        name: "ad",
+        email: "adyta094@gmail.com",
+        password: "12345678",
+        confirmPassword: "12345678",
+        weeklyJobAlerts: false,
+      },
+
+      loading: false,
     };
   },
 
   methods: {
-    async register() {
-      await AuthService.registerUser(this, this.$axios);
+    async submit() {
+      this.loading = true;
+      try {
+        await AuthService.registerUser(this, this.$axios, this.form);
+        this.$router.push("/");
+      } catch (error) {}
+      this.loading = false;
     },
   },
 });

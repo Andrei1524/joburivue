@@ -13,10 +13,10 @@ const registerValidate = [
   check("password")
     .isLength({ min: 8 })
     .withMessage("Password Must Be at Least 8 Characters")
-    .matches("[0-9]")
-    .withMessage("Password Must Contain a Number")
-    .matches("[A-Z]")
-    .withMessage("Password Must Contain an Uppercase Letter")
+    // .matches("[0-9]")
+    // .withMessage("Password Must Contain a Number")
+    // .matches("[A-Z]")
+    // .withMessage("Password Must Contain an Uppercase Letter")
     .trim()
     .escape()
     .exists(),
@@ -69,6 +69,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
     const payload = req.body;
+    console.log(payload);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
