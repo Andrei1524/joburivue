@@ -90,7 +90,7 @@ export default {
 
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: `${BASE_URL}/api/v1`
+      browserBaseURL: `${process.env.BASE_URL}/api/v1`
     }
   },
 
