@@ -81,7 +81,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
       .exec();
 
     if (foundUserByEmail) {
-      throw Error("A user with these credentials already exists");
+      throw Error("A user with these credentials already exists!");
     }
 
     await AuthService.register(payload);

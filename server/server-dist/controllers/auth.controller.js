@@ -117,7 +117,7 @@ function register(req, res, next) {
                 .lean()
                 .exec();
             if (foundUserByEmail) {
-                throw Error("A user with these credentials already exists");
+                throw Error("A user with these credentials already exists!");
             }
             yield AuthService.register(payload);
             return res.sendStatus(200);

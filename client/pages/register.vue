@@ -65,6 +65,7 @@
               >
                 <b-input
                   v-model="form.confirmPassword"
+                  password-reveal
                   placeholder="123456"
                   type="password"
                 />
