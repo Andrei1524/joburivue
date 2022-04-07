@@ -18,7 +18,7 @@ app.use(express.json()); // if we use json data
 // server public nuxt code
 app.use(express.static(path.join(__dirname, "..", "dist")));
 
-app.use("/v1", api);
+app.use("/api/v1", api);
 app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
 });

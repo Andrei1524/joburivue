@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(express_1.default.json()); // if we use json data
 // server public nuxt code
 app.use(express_1.default.static(path_1.default.join(__dirname, "..", "dist")));
-app.use("/v1", api_1.default);
+app.use("/api/v1", api_1.default);
 app.get("/*", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "..", "dist", "index.html"));
 });
