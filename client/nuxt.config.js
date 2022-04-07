@@ -90,7 +90,7 @@ export default {
 
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: 'http://localhost:4000/api/v1'
+      browserBaseURL: `${BASE_URL}/api/v1`
     }
   },
 
