@@ -69,7 +69,6 @@ async function login(req: Request, res: Response, next: NextFunction) {
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
     const payload = req.body;
-    console.log(payload);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
