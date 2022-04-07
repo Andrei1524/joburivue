@@ -108,7 +108,6 @@ function register(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const payload = req.body;
-            console.log(payload);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
