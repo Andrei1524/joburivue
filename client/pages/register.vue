@@ -46,6 +46,7 @@
             class="orange-btn mt-5"
             icon-left="login"
             expanded
+            @click="register"
           >
             Creează cont
           </b-button>
@@ -57,6 +58,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import * as AuthService from "../services/auth.service";
 
 export default Vue.extend({
   name: "AppLogin",
@@ -69,6 +71,12 @@ export default Vue.extend({
       passwordConfirm: "",
       weeklyJobAlerts: false,
     };
+  },
+
+  methods: {
+    async register() {
+      await AuthService.registerUser(this.$axios);
+    },
   },
 });
 </script>
