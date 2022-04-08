@@ -85,7 +85,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: '/', // Used as fallback if no runtime config is provided
+    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
   },
 
   publicRuntimeConfig: {
