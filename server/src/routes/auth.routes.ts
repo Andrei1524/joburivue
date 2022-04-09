@@ -10,6 +10,7 @@ router.post(
   AuthController.registerValidate,
   AuthController.register
 );
+router.post("/logout", AuthController.logout);
 router.get("/me", authenticateJWT, AuthController.getCurrentUser);
 
 module.exports = router;

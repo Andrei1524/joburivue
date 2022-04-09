@@ -32,5 +32,6 @@ const authenticateJWT_1 = require("../middleware/authenticateJWT");
 const AuthController = __importStar(require("../controllers/auth.controller"));
 router.post("/login", AuthController.loginValidate, AuthController.login);
 router.post("/register", AuthController.registerValidate, AuthController.register);
+router.post("/logout", AuthController.logout);
 router.get("/me", authenticateJWT_1.authenticateJWT, AuthController.getCurrentUser);
 module.exports = router;

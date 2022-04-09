@@ -108,4 +108,26 @@ async function getCurrentUser(req: Request, res: Response) {
   }
 }
 
-export { login, register, getCurrentUser, registerValidate, loginValidate };
+async function logout(req: Request, res: Response, next: NextFunction) {
+  try {
+    const refresh_token = req.body.refresh_token;
+
+    await AuthService.logout(refresh_token);
+    return res.sendStatus(200);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: "Unexpected error" });
+    }
+  }
+}
+
+export {
+  login,
+  register,
+  getCurrentUser,
+  logout,
+  registerValidate,
+  loginValidate,
+};

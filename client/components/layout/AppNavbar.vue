@@ -31,19 +31,9 @@
           </b-field>
         </b-navbar-item>
 
-        <!-- LOGGED OUT -->
-        <b-navbar-item
-          v-show="!$auth.strategy.token.get()"
-          tag="router-link"
-          :to="{ path: '/login' }"
-        >
-          <b-button type="is-primary" icon-left="account-plus">
-            Intră in cont / Creează cont
-          </b-button>
-        </b-navbar-item>
         <!-- LOGGED IN -->
         <b-dropdown
-          v-show="$auth.strategy.token.get() || $store.state.auth.loggedIn"
+          v-show="$store.state.auth.loggedIn"
           class="nav-dropdown"
           aria-role="list"
           position="is-bottom-left"
@@ -73,6 +63,16 @@
             >Logout</b-dropdown-item
           >
         </b-dropdown>
+        <!-- LOGGED OUT -->
+        <b-navbar-item
+          v-show="!$store.state.auth.loggedIn"
+          tag="router-link"
+          :to="{ path: '/login' }"
+        >
+          <b-button type="is-primary" icon-left="account-plus">
+            Intră in cont / Creează cont
+          </b-button>
+        </b-navbar-item>
       </div>
     </template>
   </b-navbar>
@@ -97,7 +97,11 @@ export default Vue.extend({
 
   methods: {
     async logout() {
-      await this.$auth.logout();
+      await this.$auth.logout({
+        data: {
+          refresh_token: this.$auth.strategy.refreshToken.get(),
+        },
+      });
     },
   },
 });

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCurrentUser = exports.register = exports.login = void 0;
+exports.logout = exports.getCurrentUser = exports.register = exports.login = void 0;
 const bcrypt = require("bcrypt");
 const _jwt_service_1 = require("./_jwt.service");
 const user_model_1 = __importDefault(require("../model/user.model"));
@@ -80,3 +80,16 @@ function getCurrentUser(payload) {
     });
 }
 exports.getCurrentUser = getCurrentUser;
+function logout(refresh_token) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            return yield user_model_1.default.findOneAndUpdate({ refreshToken: refresh_token }, {
+                refreshToken: null,
+            }).exec();
+        }
+        catch (error) {
+            throw error.message;
+        }
+    });
+}
+exports.logout = logout;

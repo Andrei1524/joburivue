@@ -13,9 +13,7 @@ async function registerUser(vm: any, axios: any, payload: any) {
 
 async function loginUser(vm: any, payload: any) {
   try {
-    const response = await vm.$auth.loginWith("local", { data: payload });
-    console.log(response);
-    NotificationService.showSuccess(vm, null);
+    await vm.$auth.loginWith("local", { data: payload });
   } catch (error) {
     NotificationService.showError(vm, error);
     throw Error;

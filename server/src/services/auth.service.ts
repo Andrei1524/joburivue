@@ -64,4 +64,18 @@ async function getCurrentUser(payload: string) {
     throw (error as Error).message;
   }
 }
-export { login, register, getCurrentUser };
+
+async function logout(refresh_token: string) {
+  try {
+    return await User.findOneAndUpdate(
+      { refreshToken: refresh_token },
+      {
+        refreshToken: null,
+      }
+    ).exec();
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { login, register, getCurrentUser, logout };
