@@ -94,8 +94,8 @@ export default Vue.extend({
   data() {
     return {
       form: {
-        email: "adyta094@gmail.com",
-        password: "L123456278",
+        email: "",
+        password: "",
       },
 
       loading: false,
