@@ -11,6 +11,7 @@ router.post(
   AuthController.register
 );
 router.post("/logout", AuthController.logout);
+router.post("/refresh_token", AuthController.refreshToken);
 router.get("/me", authenticateJWT, AuthController.getCurrentUser);
 
 module.exports = router;

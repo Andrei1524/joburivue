@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.getCurrentUser = exports.register = exports.login = void 0;
-const bcrypt = require("bcrypt");
+exports.refreshToken = exports.logout = exports.getCurrentUser = exports.register = exports.login = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const _jwt_service_1 = require("./_jwt.service");
 const user_model_1 = __importDefault(require("../model/user.model"));
 function updateUserRefreshToken(email, newRefreshToken) {
@@ -48,7 +49,7 @@ function register(payload) {
         try {
             const saltRounds = 11;
             const password = payload.password;
-            const hashedPassword = yield bcrypt.hash(password, saltRounds);
+            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             // TODO: auto login after sign up & email verification
             // const refresh_token = jwt.sign({username: user.username}, process.env.JWT_REFRESH_TOKEN_SECRET)
             const refresh_token = null;
@@ -93,3 +94,29 @@ function logout(refresh_token) {
     });
 }
 exports.logout = logout;
+function refreshToken(refresh_token) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (refresh_token === null || !refresh_token) {
+                throw Error("token not present");
+            }
+            const foundUserByRefreshToken = yield user_model_1.default.findOne({
+                refreshToken: refresh_token,
+            })
+                .lean()
+                .exec();
+            if (!foundUserByRefreshToken) {
+                throw Error("token not found");
+            }
+            return jsonwebtoken_1.default.verify(refresh_token, process.env.JWT_REFRESH_TOKEN_SECRET, (error, user) => __awaiter(this, void 0, void 0, function* () {
+                if (error)
+                    throw error.message;
+                return (0, _jwt_service_1.createAccessToken)(foundUserByRefreshToken);
+            }));
+        }
+        catch (error) {
+            throw error.message;
+        }
+    });
+}
+exports.refreshToken = refreshToken;

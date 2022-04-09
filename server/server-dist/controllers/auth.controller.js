@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginValidate = exports.registerValidate = exports.logout = exports.getCurrentUser = exports.register = exports.login = void 0;
+exports.loginValidate = exports.registerValidate = exports.refreshToken = exports.logout = exports.getCurrentUser = exports.register = exports.login = void 0;
 const bcrypt = require("bcrypt");
 const AuthService = __importStar(require("../services/auth.service"));
 const { check, validationResult } = require("express-validator");
@@ -168,3 +168,22 @@ function logout(req, res, next) {
     });
 }
 exports.logout = logout;
+function refreshToken(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const refresh_token = req.body.refresh_token;
+            const access_token = yield AuthService.refreshToken(refresh_token);
+            return res.status(200).json({ access_token });
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                console.log(error);
+                return res.status(400).json({ status: 400, message: "Unexpected error" });
+            }
+        }
+    });
+}
+exports.refreshToken = refreshToken;

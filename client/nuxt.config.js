@@ -86,7 +86,7 @@ export default {
         // TODO: put '/api/v1' everywhere used to a constant maybe
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
-          refresh: { url: '/auth/refresh', method: 'post' },
+          refresh: { url: '/auth/refresh_token', method: 'post' },
           logout: { url: '/auth/logout', method: 'post' },
           user: { url: '/auth/me', method: 'get' }
         }

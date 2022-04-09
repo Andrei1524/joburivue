@@ -123,11 +123,28 @@ async function logout(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function refreshToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    const refresh_token = req.body.refresh_token;
+
+    const access_token = await AuthService.refreshToken(refresh_token);
+    return res.status(200).json({ access_token });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      console.log(error);
+      return res.status(400).json({ status: 400, message: "Unexpected error" });
+    }
+  }
+}
+
 export {
   login,
   register,
   getCurrentUser,
   logout,
+  refreshToken,
   registerValidate,
   loginValidate,
 };
