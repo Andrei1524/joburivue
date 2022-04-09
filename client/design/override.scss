@@ -22,6 +22,24 @@
 
 
 // override dropdowns
-.dropdown-content {
+.dropdown-content, .navbar-dropdown {
   background: #FFF;
+}
+
+hr {
+  background-color: $chambray-blue;
+  opacity: 0.3;
+}
+
+.box {
+  background-color: $basic-white;
+}
+
+.hero.is-info {
+  background-color: $yankees-blue;
+}
+
+// ALERT
+.toast {
+  white-space: pre;
 }

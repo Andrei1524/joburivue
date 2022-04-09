@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'client',
+    title: 'JoburiVue - Caută joburi vue!',
     htmlAttrs: {
       lang: 'en'
     },
@@ -39,7 +39,9 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    {src: '~/plugins/vee-validate.js', ssr: true }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -55,15 +57,59 @@ export default {
     // https://go.nuxtjs.dev/axios
     ['nuxt-buefy', { css: false }],
     '@nuxtjs/axios',
-    'nuxt-leaflet'
+    'nuxt-leaflet',
+    '@nuxtjs/auth-next'
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'access_token',
+          global: true,
+          maxAge: 1800,
+          type: 'Bearer',
+          headers: {
+            Referer: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1' // <- here
+          }
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        // TODO: put '/api/v1' everywhere used to a constant maybe
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh_token', method: 'post' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/me', method: 'get' }
+        }
+      }
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseURL: '/', // Used as fallback if no runtime config is provided
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1'
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    postcss: null,
+    transpile: [
+      "vee-validate/dist/rules"
+    ],
+  }
 }
