@@ -38,10 +38,26 @@
           :trap-focus="true"
         >
           <b-navbar-item tag="router-link" :to="{ path: '/account' }">
-            Account</b-navbar-item
-          >
-          <b-navbar-item> - </b-navbar-item>
-          <b-navbar-item @click="logout">Logout</b-navbar-item>
+            <b-icon icon="account" class="mr-1" />
+            Cont
+          </b-navbar-item>
+          <b-navbar-item>
+            <b-icon icon="code-braces" class="mr-1" />
+            Profil Vue.js
+          </b-navbar-item>
+          <hr class="dropdown-divider my-2" />
+          <b-navbar-item>
+            <b-icon icon="briefcase" class="mr-1" />
+            Joburile mele
+          </b-navbar-item>
+          <b-navbar-item>
+            <b-icon icon="domain" class="mr-1" />
+            Companie
+          </b-navbar-item>
+          <b-navbar-item @click="logout">
+            <b-icon icon="logout" class="mr-1" />
+            Logout
+          </b-navbar-item>
         </b-navbar-dropdown>
         <!-- LOGGED OUT -->
         <b-navbar-item
