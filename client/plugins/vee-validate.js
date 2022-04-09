@@ -1,7 +1,6 @@
 import { required, confirmed, length, email, min } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 
-
 extend("required", {
   ...required,
   message: "This field is required"

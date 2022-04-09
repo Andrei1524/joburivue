@@ -85,12 +85,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+    baseURL: '/', // Used as fallback if no runtime config is provided
   },
 
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: `${process.env.BASE_URL}/api/v1`
+      browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1'
     }
   },
 
