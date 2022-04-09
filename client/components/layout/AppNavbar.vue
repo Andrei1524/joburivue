@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="py-2" :close-on-click="false">
+  <b-navbar class="py-2" :close-on-click="true">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <Logo />
