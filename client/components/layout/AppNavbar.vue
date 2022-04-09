@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="py-2" transparent :close-on-click="false">
+  <b-navbar class="py-2" :close-on-click="false">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <Logo />
@@ -32,37 +32,17 @@
         </b-navbar-item>
 
         <!-- LOGGED IN -->
-        <b-dropdown
+        <b-navbar-dropdown
           v-show="$store.state.auth.loggedIn"
-          class="nav-dropdown"
-          aria-role="list"
-          position="is-bottom-left"
-          append-to-body
+          :label="$store.state.auth.loggedIn ? $auth.user.name : ''"
           :trap-focus="true"
         >
-          <template #trigger="{ active }">
-            <b-button
-              type="is-primary"
-              :icon-right="active ? 'menu-up' : 'menu-down'"
-            >
-              <span class="is-flex is-align-items-center">
-                <figure class="image is-32x32 mr-2">
-                  <img
-                    class="is-rounded"
-                    src="https://bulma.io/images/placeholders/128x128.png"
-                  />
-                </figure>
-                Mandrican Andrei
-              </span>
-            </b-button>
-          </template>
-
-          <b-dropdown-item aria-role="listitem"> - </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem"> - </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" @click="logout"
-            >Logout</b-dropdown-item
+          <b-navbar-item tag="router-link" :to="{ path: '/account' }">
+            Account</b-navbar-item
           >
-        </b-dropdown>
+          <b-navbar-item> - </b-navbar-item>
+          <b-navbar-item @click="logout">Logout</b-navbar-item>
+        </b-navbar-dropdown>
         <!-- LOGGED OUT -->
         <b-navbar-item
           v-show="!$store.state.auth.loggedIn"
