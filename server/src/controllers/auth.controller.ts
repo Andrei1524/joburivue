@@ -81,7 +81,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
       .exec();
 
     if (foundUserByEmail) {
-      throw Error("A user with these credentials already exists!");
+      throw Error("Un user cu aceste credențiale deja există!");
     }
 
     await AuthService.register(payload);
@@ -99,7 +99,7 @@ async function getCurrentUser(req: Request, res: Response) {
   try {
     const currentUser = await AuthService.getCurrentUser(req.user.email);
     if (currentUser) {
-      return res.status(200).json(currentUser);
+      return res.status(200).json({ user: currentUser });
     } else {
       return null;
     }

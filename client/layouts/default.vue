@@ -11,20 +11,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import AppNavbar from '~/components/layout/AppNavbar.vue'
-import AppFooter from '~/components/layout/AppFooter.vue'
+import Vue from "vue";
+import AppNavbar from "~/components/layout/AppNavbar.vue";
+import AppFooter from "~/components/layout/AppFooter.vue";
 
 export default Vue.extend({
   components: {
     AppNavbar,
-    AppFooter
-  }
-})
+    AppFooter,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .navbar-wrapper {
   background: $basic-white;

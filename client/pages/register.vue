@@ -103,7 +103,7 @@ import Vue from "vue";
 import * as AuthService from "../services/auth.service";
 
 export default Vue.extend({
-  name: "AppLogin",
+  name: "AppRegister",
 
   components: {
     ValidationObserver,

@@ -6,23 +6,15 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item href="#">
-        Joburi
-      </b-navbar-item>
-      <b-navbar-item href="#">
-        Despre
-      </b-navbar-item>
-      <b-navbar-item href="#">
-        Preturi
-      </b-navbar-item>
+      <b-navbar-item href="#"> Joburi </b-navbar-item>
+      <b-navbar-item href="#"> Despre </b-navbar-item>
+      <b-navbar-item href="#"> Preturi </b-navbar-item>
     </template>
 
     <template #end>
       <div class="is-flex is-align-items-center">
-        <b-navbar-item tag="router-link" :to="{path: '/jobs/create'}">
-          <b-button type="is-primary">
-            Adauga Job
-          </b-button>
+        <b-navbar-item tag="router-link" :to="{ path: '/jobs/create' }">
+          <b-button type="is-primary"> Adauga Job </b-button>
         </b-navbar-item>
 
         <b-navbar-item tag="div">
@@ -40,14 +32,18 @@
         </b-navbar-item>
 
         <!-- LOGGED OUT -->
-        <b-navbar-item tag="router-link" :to="{ path: '/login' }">
+        <b-navbar-item
+          v-show="!$auth.strategy.token.get()"
+          tag="router-link"
+          :to="{ path: '/login' }"
+        >
           <b-button type="is-primary" icon-left="account-plus">
             Intră in cont / Creează cont
           </b-button>
         </b-navbar-item>
         <!-- LOGGED IN -->
         <b-dropdown
-          v-if="$auth.loggedIn"
+          v-show="$auth.strategy.token.get() || $store.state.auth.loggedIn"
           class="nav-dropdown"
           aria-role="list"
           position="is-bottom-left"
@@ -64,22 +60,18 @@
                   <img
                     class="is-rounded"
                     src="https://bulma.io/images/placeholders/128x128.png"
-                  >
+                  />
                 </figure>
                 Mandrican Andrei
               </span>
             </b-button>
           </template>
 
-          <b-dropdown-item aria-role="listitem">
-            Action
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            Another action
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            Something else
-          </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem"> - </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem"> - </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem" @click="logout"
+            >Logout</b-dropdown-item
+          >
         </b-dropdown>
       </div>
     </template>
@@ -87,27 +79,33 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Logo from '~/components/layout/Logo.vue'
+import Vue from "vue";
+import Logo from "~/components/layout/Logo.vue";
 
 export default Vue.extend({
-  name: 'AppNavbar',
+  name: "AppNavbar",
   components: {
-    Logo
+    Logo,
   },
 
-  data () {
+  data() {
     return {
-      selectedLanguage: 'ro',
-      languages: ['ro', 'en']
-    }
-  }
-})
+      selectedLanguage: "ro",
+      languages: ["ro", "en"],
+    };
+  },
+
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
 @import "./design/variables";
-@import 'include-media';
+@import "include-media";
 
 @include media("<tablet") {
   .navbar-end {

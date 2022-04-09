@@ -64,20 +64,31 @@ export default {
   auth: {
     strategies: {
       local: {
+        scheme: 'refresh',
         token: {
-          property: 'token',
+          property: 'access_token',
           global: true,
-          // required: true,
-          // type: 'Bearer'
+          maxAge: 1800,
+          type: 'Bearer',
+          headers: {
+            Referer: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1' // <- here
+          }
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: 'user',
           // autoFetch: true
         },
+        // TODO: put '/api/v1' everywhere used to a constant maybe
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/me', method: 'get' }
+          login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/me', method: 'get' }
         }
       }
     }

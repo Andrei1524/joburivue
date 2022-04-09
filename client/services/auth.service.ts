@@ -10,4 +10,15 @@ async function registerUser(vm: any, axios: any, payload: any) {
     throw Error;
   }
 }
-export { registerUser };
+
+async function loginUser(vm: any, payload: any) {
+  try {
+    const response = await vm.$auth.loginWith("local", { data: payload });
+    console.log(response);
+    NotificationService.showSuccess(vm, null);
+  } catch (error) {
+    NotificationService.showError(vm, error);
+    throw Error;
+  }
+}
+export { registerUser, loginUser };

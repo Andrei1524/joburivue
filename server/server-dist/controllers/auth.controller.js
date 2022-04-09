@@ -117,7 +117,7 @@ function register(req, res, next) {
                 .lean()
                 .exec();
             if (foundUserByEmail) {
-                throw Error("A user with these credentials already exists!");
+                throw Error("Un user cu aceste credențiale deja există!");
             }
             yield AuthService.register(payload);
             return res.sendStatus(200);
@@ -138,7 +138,7 @@ function getCurrentUser(req, res) {
         try {
             const currentUser = yield AuthService.getCurrentUser(req.user.email);
             if (currentUser) {
-                return res.status(200).json(currentUser);
+                return res.status(200).json({ user: currentUser });
             }
             else {
                 return null;
