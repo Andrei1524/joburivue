@@ -53,9 +53,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     await JobService.create(payload);
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });

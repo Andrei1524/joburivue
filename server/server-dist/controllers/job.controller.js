@@ -85,7 +85,7 @@ function create(req, res, next) {
                 return res.status(422).json({ errors: errors.array() });
             }
             yield JobService.create(payload);
-            return res.status(200);
+            return res.sendStatus(200);
         }
         catch (error) {
             if (error instanceof Error) {

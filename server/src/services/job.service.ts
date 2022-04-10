@@ -1,4 +1,5 @@
 import Job from "../model/job.model";
+
 import { JobInterface } from "../ts/interfaces/job.interfaces";
 
 async function create(payload: JobInterface) {
@@ -17,7 +18,6 @@ async function create(payload: JobInterface) {
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
     });
-
     return await newJob.save();
   } catch (error) {
     throw (error as Error).message;
