@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const accessTokenExp = 604800; // 7 days expiration
+const accessTokenExp = 1800; // 30 minutes expiration
 
 interface JwtServiceInterface {
   email: string;
