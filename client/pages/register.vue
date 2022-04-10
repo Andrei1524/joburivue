@@ -129,7 +129,7 @@ export default Vue.extend({
       this.loading = true;
       try {
         await AuthService.registerUser(this, this.$axios, this.form);
-        this.$router.push("/");
+        this.$router.replace("/");
       } catch (error) {}
       this.loading = false;
     },

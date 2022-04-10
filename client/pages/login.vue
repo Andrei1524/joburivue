@@ -107,7 +107,7 @@ export default Vue.extend({
       this.loading = true;
       try {
         await AuthService.loginUser(this, this.form);
-        this.$router.push("/");
+        this.$router.replace("/");
       } catch (error) {}
       this.loading = false;
     },
