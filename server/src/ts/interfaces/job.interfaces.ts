@@ -5,6 +5,7 @@ interface JobInterface {
   description: string;
   tags: string;
   location: string;
+  remoteType: string;
   howToApply: string;
   applicationTarget: string;
   currency: string;

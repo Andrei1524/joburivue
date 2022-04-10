@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 
 import express from "express";
 
-//routers
-// import authRouter from "./auth.routes";
 const authRouter = require("./auth.routes");
 import jobRouter from "./job.routes";
 

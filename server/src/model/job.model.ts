@@ -9,15 +9,16 @@ const JobSchema = new Schema<JobInterface>({
     required: true,
   },
   type: { type: String, required: true },
-  level: { type: String, required: true },
+  level: { type: String, required: false },
   description: { type: String, required: true },
-  tags: { type: String, required: true },
+  tags: { type: String, required: false },
   location: { type: String, required: true },
+  remoteType: { type: String, required: false },
   howToApply: { type: String, required: true },
   applicationTarget: { type: String, required: true },
-  currency: { type: String, required: true },
-  minSalary: { type: Number, required: true },
-  maxSalary: { type: Number, required: true },
+  currency: { type: String, required: false },
+  minSalary: { type: Number, required: false },
+  maxSalary: { type: Number, required: false },
 });
 
 const Job = model<JobInterface>("Job", JobSchema);

@@ -29,5 +29,5 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const authenticateJWT_1 = require("../middleware/authenticateJWT");
 const JobController = __importStar(require("../controllers/job.controller"));
-router.post("/create", authenticateJWT_1.authenticateJWT, JobController.create);
+router.post("/create", authenticateJWT_1.authenticateJWT, JobController.createJobValidate, JobController.create);
 module.exports = router;

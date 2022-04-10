@@ -9,12 +9,57 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = void 0;
+exports.createJobValidate = exports.create = void 0;
 const { check, validationResult } = require("express-validator");
-const jobValidate = [];
+const createJobValidate = [
+    check("title")
+        .exists()
+        .withMessage("Jobul trebuie sa contina un titlu!")
+        .isLength({ min: 8 })
+        .withMessage("Titlul trebuie sa fie de cel putin 8 caractere!")
+        .trim()
+        .escape()
+        .normalizeEmail(),
+    check("type")
+        .exists()
+        .not()
+        .isEmpty()
+        .withMessage("Specificati tipul jobului!"),
+    check("description")
+        .exists()
+        .not()
+        .isEmpty()
+        .withMessage("Adaugati o descriere!"),
+    check("location")
+        .custom((value, { req }) => {
+        if (value && value.length > 0) {
+            return true;
+        }
+        else {
+            return req.body.remoteType === "remote_only";
+        }
+    }) // TODO: add remote types to a TS types
+        .withMessage("Locatia este necesara daca jobul este optional remote!"),
+    check("howToApply")
+        .exists()
+        .not()
+        .isEmpty()
+        .withMessage("Adaugati instructiuni de aplicare!"),
+    check("applicationTarget")
+        .exists()
+        .not()
+        .isEmpty()
+        .withMessage("Adaugati p metoda de aplicare!"),
+];
+exports.createJobValidate = createJobValidate;
 function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const payload = req.body;
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ errors: errors.array() });
+            }
             return res.status(200).json("job created");
         }
         catch (error) {
