@@ -34,7 +34,9 @@
         <!-- LOGGED IN -->
         <b-navbar-dropdown
           v-show="$store.state.auth.loggedIn"
-          :label="$store.state.auth.loggedIn ? $auth.user.name : ''"
+          :label="
+            $store.state.auth.loggedIn ? $auth.user && $auth.user.name : ''
+          "
           :trap-focus="true"
         >
           <b-navbar-item tag="router-link" :to="{ path: '/account' }">
