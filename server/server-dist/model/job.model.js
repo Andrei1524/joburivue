@@ -10,7 +10,7 @@ const JobSchema = new mongoose_1.Schema({
     type: { type: String, required: true },
     level: { type: String, required: false },
     description: { type: String, required: true },
-    tags: { type: String, required: false },
+    tags: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Tag" }],
     location: { type: String, required: true },
     remoteType: { type: String, required: false },
     howToApply: { type: String, required: true },

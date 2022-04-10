@@ -3,7 +3,7 @@ interface JobInterface {
   type: string;
   level: string;
   description: string;
-  tags: string;
+  tags: [string];
   location: string;
   remoteType: string;
   howToApply: string;

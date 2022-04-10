@@ -11,7 +11,7 @@ const JobSchema = new Schema<JobInterface>({
   type: { type: String, required: true },
   level: { type: String, required: false },
   description: { type: String, required: true },
-  tags: { type: String, required: false },
+  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
   location: { type: String, required: true },
   remoteType: { type: String, required: false },
   howToApply: { type: String, required: true },

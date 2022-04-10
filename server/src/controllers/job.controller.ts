@@ -3,7 +3,7 @@ import * as JobService from "../services/job.service";
 const { check, validationResult } = require("express-validator");
 import Job from "../model/job.model";
 
-type remoteTypes = "work_remotely" | "";
+type remoteTypes = "work_remotely" | "remote_only";
 
 const createJobValidate = [
   check("title")
@@ -54,7 +54,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    return res.status(200).json("job created");
+    await JobService.create(payload);
+    return res.status(200);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
