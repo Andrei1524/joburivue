@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createJobValidate = exports.create = void 0;
+exports.createJobValidate = exports.getJobs = exports.create = void 0;
 const JobService = __importStar(require("../services/job.service"));
 const { check, validationResult } = require("express-validator");
 const createJobValidate = [
@@ -98,3 +98,22 @@ function create(req, res, next) {
     });
 }
 exports.create = create;
+function getJobs(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const page = req.params.page ? req.params.page : 1;
+            const limit = 10;
+            const jobs = yield JobService.getJobs({}, Number(page), limit);
+            return res.status(200).json(jobs);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: error });
+            }
+        }
+    });
+}
+exports.getJobs = getJobs;

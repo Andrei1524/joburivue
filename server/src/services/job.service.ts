@@ -23,4 +23,14 @@ async function create(payload: JobInterface) {
     throw (error as Error).message;
   }
 }
-export { create };
+
+async function getJobs(query: object, page: number, limit: number) {
+  try {
+    const jobs = await Job.find(query).lean();
+    return jobs;
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { create, getJobs };

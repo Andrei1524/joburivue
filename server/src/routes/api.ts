@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import express from "express";
 
-const authRouter = require("./auth.routes");
+import authRouter from "./auth.routes";
 import jobRouter from "./job.routes";
 
 const api = express.Router();

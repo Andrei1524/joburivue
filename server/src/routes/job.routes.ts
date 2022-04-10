@@ -11,4 +11,6 @@ router.post(
   JobController.create
 );
 
+router.get("/", JobController.getJobs);
+
 export = router;

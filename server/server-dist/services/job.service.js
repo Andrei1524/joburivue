@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = void 0;
+exports.getJobs = exports.create = void 0;
 const job_model_1 = __importDefault(require("../model/job.model"));
 function create(payload) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -39,3 +39,15 @@ function create(payload) {
     });
 }
 exports.create = create;
+function getJobs(query, page, limit) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const jobs = yield job_model_1.default.find(query).lean();
+            return jobs;
+        }
+        catch (error) {
+            throw error.message;
+        }
+    });
+}
+exports.getJobs = getJobs;

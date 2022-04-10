@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as JobService from "../services/job.service";
 const { check, validationResult } = require("express-validator");
-import Job from "../model/job.model";
 
 type remoteTypes = "work_remotely" | "remote_only";
 
@@ -64,4 +63,21 @@ async function create(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { create, createJobValidate };
+async function getJobs(req: Request, res: Response, next: NextFunction) {
+  try {
+    const page = req.params.page ? req.params.page : 1;
+    const limit = 10;
+
+    const jobs = await JobService.getJobs({}, Number(page), limit);
+
+    return res.status(200).json(jobs);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+}
+
+export { create, getJobs, createJobValidate };
