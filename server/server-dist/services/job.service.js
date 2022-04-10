@@ -19,6 +19,7 @@ function create(payload) {
         try {
             const newJob = yield new job_model_1.default({
                 title: payload.title,
+                company: payload.company,
                 type: payload.type,
                 level: payload.level,
                 description: payload.description,

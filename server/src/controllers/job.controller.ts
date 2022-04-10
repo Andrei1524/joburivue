@@ -11,8 +11,7 @@ const createJobValidate = [
     .isLength({ min: 8 })
     .withMessage("Titlul trebuie sa fie de cel putin 8 caractere!")
     .trim()
-    .escape()
-    .normalizeEmail(),
+    .escape(),
   check("type")
     .exists()
     .not()
@@ -69,7 +68,6 @@ async function getJobs(req: Request, res: Response, next: NextFunction) {
     const limit = 10;
 
     const jobs = await JobService.getJobs({}, Number(page), limit);
-
     return res.status(200).json(jobs);
   } catch (error) {
     if (error instanceof Error) {

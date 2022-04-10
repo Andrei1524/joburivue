@@ -8,6 +8,7 @@ const JobSchema = new Schema<JobInterface>({
     type: String,
     required: true,
   },
+  company: { type: Schema.Types.ObjectId, ref: "Company", required: true },
   type: { type: String, required: true },
   level: { type: String, required: false },
   description: { type: String, required: true },

@@ -6,6 +6,7 @@ async function create(payload: JobInterface) {
   try {
     const newJob = await new Job({
       title: payload.title,
+      company: payload.company,
       type: payload.type,
       level: payload.level,
       description: payload.description,

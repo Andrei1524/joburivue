@@ -42,8 +42,7 @@ const createJobValidate = [
         .isLength({ min: 8 })
         .withMessage("Titlul trebuie sa fie de cel putin 8 caractere!")
         .trim()
-        .escape()
-        .normalizeEmail(),
+        .escape(),
     check("type")
         .exists()
         .not()
