@@ -1,35 +1,70 @@
 <template>
   <div class="pagination">
-    <b-pagination
-      v-model="current"
-      :total="total"
-      :size="'is-small'"
-    />
+    <b-pagination v-model="current" :total="total" :size="'is-small'" />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
+import _ from "lodash";
 
 export default Vue.extend({
-  name: 'AppPagination',
+  name: "AppPagination",
 
-  components: {
-  },
+  components: {},
   props: {
+    search: {
+      type: String,
+      required: true,
+      default: null,
+    },
   },
 
-  data () {
+  data() {
     return {
       current: 0,
-      total: 0
-    }
-  }
-})
+      total: 0,
+    };
+  },
+
+  async fetch() {
+    await this.handleGetData();
+  },
+
+  watch: {
+    search() {
+      this.searchDebounce();
+    },
+  },
+
+  methods: {
+    computedQueryUrl() {
+      let queryUrl = "";
+
+      if (this.search) {
+        queryUrl = `?search=${this.search}`;
+      }
+
+      console.log(queryUrl);
+      return queryUrl;
+    },
+
+    async handleGetData() {
+      const response = await this.$axios.get(`/jobs${this.computedQueryUrl()}`);
+
+      this.$emit("data", response.data);
+    },
+
+    searchDebounce: _.debounce(function () {
+      this.handleGetData();
+    }, 300),
+  },
+  fetchOnServer: false,
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 ::v-deep .pagination-link.is-current {
   background-color: $chambray-blue;

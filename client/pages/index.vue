@@ -2,9 +2,9 @@
   <div class="homepage">
     <Hero />
     <div class="container is-max-desktop mt-6">
-      <Search class="mb-5" />
-      <JobsList />
-      <Pagination />
+      <Search v-model.trim="search" class="mb-5" />
+      <JobsList v-if="jobs.length > 0" :jobs="jobs" />
+      <Pagination :search="search" @data="handleGetData" />
     </div>
   </div>
 </template>
@@ -23,6 +23,18 @@ export default Vue.extend({
     Hero,
     JobsList,
     Search,
+  },
+  data() {
+    return {
+      search: "",
+      jobs: [],
+    };
+  },
+
+  methods: {
+    handleGetData(data: []) {
+      this.jobs = data;
+    },
   },
 });
 </script>

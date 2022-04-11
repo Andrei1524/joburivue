@@ -2,7 +2,12 @@
   <div class="search">
     <b-field label="Caută job">
       <div class="input-group is-flex">
-        <b-input placeholder="Locatie, tip de job..." size="is-medium" />
+        <b-input
+          placeholder="Locatie, tip de job..."
+          size="is-medium"
+          :value="value"
+          @input="$emit('input', $event)"
+        />
         <b-button
           type="is-primary"
           icon-right="magnify"
@@ -17,24 +22,27 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'AppSearch',
+  name: "AppSearch",
 
-  components: {
-  },
+  components: {},
   props: {
+    value: {
+      type: String,
+      default: "",
+    },
   },
 
-  data () {
-    return {}
-  }
-})
+  data() {
+    return {};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .search {
   ::v-deep .input {
@@ -43,7 +51,8 @@ export default Vue.extend({
     border-bottom-right-radius: 0px;
   }
 
-  ::v-deep .field, .control {
+  ::v-deep .field,
+  .control {
     width: 100%;
   }
 
