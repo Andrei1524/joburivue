@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+// import { JobInterface } from "../../server/src/ts/interfaces/job.interfaces";
 import Hero from "~/components/homepage/Hero.vue";
 import JobsList from "~/components/_shared/JobsList.vue";
 import Search from "~/components/_shared/Search.vue";
@@ -30,7 +31,6 @@ export default Vue.extend({
       jobs: [],
     };
   },
-
   methods: {
     handleGetData(data: []) {
       this.jobs = data;

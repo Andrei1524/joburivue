@@ -68,7 +68,7 @@ export default {
         token: {
           property: 'access_token',
           global: true,
-          maxAge: 1800,
+          maxAge: 604800, // 7 days
           type: 'Bearer',
           headers: {
             Referer: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1' // <- here
