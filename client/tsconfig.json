@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noImplicitThis": false,
+    "noImplicitAny": false,
     "lib": [
       "ESNext",
       "ESNext.AsyncIterable",
