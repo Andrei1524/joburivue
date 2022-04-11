@@ -1,19 +1,15 @@
 <template>
   <div class="container is-max-desktop">
     <div class="featured-companies pt-2 px-4 pb-5">
-      <h6 class="title is-6 has-text-left mb-4">
-        Companii Recomandate
-      </h6>
+      <h6 class="title is-6 has-text-left mb-4">Companii Recomandate</h6>
 
       <JobItem v-for="job in featuredJobs" :key="job.id" :job="job" />
     </div>
 
-    <div class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5">
-      <b-button
-        type="is-primary"
-        size="is-medium"
-        class="orange-btn mb-2"
-      >
+    <div
+      class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5"
+    >
+      <b-button type="is-primary" size="is-medium" class="orange-btn mb-2">
         Vezi toate joburile
       </b-button>
       <b-icon
@@ -26,40 +22,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import JobItem from '~/components/_shared/JobItem.vue'
+import Vue from "vue";
+import JobItem from "~/components/_shared/JobItem.vue";
 
 export default Vue.extend({
-  name: 'AppFeaturedCompanies',
+  name: "AppFeaturedCompanies",
   components: {
-    JobItem
+    JobItem,
   },
 
-  data () {
+  data() {
     return {
-      featuredJobs: [{
-        id: 0,
-        title: 'Frontend Developer - Vue/Typescript',
-        type: 'Full Time',
-        currency: 'euros',
-        minSalary: '1500',
-        maxSalary: '2000',
-        location: 'Romania',
-        company: {
-          name: 'Streem',
-          icon: '#'
-        }
-      }]
-    }
-  }
-})
+      featuredJobs: [],
+    };
+  },
+
+  async fetch() {
+    // TODO: handle fetch featured jobs
+    // const response = await this.$axios.get("/jobs");
+    // this.featuredJobs = response.data;
+  },
+  fetchOnServer: false,
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .featured-companies {
-  background: linear-gradient(#3B668C, #3b668c00);
+  background: linear-gradient(#3b668c, #3b668c00);
   border-radius: 5px;
 }
 
@@ -72,11 +63,12 @@ export default Vue.extend({
 }
 
 @keyframes MoveUpDown {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(15px);;
+    transform: translateY(15px);
   }
 }
 </style>

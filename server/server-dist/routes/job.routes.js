@@ -28,10 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const authenticateJWT_1 = require("../middleware/authenticateJWT");
-const AuthController = __importStar(require("../controllers/auth.controller"));
-router.post("/login", AuthController.loginValidate, AuthController.login);
-router.post("/register", AuthController.registerValidate, AuthController.register);
-router.post("/logout", AuthController.logout);
-router.post("/refresh_token", AuthController.refreshToken);
-router.get("/me", authenticateJWT_1.authenticateJWT, AuthController.getCurrentUser);
+const JobController = __importStar(require("../controllers/job.controller"));
+router.post("/create", authenticateJWT_1.authenticateJWT, JobController.createJobValidate, JobController.create);
+router.get("/", JobController.getJobs);
 module.exports = router;

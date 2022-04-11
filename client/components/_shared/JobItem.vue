@@ -1,8 +1,8 @@
 <template>
-  <div class="columns job-item is-gapless is-align-items-center  p-2">
+  <div class="columns job-item is-gapless is-align-items-center p-2">
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
-        <img src="~assets/job-item-logo-example.png">
+        <img src="~assets/job-item-logo-example.png" />
       </figure>
     </div>
     <div class="column job-title is-narrow">
@@ -10,12 +10,21 @@
         {{ job.title }}
       </h5>
       <h6 class="subtitle has-text-left is-6">
-        <span class="has-text-weight-bold">{{ job.company.name }}</span> - {{ job.location }}
+        <span class="has-text-weight-bold">{{ job.company.name }}</span>
+        {{ job.location }} &#9757; {{ job.remoteType }}
       </h6>
     </div>
-    <div class="column job-info is-flex is-flex-direction-column is-justify-content-space-between">
+    <div
+      class="column job-info is-flex is-flex-direction-column is-justify-content-space-between"
+    >
       <div class="tags is-align-self-flex-end">
-        <Tag class="mr-2" :value="'$1.5k - $2k'" :tag-type="'salary-range'" />
+        <Tag
+          class="mr-2"
+          :value="`$${formatMoney(job.minSalary)} - $${formatMoney(
+            job.maxSalary
+          )}`"
+          :tag-type="'salary-range'"
+        />
         <Tag :value="'Romania'" :tag-type="'location'" />
       </div>
       <div class="job-info-text is-align-self-flex-end">
@@ -27,32 +36,42 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Tag from '~/components/_shared/Tag.vue'
+import Vue from "vue";
+// import { JobInterface } from "../../../server/src/ts/interfaces/job.interfaces";
+import Tag from "~/components/_shared/Tag.vue";
 
 export default Vue.extend({
-  name: 'JobItem',
+  name: "JobItem",
 
   components: {
-    Tag
+    Tag,
   },
   props: {
     job: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  data () {
-    return {}
-  }
-})
+  data() {
+    return {};
+  },
+
+  methods: {
+    formatMoney(value: number) {
+      return Math.abs(value) > 999
+        ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
+        : Math.sign(value) * Math.abs(value);
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
-.tags, .tag {
+.tags,
+.tag {
   margin-bottom: 0;
 }
 
@@ -64,7 +83,8 @@ export default Vue.extend({
   color: $yankees-blue !important;
 }
 
-.subtitle, .job-info {
+.subtitle,
+.job-info {
   color: $gray !important;
 }
 
@@ -88,7 +108,8 @@ export default Vue.extend({
   .job-info {
     align-items: center;
 
-    .tags, .job-info-text {
+    .tags,
+    .job-info-text {
       align-self: unset !important;
     }
   }
