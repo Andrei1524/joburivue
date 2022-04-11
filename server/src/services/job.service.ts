@@ -1,5 +1,5 @@
 import Job from "../model/job.model";
-
+import { limit } from "../config";
 import { JobInterface } from "../ts/interfaces/job.interfaces";
 
 async function create(payload: JobInterface) {
@@ -27,8 +27,10 @@ async function create(payload: JobInterface) {
 
 async function getJobs(query: object, page: number, limit: number) {
   try {
-    const jobs = await Job.find(query).lean();
-    return jobs;
+    const skip = (page - 1) * limit;
+    const jobs = await Job.find(query).skip(skip).limit(limit).lean().exec();
+    const total_items = await Job.countDocuments(query);
+    return { jobs, total_items };
   } catch (error) {
     throw (error as Error).message;
   }

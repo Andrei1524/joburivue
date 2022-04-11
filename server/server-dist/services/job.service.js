@@ -43,8 +43,10 @@ exports.create = create;
 function getJobs(query, page, limit) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const jobs = yield job_model_1.default.find(query).lean();
-            return jobs;
+            const skip = (page - 1) * limit;
+            const jobs = yield job_model_1.default.find(query).skip(skip).limit(limit).lean().exec();
+            const total_items = yield job_model_1.default.countDocuments(query);
+            return { jobs, total_items };
         }
         catch (error) {
             throw error.message;
