@@ -22,18 +22,20 @@ const JobSchema = new Schema<JobInterface>({
   maxSalary: { type: Number, required: false },
 });
 
-JobSchema.index({
-  title: "text",
-  company: "text",
-  type: "text",
-  level: "text",
-  description: "text",
-  tags: "text",
-  location: "text",
-  remoteType: "text",
-  minSalary: "text",
-  maxSalary: "text",
-});
+// JobSchema.index({
+//   title: "text",
+//   company: "text",
+//   type: "text",
+//   level: "text",
+//   description: "text",
+//   tags: "text",
+//   location: "text",
+//   remoteType: "text",
+//   minSalary: "text",
+//   maxSalary: "text",
+// });
+
+JobSchema.index({ "$**": "text" });
 
 const Job = model<JobInterface>("Job", JobSchema);
 export = Job;

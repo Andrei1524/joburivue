@@ -66,8 +66,19 @@ async function create(req: Request, res: Response, next: NextFunction) {
 async function getJobs(req: Request, res: Response, next: NextFunction) {
   try {
     const page = req.query.page ? req.query.page : 1;
+    const searchString = req.query.search;
+    const searchQuery = searchString
+      ? {
+          $text: {
+            $search: searchString,
+            $caseSensitive: false,
+            $diacriticSensitive: false,
+          },
+        }
+      : {};
+
     const { jobs, total_items } = await JobService.getJobs(
-      {},
+      searchQuery,
       Number(page),
       limit
     );

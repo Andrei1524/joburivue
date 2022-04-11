@@ -28,6 +28,7 @@ async function create(payload: JobInterface) {
 async function getJobs(query: object, page: number, limit: number) {
   try {
     const skip = (page - 1) * limit;
+
     const jobs = await Job.find(query).skip(skip).limit(limit).lean().exec();
     const total_items = await Job.countDocuments(query);
     return { jobs, total_items };

@@ -20,17 +20,18 @@ const JobSchema = new mongoose_1.Schema({
     minSalary: { type: Number, required: false },
     maxSalary: { type: Number, required: false },
 });
-JobSchema.index({
-    title: "text",
-    company: "text",
-    type: "text",
-    level: "text",
-    description: "text",
-    tags: "text",
-    location: "text",
-    remoteType: "text",
-    minSalary: "text",
-    maxSalary: "text",
-});
+// JobSchema.index({
+//   title: "text",
+//   company: "text",
+//   type: "text",
+//   level: "text",
+//   description: "text",
+//   tags: "text",
+//   location: "text",
+//   remoteType: "text",
+//   minSalary: "text",
+//   maxSalary: "text",
+// });
+JobSchema.index({ "$**": "text" });
 const Job = (0, mongoose_1.model)("Job", JobSchema);
 module.exports = Job;
