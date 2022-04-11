@@ -30,6 +30,7 @@
       "@types/node",
       "nuxt-leaflet",
       "@nuxtjs/auth-next",
+      "@types/lodash"
     ]
   },
   "exclude": [

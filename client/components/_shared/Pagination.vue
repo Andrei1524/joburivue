@@ -45,7 +45,6 @@ export default Vue.extend({
         queryUrl = `?search=${this.search}`;
       }
 
-      console.log(queryUrl);
       return queryUrl;
     },
 
