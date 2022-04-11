@@ -5,3 +5,4 @@
  #### Currently in development in my free time.
  
 https://joburivue.herokuapp.com/
+nuxt + nodejs/expressjs
