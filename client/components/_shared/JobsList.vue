@@ -2,7 +2,7 @@
   <section>
     <JobItem v-for="job in jobs" :key="job._id" class="mb-3" :job="job" />
     <b-loading
-      v-model="loading"
+      :active="loading"
       :is-full-page="false"
       :can-cancel="false"
     ></b-loading>
