@@ -45,7 +45,8 @@ function getJobs(query, page, limit) {
         try {
             const skip = (page - 1) * limit;
             const jobs = yield job_model_1.default.find(query).skip(skip).limit(limit).lean().exec();
-            const total_items = yield job_model_1.default.countDocuments({}).exec();
+            const total_items = yield job_model_1.default.countDocuments(query).exec();
+            console.log(total_items);
             return { jobs, total_items };
         }
         catch (error) {

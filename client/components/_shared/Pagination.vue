@@ -35,14 +35,13 @@ export default Vue.extend({
 
   watch: {
     search() {
-      if (this.search.length === 0) {
-        this.current = 1;
-      }
       this.searchDebounce();
     },
 
     current() {
-      this.handleGetData();
+      if (this.current !== 1) {
+        this.handleGetData();
+      }
     },
 
     loading() {
@@ -74,9 +73,8 @@ export default Vue.extend({
     },
 
     searchDebounce: _.debounce(function () {
-      if (this.search.length !== 0) {
-        this.handleGetData();
-      }
+      this.current = 1;
+      this.handleGetData();
     }, 300),
   },
   fetchOnServer: false,

@@ -30,7 +30,8 @@ async function getJobs(query: object, page: number, limit: number) {
     const skip = (page - 1) * limit;
 
     const jobs = await Job.find(query).skip(skip).limit(limit).lean().exec();
-    const total_items = await Job.countDocuments({}).exec();
+    const total_items = await Job.countDocuments(query).exec();
+    console.log(total_items);
     return { jobs, total_items };
   } catch (error) {
     throw (error as Error).message;
