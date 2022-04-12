@@ -74,7 +74,9 @@ export default Vue.extend({
     },
 
     searchDebounce: _.debounce(function () {
-      this.handleGetData();
+      if (this.search.length !== 0) {
+        this.handleGetData();
+      }
     }, 300),
   },
   fetchOnServer: false,
