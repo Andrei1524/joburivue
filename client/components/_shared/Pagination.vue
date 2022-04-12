@@ -39,9 +39,7 @@ export default Vue.extend({
     },
 
     current() {
-      if (this.current !== 1) {
-        this.handleGetData();
-      }
+      this.handleGetData();
     },
 
     loading() {
