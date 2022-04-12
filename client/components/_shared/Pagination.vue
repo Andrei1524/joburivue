@@ -25,6 +25,7 @@ export default Vue.extend({
       current: 1,
       total: 0,
       limit: 10,
+      loading: false,
     };
   },
 
@@ -34,11 +35,18 @@ export default Vue.extend({
 
   watch: {
     search() {
+      if (this.search.length === 0) {
+        this.current = 1;
+      }
       this.searchDebounce();
     },
 
     current() {
       this.handleGetData();
+    },
+
+    loading() {
+      this.$emit("loading", this.loading);
     },
   },
 
@@ -57,10 +65,12 @@ export default Vue.extend({
     },
 
     async handleGetData() {
+      this.loading = true;
       const response = await this.$axios.get(`/jobs${this.computedQueryUrl()}`);
       this.total = response.data.total_items;
 
       this.$emit("data", response.data.data);
+      this.loading = false;
     },
 
     searchDebounce: _.debounce(function () {

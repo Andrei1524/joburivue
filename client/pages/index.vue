@@ -3,8 +3,12 @@
     <Hero />
     <div class="container is-max-desktop mt-6">
       <Search v-model.trim="search" class="mb-5" />
-      <JobsList v-if="jobs.length > 0" :jobs="jobs" />
-      <Pagination :search="search" @data="handleGetData" />
+      <JobsList v-if="jobs.length > 0" :jobs="jobs" :loading="loading" />
+      <Pagination
+        :search="search"
+        @data="handleGetData"
+        @loading="handleDataLoading"
+      />
     </div>
   </div>
 </template>
@@ -29,11 +33,16 @@ export default Vue.extend({
     return {
       search: "",
       jobs: [],
+      loading: false,
     };
   },
   methods: {
     handleGetData(data: []) {
       this.jobs = data;
+    },
+
+    handleDataLoading(loading) {
+      this.loading = loading;
     },
   },
 });
