@@ -5,6 +5,7 @@
         <b-input
           placeholder="Locatie, tip de job..."
           size="is-medium"
+          type="search"
           :value="value"
           @input="$emit('input', $event)"
         />
