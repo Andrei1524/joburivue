@@ -32,7 +32,6 @@ async function getJobs(query: any, page: number, limit: number) {
     let jobs = [];
     let total_items = 0;
 
-    // TODO: simplify this since i fixed the pagination bug
     if (query) {
       const searchJobs = await Job.aggregate([
         {
@@ -40,13 +39,14 @@ async function getJobs(query: any, page: number, limit: number) {
             index: "search jobs",
             text: {
               query: `{"title": {$eq: ${query}}}`,
+              fuzzy: {},
               path: {
                 wildcard: "*",
               },
             },
           },
         },
-        { $sort: { title: -1 } },
+        // { $sort: { title: -1 } },
         {
           $facet: {
             metadata: [{ $count: "total" }, { $addFields: { page: page } }],

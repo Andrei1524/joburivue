@@ -46,7 +46,6 @@ function getJobs(query, page, limit) {
             const skip = (page - 1) * limit;
             let jobs = [];
             let total_items = 0;
-            // TODO: simplify this since i fixed the pagination bug
             if (query) {
                 const searchJobs = yield job_model_1.default.aggregate([
                     {
@@ -54,13 +53,14 @@ function getJobs(query, page, limit) {
                             index: "search jobs",
                             text: {
                                 query: `{"title": {$eq: ${query}}}`,
+                                fuzzy: {},
                                 path: {
                                     wildcard: "*",
                                 },
                             },
                         },
                     },
-                    { $sort: { title: -1 } },
+                    // { $sort: { title: -1 } },
                     {
                         $facet: {
                             metadata: [{ $count: "total" }, { $addFields: { page: page } }],
