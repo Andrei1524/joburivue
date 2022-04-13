@@ -44,10 +44,38 @@ function getJobs(query, page, limit) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const skip = (page - 1) * limit;
-            const jobs = yield job_model_1.default.find(query).skip(skip).limit(limit).lean().exec();
-            const total_items = yield job_model_1.default.countDocuments(query).exec();
-            console.log(total_items);
-            return { jobs, total_items };
+            let jobs = [];
+            let total_items = 0;
+            // TODO: simplify this since i fixed the pagination bug
+            if (query) {
+                const searchJobs = yield job_model_1.default.aggregate([
+                    {
+                        $search: {
+                            index: "search jobs",
+                            text: {
+                                query: `{"title": {$eq: ${query}}}`,
+                                path: {
+                                    wildcard: "*",
+                                },
+                            },
+                        },
+                    },
+                    { $sort: { title: -1 } },
+                    {
+                        $facet: {
+                            metadata: [{ $count: "total" }, { $addFields: { page: page } }],
+                            data: [{ $skip: skip }, { $limit: limit }],
+                        },
+                    },
+                ]);
+                jobs = searchJobs[0].data;
+                total_items = searchJobs[0].metadata[0].total;
+            }
+            else {
+                jobs = yield job_model_1.default.find({}).skip(skip).limit(limit).lean().exec();
+                total_items = yield job_model_1.default.countDocuments(query);
+            }
+            return { jobs, total_items: total_items };
         }
         catch (error) {
             throw error.message;

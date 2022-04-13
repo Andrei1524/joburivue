@@ -55,9 +55,12 @@ export default Vue.extend({
         queryUrl = `?search=${this.search}`;
       }
 
-      queryUrl += `?page=${this.current}`;
+      if (!this.search) {
+        queryUrl += `?page=${this.current}`;
+      } else {
+        queryUrl += `&page=${this.current}`;
+      }
 
-      console.log(queryUrl);
       return queryUrl;
     },
 
