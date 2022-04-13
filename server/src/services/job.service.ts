@@ -46,7 +46,6 @@ async function getJobs(query: any, page: number, limit: number) {
             },
           },
         },
-        // { $sort: { title: -1 } },
         {
           $facet: {
             metadata: [{ $count: "total" }, { $addFields: { page: page } }],

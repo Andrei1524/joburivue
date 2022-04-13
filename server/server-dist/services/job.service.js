@@ -60,7 +60,6 @@ function getJobs(query, page, limit) {
                             },
                         },
                     },
-                    // { $sort: { title: -1 } },
                     {
                         $facet: {
                             metadata: [{ $count: "total" }, { $addFields: { page: page } }],
