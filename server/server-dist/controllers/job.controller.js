@@ -103,15 +103,6 @@ function getJobs(req, res, next) {
         try {
             const page = req.query.page ? req.query.page : 1;
             const searchString = req.query.search;
-            // const searchQuery = searchString
-            //   ? {
-            //       $text: {
-            //         $search: searchString,
-            //         $caseSensitive: false,
-            //         $diacriticSensitive: false,
-            //       },
-            //     }
-            //   : {};
             const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.limit);
             return res.status(200).json({ data: jobs, total_items, limit: config_1.limit });
         }
