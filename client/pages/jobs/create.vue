@@ -31,7 +31,7 @@ export default Vue.extend({
           icon: "credit-card",
         },
       ],
-      currentStep: 0,
+      currentStep: 1,
     };
   },
 

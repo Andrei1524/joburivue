@@ -45,6 +45,8 @@ export default Vue.extend({
       const limit = liList.length - 1;
       let liItem = null;
       let lineSpan = Element;
+      const stepsToFill = Array.from(Array(this.steps.length).keys());
+      const step = this.currentStep - 1;
 
       liList.forEach((li, i) => {
         liItem = liList.item(i);
@@ -57,11 +59,13 @@ export default Vue.extend({
 
           liItem.appendChild(lineSpan);
         }
-
-        if (i === this.currentStep) {
-          liItem.style.color = "#D9665B";
-          lineSpan.style.background =
-            "linear-gradient(90deg, #D9665B, #D9665B)";
+        if (i <= step) {
+          if (stepsToFill.includes(i)) {
+            liItem.style.color = "#D9665B";
+            lineSpan.style.background =
+              "linear-gradient(90deg, #D9665B, #D9665B)";
+            lineSpan.style.opacity = "0.9";
+          }
         }
       });
     },
