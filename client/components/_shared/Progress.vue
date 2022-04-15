@@ -43,11 +43,12 @@ export default Vue.extend({
       const maxWidth = 600;
       const liList = document.querySelectorAll(".process-steps li");
       const limit = liList.length - 1;
-      let liItem = null;
-      let lineSpan = Element;
+      let liItem: any = null;
+      let lineSpan: any = null;
       const stepsToFill = Array.from(Array(this.steps.length).keys());
       const step = this.currentStep - 1;
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       liList.forEach((li, i) => {
         liItem = liList.item(i);
         if (i < limit) {
