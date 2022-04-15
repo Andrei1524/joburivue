@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noImplicitThis": false,
+    "noImplicitAny": false,
     "lib": [
       "ESNext",
       "ESNext.AsyncIterable",
@@ -30,6 +31,7 @@
       "@types/node",
       "nuxt-leaflet",
       "@nuxtjs/auth-next",
+      "@types/lodash"
     ]
   },
   "exclude": [

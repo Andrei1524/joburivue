@@ -1,6 +1,6 @@
 <template>
   <div class="pagination">
-    <b-pagination v-model="current" :total="total" :size="'is-small'" />
+    <b-pagination v-model="current" :total="total" :per-page="limit" />
   </div>
 </template>
 
@@ -22,8 +22,10 @@ export default Vue.extend({
 
   data() {
     return {
-      current: 0,
+      current: 1,
       total: 0,
+      limit: 10,
+      loading: false,
     };
   },
 
@@ -35,6 +37,14 @@ export default Vue.extend({
     search() {
       this.searchDebounce();
     },
+
+    current() {
+      this.handleGetData();
+    },
+
+    loading() {
+      this.$emit("loading", this.loading);
+    },
   },
 
   methods: {
@@ -45,17 +55,26 @@ export default Vue.extend({
         queryUrl = `?search=${this.search}`;
       }
 
-      console.log(queryUrl);
+      if (!this.search) {
+        queryUrl += `?page=${this.current}`;
+      } else {
+        queryUrl += `&page=${this.current}`;
+      }
+
       return queryUrl;
     },
 
     async handleGetData() {
+      this.loading = true;
       const response = await this.$axios.get(`/jobs${this.computedQueryUrl()}`);
+      this.total = response.data.total_items;
 
-      this.$emit("data", response.data);
+      this.$emit("data", response.data.data);
+      this.loading = false;
     },
 
     searchDebounce: _.debounce(function () {
+      this.current = 1;
       this.handleGetData();
     }, 300),
   },

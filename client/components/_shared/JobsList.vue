@@ -1,6 +1,11 @@
 <template>
   <section>
     <JobItem v-for="job in jobs" :key="job._id" class="mb-3" :job="job" />
+    <b-loading
+      :active="loading"
+      :is-full-page="false"
+      :can-cancel="false"
+    ></b-loading>
   </section>
 </template>
 
@@ -18,6 +23,10 @@ export default Vue.extend({
       type: Array,
       required: false,
       default: () => [],
+    },
+
+    loading: {
+      type: Boolean,
     },
   },
   data() {

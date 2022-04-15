@@ -7,4 +7,11 @@ type jobLevelTypes =
   | "Lead"
   | "manager";
 
-export { jobLevelTypes };
+type jobTypeTypes =
+  | "Full-time"
+  | "Part-time"
+  | "Freelance"
+  | "Internship"
+  | "Temporary";
+
+export { jobLevelTypes, jobTypeTypes };

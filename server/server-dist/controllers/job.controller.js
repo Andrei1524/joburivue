@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJobValidate = exports.getJobs = exports.create = void 0;
 const JobService = __importStar(require("../services/job.service"));
 const { check, validationResult } = require("express-validator");
+const config_1 = require("../config");
 const createJobValidate = [
     check("title")
         .exists()
@@ -100,10 +101,10 @@ exports.create = create;
 function getJobs(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const page = req.params.page ? req.params.page : 1;
-            const limit = 10;
-            const jobs = yield JobService.getJobs({}, Number(page), limit);
-            return res.status(200).json(jobs);
+            const page = req.query.page ? req.query.page : 1;
+            const searchString = req.query.search;
+            const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.limit);
+            return res.status(200).json({ data: jobs, total_items, limit: config_1.limit });
         }
         catch (error) {
             if (error instanceof Error) {

@@ -1,11 +1,12 @@
 import { Types } from "mongoose";
 import { CompanyInterface } from "./company.interfaces";
+import { jobTypeTypes } from "../types/job.types";
 
 interface JobInterface {
   _id: string;
   title: string;
   company: CompanyInterface;
-  type: string;
+  type: jobTypeTypes;
   level: string;
   description: string;
   tags: [string];

@@ -11,7 +11,8 @@
       </h5>
       <h6 class="subtitle has-text-left is-6">
         <span class="has-text-weight-bold">{{ job.company.name }}</span>
-        {{ job.location }} &#9757; {{ job.remoteType }}
+        {{ job.location }} <span class="hand">&#9757;</span>
+        {{ formatRemoteType(job.remoteType) }}
       </h6>
     </div>
     <div
@@ -62,6 +63,14 @@ export default Vue.extend({
       return Math.abs(value) > 999
         ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
         : Math.sign(value) * Math.abs(value);
+    },
+
+    formatRemoteType(type: string) {
+      if (type === "remote_allowed") {
+        return "Remote Allowed";
+      } else if (type === "work_remotely") {
+        return "Work Remotely";
+      }
     },
   },
 });

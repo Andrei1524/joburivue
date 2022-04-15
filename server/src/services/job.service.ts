@@ -1,5 +1,5 @@
 import Job from "../model/job.model";
-
+import { limit } from "../config";
 import { JobInterface } from "../ts/interfaces/job.interfaces";
 
 async function create(payload: JobInterface) {
@@ -25,10 +25,42 @@ async function create(payload: JobInterface) {
   }
 }
 
-async function getJobs(query: object, page: number, limit: number) {
+async function getJobs(query: any, page: number, limit: number) {
   try {
-    const jobs = await Job.find(query).lean();
-    return jobs;
+    const skip = (page - 1) * limit;
+
+    let jobs = [];
+    let total_items = 0;
+
+    if (query) {
+      const searchJobs = await Job.aggregate([
+        {
+          $search: {
+            index: "search jobs",
+            text: {
+              query: `{"title": {$eq: ${query}}}`,
+              fuzzy: {},
+              path: {
+                wildcard: "*",
+              },
+            },
+          },
+        },
+        {
+          $facet: {
+            metadata: [{ $count: "total" }, { $addFields: { page: page } }],
+            data: [{ $skip: skip }, { $limit: limit }],
+          },
+        },
+      ]);
+      jobs = searchJobs[0].data;
+      total_items = searchJobs[0].metadata[0].total;
+    } else {
+      jobs = await Job.find({}).skip(skip).limit(limit).lean().exec();
+      total_items = await Job.countDocuments(query);
+    }
+
+    return { jobs, total_items: total_items };
   } catch (error) {
     throw (error as Error).message;
   }
