@@ -39,10 +39,19 @@
                   :type="{ 'is-danger': errors[0], 'is-success': valid }"
                   :message="errors"
                 >
-                  <b-input
+                  <b-select
                     v-model="form.type"
-                    placeholder="Adauga titlul"
-                  ></b-input>
+                    placeholder="Selecteaza un nume"
+                    expanded
+                  >
+                    <option
+                      v-for="option in jobTypes"
+                      :key="option.value"
+                      :value="option.value"
+                    >
+                      {{ option.label }}
+                    </option>
+                  </b-select>
                 </b-field>
               </ValidationProvider>
               <ValidationProvider
@@ -56,10 +65,19 @@
                   :type="{ 'is-danger': errors[0], 'is-success': valid }"
                   :message="errors"
                 >
-                  <b-input
+                  <b-select
                     v-model="form.level"
-                    placeholder="Nivelul jobului"
-                  ></b-input>
+                    placeholder="Selecteaza un nivel"
+                    expanded
+                  >
+                    <option
+                      v-for="option in jobLevels"
+                      :key="option.value"
+                      :value="option.value"
+                    >
+                      {{ option.label }}
+                    </option>
+                  </b-select>
                 </b-field>
               </ValidationProvider>
             </b-field>
@@ -106,6 +124,20 @@ export default Vue.extend({
           title: "Checkout",
           icon: "credit-card",
         },
+      ],
+      jobTypes: [
+        { value: "full_time", label: "Full-Time" },
+        { value: "part_time", label: "Part-Time" },
+        { value: "freelance", label: "Freelance" },
+        { value: "internship", label: "Internship" },
+        { value: "temporary", label: "Temporary" },
+      ],
+      jobLevels: [
+        { value: "begginner", label: "Begginer" },
+        { value: "junior", label: "Junior" },
+        { value: "mid_level", label: "Mid-level" },
+        { value: "senior", label: "Senior" },
+        { value: "lead", label: "Lead" },
       ],
       currentStep: 1,
       form: {
