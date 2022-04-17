@@ -3,12 +3,12 @@
     <h1 class="title is-2 has-text-centered mt-5">Adauga un job</h1>
     <div class="container is-max-desktop login">
       <AppProgress :steps="progressSteps" :current-step="currentStep" />
-      <h5 class="title is-5 has-text-centered mt-6 mb-2">Pozitie</h5>
-      <hr class="mt-0" />
-
       <div class="sections">
-        <div class="position w-100">
-          <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+        <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+          <div class="position w-100">
+            <h5 class="title is-5 has-text-centered mt-6 mb-2">Pozitie</h5>
+            <hr class="mt-0" />
+
             <ValidationProvider
               v-slot="{ errors, valid }"
               rules="required"
@@ -155,20 +155,24 @@
                 ></b-input>
               </b-field>
             </ValidationProvider>
+          </div>
+          <div class="application w-100">
+            <h5 class="title is-5 has-text-centered mt-6 mb-2">Aplicare</h5>
+            <hr class="mt-0" />
+          </div>
 
-            <b-button
-              :loading="loading"
-              type="is-primary"
-              size="is-medium"
-              class="orange-btn mt-5"
-              icon-left="login"
-              expanded
-              @click="handleSubmit(submit)"
-            >
-              Salveaza si previzualizeaza!
-            </b-button>
-          </ValidationObserver>
-        </div>
+          <b-button
+            :loading="loading"
+            type="is-primary"
+            size="is-medium"
+            class="orange-btn mt-5"
+            icon-left="login"
+            expanded
+            @click="handleSubmit(submit)"
+          >
+            Salveaza si previzualizeaza!
+          </b-button>
+        </ValidationObserver>
       </div>
     </div>
   </div>
