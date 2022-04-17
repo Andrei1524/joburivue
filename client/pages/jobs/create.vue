@@ -102,6 +102,42 @@
               </b-field>
             </ValidationProvider>
 
+            <div class="tags-section">
+              <b-field label="Taguri" grouped group-multiline>
+                <b-field class="w-100 mb-2">
+                  <div v-for="tag in form.tags" :key="tag.id" class="control">
+                    <b-tag
+                      type="is-primary"
+                      attached
+                      aria-close-label="Close tag"
+                      closable
+                      @close="removeTag(tag.id)"
+                    >
+                      {{ tag.value }}
+                    </b-tag>
+                  </div>
+                </b-field>
+
+                <b-field expanded>
+                  <b-autocomplete
+                    v-model="tagSearch"
+                    :data="tagsData"
+                    placeholder="e.g. Vue.js"
+                    icon="magnify"
+                    clearable
+                    selectable-header
+                    @select-header="handleSelectHeaderTag"
+                    @select="handleSelectTag"
+                  >
+                    <template #header>
+                      <a><span> Add new... </span></a>
+                    </template>
+                    <template #empty>No results found</template>
+                  </b-autocomplete>
+                </b-field>
+              </b-field>
+            </div>
+
             <b-button
               :loading="loading"
               type="is-primary"
@@ -145,6 +181,7 @@ export default Vue.extend({
           icon: "credit-card",
         },
       ],
+      // TODO: get this from server
       jobTypes: [
         { value: "full_time", label: "Full-Time" },
         { value: "part_time", label: "Part-Time" },
@@ -152,6 +189,7 @@ export default Vue.extend({
         { value: "internship", label: "Internship" },
         { value: "temporary", label: "Temporary" },
       ],
+      // TODO: get this from server
       jobLevels: [
         { value: "begginner", label: "Begginer" },
         { value: "junior", label: "Junior" },
@@ -160,11 +198,23 @@ export default Vue.extend({
         { value: "lead", label: "Lead" },
       ],
       currentStep: 1,
+      tagSearch: "",
+      tagsData: [],
       form: {
         title: "",
         type: "",
         level: "",
         description: "",
+        tags: [
+          {
+            id: 0,
+            value: "Vue.js",
+          },
+          {
+            id: 1,
+            value: "Node",
+          },
+        ],
       },
       loading: false,
     };
@@ -175,6 +225,26 @@ export default Vue.extend({
   methods: {
     submit(values) {
       console.log(values);
+    },
+
+    removeTag(tagId) {
+      const tagIndex = this.form.tags.findIndex((tag) => tag.id === tagId);
+      this.form.tags.splice(tagIndex, 1);
+    },
+
+    handleSelectTag(tag) {
+      console.log(tag);
+    },
+
+    // TODO: handle tag search and add
+    handleSelectHeaderTag() {
+      if (this.tagSearch) {
+        this.form.tags.push({
+          id: this.form.tags[this.form.tags.length - 1].id + 1,
+          value: this.tagSearch,
+        });
+        this.tagSearch = null;
+      }
     },
   },
 });
