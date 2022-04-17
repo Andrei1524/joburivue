@@ -102,7 +102,7 @@
               </b-field>
             </ValidationProvider>
 
-            <div class="tags-section">
+            <div class="tags-section mb-5">
               <b-field label="Taguri" grouped group-multiline>
                 <b-field class="w-100 mb-2">
                   <div v-for="tag in form.tags" :key="tag.id" class="control">
@@ -137,6 +137,24 @@
                 </b-field>
               </b-field>
             </div>
+
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              rules="required"
+              name="job_location"
+              class="d-block mb-52"
+            >
+              <b-field
+                label="Locatia jobului"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input
+                  v-model="form.location"
+                  placeholder="Introdu o locatie"
+                ></b-input>
+              </b-field>
+            </ValidationProvider>
 
             <b-button
               :loading="loading"
@@ -215,6 +233,7 @@ export default Vue.extend({
             value: "Node",
           },
         ],
+        location: "",
       },
       loading: false,
     };
