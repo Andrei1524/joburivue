@@ -82,6 +82,26 @@
               </ValidationProvider>
             </b-field>
 
+            <ValidationProvider
+              v-slot="{ errors, valid }"
+              rules="required"
+              name="job_description"
+              class="d-block mb-5"
+            >
+              <b-field
+                label="Descriere job"
+                :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                :message="errors"
+              >
+                <b-input
+                  v-model="form.description"
+                  maxlength="500"
+                  type="textarea"
+                  placeholder="Descrie jobul cat mai clar!"
+                ></b-input>
+              </b-field>
+            </ValidationProvider>
+
             <b-button
               :loading="loading"
               type="is-primary"
@@ -144,6 +164,7 @@ export default Vue.extend({
         title: "",
         type: "",
         level: "",
+        description: "",
       },
       loading: false,
     };
