@@ -13,6 +13,7 @@
               v-slot="{ errors, valid }"
               rules="required"
               name="job_title"
+              class="d-block mb-5"
             >
               <b-field
                 label="Titlu Job"
@@ -25,6 +26,43 @@
                 ></b-input>
               </b-field>
             </ValidationProvider>
+
+            <b-field grouped>
+              <ValidationProvider
+                v-slot="{ errors, valid }"
+                class="d-block w-100 mr-5"
+                rules="required"
+                name="job_type"
+              >
+                <b-field
+                  label="Tipul jobului"
+                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                  :message="errors"
+                >
+                  <b-input
+                    v-model="form.type"
+                    placeholder="Adauga titlul"
+                  ></b-input>
+                </b-field>
+              </ValidationProvider>
+              <ValidationProvider
+                v-slot="{ errors, valid }"
+                class="d-block w-100"
+                rules="required"
+                name="job_level"
+              >
+                <b-field
+                  label="Nivel/optional"
+                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                  :message="errors"
+                >
+                  <b-input
+                    v-model="form.level"
+                    placeholder="Nivelul jobului"
+                  ></b-input>
+                </b-field>
+              </ValidationProvider>
+            </b-field>
 
             <b-button
               :loading="loading"
@@ -72,6 +110,8 @@ export default Vue.extend({
       currentStep: 1,
       form: {
         title: "",
+        type: "",
+        level: "",
       },
       loading: false,
     };
