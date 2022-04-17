@@ -19,7 +19,10 @@
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
-                <b-input v-model="form.title"></b-input>
+                <b-input
+                  v-model="form.title"
+                  placeholder="Adauga titlul"
+                ></b-input>
               </b-field>
             </ValidationProvider>
 
