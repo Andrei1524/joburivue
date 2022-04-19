@@ -172,7 +172,7 @@
                 class="d-block mb-5"
               >
                 <b-field
-                  label="Application target"
+                  label="Link Aplicatie"
                   :type="{ 'is-danger': errors[0], 'is-success': valid }"
                   :message="errors"
                 >
@@ -200,7 +200,7 @@
                     :message="errors"
                   >
                     <b-select
-                      v-model="form.type"
+                      v-model="form.currency"
                       placeholder="Selecteaza o valuta"
                       expanded
                     >
@@ -337,6 +337,7 @@ export default Vue.extend({
         location: "",
         applicationTarget: "",
         salaryRange: [],
+        currency: "",
         minSalary: "",
         maxSalary: "",
       },
