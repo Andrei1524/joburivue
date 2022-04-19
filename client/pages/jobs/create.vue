@@ -183,6 +183,75 @@
                 </b-field>
               </ValidationProvider>
             </div>
+            <div class="compensation w-100">
+              <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
+              <hr class="mt-0" />
+
+              <b-field grouped>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  class="d-block w-100 mr-5"
+                  rules="required"
+                  name="job_currency"
+                >
+                  <b-field
+                    label="Valută"
+                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                    :message="errors"
+                  >
+                    <b-select
+                      v-model="form.type"
+                      placeholder="Selecteaza o valuta"
+                      expanded
+                    >
+                      <option
+                        v-for="option in jobCurrencies"
+                        :key="option.value"
+                        :value="option.value"
+                      >
+                        {{ option.label }}
+                      </option>
+                    </b-select>
+                  </b-field>
+                </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  class="d-block w-100 mr-5"
+                  rules="required"
+                  name="job_min_salary"
+                >
+                  <b-field
+                    label="Salariu Minim"
+                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                    :message="errors"
+                  >
+                    <b-input
+                      v-model="form.minSalary"
+                      placeholder="Adauga salariu minim"
+                      expanded
+                    ></b-input>
+                  </b-field>
+                </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors, valid }"
+                  class="d-block w-100 mr-5"
+                  rules="required"
+                  name="job_max_salary"
+                >
+                  <b-field
+                    label="Salariu Maxim"
+                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                    :message="errors"
+                  >
+                    <b-input
+                      v-model="form.maxSalary"
+                      placeholder="Adauga salariu maxim"
+                      expanded
+                    ></b-input>
+                  </b-field>
+                </ValidationProvider>
+              </b-field>
+            </div>
 
             <b-button
               :loading="loading"
@@ -243,6 +312,10 @@ export default Vue.extend({
         { value: "senior", label: "Senior" },
         { value: "lead", label: "Lead" },
       ],
+      jobCurrencies: [
+        { value: "euro", label: "Euro" },
+        { value: "ron", label: "RON" },
+      ],
       currentStep: 1,
       tagSearch: "",
       tagsData: [],
@@ -263,6 +336,9 @@ export default Vue.extend({
         ],
         location: "",
         applicationTarget: "",
+        salaryRange: [],
+        minSalary: "",
+        maxSalary: "",
       },
       loading: false,
     };
