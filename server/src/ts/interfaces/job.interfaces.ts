@@ -12,7 +12,6 @@ interface JobInterface {
   tags: [string];
   location: string;
   remoteType: string;
-  howToApply: string;
   applicationTarget: string;
   currency: string | Types.ObjectId;
   minSalary: number;

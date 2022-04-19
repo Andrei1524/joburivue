@@ -26,7 +26,6 @@ function create(payload) {
                 tags: payload.tags,
                 location: payload.location,
                 remoteType: payload.remoteType,
-                howToApply: payload.howToApply,
                 applicationTarget: payload.applicationTarget,
                 currency: payload.currency,
                 minSalary: payload.minSalary,

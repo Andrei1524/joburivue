@@ -14,24 +14,11 @@ const JobSchema = new mongoose_1.Schema({
     tags: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Tag", required: false }],
     location: { type: String, required: true },
     remoteType: { type: String, required: false },
-    howToApply: { type: String, required: true },
     applicationTarget: { type: String, required: true },
     currency: { type: mongoose_1.Schema.Types.ObjectId, ref: "Currency", required: false },
     minSalary: { type: Number, required: false },
     maxSalary: { type: Number, required: false },
 });
-// JobSchema.index({
-//   title: "text",
-//   company: "text",
-//   type: "text",
-//   level: "text",
-//   description: "text",
-//   tags: "text",
-//   location: "text",
-//   remoteType: "text",
-//   minSalary: "text",
-//   maxSalary: "text",
-// });
 JobSchema.index({ "$**": "text" });
 const Job = (0, mongoose_1.model)("Job", JobSchema);
 module.exports = Job;

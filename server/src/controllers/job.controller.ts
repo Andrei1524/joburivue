@@ -32,11 +32,6 @@ const createJobValidate = [
       }
     }) // TODO: add remote types to a TS types
     .withMessage("Locatia este necesara daca jobul este optional remote!"),
-  check("howToApply")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("Adaugati instructiuni de aplicare!"),
   check("applicationTarget")
     .exists()
     .not()

@@ -348,8 +348,8 @@ export default Vue.extend({
   mounted() {},
 
   methods: {
-    submit(values) {
-      console.log(values);
+    submit() {
+      console.log(this.form);
     },
 
     removeTag(tagId) {
