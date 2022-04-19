@@ -259,7 +259,6 @@
               size="is-medium"
               class="orange-btn mt-5"
               icon-left="login"
-              expanded
               @click="handleSubmit(submit)"
             >
               Salveaza si previzualizeaza!

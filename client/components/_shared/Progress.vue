@@ -7,6 +7,7 @@
     >
       <b-icon :icon="step.icon" size="is-medium" />
       <span>{{ step.title }}</span>
+      <span class="li-bottom"></span>
     </li>
   </ul>
 </template>
@@ -39,6 +40,7 @@ export default Vue.extend({
   },
 
   methods: {
+    // TODO: handle style bottom line of progress
     initProgress() {
       const maxWidth = 600;
       const liList = document.querySelectorAll(".process-steps li");
@@ -55,8 +57,9 @@ export default Vue.extend({
           const liWidth = liItem.getBoundingClientRect().width;
           lineSpan = document.createElement("span");
           lineSpan.classList.add("line");
-          lineSpan.style.width = maxWidth / 2 - liWidth - liWidth / 2 + "px";
-          lineSpan.style.left = liWidth + "px";
+          lineSpan.style.width =
+            maxWidth / 2 - liWidth - liWidth / 2 - 6 + "px";
+          lineSpan.style.left = liWidth + 2.5 + "px";
 
           liItem.appendChild(lineSpan);
         }
@@ -84,6 +87,19 @@ export default Vue.extend({
   li {
     position: relative;
     width: 72px;
+    height: 72px;
+    box-sizing: border-box;
+    justify-content: center;
+
+    .li-bottom {
+      height: 4px;
+      width: 100%;
+      display: block;
+      background-color: #bbbec4;
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+    }
   }
 }
 
