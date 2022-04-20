@@ -2,26 +2,40 @@
   <div class="create-job">
     <h1 class="title is-2 has-text-centered">Adauga un job</h1>
     <div class="container is-max-desktop">
-      <!-- Refactor AppProgress to handle page prorgress using slots -->
-      <AppProgress
-        class="mt-6"
-        :steps="progressSteps"
-        :current-step="currentStep"
-      >
-        <JobDetails v-if="currentStep === 0" @submitJobDetails="nextStep" />
-      </AppProgress>
+      <b-steps :value="currentStep" :has-navigation="false">
+        <b-step-item
+          class="mt-6"
+          :label="progressSteps[0].title"
+          :icon="progressSteps[0].icon"
+        >
+          <JobDetails @submitJobDetails="nextStep" />
+        </b-step-item>
+        <b-step-item
+          class="mt-6"
+          :label="progressSteps[1].title"
+          :icon="progressSteps[1].icon"
+        >
+          <!-- <JobDetails @submitJobDetails="nextStep" /> -->
+        </b-step-item>
+        <b-step-item
+          class="mt-6"
+          :label="progressSteps[2].title"
+          :icon="progressSteps[2].icon"
+        >
+          <!-- <JobDetails @submitJobDetails="nextStep" /> -->
+        </b-step-item>
+      </b-steps>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import AppProgress from "@/components/_shared/Progress.vue";
 import JobDetails from "@/components/jobs/create/JobDetails.vue";
 
 export default Vue.extend({
   name: "JobCreate",
-  components: { AppProgress, JobDetails },
+  components: { JobDetails },
   middleware: "auth",
 
   // TODO: refactor whole component into smaller ones

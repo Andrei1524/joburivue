@@ -331,7 +331,11 @@ export default Vue.extend({
   },
 
   created() {
-    console.log(this.$route);
+    const { query } = this.$route;
+
+    if (query.id.length > 0 && query.option.length > 0) {
+      console.log("get job");
+    }
   },
 
   methods: {
