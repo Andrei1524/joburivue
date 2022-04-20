@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 async function create(payload: JobInterface) {
   try {
-    const newJob = await new Job({
+    const newJob = {
       jobId: nanoid(8),
       title: payload.title,
       company: payload.company,
@@ -19,8 +19,14 @@ async function create(payload: JobInterface) {
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
       createdBy: payload.createdBy._id,
-    });
-    return await newJob.save();
+    };
+
+    if (payload.jobId) {
+      newJob.jobId = payload.jobId;
+      return Job.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+    } else {
+      return new Job({ ...newJob }).save();
+    }
   } catch (error) {
     throw (error as Error).message;
   }

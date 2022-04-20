@@ -104,8 +104,10 @@
               <div class="tags-section mb-5">
                 <b-field label="Taguri" grouped group-multiline>
                   <b-field class="w-100 mb-2">
-                    <div v-for="tag in form.tags" :key="tag.id" class="control">
+                    <div v-for="tag in form.tags" class="control">
+                      <!-- TODO: handle fix NULL tags, get tags from BE -->
                       <b-tag
+                        v-if="tag"
                         type="is-primary"
                         attached
                         aria-close-label="Close tag"

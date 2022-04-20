@@ -18,7 +18,7 @@ const nanoid_1 = require("nanoid");
 function create(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newJob = yield new job_model_1.default({
+            const newJob = {
                 jobId: (0, nanoid_1.nanoid)(8),
                 title: payload.title,
                 company: payload.company,
@@ -33,8 +33,14 @@ function create(payload) {
                 minSalary: payload.minSalary,
                 maxSalary: payload.maxSalary,
                 createdBy: payload.createdBy._id,
-            });
-            return yield newJob.save();
+            };
+            if (payload.jobId) {
+                newJob.jobId = payload.jobId;
+                return job_model_1.default.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+            }
+            else {
+                return new job_model_1.default(Object.assign({}, newJob)).save();
+            }
         }
         catch (error) {
             throw error.message;
