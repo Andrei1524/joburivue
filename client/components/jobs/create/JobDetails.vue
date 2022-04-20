@@ -267,6 +267,7 @@
 <script lang="ts">
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Vue from "vue";
+import _ from "lodash";
 import * as JobService from "~/services/job.service";
 
 export default Vue.extend({
@@ -330,11 +331,13 @@ export default Vue.extend({
     };
   },
 
-  created() {
+  async created() {
     const { query } = this.$route;
 
-    if (query.id.length > 0 && query.option.length > 0) {
-      console.log("get job");
+    if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
+      // TODO: handle get one job by id
+      const job = await JobService.getJob(this.$axios, query.id);
+      console.log(job);
     }
   },
 

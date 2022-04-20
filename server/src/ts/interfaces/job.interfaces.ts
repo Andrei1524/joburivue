@@ -4,7 +4,7 @@ import { jobTypeTypes } from "../types/job.types";
 
 interface JobInterface {
   _id: string;
-  tempJobId: string;
+  jobId: string;
   title: string;
   company: CompanyInterface;
   type: jobTypeTypes;

@@ -4,7 +4,7 @@ import { JobInterface } from "../ts/interfaces/job.interfaces";
 //Types.ObjectId
 
 const JobSchema = new Schema<JobInterface>({
-  tempJobId: { type: String, required: true },
+  jobId: { type: String, required: true },
   title: {
     type: String,
     required: true,

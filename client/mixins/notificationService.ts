@@ -1,8 +1,6 @@
 export const notificationServiceMixin = {
   created() {
     this.$nuxt.$on("startNotificationService", ({ type, error }) => {
-      console.log("emit");
-
       if (type === "showError") {
         if (error.response.data.errors) {
           this.$buefy.toast.open({
@@ -16,7 +14,7 @@ export const notificationServiceMixin = {
         } else {
           this.$buefy.toast.open({
             duration: 5000,
-            message: error.response.data.message,
+            message: error.response.data.message || error.response.data.error,
             position: "is-top-right",
             type: "is-danger",
           });

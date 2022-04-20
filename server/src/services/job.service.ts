@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 async function create(payload: JobInterface) {
   try {
     const newJob = await new Job({
-      tempJobId: nanoid(5),
+      jobId: nanoid(8),
       title: payload.title,
       company: payload.company,
       type: payload.type,

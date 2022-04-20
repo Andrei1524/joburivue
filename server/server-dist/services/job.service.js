@@ -19,7 +19,7 @@ function create(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newJob = yield new job_model_1.default({
-                tempJobId: (0, nanoid_1.nanoid)(5),
+                jobId: (0, nanoid_1.nanoid)(8),
                 title: payload.title,
                 company: payload.company,
                 type: payload.type,

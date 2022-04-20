@@ -4,21 +4,18 @@
     <div class="container is-max-desktop">
       <b-steps :value="currentStep" :has-navigation="false">
         <b-step-item
-          class="mt-6"
           :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
         >
           <JobDetails @submitJobDetails="nextStep" />
         </b-step-item>
         <b-step-item
-          class="mt-6"
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
           <!-- <JobDetails @submitJobDetails="nextStep" /> -->
         </b-step-item>
         <b-step-item
-          class="mt-6"
           :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
         >
