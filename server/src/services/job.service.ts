@@ -67,4 +67,13 @@ async function getJobs(query: any, page: number, limit: number) {
   }
 }
 
-export { create, getJobs };
+async function getJob(jobId: any) {
+  try {
+    const foundJob = Job.findOne({ jobId });
+    return foundJob;
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { create, getJobs, getJob };

@@ -79,4 +79,18 @@ async function getJobs(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { create, getJobs, createJobValidate };
+async function getJob(req: Request, res: Response, next: NextFunction) {
+  try {
+    const job = await JobService.getJob(req.params.jobId);
+
+    return res.status(200).json(job);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+}
+
+export { create, getJobs, getJob, createJobValidate };

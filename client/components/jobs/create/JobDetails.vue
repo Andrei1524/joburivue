@@ -337,7 +337,7 @@ export default Vue.extend({
     if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
       // TODO: handle get one job by id
       const job = await JobService.getJob(this.$axios, query.id);
-      console.log(job);
+      this.form = { ...job };
     }
   },
 
@@ -351,9 +351,13 @@ export default Vue.extend({
         tags: tagsIds,
         company: "353aaaf5b353",
       };
-      // await JobService.createJob(this.$axios, payload);
 
-      this.$emit("submitJobDetails");
+      try {
+        const createdJob = await JobService.createJob(this.$axios, payload);
+        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
+
+        this.$emit("submitJobDetails");
+      } catch (error) {}
     },
 
     removeTag(tagId) {

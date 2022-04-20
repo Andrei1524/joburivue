@@ -56,11 +56,39 @@ export default Vue.extend({
     };
   },
 
-  mounted() {},
+  watch: {
+    $route() {
+      this.redirectToStepsFromQuery();
+    },
+  },
+
+  created() {
+    this.redirectToStepsFromQuery();
+  },
 
   methods: {
     nextStep() {
       this.currentStep += 1;
+    },
+
+    redirectToStepsFromQuery() {
+      const { query } = this.$route;
+      if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
+        // TODO: handle get one job by id
+        switch (query.option) {
+          case "edit":
+            this.currentStep = 0;
+            break;
+
+          case "preview":
+            this.currentStep = 1;
+            break;
+
+          case "checkout":
+            this.currentStep = 2;
+            break;
+        }
+      }
     },
   },
 });

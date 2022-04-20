@@ -1,12 +1,14 @@
 async function createJob(axios: any, payload: any) {
   try {
-    await axios.post("/jobs/create", { ...payload });
+    const response = await axios.post("/jobs/create", { ...payload });
+    return response.data;
   } catch (error) {}
 }
 
 async function getJob(axios: any, id: any) {
   try {
-    await axios.get(`/jobs/${id}`);
+    const response = await axios.get(`/jobs/${id}`);
+    return response.data;
   } catch (error) {}
 }
 

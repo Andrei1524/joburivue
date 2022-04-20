@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getJobs = exports.create = void 0;
+exports.getJob = exports.getJobs = exports.create = void 0;
 const job_model_1 = __importDefault(require("../model/job.model"));
 const nanoid_1 = require("nanoid");
 function create(payload) {
@@ -84,3 +84,15 @@ function getJobs(query, page, limit) {
     });
 }
 exports.getJobs = getJobs;
+function getJob(jobId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const foundJob = job_model_1.default.findOne({ jobId });
+            return foundJob;
+        }
+        catch (error) {
+            throw error.message;
+        }
+    });
+}
+exports.getJob = getJob;

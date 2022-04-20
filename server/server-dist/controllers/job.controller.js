@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createJobValidate = exports.getJobs = exports.create = void 0;
+exports.createJobValidate = exports.getJob = exports.getJobs = exports.create = void 0;
 const JobService = __importStar(require("../services/job.service"));
 const { check, validationResult } = require("express-validator");
 const config_1 = require("../config");
@@ -112,3 +112,20 @@ function getJobs(req, res, next) {
     });
 }
 exports.getJobs = getJobs;
+function getJob(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const job = yield JobService.getJob(req.params.jobId);
+            return res.status(200).json(job);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: error });
+            }
+        }
+    });
+}
+exports.getJob = getJob;
