@@ -79,8 +79,8 @@ function create(req, res, next) {
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
             }
-            yield JobService.create(payload);
-            return res.sendStatus(200);
+            const job = yield JobService.create(Object.assign(Object.assign({}, payload), { createdBy: req.user }));
+            return res.status(200).json(job);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -98,8 +98,8 @@ function getJobs(req, res, next) {
         try {
             const page = req.query.page ? req.query.page : 1;
             const searchString = req.query.search;
-            const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.limit);
-            return res.status(200).json({ data: jobs, total_items, limit: config_1.limit });
+            const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.pageLimit);
+            return res.status(200).json({ data: jobs, total_items, pageLimit: config_1.pageLimit });
         }
         catch (error) {
             if (error instanceof Error) {

@@ -4,6 +4,7 @@ import { JobInterface } from "../ts/interfaces/job.interfaces";
 //Types.ObjectId
 
 const JobSchema = new Schema<JobInterface>({
+  tempJobId: { type: String, required: true },
   title: {
     type: String,
     required: true,
@@ -16,9 +17,10 @@ const JobSchema = new Schema<JobInterface>({
   location: { type: String, required: true },
   remoteType: { type: String, required: false },
   applicationTarget: { type: String, required: true },
-  currency: { type: Schema.Types.ObjectId, ref: "Currency", required: false },
+  currency: { type: String, required: true },
   minSalary: { type: Number, required: false },
   maxSalary: { type: Number, required: false },
+  createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 JobSchema.index({ "$**": "text" });

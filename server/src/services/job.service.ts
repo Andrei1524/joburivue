@@ -1,10 +1,11 @@
 import Job from "../model/job.model";
-import { limit } from "../config";
 import { JobInterface } from "../ts/interfaces/job.interfaces";
+import { nanoid } from "nanoid";
 
 async function create(payload: JobInterface) {
   try {
     const newJob = await new Job({
+      tempJobId: nanoid(5),
       title: payload.title,
       company: payload.company,
       type: payload.type,
@@ -17,6 +18,7 @@ async function create(payload: JobInterface) {
       currency: payload.currency,
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
+      createdBy: payload.createdBy._id,
     });
     return await newJob.save();
   } catch (error) {

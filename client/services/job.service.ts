@@ -1,8 +1,6 @@
-async function saveJob(axios: any, payload: any) {
+async function createJob(axios: any, payload: any) {
   try {
     await axios.post("/jobs/create", { ...payload });
-  } catch (error) {
-    throw Error;
-  }
+  } catch (error) {}
 }
-export { saveJob };
+export { createJob };

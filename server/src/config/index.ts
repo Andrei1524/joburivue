@@ -1,1 +1,1 @@
-export const limit = 10;
+export const pageLimit = 10;

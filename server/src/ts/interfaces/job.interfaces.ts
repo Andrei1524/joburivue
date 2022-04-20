@@ -4,6 +4,7 @@ import { jobTypeTypes } from "../types/job.types";
 
 interface JobInterface {
   _id: string;
+  tempJobId: string;
   title: string;
   company: CompanyInterface;
   type: jobTypeTypes;
@@ -13,9 +14,10 @@ interface JobInterface {
   location: string;
   remoteType: string;
   applicationTarget: string;
-  currency: string | Types.ObjectId;
+  currency: string;
   minSalary: number;
   maxSalary: number;
+  createdBy: Types.ObjectId;
 }
 
 export { JobInterface };

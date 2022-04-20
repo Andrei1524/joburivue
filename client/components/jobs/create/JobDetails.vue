@@ -267,6 +267,7 @@
 <script lang="ts">
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Vue from "vue";
+import * as JobService from "~/services/job.service";
 
 export default Vue.extend({
   name: "JobDetails",
@@ -303,13 +304,15 @@ export default Vue.extend({
         type: "",
         level: "",
         description: "",
+
+        // TODO: get Tags from BE
         tags: [
           {
-            id: 0,
+            id: "353aaaf5b353",
             value: "Vue.js",
           },
           {
-            id: 1,
+            id: "353aabf5b353",
             value: "Node",
           },
         ],
@@ -325,7 +328,16 @@ export default Vue.extend({
   },
 
   methods: {
-    submit() {
+    async submit() {
+      // TODO: handle company ID from actual company
+
+      const tagsIds = this.form.tags.map((tag) => tag.id);
+      const payload = {
+        ...this.form,
+        tags: tagsIds,
+        company: "353aaaf5b353",
+      };
+      await JobService.createJob(this.$axios, payload);
       this.$emit("submitJobDetails");
     },
 

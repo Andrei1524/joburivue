@@ -3,6 +3,7 @@ const mongoose_1 = require("mongoose");
 // Schema.Types.ObjectId
 //Types.ObjectId
 const JobSchema = new mongoose_1.Schema({
+    tempJobId: { type: String, required: true },
     title: {
         type: String,
         required: true,
@@ -15,9 +16,10 @@ const JobSchema = new mongoose_1.Schema({
     location: { type: String, required: true },
     remoteType: { type: String, required: false },
     applicationTarget: { type: String, required: true },
-    currency: { type: mongoose_1.Schema.Types.ObjectId, ref: "Currency", required: false },
+    currency: { type: String, required: true },
     minSalary: { type: Number, required: false },
     maxSalary: { type: Number, required: false },
+    createdBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
 });
 JobSchema.index({ "$**": "text" });
 const Job = (0, mongoose_1.model)("Job", JobSchema);
