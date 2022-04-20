@@ -23,12 +23,14 @@ import Pagination from "~/components/_shared/Pagination.vue";
 
 export default Vue.extend({
   name: "IndexPage",
+
   components: {
     Pagination,
     Hero,
     JobsList,
     Search,
   },
+
   data() {
     return {
       search: "",

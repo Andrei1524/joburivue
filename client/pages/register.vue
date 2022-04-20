@@ -128,7 +128,7 @@ export default Vue.extend({
     async submit() {
       this.loading = true;
       try {
-        await AuthService.registerUser(this, this.$axios, this.form);
+        await AuthService.registerUser(this.$axios, this.form);
         this.$router.replace("/");
       } catch (error) {}
       this.loading = false;
