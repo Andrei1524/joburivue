@@ -8,7 +8,7 @@
         :steps="progressSteps"
         :current-step="currentStep"
       />
-      <JobDetails />
+      <JobDetails @submitJobDetails="nextStep" />
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default Vue.extend({
   // TODO: refactor whole component into smaller ones
   data() {
     return {
-      currentStep: 1,
+      currentStep: 0,
       progressSteps: [
         {
           title: "Detalii job",
@@ -46,7 +46,11 @@ export default Vue.extend({
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    nextStep() {
+      this.currentStep += 1;
+    },
+  },
 });
 </script>
 

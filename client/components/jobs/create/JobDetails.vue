@@ -327,7 +327,7 @@ export default Vue.extend({
 
   methods: {
     submit() {
-      console.log(this.form);
+      this.$emit("submitJobDetails");
     },
 
     removeTag(tagId) {
