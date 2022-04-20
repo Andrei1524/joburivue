@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <h1 class="title is-1 has-text-centered mt-6">Intră în contul tău</h1>
+    <h1 class="title is-1 has-text-centered">Intră în contul tău</h1>
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <div class="login">

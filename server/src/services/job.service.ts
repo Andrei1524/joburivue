@@ -1,10 +1,11 @@
 import Job from "../model/job.model";
-import { limit } from "../config";
 import { JobInterface } from "../ts/interfaces/job.interfaces";
+import { nanoid } from "nanoid";
 
 async function create(payload: JobInterface) {
   try {
-    const newJob = await new Job({
+    const newJob = {
+      jobId: nanoid(8),
       title: payload.title,
       company: payload.company,
       type: payload.type,
@@ -13,13 +14,19 @@ async function create(payload: JobInterface) {
       tags: payload.tags,
       location: payload.location,
       remoteType: payload.remoteType,
-      howToApply: payload.howToApply,
       applicationTarget: payload.applicationTarget,
       currency: payload.currency,
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
-    });
-    return await newJob.save();
+      createdBy: payload.createdBy._id,
+    };
+
+    if (payload.jobId) {
+      newJob.jobId = payload.jobId;
+      return Job.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+    } else {
+      return new Job({ ...newJob }).save();
+    }
   } catch (error) {
     throw (error as Error).message;
   }
@@ -66,4 +73,13 @@ async function getJobs(query: any, page: number, limit: number) {
   }
 }
 
-export { create, getJobs };
+async function getJob(jobId: any) {
+  try {
+    const foundJob = Job.findOne({ jobId });
+    return foundJob;
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { create, getJobs, getJob };

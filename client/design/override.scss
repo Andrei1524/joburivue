@@ -27,7 +27,7 @@
 }
 
 hr {
-  background-color: $chambray-blue;
+  background-color: #cacaca; // TODO: add to varibles
   opacity: 0.3;
 }
 
@@ -42,4 +42,9 @@ hr {
 // ALERT
 .toast {
   white-space: pre;
+}
+
+// STEPS
+.b-steps .steps .step-items .step-item .step-marker {
+  border: 0.2em solid $basic-white;
 }

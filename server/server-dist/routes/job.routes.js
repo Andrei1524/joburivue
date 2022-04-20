@@ -31,4 +31,5 @@ const authenticateJWT_1 = require("../middleware/authenticateJWT");
 const JobController = __importStar(require("../controllers/job.controller"));
 router.post("/create", authenticateJWT_1.authenticateJWT, JobController.createJobValidate, JobController.create);
 router.get("/", JobController.getJobs);
+router.get("/:jobId", JobController.getJob);
 module.exports = router;

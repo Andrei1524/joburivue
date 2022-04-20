@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as JobService from "../services/job.service";
 const { check, validationResult } = require("express-validator");
-import { limit } from "../config";
+import { pageLimit } from "../config";
 
 type remoteTypes = "work_remotely" | "remote_only";
 
@@ -32,11 +32,6 @@ const createJobValidate = [
       }
     }) // TODO: add remote types to a TS types
     .withMessage("Locatia este necesara daca jobul este optional remote!"),
-  check("howToApply")
-    .exists()
-    .not()
-    .isEmpty()
-    .withMessage("Adaugati instructiuni de aplicare!"),
   check("applicationTarget")
     .exists()
     .not()
@@ -52,8 +47,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    await JobService.create(payload);
-    return res.sendStatus(200);
+    const job = await JobService.create({ ...payload, createdBy: req.user });
+    return res.status(200).json(job);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
@@ -71,10 +66,10 @@ async function getJobs(req: Request, res: Response, next: NextFunction) {
     const { jobs, total_items } = await JobService.getJobs(
       searchString,
       Number(page),
-      limit
+      pageLimit
     );
 
-    return res.status(200).json({ data: jobs, total_items, limit });
+    return res.status(200).json({ data: jobs, total_items, pageLimit });
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
@@ -84,4 +79,18 @@ async function getJobs(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { create, getJobs, createJobValidate };
+async function getJob(req: Request, res: Response, next: NextFunction) {
+  try {
+    const job = await JobService.getJob(req.params.jobId);
+
+    return res.status(200).json(job);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+}
+
+export { create, getJobs, getJob, createJobValidate };

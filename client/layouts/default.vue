@@ -14,12 +14,15 @@
 import Vue from "vue";
 import AppNavbar from "~/components/layout/AppNavbar.vue";
 import AppFooter from "~/components/layout/AppFooter.vue";
+import { notificationServiceMixin } from "~/mixins/notificationService";
 
 export default Vue.extend({
   components: {
     AppNavbar,
     AppFooter,
   },
+
+  mixins: [notificationServiceMixin],
 });
 </script>
 

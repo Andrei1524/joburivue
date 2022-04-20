@@ -12,12 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getJobs = exports.create = void 0;
+exports.getJob = exports.getJobs = exports.create = void 0;
 const job_model_1 = __importDefault(require("../model/job.model"));
+const nanoid_1 = require("nanoid");
 function create(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newJob = yield new job_model_1.default({
+            const newJob = {
+                jobId: (0, nanoid_1.nanoid)(8),
                 title: payload.title,
                 company: payload.company,
                 type: payload.type,
@@ -26,13 +28,19 @@ function create(payload) {
                 tags: payload.tags,
                 location: payload.location,
                 remoteType: payload.remoteType,
-                howToApply: payload.howToApply,
                 applicationTarget: payload.applicationTarget,
                 currency: payload.currency,
                 minSalary: payload.minSalary,
                 maxSalary: payload.maxSalary,
-            });
-            return yield newJob.save();
+                createdBy: payload.createdBy._id,
+            };
+            if (payload.jobId) {
+                newJob.jobId = payload.jobId;
+                return job_model_1.default.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+            }
+            else {
+                return new job_model_1.default(Object.assign({}, newJob)).save();
+            }
         }
         catch (error) {
             throw error.message;
@@ -82,3 +90,15 @@ function getJobs(query, page, limit) {
     });
 }
 exports.getJobs = getJobs;
+function getJob(jobId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const foundJob = job_model_1.default.findOne({ jobId });
+            return foundJob;
+        }
+        catch (error) {
+            throw error.message;
+        }
+    });
+}
+exports.getJob = getJob;

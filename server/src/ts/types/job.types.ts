@@ -2,7 +2,7 @@
 type jobLevelTypes =
   | "Begginer"
   | "Junior"
-  | "Mid-evel"
+  | "Mid-level"
   | "Senior"
   | "Lead"
   | "manager";

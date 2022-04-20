@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createJobValidate = exports.getJobs = exports.create = void 0;
+exports.createJobValidate = exports.getJob = exports.getJobs = exports.create = void 0;
 const JobService = __importStar(require("../services/job.service"));
 const { check, validationResult } = require("express-validator");
 const config_1 = require("../config");
@@ -64,11 +64,6 @@ const createJobValidate = [
         }
     }) // TODO: add remote types to a TS types
         .withMessage("Locatia este necesara daca jobul este optional remote!"),
-    check("howToApply")
-        .exists()
-        .not()
-        .isEmpty()
-        .withMessage("Adaugati instructiuni de aplicare!"),
     check("applicationTarget")
         .exists()
         .not()
@@ -84,8 +79,8 @@ function create(req, res, next) {
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
             }
-            yield JobService.create(payload);
-            return res.sendStatus(200);
+            const job = yield JobService.create(Object.assign(Object.assign({}, payload), { createdBy: req.user }));
+            return res.status(200).json(job);
         }
         catch (error) {
             if (error instanceof Error) {
@@ -103,8 +98,8 @@ function getJobs(req, res, next) {
         try {
             const page = req.query.page ? req.query.page : 1;
             const searchString = req.query.search;
-            const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.limit);
-            return res.status(200).json({ data: jobs, total_items, limit: config_1.limit });
+            const { jobs, total_items } = yield JobService.getJobs(searchString, Number(page), config_1.pageLimit);
+            return res.status(200).json({ data: jobs, total_items, pageLimit: config_1.pageLimit });
         }
         catch (error) {
             if (error instanceof Error) {
@@ -117,3 +112,20 @@ function getJobs(req, res, next) {
     });
 }
 exports.getJobs = getJobs;
+function getJob(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const job = yield JobService.getJob(req.params.jobId);
+            return res.status(200).json(job);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: error });
+            }
+        }
+    });
+}
+exports.getJob = getJob;
