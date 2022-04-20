@@ -1,8 +1,11 @@
 <template>
   <b-steps :value="currentStep" :has-navigation="false">
-    <b-step-item label="Account" icon="account-key"></b-step-item>
-    <b-step-item label="Profile" icon="account"></b-step-item>
-    <b-step-item label="Social" icon="account-plus"></b-step-item>
+    <b-step-item
+      v-for="step in steps"
+      :key="step.title"
+      :label="step.title"
+      :icon="step.icon"
+    ></b-step-item>
   </b-steps>
 </template>
 
