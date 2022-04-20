@@ -7,8 +7,9 @@
         class="mt-6"
         :steps="progressSteps"
         :current-step="currentStep"
-      />
-      <JobDetails @submitJobDetails="nextStep" />
+      >
+        <JobDetails @submitJobDetails="nextStep" />
+      </AppProgress>
     </div>
   </div>
 </template>

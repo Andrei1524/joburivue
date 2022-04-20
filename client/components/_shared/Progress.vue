@@ -5,7 +5,9 @@
       :key="step.title"
       :label="step.title"
       :icon="step.icon"
-    ></b-step-item>
+    >
+      <slot></slot>
+    </b-step-item>
   </b-steps>
 </template>
 

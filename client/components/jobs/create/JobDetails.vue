@@ -330,6 +330,10 @@ export default Vue.extend({
     };
   },
 
+  created() {
+    console.log(this.$route);
+  },
+
   methods: {
     async submit() {
       // TODO: handle company ID from actual company
@@ -340,7 +344,8 @@ export default Vue.extend({
         tags: tagsIds,
         company: "353aaaf5b353",
       };
-      await JobService.createJob(this.$axios, payload);
+      // await JobService.createJob(this.$axios, payload);
+
       this.$emit("submitJobDetails");
     },
 
