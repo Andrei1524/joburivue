@@ -8,7 +8,7 @@
         :steps="progressSteps"
         :current-step="currentStep"
       >
-        <JobDetails @submitJobDetails="nextStep" />
+        <JobDetails v-if="currentStep === 0" @submitJobDetails="nextStep" />
       </AppProgress>
     </div>
   </div>
