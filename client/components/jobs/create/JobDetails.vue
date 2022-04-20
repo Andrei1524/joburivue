@@ -319,6 +319,9 @@ export default Vue.extend({
         location: "",
         applicationTarget: "",
         salaryRange: [],
+
+        // TODO: handle remoteType
+        remoteType: "remote_allowed",
         currency: "",
         minSalary: "",
         maxSalary: "",
