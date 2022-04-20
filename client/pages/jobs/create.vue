@@ -1,6 +1,6 @@
 <template>
   <div class="create-job">
-    <h1 class="title is-2 has-text-centered mt-5">Adauga un job</h1>
+    <h1 class="title is-2 has-text-centered">Adauga un job</h1>
     <div class="container is-max-desktop">
       <!-- Refactor AppProgress to handle page prorgress using slots -->
       <AppProgress
