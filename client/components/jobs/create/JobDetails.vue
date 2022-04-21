@@ -78,32 +78,6 @@
                   :rules="'required'"
                   :placeholder="'Selecteaza o valuta'"
                 />
-                <!-- <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_currency"
-                >
-                  <b-field
-                    label="Valută"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.currency"
-                      placeholder="Selecteaza o valuta"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobCurrencies"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider> -->
 
                 <Input
                   v-model.trim="form.minSalary"
