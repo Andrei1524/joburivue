@@ -70,69 +70,35 @@
                 </ValidationProvider>
               </b-field>
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_description"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Descriere job"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.description"
-                    maxlength="500"
-                    type="textarea"
-                    placeholder="Descrie jobul cat mai clar!"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.description"
+                :label="'Descriere job'"
+                :rules="'required'"
+                :placeholder="'Descrie jobul cat mai clar!'"
+                :type="'textarea'"
+              />
 
               <div class="tags-section mb-5">
                 <TagSearch v-model.trim="form.tags" />
               </div>
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_location"
-                class="d-block mb-52"
-              >
-                <b-field
-                  label="Locatia jobului"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.location"
-                    placeholder="Introdu o locatie"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.location"
+                :label="'Locatia jobului'"
+                :rules="'required'"
+                :placeholder="'Introdu o locatie'"
+              />
             </div>
             <div class="application w-100">
               <h5 class="title is-5 mt-6 mb-4">Aplicare</h5>
               <hr class="mt-0" />
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_application_target"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Link Aplicatie"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.applicationTarget"
-                    placeholder="Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL."
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.applicationTarget"
+                :label="'Link Aplicatie'"
+                :rules="'required'"
+                :placeholder="'Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.'"
+              />
             </div>
             <div class="compensation w-100">
               <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
@@ -165,42 +131,22 @@
                     </b-select>
                   </b-field>
                 </ValidationProvider>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_min_salary"
-                >
-                  <b-field
-                    label="Salariu Minim"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-input
-                      v-model="form.minSalary"
-                      placeholder="Adauga salariu minim"
-                      expanded
-                    ></b-input>
-                  </b-field>
-                </ValidationProvider>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_max_salary"
-                >
-                  <b-field
-                    label="Salariu Maxim"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-input
-                      v-model="form.maxSalary"
-                      placeholder="Adauga salariu maxim"
-                      expanded
-                    ></b-input>
-                  </b-field>
-                </ValidationProvider>
+
+                <Input
+                  v-model.trim="form.minSalary"
+                  :label="'Salariu Minim'"
+                  :rules="'required'"
+                  :placeholder="'Adauga salariu minim'"
+                  :expanded="true"
+                />
+
+                <Input
+                  v-model.trim="form.maxSalary"
+                  :label="'Salariu Maxim'"
+                  :rules="'required'"
+                  :placeholder="'Adauga salariu maxim'"
+                  :expanded="true"
+                />
               </b-field>
             </div>
 

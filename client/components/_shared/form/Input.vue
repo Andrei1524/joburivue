@@ -10,8 +10,10 @@
       :message="errors"
     >
       <b-input
+        :type="type"
         :value="value"
         :placeholder="placeholder"
+        :expanded="expanded"
         @input="$emit('input', $event)"
       ></b-input>
     </b-field>
@@ -46,6 +48,16 @@ export default Vue.extend({
     placeholder: {
       type: String,
       default: "",
+    },
+
+    type: {
+      type: String,
+      default: "",
+    },
+
+    expanded: {
+      type: Boolean,
+      default: false,
     },
   },
 
