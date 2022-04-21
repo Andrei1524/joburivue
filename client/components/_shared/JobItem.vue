@@ -39,7 +39,7 @@
 <script lang="ts">
 import Vue from "vue";
 // import { JobInterface } from "../../../server/src/ts/interfaces/job.interfaces";
-import Tag from "~/components/_shared/Tag.vue";
+import Tag from "~/components/_shared/JobItemTag.vue";
 
 export default Vue.extend({
   name: "JobItem",

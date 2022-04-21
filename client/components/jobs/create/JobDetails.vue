@@ -8,244 +8,94 @@
               <h5 class="title is-5 mt-0 mb-4">Pozitie</h5>
               <hr class="mt-0" />
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_title"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Titlu Job"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.title"
-                    placeholder="Adauga titlul"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.title"
+                :label="'Titlu Job'"
+                :rules="'required'"
+                :placeholder="'Adauga Titlul'"
+              />
 
               <b-field grouped>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_type"
-                >
-                  <b-field
-                    label="Tipul jobului"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.type"
-                      placeholder="Selecteaza un nume"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobTypes"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100"
-                  rules="required"
-                  name="job_level"
-                >
-                  <b-field
-                    label="Nivel/optional"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.level"
-                      placeholder="Selecteaza un nivel"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobLevels"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider>
+                <Select
+                  v-model.trim="form.type"
+                  :options="jobTypes"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Tipul jobului'"
+                  :rules="'required'"
+                  :placeholder="'Selecteaza un nume'"
+                />
+
+                <Select
+                  v-model.trim="form.level"
+                  :options="jobLevels"
+                  :v-observer-class="'d-block w-100'"
+                  :label="'Nivel/optional'"
+                  :rules="'required'"
+                  :placeholder="'Selecteaza un nivel'"
+                />
               </b-field>
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_description"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Descriere job"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.description"
-                    maxlength="500"
-                    type="textarea"
-                    placeholder="Descrie jobul cat mai clar!"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.description"
+                :label="'Descriere job'"
+                :rules="'required'"
+                :placeholder="'Descrie jobul cat mai clar!'"
+                :type="'textarea'"
+              />
 
               <div class="tags-section mb-5">
-                <b-field label="Taguri" grouped group-multiline>
-                  <b-field class="w-100 mb-2">
-                    <div v-for="tag in form.tags" class="control">
-                      <!-- TODO: handle fix NULL tags, get tags from BE -->
-                      <b-tag
-                        v-if="tag"
-                        type="is-primary"
-                        attached
-                        aria-close-label="Close tag"
-                        closable
-                        @close="removeTag(tag.id)"
-                      >
-                        {{ tag.value }}
-                      </b-tag>
-                    </div>
-                  </b-field>
-
-                  <b-field expanded>
-                    <b-autocomplete
-                      v-model="tagSearch"
-                      :data="tagsData"
-                      placeholder="e.g. Vue.js"
-                      icon="magnify"
-                      clearable
-                      selectable-header
-                      @select-header="handleSelectHeaderTag"
-                      @select="handleSelectTag"
-                    >
-                      <template #header>
-                        <a><span> Add new... </span></a>
-                      </template>
-                      <template #empty>No results found</template>
-                    </b-autocomplete>
-                  </b-field>
-                </b-field>
+                <TagSearch v-model.trim="form.tags" />
               </div>
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_location"
-                class="d-block mb-52"
-              >
-                <b-field
-                  label="Locatia jobului"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.location"
-                    placeholder="Introdu o locatie"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.location"
+                :label="'Locatia jobului'"
+                :rules="'required'"
+                :placeholder="'Introdu o locatie'"
+              />
             </div>
             <div class="application w-100">
               <h5 class="title is-5 mt-6 mb-4">Aplicare</h5>
               <hr class="mt-0" />
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_application_target"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Link Aplicatie"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.applicationTarget"
-                    placeholder="Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL."
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.applicationTarget"
+                :label="'Link Aplicatie'"
+                :rules="'required'"
+                :placeholder="'Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.'"
+              />
             </div>
             <div class="compensation w-100">
               <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
               <hr class="mt-0" />
 
               <b-field grouped>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_currency"
-                >
-                  <b-field
-                    label="Valută"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.currency"
-                      placeholder="Selecteaza o valuta"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobCurrencies"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_min_salary"
-                >
-                  <b-field
-                    label="Salariu Minim"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-input
-                      v-model="form.minSalary"
-                      placeholder="Adauga salariu minim"
-                      expanded
-                    ></b-input>
-                  </b-field>
-                </ValidationProvider>
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_max_salary"
-                >
-                  <b-field
-                    label="Salariu Maxim"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-input
-                      v-model="form.maxSalary"
-                      placeholder="Adauga salariu maxim"
-                      expanded
-                    ></b-input>
-                  </b-field>
-                </ValidationProvider>
+                <Select
+                  v-model.trim="form.currency"
+                  :options="jobCurrencies"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Valută'"
+                  :rules="'required'"
+                  :placeholder="'Selecteaza o valuta'"
+                />
+
+                <Input
+                  v-model.trim="form.minSalary"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Salariu Minim'"
+                  :rules="'required'"
+                  :placeholder="'Adauga salariu minim'"
+                  :expanded="true"
+                />
+
+                <Input
+                  v-model.trim="form.maxSalary"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Salariu Maxim'"
+                  :rules="'required'"
+                  :placeholder="'Adauga salariu maxim'"
+                  :expanded="true"
+                />
               </b-field>
             </div>
 
@@ -267,14 +117,23 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver } from "vee-validate";
 import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
+import TagSearch from "~/components/_shared/TagSearch.vue";
+import Input from "~/components/_shared/form/Input.vue";
+import Select from "~/components/_shared/form/Select.vue";
 
 export default Vue.extend({
   name: "JobDetails",
-  components: { ValidationObserver, ValidationProvider },
+  components: {
+    ValidationObserver,
+
+    TagSearch,
+    Input,
+    Select,
+  },
   middleware: "auth",
 
   // TODO: refactor whole component into smaller ones
@@ -301,7 +160,7 @@ export default Vue.extend({
         { value: "ron", label: "RON" },
       ],
       tagSearch: "",
-      tagsData: [],
+
       form: {
         title: "",
         type: "",
@@ -309,16 +168,7 @@ export default Vue.extend({
         description: "",
 
         // TODO: get Tags from BE
-        tags: [
-          {
-            id: "353aaaf5b353",
-            value: "Vue.js",
-          },
-          {
-            id: "353aabf5b353",
-            value: "Node",
-          },
-        ],
+        tags: [],
         location: "",
         applicationTarget: "",
         salaryRange: [],
@@ -360,26 +210,6 @@ export default Vue.extend({
 
         this.$emit("submitJobDetails");
       } catch (error) {}
-    },
-
-    removeTag(tagId) {
-      const tagIndex = this.form.tags.findIndex((tag) => tag.id === tagId);
-      this.form.tags.splice(tagIndex, 1);
-    },
-
-    handleSelectTag(tag) {
-      console.log(tag);
-    },
-
-    // TODO: handle tag search and add
-    handleSelectHeaderTag() {
-      if (this.tagSearch) {
-        this.form.tags.push({
-          id: this.form.tags[this.form.tags.length - 1].id + 1,
-          value: this.tagSearch,
-        });
-        this.tagSearch = null;
-      }
     },
   },
 });
