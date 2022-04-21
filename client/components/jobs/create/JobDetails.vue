@@ -16,7 +16,14 @@
               />
 
               <b-field grouped>
-                <ValidationProvider
+                <Select
+                  v-model.trim="form.type"
+                  :options="jobTypes"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Tipul jobului'"
+                  :rules="'required'"
+                />
+                <!-- <ValidationProvider
                   v-slot="{ errors, valid }"
                   class="d-block w-100 mr-5"
                   rules="required"
@@ -41,7 +48,7 @@
                       </option>
                     </b-select>
                   </b-field>
-                </ValidationProvider>
+                </ValidationProvider> -->
                 <ValidationProvider
                   v-slot="{ errors, valid }"
                   class="d-block w-100"
@@ -176,10 +183,17 @@ import _ from "lodash";
 import * as JobService from "~/services/job.service";
 import TagSearch from "~/components/_shared/TagSearch.vue";
 import Input from "~/components/_shared/form/Input.vue";
+import Select from "~/components/_shared/form/Select.vue";
 
 export default Vue.extend({
   name: "JobDetails",
-  components: { ValidationObserver, ValidationProvider, TagSearch, Input },
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+    TagSearch,
+    Input,
+    Select,
+  },
   middleware: "auth",
 
   // TODO: refactor whole component into smaller ones

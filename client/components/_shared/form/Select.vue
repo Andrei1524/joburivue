@@ -1,22 +1,29 @@
 <template>
   <ValidationProvider
     v-slot="{ errors, valid }"
-    :rules="rules"
-    class="d-block mb-5"
     :class="vObserverClass"
+    rules="required"
+    name="job_type"
   >
     <b-field
-      :label="label"
+      label="Tipul jobului"
       :type="{ 'is-danger': errors[0], 'is-success': valid }"
       :message="errors"
     >
-      <b-input
-        :type="type"
+      <b-select
         :value="value"
-        :placeholder="placeholder"
-        :expanded="expanded"
+        placeholder="Selecteaza un nume"
+        expanded
         @input="$emit('input', $event)"
-      ></b-input>
+      >
+        <option
+          v-for="option in options"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </b-select>
     </b-field>
   </ValidationProvider>
 </template>
@@ -27,7 +34,7 @@ import _ from "lodash";
 import { ValidationProvider } from "vee-validate";
 
 export default Vue.extend({
-  name: "AppFormInput",
+  name: "AppFormSelect",
 
   components: { ValidationProvider },
   props: {
@@ -36,29 +43,9 @@ export default Vue.extend({
       default: "",
     },
 
-    label: {
-      type: String,
-      default: "",
-    },
-
-    rules: {
-      type: String,
-      default: "",
-    },
-
-    placeholder: {
-      type: String,
-      default: "",
-    },
-
-    type: {
-      type: String,
-      default: "",
-    },
-
-    expanded: {
-      type: Boolean,
-      default: false,
+    options: {
+      type: Array,
+      default: () => [],
     },
 
     vObserverClass: {
