@@ -6,13 +6,13 @@
     name="job_type"
   >
     <b-field
-      label="Tipul jobului"
+      :label="label"
       :type="{ 'is-danger': errors[0], 'is-success': valid }"
       :message="errors"
     >
       <b-select
         :value="value"
-        placeholder="Selecteaza un nume"
+        :placeholder="placeholder"
         expanded
         @input="$emit('input', $event)"
       >
@@ -49,6 +49,16 @@ export default Vue.extend({
     },
 
     vObserverClass: {
+      type: String,
+      default: "",
+    },
+
+    placeholder: {
+      type: String,
+      default: "",
+    },
+
+    label: {
       type: String,
       default: "",
     },

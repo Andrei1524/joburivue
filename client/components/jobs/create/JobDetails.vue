@@ -22,59 +22,17 @@
                   :v-observer-class="'d-block w-100 mr-5'"
                   :label="'Tipul jobului'"
                   :rules="'required'"
+                  :placeholder="'Selecteaza un nume'"
                 />
-                <!-- <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100 mr-5"
-                  rules="required"
-                  name="job_type"
-                >
-                  <b-field
-                    label="Tipul jobului"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.type"
-                      placeholder="Selecteaza un nume"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobTypes"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider> -->
-                <ValidationProvider
-                  v-slot="{ errors, valid }"
-                  class="d-block w-100"
-                  rules="required"
-                  name="job_level"
-                >
-                  <b-field
-                    label="Nivel/optional"
-                    :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                    :message="errors"
-                  >
-                    <b-select
-                      v-model="form.level"
-                      placeholder="Selecteaza un nivel"
-                      expanded
-                    >
-                      <option
-                        v-for="option in jobLevels"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </b-select>
-                  </b-field>
-                </ValidationProvider>
+
+                <Select
+                  v-model.trim="form.level"
+                  :options="jobLevels"
+                  :v-observer-class="'d-block w-100'"
+                  :label="'Nivel/optional'"
+                  :rules="'required'"
+                  :placeholder="'Selecteaza un nivel'"
+                />
               </b-field>
 
               <Input
@@ -112,7 +70,15 @@
               <hr class="mt-0" />
 
               <b-field grouped>
-                <ValidationProvider
+                <Select
+                  v-model.trim="form.currency"
+                  :options="jobCurrencies"
+                  :v-observer-class="'d-block w-100 mr-5'"
+                  :label="'Valută'"
+                  :rules="'required'"
+                  :placeholder="'Selecteaza o valuta'"
+                />
+                <!-- <ValidationProvider
                   v-slot="{ errors, valid }"
                   class="d-block w-100 mr-5"
                   rules="required"
@@ -137,7 +103,7 @@
                       </option>
                     </b-select>
                   </b-field>
-                </ValidationProvider>
+                </ValidationProvider> -->
 
                 <Input
                   v-model.trim="form.minSalary"
