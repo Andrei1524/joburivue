@@ -17,7 +17,11 @@ async function getAll(searchString: any) {
   try {
     let tags = null;
     if (searchString) {
-      tags = Tag.find({ $text: { $search: searchString } })
+      tags = Tag.find(
+        { $text: { $search: searchString } },
+        { score: { $meta: "textScore" } }
+      )
+        .sort({ score: { $meta: "textScore" } })
         .lean()
         .exec();
     } else {

@@ -33,7 +33,8 @@ function getAll(searchString) {
         try {
             let tags = null;
             if (searchString) {
-                tags = tag_model_1.default.find({ $text: { $search: searchString } })
+                tags = tag_model_1.default.find({ $text: { $search: searchString } }, { score: { $meta: "textScore" } })
+                    .sort({ score: { $meta: "textScore" } })
                     .lean()
                     .exec();
             }
