@@ -79,6 +79,7 @@ export default Vue.extend({
       this.$emit("input", [...this.value, tag]);
     },
 
+    // TOOD: add debounce
     async getTags(search) {
       const payload = `?search=${search}`;
       const tags = await TagService.getAll(this.$axios, payload);
