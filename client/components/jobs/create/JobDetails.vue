@@ -143,7 +143,7 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver } from "vee-validate";
 import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
@@ -155,7 +155,7 @@ export default Vue.extend({
   name: "JobDetails",
   components: {
     ValidationObserver,
-    ValidationProvider,
+
     TagSearch,
     Input,
     Select,
