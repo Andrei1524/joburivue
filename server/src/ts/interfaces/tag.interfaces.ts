@@ -1,3 +1,5 @@
-interface TagInterface {}
+interface TagInterface {
+  name: string;
+}
 
 export { TagInterface };

@@ -7,5 +7,5 @@ const JobSchema = new Schema<TagInterface>({
 
 JobSchema.index({ "$**": "text" });
 
-const Job = model<TagInterface>("Job", JobSchema);
-export = Job;
+const Tag = model<TagInterface>("Tag", JobSchema);
+export = Tag;
