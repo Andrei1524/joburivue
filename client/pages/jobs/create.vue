@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import _ from "lodash";
 import JobDetails from "@/components/jobs/create/JobDetails.vue";
 
 export default Vue.extend({
