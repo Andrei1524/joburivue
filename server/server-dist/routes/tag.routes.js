@@ -30,4 +30,5 @@ const router = express_1.default.Router();
 const authenticateJWT_1 = require("../middleware/authenticateJWT");
 const TagController = __importStar(require("../controllers/tag.controller"));
 router.post("/create", authenticateJWT_1.authenticateJWT, TagController.create);
+router.get("/", TagController.getAll);
 module.exports = router;

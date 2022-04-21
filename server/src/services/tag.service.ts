@@ -13,4 +13,14 @@ async function create(payload: TagInterface) {
   }
 }
 
-export { create };
+async function getAll(payload: TagInterface) {
+  try {
+    const tags = Tag.find({}).lean().exec();
+
+    return tags;
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { create, getAll };

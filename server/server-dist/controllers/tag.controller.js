@@ -31,13 +31,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = void 0;
+exports.getAll = exports.create = void 0;
 const TagService = __importStar(require("../services/tag.service"));
+const tag_model_1 = __importDefault(require("../model/tag.model"));
+// TODO: escape tag payload
 function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const payload = req.body;
+            const foundTagByName = yield tag_model_1.default.findOne({ name: payload.name }).lean();
+            if (foundTagByName) {
+                return res
+                    .status(400)
+                    .json({ status: 400, message: "Tag already exists" });
+            }
             const tag = yield TagService.create(payload);
             return res.status(200).json(tag);
         }
@@ -52,3 +63,21 @@ function create(req, res, next) {
     });
 }
 exports.create = create;
+function getAll(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const payload = req.body;
+            const tags = yield TagService.getAll(payload);
+            return res.status(200).json(tags);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ status: 400, message: error.message });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: error });
+            }
+        }
+    });
+}
+exports.getAll = getAll;
