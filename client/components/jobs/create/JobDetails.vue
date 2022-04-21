@@ -8,23 +8,12 @@
               <h5 class="title is-5 mt-0 mb-4">Pozitie</h5>
               <hr class="mt-0" />
 
-              <ValidationProvider
-                v-slot="{ errors, valid }"
-                rules="required"
-                name="job_title"
-                class="d-block mb-5"
-              >
-                <b-field
-                  label="Titlu Job"
-                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
-                  :message="errors"
-                >
-                  <b-input
-                    v-model="form.title"
-                    placeholder="Adauga titlul"
-                  ></b-input>
-                </b-field>
-              </ValidationProvider>
+              <Input
+                v-model.trim="form.title"
+                :label="'Titlu Job'"
+                :rules="'required'"
+                :placeholder="'Adauga Titlul'"
+              />
 
               <b-field grouped>
                 <ValidationProvider
@@ -238,10 +227,11 @@ import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
 import TagSearch from "~/components/_shared/TagSearch.vue";
+import Input from "~/components/_shared/form/Input.vue";
 
 export default Vue.extend({
   name: "JobDetails",
-  components: { ValidationObserver, ValidationProvider, TagSearch },
+  components: { ValidationObserver, ValidationProvider, TagSearch, Input },
   middleware: "auth",
 
   // TODO: refactor whole component into smaller ones
