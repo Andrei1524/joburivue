@@ -102,7 +102,7 @@
               </ValidationProvider>
 
               <div class="tags-section mb-5">
-                <TagSearch :tags="form.tags" />
+                <TagSearch v-model.trim="form.tags" />
               </div>
 
               <ValidationProvider

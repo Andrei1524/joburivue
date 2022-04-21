@@ -2,7 +2,7 @@
   <div class="tag-search">
     <b-field label="Taguri" grouped group-multiline>
       <b-field class="w-100 mb-2">
-        <div v-for="tag in tags" class="control">
+        <div v-for="tag in value" :key="tag._id" class="control">
           <!-- TODO: handle fix NULL tags, get tags from BE -->
           <b-tag
             v-if="tag"
@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import _ from "lodash";
 import * as TagService from "~/services/tag.service";
 
 export default Vue.extend({
@@ -51,7 +52,7 @@ export default Vue.extend({
 
   components: {},
   props: {
-    tags: {
+    value: {
       type: Array,
       required: false,
       default: () => [],
@@ -67,12 +68,15 @@ export default Vue.extend({
 
   methods: {
     removeTag(tagId) {
-      const tagIndex = this.form.tags.findIndex((tag) => tag.id === tagId);
-      this.form.tags.splice(tagIndex, 1);
+      const tagIndex = this.value.findIndex((tag) => tag._id === tagId);
+      const clonedValues = _.cloneDeep(this.value);
+
+      clonedValues.splice(tagIndex, 1);
+      this.$emit("input", [...clonedValues]);
     },
 
     handleSelectTag(tag) {
-      this.form.tags.push(tag);
+      this.$emit("input", [...this.value, tag]);
     },
 
     async getTags(search) {
@@ -84,11 +88,8 @@ export default Vue.extend({
 
     handleSelectHeaderTag() {
       if (this.tagSearch) {
-        this.form.tags.push({
-          id: this.form.tags[this.form.tags.length - 1].id + 1,
-          value: this.tagSearch,
-        });
-        this.tagSearch = null;
+        // TODO: handle create new tag and emit
+        // this.$emit("input", );
       }
     },
   },
