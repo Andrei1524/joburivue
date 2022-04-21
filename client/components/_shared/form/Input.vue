@@ -3,6 +3,7 @@
     v-slot="{ errors, valid }"
     :rules="rules"
     class="d-block mb-5"
+    :class="vObserverClass"
   >
     <b-field
       :label="label"
@@ -58,6 +59,11 @@ export default Vue.extend({
     expanded: {
       type: Boolean,
       default: false,
+    },
+
+    vObserverClass: {
+      type: String,
+      default: "",
     },
   },
 

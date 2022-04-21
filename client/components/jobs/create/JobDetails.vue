@@ -134,6 +134,7 @@
 
                 <Input
                   v-model.trim="form.minSalary"
+                  :v-observer-class="'d-block w-100 mr-5'"
                   :label="'Salariu Minim'"
                   :rules="'required'"
                   :placeholder="'Adauga salariu minim'"
@@ -142,6 +143,7 @@
 
                 <Input
                   v-model.trim="form.maxSalary"
+                  :v-observer-class="'d-block w-100 mr-5'"
                   :label="'Salariu Maxim'"
                   :rules="'required'"
                   :placeholder="'Adauga salariu maxim'"
