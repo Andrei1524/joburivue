@@ -13,9 +13,16 @@ async function create(payload: TagInterface) {
   }
 }
 
-async function getAll(payload: TagInterface) {
+async function getAll(searchString: any) {
   try {
-    const tags = Tag.find({}).lean().exec();
+    let tags = null;
+    if (searchString) {
+      tags = Tag.find({ $text: { $search: searchString } })
+        .lean()
+        .exec();
+    } else {
+      tags = Tag.find({}).lean().exec();
+    }
 
     return tags;
   } catch (error) {

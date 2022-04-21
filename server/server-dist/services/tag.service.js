@@ -28,10 +28,18 @@ function create(payload) {
     });
 }
 exports.create = create;
-function getAll(payload) {
+function getAll(searchString) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const tags = tag_model_1.default.find({}).lean().exec();
+            let tags = null;
+            if (searchString) {
+                tags = tag_model_1.default.find({ $text: { $search: searchString } })
+                    .lean()
+                    .exec();
+            }
+            else {
+                tags = tag_model_1.default.find({}).lean().exec();
+            }
             return tags;
         }
         catch (error) {

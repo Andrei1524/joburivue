@@ -29,9 +29,9 @@ async function create(req: Request, res: Response, next: NextFunction) {
 
 async function getAll(req: Request, res: Response, next: NextFunction) {
   try {
-    const payload = req.body;
+    const searchString = req.query.search;
 
-    const tags = await TagService.getAll(payload);
+    const tags = await TagService.getAll(searchString);
 
     return res.status(200).json(tags);
   } catch (error) {

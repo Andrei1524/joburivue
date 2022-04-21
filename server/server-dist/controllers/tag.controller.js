@@ -66,8 +66,8 @@ exports.create = create;
 function getAll(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const payload = req.body;
-            const tags = yield TagService.getAll(payload);
+            const searchString = req.query.search;
+            const tags = yield TagService.getAll(searchString);
             return res.status(200).json(tags);
         }
         catch (error) {

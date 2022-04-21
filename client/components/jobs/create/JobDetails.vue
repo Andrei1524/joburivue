@@ -112,9 +112,9 @@
                         attached
                         aria-close-label="Close tag"
                         closable
-                        @close="removeTag(tag.id)"
+                        @close="removeTag(tag._id)"
                       >
-                        {{ tag.value }}
+                        {{ tag.name }}
                       </b-tag>
                     </div>
                   </b-field>
@@ -127,6 +127,7 @@
                       icon="magnify"
                       clearable
                       selectable-header
+                      @typing="getTags"
                       @select-header="handleSelectHeaderTag"
                       @select="handleSelectTag"
                     >
@@ -134,6 +135,9 @@
                         <a><span> Add new... </span></a>
                       </template>
                       <template #empty>No results found</template>
+                      <template slot-scope="props">
+                        <div>{{ props.option.name }}</div>
+                      </template>
                     </b-autocomplete>
                   </b-field>
                 </b-field>
@@ -271,6 +275,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
+import * as TagService from "~/services/tag.service";
 
 export default Vue.extend({
   name: "JobDetails",
@@ -309,16 +314,7 @@ export default Vue.extend({
         description: "",
 
         // TODO: get Tags from BE
-        tags: [
-          {
-            id: "353aaaf5b353",
-            value: "Vue.js",
-          },
-          {
-            id: "353aabf5b353",
-            value: "Node",
-          },
-        ],
+        tags: [],
         location: "",
         applicationTarget: "",
         salaryRange: [],
@@ -368,9 +364,14 @@ export default Vue.extend({
     },
 
     handleSelectTag(tag) {
-      console.log(tag);
+      this.form.tags.push(tag);
     },
 
+    async getTags(search) {
+      const payload = `?search=${search}`;
+      const tags = await TagService.getAll(this.$axios, payload);
+      this.tagsData = tags;
+    },
     // TODO: handle tag search and add
     handleSelectHeaderTag() {
       if (this.tagSearch) {
