@@ -101,7 +101,7 @@
 
             <div class="buttons is-flex">
               <b-button
-                :loading="loading"
+                :loading="loadingSubmit"
                 type="is-primary"
                 size="is-medium"
                 class="orange-btn mt-5 ml-auto"
@@ -181,7 +181,7 @@ export default Vue.extend({
         minSalary: "",
         maxSalary: "",
       },
-      loading: false,
+      loadingSubmit: false,
     };
   },
 
@@ -198,7 +198,6 @@ export default Vue.extend({
   methods: {
     async submit() {
       // TODO: handle company ID from actual company
-
       const tagsIds = this.form.tags.map((tag) => tag && tag._id);
       const payload = {
         ...this.form,
@@ -207,8 +206,12 @@ export default Vue.extend({
       };
 
       try {
+        this.loadingSubmit = true;
         const createdJob = await JobService.createJob(this.$axios, payload);
-        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
+        this.$router.replace(
+          `/jobs/create?id=${createdJob.jobId}&option=preview`
+        );
+        this.loadingSubmit = false;
 
         this.$emit("submitJobDetails");
       } catch (error) {}
