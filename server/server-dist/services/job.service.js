@@ -93,7 +93,7 @@ exports.getJobs = getJobs;
 function getJob(jobId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const foundJob = job_model_1.default.findOne({ jobId });
+            const foundJob = job_model_1.default.findOne({ jobId }).populate("tags");
             return foundJob;
         }
         catch (error) {

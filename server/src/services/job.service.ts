@@ -75,7 +75,7 @@ async function getJobs(query: any, page: number, limit: number) {
 
 async function getJob(jobId: any) {
   try {
-    const foundJob = Job.findOne({ jobId });
+    const foundJob = Job.findOne({ jobId }).populate("tags");
     return foundJob;
   } catch (error) {
     throw (error as Error).message;

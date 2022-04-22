@@ -197,7 +197,7 @@ export default Vue.extend({
     async submit() {
       // TODO: handle company ID from actual company
 
-      const tagsIds = this.form.tags.map((tag) => tag.id);
+      const tagsIds = this.form.tags.map((tag) => tag && tag._id);
       const payload = {
         ...this.form,
         tags: tagsIds,
