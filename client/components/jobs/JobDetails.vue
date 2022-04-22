@@ -1,7 +1,13 @@
 <template>
   <div class="create-job">
     <div class="container is-max-desktop">
-      <div class="box mt-5">
+      <div class="box mt-5" :loading="jobDetailsLoading">
+        <b-loading
+          :active="jobDetailsLoading"
+          :is-full-page="false"
+          :can-cancel="false"
+        ></b-loading>
+
         <div class="sections">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
             <div class="position w-100">
@@ -181,6 +187,7 @@ export default Vue.extend({
         minSalary: "",
         maxSalary: "",
       },
+      jobDetailsLoading: false,
       loadingSubmit: false,
     };
   },
@@ -190,8 +197,10 @@ export default Vue.extend({
 
     if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
       // TODO: handle get one job by id
+      this.jobDetailsLoading = true;
       const job = await JobService.getJob(this.$axios, query.id);
       this.form = { ...job };
+      this.jobDetailsLoading = false;
     }
   },
 
