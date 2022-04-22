@@ -17,15 +17,7 @@ async function getAll(searchString: any) {
   try {
     let tags = null;
     if (searchString) {
-      tags = Tag.find(
-        {
-          name: {
-            $regex: searchString.replace(/[\\$'"]/g, "\\$&"),
-            $options: "i",
-          },
-        },
-        {}
-      )
+      tags = Tag.find({ $text: { $search: searchString } })
         .lean()
         .exec();
     } else {

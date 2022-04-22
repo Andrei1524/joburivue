@@ -2,7 +2,7 @@
   <div class="tag-search">
     <b-field label="Taguri" grouped group-multiline>
       <b-field class="is-flex w-100 mb-2">
-        <div v-for="(tag, i) in value" :key="tag._id" class="control">
+        <div v-for="(tag, i) in value" :key="tag && tag._id" class="control">
           <!-- TODO: handle fix NULL tags, get tags from BE -->
           <b-tag
             v-if="tag"
@@ -29,7 +29,7 @@
           :open-on-focus="true"
           :loading="loadingTagsList"
           @focus="getTags(tagSearch)"
-          @typing="getTags(tagSearch)"
+          @input="getTags(tagSearch)"
           @select-header="handleSelectHeaderTag"
           @select="handleSelectTag"
         >
@@ -77,7 +77,6 @@ export default Vue.extend({
     removeTag(tagId) {
       const tagIndex = this.value.findIndex((tag) => tag._id === tagId);
       const clonedValues = _.cloneDeep(this.value);
-
       clonedValues.splice(tagIndex, 1);
       this.$emit("input", [...clonedValues]);
     },
@@ -91,15 +90,17 @@ export default Vue.extend({
       const payload = `?search=${search}`;
       this.tagsData = await TagService.getAll(this.$axios, payload);
       this.loadingTagsList = false;
-    }, 300),
+    }, 250),
 
     async handleSelectHeaderTag() {
       if (this.tagSearch) {
-        const newTag = await TagService.create(this.$axios, {
-          name: this.tagSearch,
-        });
-        this.$emit("input", [...this.value, newTag]);
-        this.tagSearch = "";
+        try {
+          const newTag = await TagService.create(this.$axios, {
+            name: this.tagSearch,
+          });
+          this.$emit("input", [...this.value, newTag]);
+          this.tagSearch = "";
+        } catch (error) {}
       }
     },
 
