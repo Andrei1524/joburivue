@@ -23,7 +23,6 @@
           :data="tagsData"
           placeholder="e.g. Vue.js"
           icon="magnify"
-          clearable
           selectable-header
           @typing="getTags"
           @select-header="handleSelectHeaderTag"
@@ -79,13 +78,12 @@ export default Vue.extend({
       this.$emit("input", [...this.value, tag]);
     },
 
-    // TOOD: add debounce
-    async getTags(search) {
+    getTags: _.debounce(async function (search) {
       const payload = `?search=${search}`;
       const tags = await TagService.getAll(this.$axios, payload);
 
       this.tagsData = tags;
-    },
+    }, 300),
 
     handleSelectHeaderTag() {
       if (this.tagSearch) {
