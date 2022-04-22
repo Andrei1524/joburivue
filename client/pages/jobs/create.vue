@@ -13,7 +13,7 @@
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
-          <!-- <JobDetails @submitJobDetails="nextStep" /> -->
+          <JobPreview />
         </b-step-item>
         <b-step-item
           :label="progressSteps[2].title"
@@ -29,11 +29,12 @@
 <script lang="ts">
 import Vue from "vue";
 import _ from "lodash";
-import JobDetails from "@/components/jobs/create/JobDetails.vue";
+import JobDetails from "~/components/jobs/JobDetails.vue";
+import JobPreview from "~/components/jobs/JobPreview.vue";
 
 export default Vue.extend({
   name: "JobCreate",
-  components: { JobDetails },
+  components: { JobDetails, JobPreview },
   middleware: "auth",
 
   // TODO: refactor whole component into smaller ones
