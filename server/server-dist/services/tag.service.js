@@ -33,7 +33,12 @@ function getAll(searchString) {
         try {
             let tags = null;
             if (searchString) {
-                tags = tag_model_1.default.find({ name: { $regex: searchString, $options: "i" } }, {})
+                tags = tag_model_1.default.find({
+                    name: {
+                        $regex: searchString.replace(/[\\$'"]/g, "\\$&"),
+                        $options: "i",
+                    },
+                }, {})
                     .lean()
                     .exec();
             }

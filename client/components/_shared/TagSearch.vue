@@ -24,17 +24,19 @@
           :data="tagsData"
           placeholder="e.g. Vue.js"
           icon="magnify"
+          :clear-on-select="true"
           selectable-header
           :open-on-focus="true"
           :loading="loadingTagsList"
-          @focus="getTags"
-          @blur="tagSearch = ''"
-          @typing="getTags"
+          @focus="getTags(tagSearch)"
+          @typing="getTags(tagSearch)"
           @select-header="handleSelectHeaderTag"
           @select="handleSelectTag"
         >
           <template #header>
-            <a><span> Add new... </span></a>
+            <a v-if="tagSearch.length > 0 && tagsData.length === 0"
+              ><span> Add new... </span></a
+            >
           </template>
           <template #empty>No results found</template>
           <template slot-scope="props">
@@ -91,10 +93,14 @@ export default Vue.extend({
       this.loadingTagsList = false;
     }, 300),
 
-    handleSelectHeaderTag() {
+    async handleSelectHeaderTag() {
+      console.log("create new tag", this.tagSearch);
       if (this.tagSearch) {
-        // TODO: handle create new tag on BE and emit
-        // this.$emit("input", );
+        const newTag = await TagService.create(this.$axios, {
+          name: this.tagSearch,
+        });
+        this.$emit("input", [...this.value, newTag]);
+        this.tagSearch = "";
       }
     },
 
