@@ -25,6 +25,9 @@
           placeholder="e.g. Vue.js"
           icon="magnify"
           selectable-header
+          :open-on-focus="true"
+          :loading="loadingTagsList"
+          @focus="getTags"
           @blur="tagSearch = ''"
           @typing="getTags"
           @select-header="handleSelectHeaderTag"
@@ -64,6 +67,7 @@ export default Vue.extend({
     return {
       tagSearch: "",
       tagsData: [],
+      loadingTagsList: false,
     };
   },
 
@@ -81,8 +85,10 @@ export default Vue.extend({
     },
 
     getTags: _.debounce(async function (search) {
+      this.loadingTagsList = true;
       const payload = `?search=${search}`;
       this.tagsData = await TagService.getAll(this.$axios, payload);
+      this.loadingTagsList = false;
     }, 300),
 
     handleSelectHeaderTag() {
