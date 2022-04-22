@@ -99,16 +99,18 @@
               </b-field>
             </div>
 
-            <b-button
-              :loading="loading"
-              type="is-primary"
-              size="is-medium"
-              class="orange-btn mt-5"
-              icon-left="login"
-              @click="handleSubmit(submit)"
-            >
-              Salveaza si previzualizeaza!
-            </b-button>
+            <div class="buttons is-flex">
+              <b-button
+                :loading="loading"
+                type="is-primary"
+                size="is-medium"
+                class="orange-btn mt-5 ml-auto"
+                icon-left="login"
+                @click="handleSubmit(submit)"
+              >
+                Salveaza si previzualizeaza!
+              </b-button>
+            </div>
           </ValidationObserver>
         </div>
       </div>
