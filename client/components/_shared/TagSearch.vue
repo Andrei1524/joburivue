@@ -94,7 +94,6 @@ export default Vue.extend({
     }, 300),
 
     async handleSelectHeaderTag() {
-      console.log("create new tag", this.tagSearch);
       if (this.tagSearch) {
         const newTag = await TagService.create(this.$axios, {
           name: this.tagSearch,
