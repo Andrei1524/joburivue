@@ -1,11 +1,12 @@
 <template>
   <div class="tag-search">
     <b-field label="Taguri" grouped group-multiline>
-      <b-field class="w-100 mb-2">
-        <div v-for="tag in value" :key="tag._id" class="control">
+      <b-field class="is-flex w-100 mb-2">
+        <div v-for="(tag, i) in value" :key="tag._id" class="control">
           <!-- TODO: handle fix NULL tags, get tags from BE -->
           <b-tag
             v-if="tag"
+            :class="{ 'ml-2': i > 0 }"
             type="is-primary"
             attached
             aria-close-label="Close tag"
@@ -80,9 +81,7 @@ export default Vue.extend({
 
     getTags: _.debounce(async function (search) {
       const payload = `?search=${search}`;
-      const tags = await TagService.getAll(this.$axios, payload);
-
-      this.tagsData = tags;
+      this.tagsData = await TagService.getAll(this.$axios, payload);
     }, 300),
 
     handleSelectHeaderTag() {
