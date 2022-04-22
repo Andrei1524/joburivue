@@ -25,6 +25,7 @@
           placeholder="e.g. Vue.js"
           icon="magnify"
           selectable-header
+          @blur="tagSearch = ''"
           @typing="getTags"
           @select-header="handleSelectHeaderTag"
           @select="handleSelectTag"
@@ -86,9 +87,13 @@ export default Vue.extend({
 
     handleSelectHeaderTag() {
       if (this.tagSearch) {
-        // TODO: handle create new tag and emit
+        // TODO: handle create new tag on BE and emit
         // this.$emit("input", );
       }
+    },
+
+    clearInput() {
+      console.log("clear input");
     },
   },
 });
