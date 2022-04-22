@@ -32,7 +32,7 @@ export default Vue.extend({
   components: { ValidationProvider },
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       default: "",
     },
 

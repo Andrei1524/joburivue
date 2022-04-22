@@ -99,16 +99,18 @@
               </b-field>
             </div>
 
-            <b-button
-              :loading="loading"
-              type="is-primary"
-              size="is-medium"
-              class="orange-btn mt-5"
-              icon-left="login"
-              @click="handleSubmit(submit)"
-            >
-              Salveaza si previzualizeaza!
-            </b-button>
+            <div class="buttons is-flex">
+              <b-button
+                :loading="loading"
+                type="is-primary"
+                size="is-medium"
+                class="orange-btn mt-5 ml-auto"
+                icon-left="login"
+                @click="handleSubmit(submit)"
+              >
+                Salveaza si previzualizeaza!
+              </b-button>
+            </div>
           </ValidationObserver>
         </div>
       </div>
@@ -197,7 +199,7 @@ export default Vue.extend({
     async submit() {
       // TODO: handle company ID from actual company
 
-      const tagsIds = this.form.tags.map((tag) => tag.id);
+      const tagsIds = this.form.tags.map((tag) => tag && tag._id);
       const payload = {
         ...this.form,
         tags: tagsIds,

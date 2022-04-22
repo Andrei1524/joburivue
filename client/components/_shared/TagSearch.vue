@@ -1,11 +1,12 @@
 <template>
   <div class="tag-search">
     <b-field label="Taguri" grouped group-multiline>
-      <b-field class="w-100 mb-2">
-        <div v-for="tag in value" :key="tag._id" class="control">
+      <b-field class="is-flex w-100 mb-2">
+        <div v-for="(tag, i) in value" :key="tag && tag._id" class="control">
           <!-- TODO: handle fix NULL tags, get tags from BE -->
           <b-tag
             v-if="tag"
+            :class="{ 'ml-2': i > 0 }"
             type="is-primary"
             attached
             aria-close-label="Close tag"
@@ -23,14 +24,19 @@
           :data="tagsData"
           placeholder="e.g. Vue.js"
           icon="magnify"
-          clearable
+          :clear-on-select="true"
           selectable-header
-          @typing="getTags"
+          :open-on-focus="true"
+          :loading="loadingTagsList"
+          @focus="getTags(tagSearch)"
+          @input="getTags(tagSearch)"
           @select-header="handleSelectHeaderTag"
           @select="handleSelectTag"
         >
           <template #header>
-            <a><span> Add new... </span></a>
+            <a v-if="tagSearch.length > 0 && tagsData.length === 0"
+              ><span> Add new... </span></a
+            >
           </template>
           <template #empty>No results found</template>
           <template slot-scope="props">
@@ -63,6 +69,7 @@ export default Vue.extend({
     return {
       tagSearch: "",
       tagsData: [],
+      loadingTagsList: false,
     };
   },
 
@@ -70,7 +77,6 @@ export default Vue.extend({
     removeTag(tagId) {
       const tagIndex = this.value.findIndex((tag) => tag._id === tagId);
       const clonedValues = _.cloneDeep(this.value);
-
       clonedValues.splice(tagIndex, 1);
       this.$emit("input", [...clonedValues]);
     },
@@ -79,18 +85,27 @@ export default Vue.extend({
       this.$emit("input", [...this.value, tag]);
     },
 
-    async getTags(search) {
+    getTags: _.debounce(async function (search) {
+      this.loadingTagsList = true;
       const payload = `?search=${search}`;
-      const tags = await TagService.getAll(this.$axios, payload);
+      this.tagsData = await TagService.getAll(this.$axios, payload);
+      this.loadingTagsList = false;
+    }, 250),
 
-      this.tagsData = tags;
+    async handleSelectHeaderTag() {
+      if (this.tagSearch) {
+        try {
+          const newTag = await TagService.create(this.$axios, {
+            name: this.tagSearch,
+          });
+          this.$emit("input", [...this.value, newTag]);
+          this.tagSearch = "";
+        } catch (error) {}
+      }
     },
 
-    handleSelectHeaderTag() {
-      if (this.tagSearch) {
-        // TODO: handle create new tag and emit
-        // this.$emit("input", );
-      }
+    clearInput() {
+      console.log("clear input");
     },
   },
 });
