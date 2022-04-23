@@ -179,8 +179,6 @@ export default Vue.extend({
         tags: [],
         location: "",
         applicationTarget: "",
-        salaryRange: [],
-
         // TODO: handle remoteType
         remoteType: "remote_allowed",
         currency: "",
@@ -192,15 +190,21 @@ export default Vue.extend({
     };
   },
 
-  async created() {
+  async fetch() {
     const { query } = this.$route;
 
     if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-      // TODO: handle get one job by id
       this.jobDetailsLoading = true;
-      const job = await JobService.getJob(this.$axios, query.id);
-      this.form = { ...job };
-      this.jobDetailsLoading = false;
+      const payload = `${query.id}/${query.option}`;
+
+      // TODO: handle redirect to '/' with a middleware
+      try {
+        const job = await JobService.getJob(this.$axios, payload);
+        this.form = { ...job };
+        this.jobDetailsLoading = false;
+      } catch (error) {
+        this.$router.push("/");
+      }
     }
   },
 
@@ -212,6 +216,7 @@ export default Vue.extend({
         ...this.form,
         tags: tagsIds,
         company: "353aaaf5b353",
+        createdBy: this.form.createdBy || this.$auth.user._id,
       };
 
       try {

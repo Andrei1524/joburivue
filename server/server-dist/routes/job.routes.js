@@ -28,8 +28,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const authenticateJWT_1 = require("../middleware/authenticateJWT");
+const jobBelongsToCurrentUser_1 = __importDefault(require("../middleware/jobBelongsToCurrentUser"));
 const JobController = __importStar(require("../controllers/job.controller"));
-router.post("/create", authenticateJWT_1.authenticateJWT, JobController.createJobValidate, JobController.create);
+router.post("/create", authenticateJWT_1.authenticateJWT, jobBelongsToCurrentUser_1.default, JobController.createJobValidate, JobController.create);
 router.get("/", JobController.getJobs);
-router.get("/:jobId", JobController.getJob);
+router.get("/:jobId/:option?", jobBelongsToCurrentUser_1.default, JobController.getJob);
 module.exports = router;
