@@ -16,9 +16,14 @@ extend("confirmed", {
   message: "This field confirmation does not match"
 });
 
-extend("min", {
+extend("password", {
   ...min,
   message: "Password Must Be at Least 8 Characters"
+});
+
+extend("min", {
+  ...min,
+  message: "Must Be at Least 8 Characters"
 });
 
 extend("length", {

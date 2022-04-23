@@ -17,7 +17,7 @@
               <Input
                 v-model.trim="form.title"
                 :label="'Titlu Job'"
-                :rules="'required'"
+                :rules="'required|min:8'"
                 :placeholder="'Adauga Titlul'"
               />
 
