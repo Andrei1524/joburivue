@@ -13,13 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const job_model_1 = __importDefault(require("../model/job.model"));
 const authenticateJWT_1 = require("./authenticateJWT");
-const isSameUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const jobBelongsToCurrentUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { createdBy } = req.body;
     const { jobId, option } = req.params;
     if (option === "edit") {
         yield (0, authenticateJWT_1.authenticateJWT)(req, res, () => __awaiter(void 0, void 0, void 0, function* () {
             const foundJob = yield job_model_1.default.findOne({ jobId }).lean();
-            if (foundJob.createdBy.toString() === req.user._id.toString()) {
+            if (foundJob &&
+                foundJob.createdBy.toString() === req.user._id.toString()) {
                 next();
             }
             else {
@@ -39,4 +40,4 @@ const isSameUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         next();
     }
 });
-module.exports = isSameUser;
+module.exports = jobBelongsToCurrentUser;

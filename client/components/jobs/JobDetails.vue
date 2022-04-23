@@ -197,13 +197,12 @@ export default Vue.extend({
       this.jobDetailsLoading = true;
       const payload = `${query.id}/${query.option}`;
 
-      // TODO: handle redirect to '/' with a middleware
       try {
         const job = await JobService.getJob(this.$axios, payload);
         this.form = { ...job };
         this.jobDetailsLoading = false;
       } catch (error) {
-        this.$router.push("/");
+        // this.$router.push("/");
       }
     }
   },
