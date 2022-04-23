@@ -28,9 +28,18 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+@import "include-media";
 
 .navbar-wrapper {
   background: $basic-white;
   box-shadow: 0px 1px 7px #0000001a;
+}
+
+@include media("<tablet") {
+  .homepage {
+    ::v-deep .container {
+      padding: 0px 15px;
+    }
+  }
 }
 </style>
