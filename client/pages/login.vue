@@ -22,7 +22,7 @@
             <ValidationProvider
               v-slot="{ errors, valid }"
               vid="password"
-              rules="required|min:8"
+              rules="required|password:8"
               name="Parola"
             >
               <b-field

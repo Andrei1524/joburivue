@@ -21,7 +21,7 @@
       <div class="tags is-align-self-flex-end">
         <Tag
           class="mr-2"
-          :value="`$${formatMoney(job.minSalary)} - $${formatMoney(
+          :value="`${formatMoney(job.minSalary)} - ${formatMoney(
             job.maxSalary
           )}`"
           :tag-type="'salary-range'"
@@ -29,7 +29,9 @@
         <Tag :value="'Romania'" :tag-type="'location'" />
       </div>
       <div class="job-info-text is-align-self-flex-end">
-        <span class="has-text-weight-bold mr-2">{{ job.type }}</span>
+        <span class="has-text-weight-bold mr-2">{{
+          formatJobType(job.type)
+        }}</span>
         1hr ago
       </div>
     </div>
@@ -72,6 +74,21 @@ export default Vue.extend({
         return "Work Remotely";
       }
     },
+
+    // TODO: refactor to switch case
+    formatJobType(jobType) {
+      if (jobType === "full_time") {
+        return "Full-time";
+      } else if (jobType === "part_time") {
+        return "Part-time";
+      } else if (jobType === "freelance") {
+        return "Freelance";
+      } else if (jobType === "internship") {
+        return "Internship";
+      } else if (jobType === "temporary") {
+        return "Temporary";
+      }
+    },
   },
 });
 </script>
@@ -98,19 +115,26 @@ export default Vue.extend({
 }
 
 .job-item {
-  //height: 75px;
+  height: 80px;
   background-color: $basic-white;
   cursor: pointer;
 }
 
 @media only screen and (max-width: 769px) {
   .job-title {
+    text-align: center;
     margin: 1em 0 !important;
   }
 
   .job-item {
+    height: fit-content;
+
     .subtitle {
       text-align: center !important;
+    }
+
+    .image {
+      margin: 0 auto !important;
     }
   }
 

@@ -1,7 +1,13 @@
 <template>
   <div class="create-job">
     <div class="container is-max-desktop">
-      <div class="box mt-5">
+      <div class="box mt-5" :loading="jobDetailsLoading">
+        <b-loading
+          :active="jobDetailsLoading"
+          :is-full-page="false"
+          :can-cancel="false"
+        ></b-loading>
+
         <div class="sections">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
             <div class="position w-100">
@@ -11,7 +17,7 @@
               <Input
                 v-model.trim="form.title"
                 :label="'Titlu Job'"
-                :rules="'required'"
+                :rules="'required|min:8'"
                 :placeholder="'Adauga Titlul'"
               />
 
@@ -69,7 +75,7 @@
               <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
               <hr class="mt-0" />
 
-              <b-field grouped>
+              <b-field class="currencies" grouped>
                 <Select
                   v-model.trim="form.currency"
                   :options="jobCurrencies"
@@ -90,7 +96,7 @@
 
                 <Input
                   v-model.trim="form.maxSalary"
-                  :v-observer-class="'d-block w-100 mr-5'"
+                  :v-observer-class="'d-block w-100'"
                   :label="'Salariu Maxim'"
                   :rules="'required'"
                   :placeholder="'Adauga salariu maxim'"
@@ -101,7 +107,7 @@
 
             <div class="buttons is-flex">
               <b-button
-                :loading="loading"
+                :loading="loadingSubmit"
                 type="is-primary"
                 size="is-medium"
                 class="orange-btn mt-5 ml-auto"
@@ -173,42 +179,52 @@ export default Vue.extend({
         tags: [],
         location: "",
         applicationTarget: "",
-        salaryRange: [],
-
         // TODO: handle remoteType
         remoteType: "remote_allowed",
         currency: "",
         minSalary: "",
         maxSalary: "",
       },
-      loading: false,
+      jobDetailsLoading: false,
+      loadingSubmit: false,
     };
   },
 
-  async created() {
+  async fetch() {
     const { query } = this.$route;
 
     if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-      // TODO: handle get one job by id
-      const job = await JobService.getJob(this.$axios, query.id);
-      this.form = { ...job };
+      this.jobDetailsLoading = true;
+      const payload = `${query.id}/${query.option}`;
+
+      try {
+        const job = await JobService.getJob(this.$axios, payload);
+        this.form = { ...job };
+        this.jobDetailsLoading = false;
+      } catch (error) {
+        // this.$router.push("/");
+      }
     }
   },
 
   methods: {
     async submit() {
       // TODO: handle company ID from actual company
-
       const tagsIds = this.form.tags.map((tag) => tag && tag._id);
       const payload = {
         ...this.form,
         tags: tagsIds,
         company: "353aaaf5b353",
+        createdBy: this.form.createdBy || this.$auth.user._id,
       };
 
       try {
+        this.loadingSubmit = true;
         const createdJob = await JobService.createJob(this.$axios, payload);
-        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
+        this.$router.replace(
+          `/jobs/create?id=${createdJob.jobId}&option=preview`
+        );
+        this.loadingSubmit = false;
 
         this.$emit("submitJobDetails");
       } catch (error) {}
@@ -219,6 +235,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+@import "include-media";
 
 .container {
   > h5 {
@@ -232,6 +249,24 @@ export default Vue.extend({
 
   > div {
     width: 100%;
+  }
+}
+
+@include media("<phone") {
+  ::v-deep .currencies {
+    .is-grouped {
+      flex-wrap: wrap;
+
+      > span {
+        margin-right: 0 !important;
+      }
+    }
+  }
+
+  .buttons {
+    .button {
+      margin: 0 auto;
+    }
   }
 }
 </style>

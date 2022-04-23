@@ -35,9 +35,8 @@ import JobPreview from "~/components/jobs/JobPreview.vue";
 export default Vue.extend({
   name: "JobCreate",
   components: { JobDetails, JobPreview },
-  middleware: "auth",
+  middleware: ["auth", "jobBelongsToCurrentUser"],
 
-  // TODO: refactor whole component into smaller ones
   data() {
     return {
       currentStep: 0,
@@ -76,7 +75,6 @@ export default Vue.extend({
     redirectToStepsFromQuery() {
       const { query } = this.$route;
       if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-        // TODO: handle get one job by id
         switch (query.option) {
           case "edit":
             this.currentStep = 0;
