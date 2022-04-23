@@ -75,7 +75,7 @@
               <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
               <hr class="mt-0" />
 
-              <b-field grouped>
+              <b-field class="currencies" grouped>
                 <Select
                   v-model.trim="form.currency"
                   :options="jobCurrencies"
@@ -231,6 +231,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+@import "include-media";
 
 .container {
   > h5 {
@@ -244,6 +245,14 @@ export default Vue.extend({
 
   > div {
     width: 100%;
+  }
+}
+
+@include media("<phone") {
+  ::v-deep .currencies {
+    .is-grouped {
+      flex-wrap: wrap;
+    }
   }
 }
 </style>
