@@ -96,7 +96,7 @@
 
                 <Input
                   v-model.trim="form.maxSalary"
-                  :v-observer-class="'d-block w-100 mr-5'"
+                  :v-observer-class="'d-block w-100'"
                   :label="'Salariu Maxim'"
                   :rules="'required'"
                   :placeholder="'Adauga salariu maxim'"
@@ -252,6 +252,16 @@ export default Vue.extend({
   ::v-deep .currencies {
     .is-grouped {
       flex-wrap: wrap;
+
+      > span {
+        margin-right: 0 !important;
+      }
+    }
+  }
+
+  .buttons {
+    .button {
+      margin: 0 auto;
     }
   }
 }
