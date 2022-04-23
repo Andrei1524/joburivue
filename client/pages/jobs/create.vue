@@ -31,29 +31,12 @@ import Vue from "vue";
 import _ from "lodash";
 import JobDetails from "~/components/jobs/JobDetails.vue";
 import JobPreview from "~/components/jobs/JobPreview.vue";
-import * as JobService from "~/services/job.service";
 
 export default Vue.extend({
   name: "JobCreate",
   components: { JobDetails, JobPreview },
-  middleware: [
-    "auth",
-    async (context) => {
-      const { query } = context.route;
+  middleware: ["auth", "jobBelongsToCurrentUser"],
 
-      if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-        const payload = `${query.id}/${query.option}`;
-
-        try {
-          await JobService.getJob(context.$axios, payload);
-        } catch (error) {
-          context.redirect("/");
-        }
-      }
-    },
-  ],
-
-  // TODO: refactor whole component into smaller ones
   data() {
     return {
       currentStep: 0,
@@ -92,7 +75,6 @@ export default Vue.extend({
     redirectToStepsFromQuery() {
       const { query } = this.$route;
       if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-        // TODO: handle get one job by id
         switch (query.option) {
           case "edit":
             this.currentStep = 0;
