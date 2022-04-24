@@ -59,7 +59,8 @@ export default {
     ['nuxt-buefy', { css: false }],
     '@nuxtjs/axios',
     'nuxt-leaflet',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    'vue2-editor/nuxt',
   ],
 
   auth: {
