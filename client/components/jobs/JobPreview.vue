@@ -8,7 +8,9 @@
             size="is-medium"
             class="orange-btn mt-5"
             icon-right="arrow-left-bold"
-            @click="$router.replace(`create?id=${$route.query.id}&option=edit`)"
+            @click="
+              $router.replace(`/jobs/create?id=${$route.query.id}&option=edit`)
+            "
           >
             Editeaza jobul
           </b-button>
@@ -17,7 +19,9 @@
             size="is-medium"
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
-            @click="$router.replace(`create?id=${$route.query.id}&option=edit`)"
+            @click="
+              $router.replace(`/jobs/create?id=${$route.query.id}&option=edit`)
+            "
           >
             Finalizează
           </b-button>

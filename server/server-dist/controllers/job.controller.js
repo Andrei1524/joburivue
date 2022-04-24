@@ -75,11 +75,12 @@ function create(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const payload = req.body;
+            const params = req.params;
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
             }
-            const job = yield JobService.create(Object.assign(Object.assign({}, payload), { createdBy: req.user }));
+            const job = yield JobService.create(Object.assign(Object.assign({}, payload), { createdBy: req.user, params }));
             return res.status(200).json(job);
         }
         catch (error) {

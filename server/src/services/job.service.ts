@@ -23,7 +23,13 @@ async function create(payload: JobInterface) {
 
     if (payload.jobId) {
       newJob.jobId = payload.jobId;
-      return Job.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+      return await Job.findOneAndUpdate(
+        { jobId: payload.jobId },
+        { ...newJob },
+        {
+          new: true,
+        }
+      );
     } else {
       return new Job({ ...newJob }).save();
     }

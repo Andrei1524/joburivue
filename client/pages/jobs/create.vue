@@ -7,13 +7,13 @@
           :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
         >
-          <JobDetails @submitJobDetails="nextStep" />
+          <JobDetails v-if="currentStep === 0" @submitJobDetails="nextStep" />
         </b-step-item>
         <b-step-item
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
-          <JobPreview />
+          <JobPreview v-if="progressSteps[1]" />
         </b-step-item>
         <b-step-item
           :label="progressSteps[2].title"
