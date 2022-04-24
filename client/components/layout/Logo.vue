@@ -7,25 +7,25 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'AppLogo',
+  name: "AppLogo",
   props: {
     invertColors: {
       type: Boolean,
-      default: false
+      default: false,
     },
     fontSize: {
       type: String,
-      default: '4'
-    }
-  }
-})
+      default: "4",
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .logo-normal {
   .title {
@@ -39,6 +39,7 @@ export default Vue.extend({
 
 .logo-inversed {
   .title {
+    user-select: none;
     color: $basic-white;
 
     span {
