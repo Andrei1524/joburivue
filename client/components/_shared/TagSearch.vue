@@ -83,6 +83,7 @@ export default Vue.extend({
 
     handleSelectTag(tag) {
       this.$emit("input", [...this.value, tag]);
+      this.tagSearch = "";
     },
 
     getTags: _.debounce(async function (search) {
