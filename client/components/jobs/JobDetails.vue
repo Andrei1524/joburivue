@@ -41,13 +41,22 @@
                 />
               </b-field>
 
-              <Input
+              <b-field :label="'Descriere'">
+                <client-only>
+                  <VueEditor
+                    v-model="form.description"
+                    :editor-toolbar="customToolbar"
+                  />
+                </client-only>
+              </b-field>
+
+              <!-- <Input
                 v-model.trim="form.description"
                 :label="'Descriere job'"
                 :rules="'required'"
                 :placeholder="'Descrie jobul cat mai clar!'"
                 :type="'textarea'"
-              />
+              /> -->
 
               <div class="tags-section mb-5">
                 <TagSearch v-model.trim="form.tags" />
@@ -144,10 +153,14 @@ export default Vue.extend({
   },
   middleware: "auth",
 
-  // TODO: refactor whole component into smaller ones
   data() {
     return {
-      // TODO: get this from server
+      customToolbar: [
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["image", "code-block"],
+      ],
+
       jobTypes: [
         { value: "full_time", label: "Full-Time" },
         { value: "part_time", label: "Part-Time" },
@@ -155,7 +168,6 @@ export default Vue.extend({
         { value: "internship", label: "Internship" },
         { value: "temporary", label: "Temporary" },
       ],
-      // TODO: get this from server
       jobLevels: [
         { value: "begginner", label: "Begginer" },
         { value: "junior", label: "Junior" },
@@ -175,11 +187,9 @@ export default Vue.extend({
         level: "",
         description: "",
 
-        // TODO: get Tags from BE
         tags: [],
         location: "",
         applicationTarget: "",
-        // TODO: handle remoteType
         remoteType: "remote_allowed",
         currency: "",
         minSalary: "",
@@ -201,9 +211,7 @@ export default Vue.extend({
         const job = await JobService.getJob(this.$axios, payload);
         this.form = { ...job };
         this.jobDetailsLoading = false;
-      } catch (error) {
-        // this.$router.push("/");
-      }
+      } catch (error) {}
     }
   },
 
