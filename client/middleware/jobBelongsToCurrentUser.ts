@@ -18,7 +18,5 @@ export default async function (context) {
     } catch (error) {
       context.redirect("/");
     }
-  } else {
-    context.redirect("/");
   }
 }
