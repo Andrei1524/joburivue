@@ -40,7 +40,15 @@
           </template>
           <template #empty>No results found</template>
           <template slot-scope="props">
-            <div>{{ props.option.name }}</div>
+            <div
+              :class="{
+                'disabled-autocomplete-tag': tagAlreadyExistsOnList(
+                  props.option
+                ),
+              }"
+            >
+              {{ props.option.name }}
+            </div>
           </template>
         </b-autocomplete>
       </b-field>
@@ -82,6 +90,10 @@ export default Vue.extend({
     },
 
     handleSelectTag(tag) {
+      if (this.tagAlreadyExistsOnList(tag)) {
+        return;
+      }
+
       this.$emit("input", [...this.value, tag]);
       this.tagSearch = "";
     },
@@ -105,6 +117,14 @@ export default Vue.extend({
       }
     },
 
+    tagAlreadyExistsOnList(tag) {
+      const foundTagInValues = this.value.findIndex(
+        (val) => val._id === tag._id
+      );
+
+      return foundTagInValues >= 0;
+    },
+
     clearInput() {
       console.log("clear input");
     },
@@ -114,4 +134,10 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+
+.disabled-autocomplete-tag {
+  border-left: 4px solid $orange;
+  cursor: not-allowed;
+  padding-left: 5px;
+}
 </style>
