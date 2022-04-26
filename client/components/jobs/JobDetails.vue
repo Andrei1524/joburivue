@@ -156,9 +156,9 @@ export default Vue.extend({
   data() {
     return {
       customToolbar: [
-        ["bold", "italic", "underline"],
+        [{ header: [false, 1, 2, 3, 4, 5, 6] }, "bold", "italic", "underline"],
         [{ list: "ordered" }, { list: "bullet" }],
-        ["image", "code-block"],
+        ["link", "code-block"],
       ],
 
       jobTypes: [
