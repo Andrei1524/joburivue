@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-// import { JobInterface } from "../../../server/src/ts/interfaces/job.interfaces";
 import Tag from "~/components/_shared/JobItemTag.vue";
+import { formatRemoteType, formatJobType } from "~/utils/jobs";
 
 export default Vue.extend({
   name: "JobItem",
@@ -61,33 +61,13 @@ export default Vue.extend({
   },
 
   methods: {
+    formatRemoteType,
+    formatJobType,
+
     formatMoney(value: number) {
       return Math.abs(value) > 999
         ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
         : Math.sign(value) * Math.abs(value);
-    },
-
-    formatRemoteType(type: string) {
-      if (type === "remote_allowed") {
-        return "Remote Allowed";
-      } else if (type === "work_remotely") {
-        return "Work Remotely";
-      }
-    },
-
-    // TODO: refactor to switch case
-    formatJobType(jobType) {
-      if (jobType === "full_time") {
-        return "Full-time";
-      } else if (jobType === "part_time") {
-        return "Part-time";
-      } else if (jobType === "freelance") {
-        return "Freelance";
-      } else if (jobType === "internship") {
-        return "Internship";
-      } else if (jobType === "temporary") {
-        return "Temporary";
-      }
     },
   },
 });

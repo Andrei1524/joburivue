@@ -13,7 +13,7 @@
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
-          <JobPreview v-if="progressSteps[1]" />
+          <JobPreview v-if="currentStep === 1" />
         </b-step-item>
         <b-step-item
           :label="progressSteps[2].title"

@@ -2,7 +2,19 @@
   <div class="job-preview">
     <div class="container is-max-desktop">
       <div class="box mt-5">
-        <h2 class="title is-3"></h2>
+        <b-loading
+          :active="jobPreviewLoading"
+          :is-full-page="false"
+          :can-cancel="false"
+        ></b-loading>
+
+        <div class="sections">
+          <h2 class="title is-4">{{ job.title }}</h2>
+          <hr />
+          <h2 class="is-size-5">{{ job.location }}</h2>
+          <h2 class="is-size-5">{{ formatJobType(job.type) }}</h2>
+        </div>
+
         <div class="buttons is-flex is-justify-content-space-between">
           <b-button
             type="is-primary"
@@ -35,18 +47,37 @@
 <script lang="ts">
 import Vue from "vue";
 import _ from "lodash";
+import * as JobService from "~/services/job.service";
+import { formatRemoteType, formatJobType } from "~/utils/jobs";
 
 export default Vue.extend({
-  name: "JobDetails",
+  name: "JobPreview",
   middleware: "auth",
 
   data() {
-    return {};
+    return {
+      jobPreviewLoading: false,
+      job: {},
+    };
   },
 
-  async created() {},
+  async fetch() {
+    const { query } = this.$route;
 
-  methods: {},
+    this.jobPreviewLoading = true;
+    const payload = `${query.id}/${query.option}`;
+
+    try {
+      const job = await JobService.getJob(this.$axios, payload);
+      this.job = { ...job };
+      this.jobPreviewLoading = false;
+    } catch (error) {}
+  },
+
+  methods: {
+    formatRemoteType,
+    formatJobType,
+  },
 });
 </script>
 
