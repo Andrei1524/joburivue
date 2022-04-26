@@ -2,6 +2,7 @@
   <div class="job-preview">
     <div class="container is-max-desktop">
       <div class="box mt-5">
+        <h2 class="title is-3"></h2>
         <div class="buttons is-flex is-justify-content-space-between">
           <b-button
             type="is-primary"

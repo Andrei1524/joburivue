@@ -45,18 +45,11 @@
                 <client-only>
                   <VueEditor
                     v-model="form.description"
+                    :placeholder="'Descrie jobul cat mai clar!'"
                     :editor-toolbar="customToolbar"
                   />
                 </client-only>
               </b-field>
-
-              <!-- <Input
-                v-model.trim="form.description"
-                :label="'Descriere job'"
-                :rules="'required'"
-                :placeholder="'Descrie jobul cat mai clar!'"
-                :type="'textarea'"
-              /> -->
 
               <div class="tags-section mb-5">
                 <TagSearch v-model.trim="form.tags" />
