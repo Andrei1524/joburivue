@@ -36,7 +36,9 @@ function create(payload) {
             };
             if (payload.jobId) {
                 newJob.jobId = payload.jobId;
-                return job_model_1.default.findOneAndUpdate({ jobId: payload.jobId }, newJob);
+                return yield job_model_1.default.findOneAndUpdate({ jobId: payload.jobId }, Object.assign({}, newJob), {
+                    new: true,
+                });
             }
             else {
                 return new job_model_1.default(Object.assign({}, newJob)).save();

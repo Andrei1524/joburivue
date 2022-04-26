@@ -42,12 +42,17 @@ const createJobValidate = [
 async function create(req: Request, res: Response, next: NextFunction) {
   try {
     const payload = req.body;
+    const params = req.params;
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    const job = await JobService.create({ ...payload, createdBy: req.user });
+    const job = await JobService.create({
+      ...payload,
+      createdBy: req.user,
+      params,
+    });
     return res.status(200).json(job);
   } catch (error) {
     if (error instanceof Error) {

@@ -41,13 +41,15 @@
                 />
               </b-field>
 
-              <Input
-                v-model.trim="form.description"
-                :label="'Descriere job'"
-                :rules="'required'"
-                :placeholder="'Descrie jobul cat mai clar!'"
-                :type="'textarea'"
-              />
+              <b-field :label="'Descriere'">
+                <client-only>
+                  <VueEditor
+                    v-model="form.description"
+                    :placeholder="'Descrie jobul cat mai clar!'"
+                    :editor-toolbar="customToolbar"
+                  />
+                </client-only>
+              </b-field>
 
               <div class="tags-section mb-5">
                 <TagSearch v-model.trim="form.tags" />
@@ -144,10 +146,14 @@ export default Vue.extend({
   },
   middleware: "auth",
 
-  // TODO: refactor whole component into smaller ones
   data() {
     return {
-      // TODO: get this from server
+      customToolbar: [
+        [{ header: [false, 1, 2, 3, 4, 5, 6] }, "bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "code-block"],
+      ],
+
       jobTypes: [
         { value: "full_time", label: "Full-Time" },
         { value: "part_time", label: "Part-Time" },
@@ -155,7 +161,6 @@ export default Vue.extend({
         { value: "internship", label: "Internship" },
         { value: "temporary", label: "Temporary" },
       ],
-      // TODO: get this from server
       jobLevels: [
         { value: "begginner", label: "Begginer" },
         { value: "junior", label: "Junior" },
@@ -175,11 +180,9 @@ export default Vue.extend({
         level: "",
         description: "",
 
-        // TODO: get Tags from BE
         tags: [],
         location: "",
         applicationTarget: "",
-        // TODO: handle remoteType
         remoteType: "remote_allowed",
         currency: "",
         minSalary: "",
@@ -193,18 +196,14 @@ export default Vue.extend({
   async fetch() {
     const { query } = this.$route;
 
-    if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-      this.jobDetailsLoading = true;
-      const payload = `${query.id}/${query.option}`;
+    this.jobDetailsLoading = true;
+    const payload = `${query.id}/${query.option}`;
 
-      try {
-        const job = await JobService.getJob(this.$axios, payload);
-        this.form = { ...job };
-        this.jobDetailsLoading = false;
-      } catch (error) {
-        // this.$router.push("/");
-      }
-    }
+    try {
+      const job = await JobService.getJob(this.$axios, payload);
+      this.form = { ...job };
+      this.jobDetailsLoading = false;
+    } catch (error) {}
   },
 
   methods: {
@@ -221,9 +220,7 @@ export default Vue.extend({
       try {
         this.loadingSubmit = true;
         const createdJob = await JobService.createJob(this.$axios, payload);
-        this.$router.replace(
-          `/jobs/create?id=${createdJob.jobId}&option=preview`
-        );
+        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
         this.loadingSubmit = false;
 
         this.$emit("submitJobDetails");
