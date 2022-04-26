@@ -220,9 +220,7 @@ export default Vue.extend({
       try {
         this.loadingSubmit = true;
         const createdJob = await JobService.createJob(this.$axios, payload);
-        this.$router.replace(
-          `/jobs/create?id=${createdJob.jobId}&option=preview`
-        );
+        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
         this.loadingSubmit = false;
 
         this.$emit("submitJobDetails");

@@ -9,10 +9,16 @@
         ></b-loading>
 
         <div class="sections">
-          <h2 class="title is-4">{{ job.title }}</h2>
-          <hr />
+          <div class="is-flex is-justify-content-space-between">
+            <h2 class="title is-4 mb-0">{{ job.title }}</h2>
+            <h2 class="is-size-5">{{ formatJobType(job.type) }}</h2>
+          </div>
+          <hr class="my-1" />
           <h2 class="is-size-5">{{ job.location }}</h2>
-          <h2 class="is-size-5">{{ formatJobType(job.type) }}</h2>
+
+          <h3 class="is-size-3 mt-5">Descriere</h3>
+          <hr class="my-1" />
+          <div v-html="parseDescriptionWithBulmaTags"></div>
         </div>
 
         <div class="buttons is-flex is-justify-content-space-between">
@@ -22,7 +28,7 @@
             class="orange-btn mt-5"
             icon-right="arrow-left-bold"
             @click="
-              $router.replace(`/jobs/create?id=${$route.query.id}&option=edit`)
+              $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
             "
           >
             Editeaza jobul
@@ -33,7 +39,7 @@
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
             @click="
-              $router.replace(`/jobs/create?id=${$route.query.id}&option=edit`)
+              $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
             "
           >
             Finalizează
@@ -74,6 +80,23 @@ export default Vue.extend({
     } catch (error) {}
   },
 
+  computed: {
+    parseDescriptionWithBulmaTags() {
+      const description = this.job.description;
+      let parsedDecr;
+      if (description) {
+        parsedDecr = description
+          .replace("<h1>", "<h1 class='is-size-1'>")
+          .replace("<h2>", "<h2 class='is-size-2'>")
+          .replace("<h3>", "<h2 class='is-size-3'>")
+          .replace("<h4>", "<h2 class='is-size-4'>")
+          .replace("<h5>", "<h2 class='is-size-5'>");
+      }
+
+      return parsedDecr;
+    },
+  },
+
   methods: {
     formatRemoteType,
     formatJobType,
@@ -83,4 +106,23 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 @import "./design/variables";
+
+::v-deep ul {
+  padding-left: 0;
+
+  li {
+    padding-left: 1.5em;
+
+    &::before {
+      content: "\2022";
+      display: inline-block;
+      white-space: nowrap;
+      width: 1.2em;
+
+      margin-left: -1.5em;
+      margin-right: 0.3em;
+      text-align: right;
+    }
+  }
+}
 </style>
