@@ -196,16 +196,14 @@ export default Vue.extend({
   async fetch() {
     const { query } = this.$route;
 
-    if (!_.isEmpty(query) && query.id.length > 0 && query.option.length > 0) {
-      this.jobDetailsLoading = true;
-      const payload = `${query.id}/${query.option}`;
+    this.jobDetailsLoading = true;
+    const payload = `${query.id}/${query.option}`;
 
-      try {
-        const job = await JobService.getJob(this.$axios, payload);
-        this.form = { ...job };
-        this.jobDetailsLoading = false;
-      } catch (error) {}
-    }
+    try {
+      const job = await JobService.getJob(this.$axios, payload);
+      this.form = { ...job };
+      this.jobDetailsLoading = false;
+    } catch (error) {}
   },
 
   methods: {
