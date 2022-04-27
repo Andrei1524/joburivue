@@ -11,8 +11,15 @@
       </div>
     </section>
 
-    <div class="price-plans container is-max-desktop mt-6">
-      <PricePlan />
+    <div
+      class="price-plans container is-max-desktop mt-6 is-flex is-justify-content-center"
+    >
+      <PricePlan
+        v-for="plan in plans"
+        :key="plan.title"
+        :plan="plan"
+        class="mx-2"
+      />
     </div>
   </div>
 </template>
@@ -28,7 +35,40 @@ export default Vue.extend({
   },
 
   data() {
-    return {};
+    return {
+      plans: [
+        {
+          title: "NORMAL",
+          price: 75,
+          features: [
+            "Job activ timp de 35 zile.",
+            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
+            "Listat in weekly newsletter.",
+          ],
+        },
+        {
+          title: "BOOSTED",
+          price: 160,
+          features: [
+            "Job activ timp de 60 zile.",
+            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
+            "Promovare in weekly newsletter.",
+            "Job “fixat” in primele cautari bazat pe cautari relevante",
+          ],
+        },
+        {
+          title: "PRO",
+          price: 250,
+          features: [
+            "Job activ timp de 60 zile.",
+            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
+            "Promovare in weekly newsletter.",
+            "Job “fixat” in primele cautari bazat pe cautari relevante",
+            "Afisat in “Companii recomandate” pe prima pagina",
+          ],
+        },
+      ],
+    };
   },
 
   methods: {},
