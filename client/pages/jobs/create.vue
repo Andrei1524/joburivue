@@ -7,19 +7,23 @@
           :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
         >
-          <JobDetails v-if="currentStep === 0" @submitJobDetails="nextStep" />
+          <JobDetails
+            v-if="currentStep === 0"
+            class="mt-5"
+            @submitJobDetails="nextStep"
+          />
         </b-step-item>
         <b-step-item
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
-          <JobPreview v-if="currentStep === 1" />
+          <JobPreview v-if="currentStep === 1" class="mt-5" />
         </b-step-item>
         <b-step-item
           :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
         >
-          <JobCheckout v-if="currentStep === 2" />
+          <JobCheckout v-if="currentStep === 2" class="mt-5" />
         </b-step-item>
       </b-steps>
     </div>

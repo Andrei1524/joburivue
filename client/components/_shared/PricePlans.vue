@@ -1,12 +1,10 @@
 <template>
-  <div
-    class="price-plans container is-flex-wrap-wrap mt-6 is-flex is-justify-content-center"
-  >
+  <div class="price-plans container mt-6 is-flex is-justify-content-center">
     <PricePlan
       v-for="plan in plans"
       :key="plan.title"
       :plan="plan"
-      class="mx-2 mb-2"
+      class="mx-2 mb-5"
     />
   </div>
 </template>
@@ -61,3 +59,14 @@ export default Vue.extend({
   methods: {},
 });
 </script>
+
+<style lang="scss" scoped>
+@import "./design/variables";
+@import "include-media";
+
+@include media("<tablet") {
+  .price-plans {
+    flex-wrap: wrap;
+  }
+}
+</style>

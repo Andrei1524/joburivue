@@ -1,5 +1,6 @@
 <template>
   <div class="job-checkout">
+    <h1 class="title is-3">Selecteaza un plan!</h1>
     <PricePlans />
   </div>
 </template>

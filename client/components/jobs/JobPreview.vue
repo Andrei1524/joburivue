@@ -1,6 +1,7 @@
 <template>
   <div class="job-preview">
     <div class="container is-max-desktop">
+      <h1 class="title is-3">Previzualizeaza !</h1>
       <div class="box mt-5">
         <b-loading
           :active="jobPreviewLoading"
