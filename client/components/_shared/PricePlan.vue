@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="plan"
     :class="[
       'plan is-flex is-flex-direction-column',
       plan.title === 'PRO' ? 'pro-plan' : '',

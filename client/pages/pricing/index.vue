@@ -11,64 +11,22 @@
       </div>
     </section>
 
-    <div
-      class="price-plans container is-flex-wrap-wrap mt-6 is-flex is-justify-content-center"
-    >
-      <PricePlan
-        v-for="plan in plans"
-        :key="plan.title"
-        :plan="plan"
-        class="mx-2 mb-2"
-      />
-    </div>
+    <PricePlans />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import PricePlan from "~/components/_shared/PricePlan.vue";
+import PricePlans from "~/components/_shared/PricePlans.vue";
 
 export default Vue.extend({
   name: "AppPricing",
   components: {
-    PricePlan,
+    PricePlans,
   },
 
   data() {
-    return {
-      plans: [
-        {
-          title: "NORMAL",
-          price: 75,
-          features: [
-            "Job activ timp de 35 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Listat in weekly newsletter.",
-          ],
-        },
-        {
-          title: "BOOSTED",
-          price: 160,
-          features: [
-            "Job activ timp de 60 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Promovare in weekly newsletter.",
-            "Job “fixat” in primele cautari bazat pe cautari relevante",
-          ],
-        },
-        {
-          title: "PRO",
-          price: 250,
-          features: [
-            "Job activ timp de 60 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Promovare in weekly newsletter.",
-            "Job “fixat” in primele cautari bazat pe cautari relevante",
-            "Afisat in “Companii recomandate” pe prima pagina",
-          ],
-        },
-      ],
-    };
+    return {};
   },
 
   methods: {},

@@ -1,13 +1,18 @@
 <template>
-  <div class="job-checkout">checkout</div>
+  <div class="job-checkout">
+    <PricePlans />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import _ from "lodash";
+import PricePlans from "~/components/_shared/PricePlans.vue";
 
 export default Vue.extend({
   name: "JobCheckout",
+  components: {
+    PricePlans,
+  },
   middleware: "auth",
 
   data() {
