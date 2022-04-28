@@ -16,7 +16,8 @@ const authenticateJWT_1 = require("./authenticateJWT");
 const jobBelongsToCurrentUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { createdBy } = req.body;
     const { jobId, option } = req.params;
-    if (option === "edit") {
+    // TODO: add options to TS types
+    if (option === "edit" || option === "preview" || option === "checkout") {
         yield (0, authenticateJWT_1.authenticateJWT)(req, res, () => __awaiter(void 0, void 0, void 0, function* () {
             const foundJob = yield job_model_1.default.findOne({ jobId }).lean();
             if (foundJob &&

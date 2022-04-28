@@ -11,7 +11,8 @@ const jobBelongsToCurrentUser = async (
   const { createdBy } = req.body;
   const { jobId, option } = req.params;
 
-  if (option === "edit") {
+  // TODO: add options to TS types
+  if (option === "edit" || option === "preview" || option === "checkout") {
     await authenticateJWT(req, res, async () => {
       const foundJob = await Job.findOne({ jobId }).lean();
 
