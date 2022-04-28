@@ -1,5 +1,10 @@
 <template>
-  <div class="plan">
+  <div
+    :class="[
+      'plan is-flex is-flex-direction-column',
+      plan.title === 'PRO' ? 'pro-plan' : '',
+    ]"
+  >
     <div class="header has-text-centered py-2">
       <h4 class="has-text-weight-bold is-size-4">{{ plan.title }}</h4>
       <h4 class="has-text-weight-bold is-size-4">{{ plan.price }}€</h4>
@@ -14,9 +19,14 @@
       </div>
     </div>
 
-    <div class="bottom has-text-centered">
-      <b-button type="is-primary" size="is-medium" class="orange-btn mb-2">
-        Vezi toate joburile
+    <div class="bottom has-text-centered mt-auto py-2">
+      <b-button
+        type="is-primary"
+        size="is-medium"
+        class="orange-btn mb-2"
+        icon-right="notebook"
+      >
+        Alege plan
       </b-button>
     </div>
   </div>
@@ -47,8 +57,10 @@ export default Vue.extend({
 
 .plan {
   background: $basic-white;
-  max-width: 380px;
+  max-width: 340px;
   min-width: 250px;
+  border-radius: 10px;
+  box-shadow: 4px 7px 8px 0px #00000021;
 
   color: $yankees-blue;
 
@@ -60,5 +72,14 @@ export default Vue.extend({
   .check-icon {
     color: $green;
   }
+}
+
+.pro-plan {
+  background: $queen-blue;
+  color: $basic-white;
+}
+
+.orange-btn {
+  box-shadow: 4px 7px 8px 0px #00000021;
 }
 </style>
