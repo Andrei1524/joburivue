@@ -19,7 +19,7 @@
           :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
         >
-          <!-- <JobDetails @submitJobDetails="nextStep" /> -->
+          <JobCheckout v-if="currentStep === 2" />
         </b-step-item>
       </b-steps>
     </div>
@@ -31,10 +31,11 @@ import Vue from "vue";
 import _ from "lodash";
 import JobDetails from "~/components/jobs/JobDetails.vue";
 import JobPreview from "~/components/jobs/JobPreview.vue";
+import JobCheckout from "~/components/jobs/JobCheckout.vue";
 
 export default Vue.extend({
   name: "JobCreate",
-  components: { JobDetails, JobPreview },
+  components: { JobDetails, JobPreview, JobCheckout },
   middleware: ["auth", "jobBelongsToCurrentUser"],
 
   data() {

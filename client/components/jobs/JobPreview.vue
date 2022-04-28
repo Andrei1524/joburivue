@@ -13,10 +13,9 @@
             <h2 class="title is-4 mb-0">{{ job.title }}</h2>
             <h2 class="is-size-5">{{ formatJobType(job.type) }}</h2>
           </div>
-          <hr class="my-1" />
           <h2 class="is-size-5">{{ job.location }}</h2>
 
-          <h3 class="is-size-3 mt-5">Descriere</h3>
+          <h3 class="title is-size-4 mb-0 mt-6">Descriere</h3>
           <hr class="my-1" />
           <div v-html="parseDescriptionWithBulmaTags"></div>
         </div>
@@ -39,7 +38,7 @@
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
             @click="
-              $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
+              $router.push(`/jobs/create?id=${$route.query.id}&option=checkout`)
             "
           >
             Finalizează
@@ -86,11 +85,11 @@ export default Vue.extend({
       let parsedDecr;
       if (description) {
         parsedDecr = description
-          .replace("<h1>", "<h1 class='is-size-1'>")
-          .replace("<h2>", "<h2 class='is-size-2'>")
-          .replace("<h3>", "<h2 class='is-size-3'>")
-          .replace("<h4>", "<h2 class='is-size-4'>")
-          .replace("<h5>", "<h2 class='is-size-5'>");
+          .replaceAll("<h1>", "<h1 class='is-size-2'>")
+          .replaceAll("<h2>", "<h2 class='is-size-3'>")
+          .replaceAll("<h3>", "<h2 class='is-size-4'>")
+          .replaceAll("<h4>", "<h2 class='is-size-5'>")
+          .replaceAll("<h5>", "<h2 class='is-size-6'>");
       }
 
       return parsedDecr;
