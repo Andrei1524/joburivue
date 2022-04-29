@@ -26,6 +26,7 @@
         size="is-medium"
         class="orange-btn mb-2"
         icon-right="notebook"
+        @click="choosePlan"
       >
         Alege plan
       </b-button>
@@ -50,6 +51,14 @@ export default Vue.extend({
   },
 
   mounted() {},
+
+  methods: {
+    choosePlan() {
+      const plan = this.plan;
+
+      console.log(plan);
+    },
+  },
 });
 </script>
 
