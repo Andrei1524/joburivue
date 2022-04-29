@@ -33,7 +33,7 @@ export default Vue.extend({
           ],
         },
         {
-          api_id: "",
+          api_id: "price_1Ku0CuKpfWtEKcAOO35LAOnk",
           title: "BOOSTED",
           price: 160,
           features: [
@@ -44,7 +44,7 @@ export default Vue.extend({
           ],
         },
         {
-          api_id: "",
+          api_id: "price_1Ku0DEKpfWtEKcAOyzCZdyh5",
           title: "PRO",
           price: 250,
           features: [
