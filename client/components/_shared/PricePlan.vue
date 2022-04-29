@@ -31,14 +31,18 @@
         Alege plan
       </b-button>
     </div>
+
+    <Checkout :plan="plan" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import Checkout from "~/components/_shared/Checkout.vue";
 
 export default Vue.extend({
   name: "PricePlan",
+  components: { Checkout },
 
   props: {
     plan: {
@@ -55,8 +59,7 @@ export default Vue.extend({
   methods: {
     choosePlan() {
       const plan = this.plan;
-
-      console.log(plan);
+      this.$nuxt.$emit("choosePlan", plan);
     },
   },
 });

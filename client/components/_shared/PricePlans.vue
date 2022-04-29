@@ -23,6 +23,7 @@ export default Vue.extend({
     return {
       plans: [
         {
+          api_id: "price_1KtztRKpfWtEKcAOHCV2QfKb",
           title: "NORMAL",
           price: 75,
           features: [
@@ -32,6 +33,7 @@ export default Vue.extend({
           ],
         },
         {
+          api_id: "",
           title: "BOOSTED",
           price: 160,
           features: [
@@ -42,6 +44,7 @@ export default Vue.extend({
           ],
         },
         {
+          api_id: "",
           title: "PRO",
           price: 250,
           features: [
