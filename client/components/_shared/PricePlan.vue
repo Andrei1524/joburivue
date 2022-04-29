@@ -26,6 +26,7 @@
         size="is-medium"
         class="orange-btn mb-2"
         icon-right="notebook"
+        :loading="planLoading"
         @click="choosePlan"
       >
         Alege plan
@@ -51,7 +52,9 @@ export default Vue.extend({
     },
   },
   data() {
-    return {};
+    return {
+      planLoading: false,
+    };
   },
 
   mounted() {},
@@ -59,6 +62,7 @@ export default Vue.extend({
   methods: {
     choosePlan() {
       const plan = this.plan;
+      this.planLoading = true;
       this.$nuxt.$emit("choosePlan", plan);
     },
   },
