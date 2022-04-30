@@ -4,6 +4,7 @@
     <div class="container is-max-desktop">
       <b-steps :value="currentStep" :has-navigation="false">
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
         >
@@ -14,12 +15,14 @@
           />
         </b-step-item>
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
           <JobPreview v-if="currentStep === 1" class="mt-5" />
         </b-step-item>
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
         >
@@ -45,6 +48,7 @@ export default Vue.extend({
   data() {
     return {
       currentStep: 0,
+      isStepsClickable: false,
       progressSteps: [
         {
           title: "Detalii job",
