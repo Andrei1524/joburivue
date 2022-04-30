@@ -9,12 +9,11 @@ const endpointSecret = process.env.WEBHOOK_LOCAL_SECRET;
 async function webhoock(req: Request, res: Response, next: NextFunction) {
   try {
     const sig = req.headers["stripe-signature"];
-    const raw = Buffer.from(req.body, "base64").toString("utf8");
     let event;
+    console.log(endpointSecret);
 
     try {
-      event = stripe.webhooks.constructEvent(raw, sig, endpointSecret);
-      console.log(event);
+      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     } catch (err) {
       console.log(err);
       if (err instanceof Error) {
@@ -26,20 +25,20 @@ async function webhoock(req: Request, res: Response, next: NextFunction) {
     }
 
     // Handle the event
-    switch (event.type) {
-      case "payment_intent.succeeded": {
-        const paymentIntent = event.data.object;
-        await CheckoutService.handlePaymentIntent(paymentIntent);
-        // Then define and call a function to handle the event payment_intent.succeeded
-        break;
-      }
+    // switch (event.type) {
+    //   case "payment_intent.succeeded": {
+    //     const paymentIntent = event.data.object;
+    //     await CheckoutService.handlePaymentIntent(paymentIntent);
+    //     // Then define and call a function to handle the event payment_intent.succeeded
+    //     break;
+    //   }
 
-      // ... handle other event types
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
+    //   // ... handle other event types
+    //   default:
+    //     console.log(`Unhandled event type ${event.type}`);
+    // }
 
-    return res.status(200).json("sucesfully paid");
+    res.json({ received: true });
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
