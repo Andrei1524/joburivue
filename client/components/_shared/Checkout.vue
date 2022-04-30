@@ -18,12 +18,6 @@ import Vue from "vue";
 export default Vue.extend({
   name: "AppCheckout",
 
-  props: {
-    plan: {
-      type: Object,
-      default: () => {},
-    },
-  },
   data() {
     this.publishableKey = process.env.STRIPE_PK;
     return {
