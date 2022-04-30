@@ -11,7 +11,7 @@ const api = express_1.default.Router();
 api.use("/auth", auth_routes_1.default);
 api.use("/jobs", job_routes_1.default);
 api.use("/tags", tag_routes_1.default);
-api.use("/webhooks", checkout_routes_1.default);
+api.use("/webhook", checkout_routes_1.default);
 api.get("*", (req, res) => {
     res.status(404).json({ error: "not found" });
 });

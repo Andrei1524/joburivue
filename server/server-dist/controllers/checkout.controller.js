@@ -36,16 +36,19 @@ exports.webhoock = void 0;
 const stripe = require("stripe");
 const CheckoutService = __importStar(require("../services/checkout.service"));
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_e14ea9d694141bf2d213b3dd73e6c3df7a3daad28db9f552fdb829a8923a47ad";
+const endpointSecret = process.env.WEBHOOK_LOCAL_SECRET;
 function webhoock(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const sig = req.headers["stripe-signature"];
+            const raw = Buffer.from(req.body, "base64").toString("utf8");
             let event;
             try {
-                event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+                event = stripe.webhooks.constructEvent(raw, sig, endpointSecret);
+                console.log(event);
             }
             catch (err) {
+                console.log(err);
                 if (err instanceof Error) {
                     res.status(400).send(`Webhook Error: ${err.message}`);
                     return;

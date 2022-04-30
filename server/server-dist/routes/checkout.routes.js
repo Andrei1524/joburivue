@@ -26,7 +26,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const express_1 = __importDefault(require("express"));
+const bodyParser = require("body-parser");
 const router = express_1.default.Router();
 const CheckoutController = __importStar(require("../controllers/checkout.controller"));
-router.post("/", CheckoutController.webhoock);
+router.post("/", express_1.default.raw({ type: "application/json" }), CheckoutController.webhoock);
 module.exports = router;
