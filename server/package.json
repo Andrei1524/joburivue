@@ -20,7 +20,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
-    "nanoid": "^3.3.3"
+    "nanoid": "^3.3.3",
+    "stripe": "^8.219.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

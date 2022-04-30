@@ -5,12 +5,14 @@ import express from "express";
 import authRouter from "./auth.routes";
 import jobRouter from "./job.routes";
 import tagRouter from "./tag.routes";
+import checkoutRouter from "./checkout.routes";
 
 const api = express.Router();
 
 api.use("/auth", authRouter);
 api.use("/jobs", jobRouter);
 api.use("/tags", tagRouter);
+api.use("/webhooks", checkoutRouter);
 
 api.get("*", (req: Request, res: Response) => {
   res.status(404).json({ error: "not found" });
