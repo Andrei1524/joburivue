@@ -19,8 +19,8 @@ export default Vue.extend({
   name: "AppCheckout",
 
   data() {
-    this.publishableKey = process.env.STRIPE_PK;
     return {
+      publishableKey: process.env.STRIPE_PK,
       lineItems: [
         {
           price: "some-price-id", // The id of the one-time price you created in your Stripe dashboard
