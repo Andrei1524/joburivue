@@ -13,7 +13,7 @@ exports.handlePaymentIntent = void 0;
 function handlePaymentIntent(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(payload);
+            console.log("payment", payload);
             return "handle event";
         }
         catch (error) {
