@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -11,6 +34,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.webhoock = void 0;
 const stripe = require("stripe");
+const CheckoutService = __importStar(require("../services/checkout.service"));
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
 const endpointSecret = process.env.WEBHOOK_LOCAL_SECRET;
 function webhoock(req, res, next) {
@@ -18,7 +42,6 @@ function webhoock(req, res, next) {
         try {
             const sig = req.headers["stripe-signature"];
             let event;
-            console.log(endpointSecret);
             try {
                 event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
             }
@@ -33,17 +56,16 @@ function webhoock(req, res, next) {
                 }
             }
             // Handle the event
-            // switch (event.type) {
-            //   case "payment_intent.succeeded": {
-            //     const paymentIntent = event.data.object;
-            //     await CheckoutService.handlePaymentIntent(paymentIntent);
-            //     // Then define and call a function to handle the event payment_intent.succeeded
-            //     break;
-            //   }
-            //   // ... handle other event types
-            //   default:
-            //     console.log(`Unhandled event type ${event.type}`);
-            // }
+            switch (event.type) {
+                case "payment_intent.succeeded": {
+                    const paymentIntent = event.data.object;
+                    yield CheckoutService.handlePaymentIntent(paymentIntent);
+                    break;
+                }
+                // ... handle other event types
+                // default:
+                //   console.log(`Unhandled event type ${event.type}`);
+            }
             res.json({ received: true });
         }
         catch (error) {

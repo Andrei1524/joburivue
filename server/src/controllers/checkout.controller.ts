@@ -10,7 +10,6 @@ async function webhoock(req: Request, res: Response, next: NextFunction) {
   try {
     const sig = req.headers["stripe-signature"];
     let event;
-    console.log(endpointSecret);
 
     try {
       event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
@@ -25,18 +24,17 @@ async function webhoock(req: Request, res: Response, next: NextFunction) {
     }
 
     // Handle the event
-    // switch (event.type) {
-    //   case "payment_intent.succeeded": {
-    //     const paymentIntent = event.data.object;
-    //     await CheckoutService.handlePaymentIntent(paymentIntent);
-    //     // Then define and call a function to handle the event payment_intent.succeeded
-    //     break;
-    //   }
+    switch (event.type) {
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object;
+        await CheckoutService.handlePaymentIntent(paymentIntent);
+        break;
+      }
 
-    //   // ... handle other event types
-    //   default:
-    //     console.log(`Unhandled event type ${event.type}`);
-    // }
+      // ... handle other event types
+      // default:
+      //   console.log(`Unhandled event type ${event.type}`);
+    }
 
     res.json({ received: true });
   } catch (error) {
