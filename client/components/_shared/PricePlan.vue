@@ -58,7 +58,6 @@ export default Vue.extend({
   methods: {
     choosePlan() {
       const plan = this.plan;
-      console.log(plan);
       const { query } = this.$route;
       if (query && query.option === "checkout") {
         this.planLoading = true;
