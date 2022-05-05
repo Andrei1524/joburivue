@@ -23,9 +23,9 @@ async function webhoock(req: Request, res: Response, next: NextFunction) {
 
     // Handle the event
     switch (event.type) {
-      case "payment_intent.succeeded": {
+      case "checkout.session.completed": {
         const paymentIntent = event.data.object;
-        await CheckoutService.handlePaymentIntent(paymentIntent);
+        await CheckoutService.handlePaymentCompleted(paymentIntent);
         break;
       }
     }

@@ -2,7 +2,7 @@
 const mongoose_1 = require("mongoose");
 const PlanSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
-    activeDuration: { type: String, required: true },
+    expireDate: { type: String, required: true },
     promotedOnSocialChannels: { type: Boolean, required: false },
     listedOnWeeklyNewsletter: { type: Boolean, required: false },
     jobPinnedInSearches: { type: Boolean, required: false },

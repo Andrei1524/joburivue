@@ -1,35 +1,41 @@
 import { mongoConnect, mongoDisconnect } from "../services/_mongo.service";
 import Plan from "../model/plan.model";
+const { DateTime } = require("luxon");
 
-const plans = [
-  new Plan({
-    name: "NORMAL",
-    activeDuration: "35",
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: false,
-    jobPinnedInSearches: false,
-    jobShowedInRecommendedCompanies: false,
-  }),
-  new Plan({
-    name: "BOOSTED",
-    activeDuration: "60",
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: true,
-    jobPinnedInSearches: true,
-    jobShowedInRecommendedCompanies: false,
-  }),
-  new Plan({
-    name: "PRO",
-    activeDuration: "60",
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: true,
-    jobPinnedInSearches: true,
-    jobShowedInRecommendedCompanies: true,
-  }),
-];
+const normalPlanDays = 35;
+const normalPlan = new Plan({
+  name: "NORMAL",
+  expireDate: DateTime.now().plus({ days: normalPlanDays }),
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: false,
+  jobPinnedInSearches: false,
+  jobShowedInRecommendedCompanies: false,
+});
+
+const boostedPlanDays = 60;
+const boostedPlan = new Plan({
+  name: "BOOSTED",
+  expireDate: DateTime.now().plus({ days: boostedPlanDays }),
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: true,
+  jobPinnedInSearches: true,
+  jobShowedInRecommendedCompanies: false,
+});
+
+const proPlanDays = 60;
+const proPlan = new Plan({
+  name: "PRO",
+  expireDate: DateTime.now().plus({ days: proPlanDays }),
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: true,
+  jobPinnedInSearches: true,
+  jobShowedInRecommendedCompanies: true,
+});
+
+const plans = [normalPlan, boostedPlan, proPlan];
 
 async function startSeedingPlans() {
   try {
@@ -50,4 +56,4 @@ async function startSeedingPlans() {
   }
 }
 
-export { startSeedingPlans };
+export { normalPlan, boostedPlan, proPlan, startSeedingPlans };

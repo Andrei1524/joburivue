@@ -20,6 +20,7 @@ const JobSchema = new mongoose_1.Schema({
     minSalary: { type: Number, required: false },
     maxSalary: { type: Number, required: false },
     createdBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
+    plan: { type: mongoose_1.Schema.Types.ObjectId, ref: "Plan", required: false },
 });
 JobSchema.index({ "$**": "text" });
 const Job = (0, mongoose_1.model)("Job", JobSchema);

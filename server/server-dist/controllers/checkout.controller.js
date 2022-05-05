@@ -55,9 +55,9 @@ function webhoock(req, res, next) {
             }
             // Handle the event
             switch (event.type) {
-                case "payment_intent.succeeded": {
+                case "checkout.session.completed": {
                     const paymentIntent = event.data.object;
-                    yield CheckoutService.handlePaymentIntent(paymentIntent);
+                    yield CheckoutService.handlePaymentCompleted(paymentIntent);
                     break;
                 }
             }

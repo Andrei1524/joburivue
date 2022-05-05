@@ -12,38 +12,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.startSeedingPlans = void 0;
+exports.startSeedingPlans = exports.proPlan = exports.boostedPlan = exports.normalPlan = void 0;
 const _mongo_service_1 = require("../services/_mongo.service");
 const plan_model_1 = __importDefault(require("../model/plan.model"));
-const plans = [
-    new plan_model_1.default({
-        name: "NORMAL",
-        activeDuration: "35",
-        promotedOnSocialChannels: true,
-        listedOnWeeklyNewsletter: true,
-        promotedOnWeeklyNewsletter: false,
-        jobPinnedInSearches: false,
-        jobShowedInRecommendedCompanies: false,
-    }),
-    new plan_model_1.default({
-        name: "BOOSTED",
-        activeDuration: "60",
-        promotedOnSocialChannels: true,
-        listedOnWeeklyNewsletter: true,
-        promotedOnWeeklyNewsletter: true,
-        jobPinnedInSearches: true,
-        jobShowedInRecommendedCompanies: false,
-    }),
-    new plan_model_1.default({
-        name: "PRO",
-        activeDuration: "60",
-        promotedOnSocialChannels: true,
-        listedOnWeeklyNewsletter: true,
-        promotedOnWeeklyNewsletter: true,
-        jobPinnedInSearches: true,
-        jobShowedInRecommendedCompanies: true,
-    }),
-];
+const { DateTime } = require("luxon");
+const normalPlanDays = 35;
+const normalPlan = new plan_model_1.default({
+    name: "NORMAL",
+    expireDate: DateTime.now().plus({ days: normalPlanDays }),
+    promotedOnSocialChannels: true,
+    listedOnWeeklyNewsletter: true,
+    promotedOnWeeklyNewsletter: false,
+    jobPinnedInSearches: false,
+    jobShowedInRecommendedCompanies: false,
+});
+exports.normalPlan = normalPlan;
+const boostedPlanDays = 60;
+const boostedPlan = new plan_model_1.default({
+    name: "BOOSTED",
+    expireDate: DateTime.now().plus({ days: boostedPlanDays }),
+    promotedOnSocialChannels: true,
+    listedOnWeeklyNewsletter: true,
+    promotedOnWeeklyNewsletter: true,
+    jobPinnedInSearches: true,
+    jobShowedInRecommendedCompanies: false,
+});
+exports.boostedPlan = boostedPlan;
+const proPlanDays = 60;
+const proPlan = new plan_model_1.default({
+    name: "PRO",
+    expireDate: DateTime.now().plus({ days: proPlanDays }),
+    promotedOnSocialChannels: true,
+    listedOnWeeklyNewsletter: true,
+    promotedOnWeeklyNewsletter: true,
+    jobPinnedInSearches: true,
+    jobShowedInRecommendedCompanies: true,
+});
+exports.proPlan = proPlan;
+const plans = [normalPlan, boostedPlan, proPlan];
 function startSeedingPlans() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
