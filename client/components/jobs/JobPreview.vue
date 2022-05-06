@@ -54,7 +54,11 @@
 import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
-import { formatRemoteType, formatJobType } from "~/utils/jobs";
+import {
+  formatRemoteType,
+  formatJobType,
+  parseEscapedText,
+} from "~/utils/jobs";
 
 export default Vue.extend({
   name: "JobPreview",
@@ -82,7 +86,7 @@ export default Vue.extend({
 
   computed: {
     parseDescriptionWithBulmaTags() {
-      const description = this.job.description;
+      const description = parseEscapedText(this.job.description);
       let parsedDecr;
       if (description) {
         parsedDecr = description
@@ -92,7 +96,6 @@ export default Vue.extend({
           .replaceAll("<h4>", "<h2 class='is-size-5'>")
           .replaceAll("<h5>", "<h2 class='is-size-6'>");
       }
-
       return parsedDecr;
     },
   },
@@ -100,6 +103,7 @@ export default Vue.extend({
   methods: {
     formatRemoteType,
     formatJobType,
+    parseEscapedText,
   },
 });
 </script>

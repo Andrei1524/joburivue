@@ -135,6 +135,7 @@ import * as JobService from "~/services/job.service";
 import TagSearch from "~/components/_shared/TagSearch.vue";
 import Input from "~/components/_shared/form/Input.vue";
 import Select from "~/components/_shared/form/Select.vue";
+import { parseEscapedText } from "~/utils/jobs";
 
 export default Vue.extend({
   name: "JobDetails",
@@ -203,11 +204,14 @@ export default Vue.extend({
     try {
       const job = await JobService.getJob(this.$axios, payload);
       this.form = { ...job };
+      this.form.description = this.parseEscapedText(this.form.description);
       this.jobDetailsLoading = false;
     } catch (error) {}
   },
 
   methods: {
+    parseEscapedText,
+
     async submit() {
       // TODO: handle company ID from actual company
       const tagsIds = this.form.tags.map((tag) => tag && tag._id);
