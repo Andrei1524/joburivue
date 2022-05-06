@@ -5,7 +5,8 @@ const { DateTime } = require("luxon");
 const normalPlanDays = 35;
 const normalPlan = new Plan({
   name: "NORMAL",
-  expireDate: DateTime.now().plus({ days: normalPlanDays }),
+  expireDate: DateTime.now().plus({ minutes: 2 }),
+  isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: false,
@@ -17,6 +18,7 @@ const boostedPlanDays = 60;
 const boostedPlan = new Plan({
   name: "BOOSTED",
   expireDate: DateTime.now().plus({ days: boostedPlanDays }),
+  isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: true,
@@ -28,6 +30,7 @@ const proPlanDays = 60;
 const proPlan = new Plan({
   name: "PRO",
   expireDate: DateTime.now().plus({ days: proPlanDays }),
+  isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: true,

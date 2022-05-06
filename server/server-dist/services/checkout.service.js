@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handlePaymentCompleted = void 0;
 const job_model_1 = __importDefault(require("../model/job.model"));
 const seedPlans_1 = require("../seeds/seedPlans");
+const agenda = require("./_agenda.service");
 function handlePaymentCompleted(payload) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -44,6 +45,7 @@ function handleActionsOnSelectedPlan(selectedPlan, userId) {
                         }
                         foundJob.plan = savedDoc._id;
                         yield foundJob.save();
+                        yield schedulePlanExpire(savedDoc);
                     });
                 });
                 break;
@@ -51,11 +53,11 @@ function handleActionsOnSelectedPlan(selectedPlan, userId) {
                 seedPlans_1.boostedPlan.save(function (err, savedDoc) {
                     return __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log(err);
                             return err;
                         }
                         foundJob.plan = savedDoc._id;
                         yield foundJob.save();
+                        yield schedulePlanExpire(savedDoc);
                     });
                 });
                 break;
@@ -68,9 +70,22 @@ function handleActionsOnSelectedPlan(selectedPlan, userId) {
                         }
                         foundJob.plan = savedDoc._id;
                         yield foundJob.save();
+                        yield schedulePlanExpire(savedDoc);
                     });
                 });
                 break;
+        }
+    });
+}
+function schedulePlanExpire(plan) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield agenda.schedule(plan.expireDate, "schedule_plan_expire", {
+                plan_id: plan._id,
+            });
+        }
+        catch (error) {
+            console.log(error);
         }
     });
 }

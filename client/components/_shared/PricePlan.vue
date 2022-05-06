@@ -85,7 +85,7 @@ export default Vue.extend({
 
   .feature {
     width: 80%;
-    font-family: cursive;
+    font-weight: 500;
   }
 
   .check-icon {
