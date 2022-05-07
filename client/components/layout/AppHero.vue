@@ -1,24 +1,30 @@
 <template>
-  <div class="pricing-page">
-    <AppHero
-      :title="'Lista servicii si beneficii'"
-      :subtitle="'Alege un plan care ti se potriveste'"
-    />
-
-    <PricePlans />
-  </div>
+  <section class="hero is-success position-relative">
+    <div class="hero-wrapper" />
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title">{{ title }}</p>
+        <p class="subtitle mt-2">{{ subtitle }}</p>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import PricePlans from "~/components/_shared/PricePlans.vue";
-import AppHero from "~/components/layout/AppHero.vue";
 
 export default Vue.extend({
-  name: "AppPricing",
-  components: {
-    PricePlans,
-    AppHero,
+  name: "AppHero",
+
+  props: {
+    title: {
+      type: String,
+      default: () => "",
+    },
+    subtitle: {
+      type: String,
+      default: () => "",
+    },
   },
 
   data() {
