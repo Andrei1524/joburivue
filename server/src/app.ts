@@ -11,7 +11,8 @@ import api from "./routes/api";
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(morgan("combined"));
+  // TODO: uncomment this
+  // app.use(morgan("combined"));
 }
 
 // Use JSON parser for all non-webhook routes
