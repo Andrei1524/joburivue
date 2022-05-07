@@ -1,11 +1,14 @@
 import { mongoConnect, mongoDisconnect } from "../services/_mongo.service";
 import Plan from "../model/plan.model";
-const { DateTime } = require("luxon");
+
+const add_minutes = function (dt: Date, minutes: number) {
+  return new Date(dt.getTime() + minutes * 60000);
+};
 
 const normalPlanDays = 35;
 const normalPlan = new Plan({
   name: "NORMAL",
-  expireDate: DateTime.now().toUTC().plus({ minutes: 2 }),
+  expireDate: add_minutes(new Date(), 2).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -17,7 +20,7 @@ const normalPlan = new Plan({
 const boostedPlanDays = 60;
 const boostedPlan = new Plan({
   name: "BOOSTED",
-  expireDate: DateTime.now().toUTC().plus({ days: boostedPlanDays }),
+  expireDate: add_minutes(new Date(), 2).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -29,7 +32,7 @@ const boostedPlan = new Plan({
 const proPlanDays = 60;
 const proPlan = new Plan({
   name: "PRO",
-  expireDate: DateTime.now().toUTC().plus({ days: proPlanDays }),
+  expireDate: add_minutes(new Date(), 2).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
