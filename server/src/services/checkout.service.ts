@@ -2,7 +2,6 @@ import Job from "../model/job.model";
 import { normalPlan, boostedPlan, proPlan } from "../seeds/seedPlans";
 import { planTypes } from "../ts/types/plan.types";
 const agenda = require("./_agenda.service");
-const { DateTime } = require("luxon");
 
 async function handlePaymentCompleted(payload: any) {
   try {
