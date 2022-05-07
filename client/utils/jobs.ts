@@ -20,3 +20,13 @@ export const formatJobType = (jobType) => {
     return "Temporary";
   }
 };
+
+export const parseEscapedText = (escapedText) => {
+  const parser = new DOMParser();
+  const dom = parser.parseFromString(
+    "<!doctype html><body>" + escapedText,
+    "text/html"
+  );
+
+  return dom.body.textContent;
+};

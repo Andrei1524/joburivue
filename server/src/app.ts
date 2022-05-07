@@ -11,10 +11,19 @@ import api from "./routes/api";
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(morgan("combined"));
+  // TODO: uncomment this
+  // app.use(morgan("combined"));
 }
 
-app.use(express.json()); // if we use json data
+// Use JSON parser for all non-webhook routes
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/v1/webhook") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
 // server public nuxt code
 app.use(express.static(path.join(__dirname, "..", "dist")));
 

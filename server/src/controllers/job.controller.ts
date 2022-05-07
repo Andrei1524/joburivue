@@ -22,6 +22,7 @@ const createJobValidate = [
     .exists()
     .not()
     .isEmpty()
+    .escape()
     .withMessage("Adaugati o descriere!"),
   check("location")
     .custom((value: string, { req }: any) => {

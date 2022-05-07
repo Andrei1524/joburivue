@@ -8,7 +8,9 @@
     <template #start>
       <b-navbar-item href="#"> Joburi </b-navbar-item>
       <b-navbar-item href="#"> Despre </b-navbar-item>
-      <b-navbar-item href="#"> Preturi </b-navbar-item>
+      <b-navbar-item tag="router-link" :to="{ path: '/pricing' }"
+        >Preturi</b-navbar-item
+      >
     </template>
 
     <template #end>

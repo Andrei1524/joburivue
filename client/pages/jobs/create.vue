@@ -4,22 +4,29 @@
     <div class="container is-max-desktop">
       <b-steps :value="currentStep" :has-navigation="false">
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
         >
-          <JobDetails v-if="currentStep === 0" @submitJobDetails="nextStep" />
+          <JobDetails
+            v-if="currentStep === 0"
+            class="mt-5"
+            @submitJobDetails="nextStep"
+          />
         </b-step-item>
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
         >
-          <JobPreview v-if="currentStep === 1" />
+          <JobPreview v-if="currentStep === 1" class="mt-5" />
         </b-step-item>
         <b-step-item
+          :clickable="isStepsClickable"
           :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
         >
-          <!-- <JobDetails @submitJobDetails="nextStep" /> -->
+          <JobCheckout v-if="currentStep === 2" class="mt-5" />
         </b-step-item>
       </b-steps>
     </div>
@@ -31,15 +38,17 @@ import Vue from "vue";
 import _ from "lodash";
 import JobDetails from "~/components/jobs/JobDetails.vue";
 import JobPreview from "~/components/jobs/JobPreview.vue";
+import JobCheckout from "~/components/jobs/JobCheckout.vue";
 
 export default Vue.extend({
   name: "JobCreate",
-  components: { JobDetails, JobPreview },
+  components: { JobDetails, JobPreview, JobCheckout },
   middleware: ["auth", "jobBelongsToCurrentUser"],
 
   data() {
     return {
       currentStep: 0,
+      isStepsClickable: false,
       progressSteps: [
         {
           title: "Detalii job",

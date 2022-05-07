@@ -6,12 +6,15 @@
   "scripts": {
     "start": "node server-dist/server.js",
     "watch": "tsc-watch --onSuccess \"node .\"",
-    "test": "mocha -r ts-node/register ./src/test/**test.ts"
+    "test": "mocha -r ts-node/register ./src/test/**test.ts",
+    "seed": "node server-dist/seeds/runSeeds.js"
   },
   "license": "MIT",
   "dependencies": {
     "@types/jest": "^27.4.1",
+    "agenda": "^4.2.1",
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -20,7 +23,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0",
-    "nanoid": "^3.3.3"
+    "nanoid": "^3.3.3",
+    "stripe": "^8.219.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

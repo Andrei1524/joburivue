@@ -41,7 +41,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     {src: '~/plugins/vee-validate.js', ssr: true },
-    '~/plugins/axios'
+    '~/plugins/axios',
+    { src: '~/plugins/vue-stripe.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -105,6 +106,10 @@ export default {
     axios: {
       browserBaseURL: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:4000/api/v1'
     }
+  },
+
+  env: {
+    STRIPE_PK: process.env.STRIPE_PK,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
