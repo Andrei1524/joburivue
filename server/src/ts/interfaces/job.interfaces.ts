@@ -18,7 +18,7 @@ interface JobInterface {
   minSalary: number;
   maxSalary: number;
   createdBy: Types.ObjectId;
-  plan: Types.ObjectId;
+  plan: any;
   params: any;
 }
 

@@ -21,7 +21,10 @@ const JobSchema = new Schema<JobInterface>({
   minSalary: { type: Number, required: false },
   maxSalary: { type: Number, required: false },
   createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  plan: { type: Schema.Types.ObjectId, ref: "Plan", required: false },
+  plan: {
+    _id: { type: Schema.Types.ObjectId, ref: "Plan", required: false },
+    isPlanActive: { type: Boolean, required: false },
+  },
 });
 
 JobSchema.index({ "$**": "text" });

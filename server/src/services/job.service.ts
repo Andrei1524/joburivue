@@ -44,7 +44,7 @@ async function getJobs(query: any, page: number, limit: number) {
 
     let jobs: any = [];
     let total_items = 0;
-    const findQuery = { "plan.isActive": true };
+    const findQuery = { "plan.isPlanActive": true };
 
     if (query) {
       const searchJobs = await Job.find({
@@ -53,11 +53,11 @@ async function getJobs(query: any, page: number, limit: number) {
       }).lean();
 
       jobs = searchJobs;
-      total_items = searchJobs.length;
     } else {
       jobs = await Job.find(findQuery).skip(skip).limit(limit).lean().exec();
-      total_items = await Job.countDocuments(query);
     }
+
+    total_items = jobs.length;
 
     return { jobs, total_items: total_items };
   } catch (error) {

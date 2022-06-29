@@ -7,7 +7,7 @@ async function handlePaymentCompleted(payload: any) {
   try {
     const [userId, selectedPlan] = payload.client_reference_id.split("-");
 
-    // fullfill job create
+    // fullfill job create on succesfull payment
     await handleActionsOnSelectedPlan(selectedPlan, userId);
 
     return true;
@@ -31,10 +31,12 @@ async function handleActionsOnSelectedPlan(
           console.log(err);
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan._id = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
     case "BOOSTED":
@@ -42,31 +44,35 @@ async function handleActionsOnSelectedPlan(
         if (err) {
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
     case "PRO":
       proPlan.save(async function (err, savedDoc) {
         if (err) {
-          console.log(err);
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
   }
 }
 
-async function schedulePlanExpire(plan: any) {
+async function schedulePlanExpire(plan: any, job: any) {
   try {
     await agenda.schedule(plan.expireDate, "schedule_plan_expire", {
       plan_id: plan._id,
+      job_id: job._id,
     });
   } catch (error) {
     console.log(error);
