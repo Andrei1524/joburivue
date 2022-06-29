@@ -42,34 +42,20 @@ async function getJobs(query: any, page: number, limit: number) {
   try {
     const skip = (page - 1) * limit;
 
-    let jobs = [];
+    let jobs: any = [];
     let total_items = 0;
+    const findQuery = { "plan.isActive": true };
 
     if (query) {
-      const searchJobs = await Job.aggregate([
-        {
-          $search: {
-            index: "search jobs",
-            text: {
-              query: `{"title": {$eq: ${query}}}`,
-              fuzzy: {},
-              path: {
-                wildcard: "*",
-              },
-            },
-          },
-        },
-        {
-          $facet: {
-            metadata: [{ $count: "total" }, { $addFields: { page: page } }],
-            data: [{ $skip: skip }, { $limit: limit }],
-          },
-        },
-      ]);
-      jobs = searchJobs[0].data;
-      total_items = searchJobs[0].metadata[0].total;
+      const searchJobs = await Job.find({
+        $text: { $search: query },
+        ...findQuery,
+      }).lean();
+
+      jobs = searchJobs;
+      total_items = searchJobs.length;
     } else {
-      jobs = await Job.find({}).skip(skip).limit(limit).lean().exec();
+      jobs = await Job.find(findQuery).skip(skip).limit(limit).lean().exec();
       total_items = await Job.countDocuments(query);
     }
 
