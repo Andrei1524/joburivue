@@ -71,17 +71,18 @@ export default Vue.extend({
     };
   },
 
-  async fetch() {
+  fetch() {
     const { query } = this.$route;
 
     this.jobPreviewLoading = true;
     const payload = `${query.id}/${query.option}`;
 
-    try {
-      const job = await JobService.getJob(this.$axios, payload);
-      this.job = { ...job };
-      this.jobPreviewLoading = false;
-    } catch (error) {}
+    JobService.getJob(this.$axios, payload)
+      .then((data) => {
+        this.job = { ...data };
+        this.job.title = parseEscapedText(data.title);
+      })
+      .finally(() => (this.jobPreviewLoading = false));
   },
 
   computed: {
@@ -98,6 +99,10 @@ export default Vue.extend({
       }
       return parsedDecr;
     },
+  },
+
+  watch: {
+    "$route.query": "$fetch",
   },
 
   methods: {
