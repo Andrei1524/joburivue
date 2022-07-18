@@ -5,9 +5,9 @@ const agenda = require('./_agenda.service');
 
 async function handlePaymentCompleted(payload: any) {
   try {
-    const [userId, selectedPlan] = payload.client_reference_id.split('-');
+    const [jobID, selectedPlan] = payload.client_reference_id.split('/');
     // fullfill job create on succesfull payment
-    await handleActionsOnSelectedPlan(selectedPlan, userId);
+    await handleActionsOnSelectedPlan(selectedPlan, jobID);
 
     return true;
   } catch (error) {
@@ -17,10 +17,10 @@ async function handlePaymentCompleted(payload: any) {
 
 async function handleActionsOnSelectedPlan(
   selectedPlan: planTypes,
-  userId: string
+  jobID: string
 ) {
   const foundJob = await Job.findOne({
-    createdBy: userId,
+    jobId: jobID,
   });
 
   switch (selectedPlan) {

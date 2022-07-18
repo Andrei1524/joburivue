@@ -3,7 +3,7 @@
     <stripe-checkout
       ref="checkoutRef"
       mode="payment"
-      :client-reference-id="`${$auth.user && $auth.user._id}-${selectedPlan}`"
+      :client-reference-id="`${$route.query.id}/${selectedPlan}`"
       :pk="publishableKey"
       :line-items="lineItems"
       :success-url="successURL"
@@ -38,6 +38,7 @@ export default Vue.extend({
 
   mounted() {
     const { query } = this.$route;
+    console.log(query);
 
     this.$nuxt.$on("choosePlan", (plan) => {
       // console.log(plan);

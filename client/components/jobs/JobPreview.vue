@@ -71,20 +71,6 @@ export default Vue.extend({
     };
   },
 
-  fetch() {
-    const { query } = this.$route;
-
-    this.jobPreviewLoading = true;
-    const payload = `${query.id}/${query.option}`;
-
-    JobService.getJob(this.$axios, payload)
-      .then((data) => {
-        this.job = { ...data };
-        this.job.title = parseEscapedText(data.title);
-      })
-      .finally(() => (this.jobPreviewLoading = false));
-  },
-
   computed: {
     parseDescriptionWithBulmaTags() {
       const description = parseEscapedText(this.job.description);
@@ -101,8 +87,23 @@ export default Vue.extend({
     },
   },
 
-  watch: {
-    "$route.query": "$fetch",
+  watchQuery: ["id"],
+
+  mounted() {
+    const { query } = this.$route;
+
+    const payload = `${query.id}/${query.option}`;
+
+    if (query.id || query.option) {
+      this.jobPreviewLoading = true;
+
+      JobService.getJob(this.$axios, payload)
+        .then((data) => {
+          this.job = { ...data };
+          this.job.title = parseEscapedText(data.title);
+        })
+        .finally(() => (this.jobPreviewLoading = false));
+    }
   },
 
   methods: {

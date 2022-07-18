@@ -7,7 +7,7 @@
     </div>
     <div class="column job-title is-narrow">
       <h5 class="title is-5">
-        {{ job.title }}
+        {{ parseEscapedText(job.title) }}
       </h5>
       <h6 class="subtitle has-text-left is-6">
         <span class="has-text-weight-bold">{{ job.company.name }}</span>
@@ -41,7 +41,11 @@
 <script lang="ts">
 import Vue from "vue";
 import Tag from "~/components/_shared/JobItemTag.vue";
-import { formatRemoteType, formatJobType } from "~/utils/jobs";
+import {
+  formatRemoteType,
+  formatJobType,
+  parseEscapedText,
+} from "~/utils/jobs";
 
 export default Vue.extend({
   name: "JobItem",
@@ -63,6 +67,7 @@ export default Vue.extend({
   methods: {
     formatRemoteType,
     formatJobType,
+    parseEscapedText,
 
     formatMoney(value: number) {
       return Math.abs(value) > 999
