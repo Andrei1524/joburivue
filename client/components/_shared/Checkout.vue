@@ -38,7 +38,6 @@ export default Vue.extend({
 
   mounted() {
     const { query } = this.$route;
-    console.log(query);
 
     this.$nuxt.$on("choosePlan", (plan) => {
       // console.log(plan);

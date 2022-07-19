@@ -213,6 +213,15 @@ export default Vue.extend({
     }
   },
 
+  watch: {
+    $route() {
+      if (!this.$route.query.id) {
+        // TODO: clear form
+        this.form = {};
+      }
+    },
+  },
+
   methods: {
     parseEscapedText,
 
