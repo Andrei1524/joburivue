@@ -38,17 +38,24 @@ async function create(payload: JobInterface) {
   }
 }
 
-async function getJobs(query: any, page: number, limit: number) {
+async function getJobs(
+  searchString: any,
+  page: number,
+  limit: number,
+  queries: any
+) {
   try {
     const skip = (page - 1) * limit;
 
     let jobs: any = [];
     let total_items = 0;
-    const findQuery = { 'plan.isPlanActive': true };
+    const findQuery = {
+      'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
+    };
 
-    if (query) {
+    if (searchString) {
       const searchJobs = await Job.find({
-        $text: { $search: query },
+        $text: { $search: searchString },
         ...findQuery,
       })
         .sort({ createdAt: -1 })

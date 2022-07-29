@@ -50,7 +50,7 @@
             Profil Vue.js
           </b-navbar-item>
           <hr class="dropdown-divider my-2" />
-          <b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/jobs/list' }">
             <b-icon icon="briefcase" class="mr-1" />
             Joburile mele
           </b-navbar-item>

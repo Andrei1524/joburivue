@@ -1,6 +1,6 @@
-import { Types } from "mongoose";
-import { CompanyInterface } from "./company.interfaces";
-import { jobTypeTypes } from "../types/job.types";
+import { Types } from 'mongoose';
+import { CompanyInterface } from './company.interfaces';
+import { jobTypeTypes } from '../types/job.types';
 
 interface JobInterface {
   _id: string;
