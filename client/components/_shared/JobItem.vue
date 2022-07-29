@@ -32,7 +32,7 @@
         <span class="has-text-weight-bold mr-2">{{
           formatJobType(job.type)
         }}</span>
-        1hr ago
+        {{ formattedCreatedAt }}
       </div>
     </div>
   </div>
@@ -53,6 +53,7 @@ export default Vue.extend({
   components: {
     Tag,
   },
+
   props: {
     job: {
       type: Object,
@@ -62,6 +63,12 @@ export default Vue.extend({
 
   data() {
     return {};
+  },
+
+  computed: {
+    formattedCreatedAt() {
+      return this.$dayjs(this.job.createdAt).fromNow();
+    },
   },
 
   methods: {

@@ -31,7 +31,9 @@
       "@types/node",
       "nuxt-leaflet",
       "@nuxtjs/auth-next",
-      "@types/lodash"
+      "@types/lodash",
+      "@nuxtjs/dayjs",
+      "dayjs/plugin/relativeTime",
     ]
   },
   "exclude": [
