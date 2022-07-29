@@ -1,5 +1,8 @@
 <template>
-  <div class="columns job-item is-gapless is-align-items-center p-2">
+  <div
+    class="columns job-item is-gapless is-align-items-center p-2"
+    @click="goToJobPage"
+  >
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
         <img src="~assets/job-item-logo-example.png" />
@@ -21,9 +24,9 @@
       <div class="tags is-align-self-flex-end">
         <Tag
           class="mr-2"
-          :value="`${formatMoney(job.minSalary)} - ${formatMoney(
-            job.maxSalary
-          )}`"
+          :value="`${getCurrencySignFromJob()}${formatMoney(
+            job.minSalary
+          )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`"
           :tag-type="'salary-range'"
         />
         <Tag :value="'Romania'" :tag-type="'location'" />
@@ -80,6 +83,29 @@ export default Vue.extend({
       return Math.abs(value) > 999
         ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
         : Math.sign(value) * Math.abs(value);
+    },
+
+    getCurrencySignFromJob() {
+      switch (this.job.currency) {
+        case "euro":
+          return "€";
+
+        case "ron":
+          return "RON";
+      }
+    },
+
+    goToJobPage() {
+      const routeName = this.$route.name;
+
+      switch (routeName) {
+        case "jobs-list":
+          this.$router.push(`/jobs/create?id=${this.job.jobId}&option=preview`);
+          break;
+
+        default:
+          console.log("redirect to job page");
+      }
     },
   },
 });
