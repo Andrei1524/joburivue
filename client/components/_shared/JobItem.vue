@@ -1,5 +1,8 @@
 <template>
-  <div class="columns job-item is-gapless is-align-items-center p-2">
+  <div
+    class="columns job-item is-gapless is-align-items-center p-2"
+    @click="goToJobPage"
+  >
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
         <img src="~assets/job-item-logo-example.png" />
@@ -7,7 +10,7 @@
     </div>
     <div class="column job-title is-narrow">
       <h5 class="title is-5">
-        {{ job.title }}
+        {{ parseEscapedText(job.title) }}
       </h5>
       <h6 class="subtitle has-text-left is-6">
         <span class="has-text-weight-bold">{{ job.company.name }}</span>
@@ -21,9 +24,9 @@
       <div class="tags is-align-self-flex-end">
         <Tag
           class="mr-2"
-          :value="`${formatMoney(job.minSalary)} - ${formatMoney(
-            job.maxSalary
-          )}`"
+          :value="`${getCurrencySignFromJob()}${formatMoney(
+            job.minSalary
+          )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`"
           :tag-type="'salary-range'"
         />
         <Tag :value="'Romania'" :tag-type="'location'" />
@@ -32,7 +35,7 @@
         <span class="has-text-weight-bold mr-2">{{
           formatJobType(job.type)
         }}</span>
-        1hr ago
+        {{ formattedCreatedAt }}
       </div>
     </div>
   </div>
@@ -41,7 +44,11 @@
 <script lang="ts">
 import Vue from "vue";
 import Tag from "~/components/_shared/JobItemTag.vue";
-import { formatRemoteType, formatJobType } from "~/utils/jobs";
+import {
+  formatRemoteType,
+  formatJobType,
+  parseEscapedText,
+} from "~/utils/jobs";
 
 export default Vue.extend({
   name: "JobItem",
@@ -49,6 +56,7 @@ export default Vue.extend({
   components: {
     Tag,
   },
+
   props: {
     job: {
       type: Object,
@@ -60,14 +68,44 @@ export default Vue.extend({
     return {};
   },
 
+  computed: {
+    formattedCreatedAt() {
+      return this.$dayjs(this.job.createdAt).fromNow();
+    },
+  },
+
   methods: {
     formatRemoteType,
     formatJobType,
+    parseEscapedText,
 
     formatMoney(value: number) {
       return Math.abs(value) > 999
         ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
         : Math.sign(value) * Math.abs(value);
+    },
+
+    getCurrencySignFromJob() {
+      switch (this.job.currency) {
+        case "euro":
+          return "€";
+
+        case "ron":
+          return "RON";
+      }
+    },
+
+    goToJobPage() {
+      const routeName = this.$route.name;
+
+      switch (routeName) {
+        case "jobs-list":
+          this.$router.push(`/jobs/create?id=${this.job.jobId}&option=preview`);
+          break;
+
+        default:
+          console.log("redirect to job page");
+      }
     },
   },
 });

@@ -4,7 +4,7 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">{{ title }}</p>
-        <p class="subtitle mt-2">{{ subtitle }}</p>
+        <p v-if="subtitle" class="subtitle mt-2">{{ subtitle }}</p>
       </div>
     </div>
   </section>

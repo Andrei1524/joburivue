@@ -1,5 +1,5 @@
-import { mongoConnect, mongoDisconnect } from "../services/_mongo.service";
-import Plan from "../model/plan.model";
+import { mongoConnect, mongoDisconnect } from '../services/_mongo.service';
+import Plan from '../model/plan.model';
 
 const add_minutes = function (dt: Date, minutes: number) {
   return new Date(dt.getTime() + minutes * 60000);
@@ -7,8 +7,8 @@ const add_minutes = function (dt: Date, minutes: number) {
 
 const normalPlanDays = 35;
 const normalPlan = new Plan({
-  name: "NORMAL",
-  expireDate: add_minutes(new Date(), 2).toISOString(),
+  name: 'NORMAL',
+  expireDate: add_minutes(new Date(), 10080).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -19,8 +19,8 @@ const normalPlan = new Plan({
 
 const boostedPlanDays = 60;
 const boostedPlan = new Plan({
-  name: "BOOSTED",
-  expireDate: add_minutes(new Date(), 2).toISOString(),
+  name: 'BOOSTED',
+  expireDate: add_minutes(new Date(), 10080).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -31,8 +31,8 @@ const boostedPlan = new Plan({
 
 const proPlanDays = 60;
 const proPlan = new Plan({
-  name: "PRO",
-  expireDate: add_minutes(new Date(), 2).toISOString(),
+  name: 'PRO',
+  expireDate: add_minutes(new Date(), 10080).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -52,7 +52,7 @@ async function startSeedingPlans() {
     plans.map(async (plan, index) => {
       await plan.save(async (err, result) => {
         if (index === plans.length - 1) {
-          console.log("SEEDED PLANS!");
+          console.log('SEEDED PLANS!');
           await mongoDisconnect();
         }
       });

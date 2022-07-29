@@ -195,18 +195,31 @@ export default Vue.extend({
     };
   },
 
-  async fetch() {
+  fetch() {
     const { query } = this.$route;
 
-    this.jobDetailsLoading = true;
     const payload = `${query.id}/${query.option}`;
 
-    try {
-      const job = await JobService.getJob(this.$axios, payload);
-      this.form = { ...job };
-      this.form.description = this.parseEscapedText(this.form.description);
-      this.jobDetailsLoading = false;
-    } catch (error) {}
+    if (query.id || query.option) {
+      this.jobDetailsLoading = true;
+
+      JobService.getJob(this.$axios, payload)
+        .then((data) => {
+          this.form = { ...data };
+          this.form.description = this.parseEscapedText(this.form.description);
+          this.form.title = this.parseEscapedText(this.form.title);
+        })
+        .finally(() => (this.jobDetailsLoading = false));
+    }
+  },
+
+  watch: {
+    $route() {
+      if (!this.$route.query.id) {
+        // TODO: clear form
+        this.form = {};
+      }
+    },
   },
 
   methods: {

@@ -1,14 +1,13 @@
-import Job from "../model/job.model";
-import { normalPlan, boostedPlan, proPlan } from "../seeds/seedPlans";
-import { planTypes } from "../ts/types/plan.types";
-const agenda = require("./_agenda.service");
+import Job from '../model/job.model';
+import { normalPlan, boostedPlan, proPlan } from '../seeds/seedPlans';
+import { planTypes } from '../ts/types/plan.types';
+const agenda = require('./_agenda.service');
 
 async function handlePaymentCompleted(payload: any) {
   try {
-    const [userId, selectedPlan] = payload.client_reference_id.split("-");
-
-    // fullfill job create
-    await handleActionsOnSelectedPlan(selectedPlan, userId);
+    const [jobID, selectedPlan] = payload.client_reference_id.split('/');
+    // fullfill job create on succesfull payment
+    await handleActionsOnSelectedPlan(selectedPlan, jobID);
 
     return true;
   } catch (error) {
@@ -18,55 +17,61 @@ async function handlePaymentCompleted(payload: any) {
 
 async function handleActionsOnSelectedPlan(
   selectedPlan: planTypes,
-  userId: string
+  jobID: string
 ) {
   const foundJob = await Job.findOne({
-    createdBy: userId,
+    jobId: jobID,
   });
 
   switch (selectedPlan) {
-    case "NORMAL":
+    case 'NORMAL':
       normalPlan.save(async function (err, savedDoc) {
         if (err) {
           console.log(err);
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan._id = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
-    case "BOOSTED":
+    case 'BOOSTED':
       boostedPlan.save(async function (err, savedDoc) {
         if (err) {
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
-    case "PRO":
+    case 'PRO':
       proPlan.save(async function (err, savedDoc) {
         if (err) {
-          console.log(err);
           return err;
         }
-        foundJob!.plan = savedDoc._id;
-        await foundJob!.save();
 
-        await schedulePlanExpire(savedDoc);
+        foundJob!.plan = savedDoc._id;
+        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+        await foundJob!.save();
+        await schedulePlanExpire(savedDoc, foundJob);
       });
       break;
   }
 }
 
-async function schedulePlanExpire(plan: any) {
+async function schedulePlanExpire(plan: any, job: any) {
   try {
-    await agenda.schedule(plan.expireDate, "schedule_plan_expire", {
+    await agenda.schedule(plan.expireDate, 'schedule_plan_expire', {
       plan_id: plan._id,
+      job_id: job._id,
     });
   } catch (error) {
     console.log(error);

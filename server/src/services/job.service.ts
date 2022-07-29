@@ -1,6 +1,6 @@
-import Job from "../model/job.model";
-import { JobInterface } from "../ts/interfaces/job.interfaces";
-import { nanoid } from "nanoid";
+import Job from '../model/job.model';
+import { JobInterface } from '../ts/interfaces/job.interfaces';
+import { nanoid } from 'nanoid';
 
 async function create(payload: JobInterface) {
   try {
@@ -38,40 +38,41 @@ async function create(payload: JobInterface) {
   }
 }
 
-async function getJobs(query: any, page: number, limit: number) {
+async function getJobs(
+  searchString: any,
+  page: number,
+  limit: number,
+  queries: any
+) {
   try {
     const skip = (page - 1) * limit;
 
-    let jobs = [];
+    let jobs: any = [];
     let total_items = 0;
+    const findQuery = {
+      'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
+    };
 
-    if (query) {
-      const searchJobs = await Job.aggregate([
-        {
-          $search: {
-            index: "search jobs",
-            text: {
-              query: `{"title": {$eq: ${query}}}`,
-              fuzzy: {},
-              path: {
-                wildcard: "*",
-              },
-            },
-          },
-        },
-        {
-          $facet: {
-            metadata: [{ $count: "total" }, { $addFields: { page: page } }],
-            data: [{ $skip: skip }, { $limit: limit }],
-          },
-        },
-      ]);
-      jobs = searchJobs[0].data;
-      total_items = searchJobs[0].metadata[0].total;
+    if (searchString) {
+      const searchJobs = await Job.find({
+        $text: { $search: searchString },
+        ...findQuery,
+      })
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+
+      jobs = searchJobs;
     } else {
-      jobs = await Job.find({}).skip(skip).limit(limit).lean().exec();
-      total_items = await Job.countDocuments(query);
+      jobs = await Job.find(findQuery)
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
     }
+
+    total_items = jobs.length;
 
     return { jobs, total_items: total_items };
   } catch (error) {
@@ -81,7 +82,7 @@ async function getJobs(query: any, page: number, limit: number) {
 
 async function getJob(jobId: any) {
   try {
-    const foundJob = Job.findOne({ jobId }).populate("tags");
+    const foundJob = Job.findOne({ jobId }).populate('tags');
     return foundJob;
   } catch (error) {
     throw (error as Error).message;

@@ -2,13 +2,13 @@
   <div class="job-preview">
     <div class="container is-max-desktop">
       <h1 class="title is-3">Previzualizeaza !</h1>
-      <div class="box mt-5">
-        <b-loading
-          :active="jobPreviewLoading"
-          :is-full-page="false"
-          :can-cancel="false"
-        ></b-loading>
+      <b-loading
+        :active="jobPreviewLoading"
+        :is-full-page="false"
+        :can-cancel="false"
+      ></b-loading>
 
+      <div v-if="job" class="box mt-5">
         <div class="sections">
           <div class="is-flex is-justify-content-space-between">
             <h2 class="title is-4 mb-0">{{ job.title }}</h2>
@@ -67,21 +67,8 @@ export default Vue.extend({
   data() {
     return {
       jobPreviewLoading: false,
-      job: {},
+      job: null,
     };
-  },
-
-  async fetch() {
-    const { query } = this.$route;
-
-    this.jobPreviewLoading = true;
-    const payload = `${query.id}/${query.option}`;
-
-    try {
-      const job = await JobService.getJob(this.$axios, payload);
-      this.job = { ...job };
-      this.jobPreviewLoading = false;
-    } catch (error) {}
   },
 
   computed: {
@@ -100,10 +87,39 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    $route() {
+      if (this.$route.query.id) {
+        this.fetchJob();
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchJob();
+  },
+
   methods: {
     formatRemoteType,
     formatJobType,
     parseEscapedText,
+
+    fetchJob() {
+      const { query } = this.$route;
+
+      const payload = `${query.id}/${query.option}`;
+
+      if (query.id || query.option) {
+        this.jobPreviewLoading = true;
+
+        JobService.getJob(this.$axios, payload)
+          .then((data) => {
+            this.job = { ...data };
+            this.job.title = parseEscapedText(data.title);
+          })
+          .finally(() => (this.jobPreviewLoading = false));
+      }
+    },
   },
 });
 </script>

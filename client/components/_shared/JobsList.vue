@@ -15,9 +15,11 @@ import JobItem from "~/components/_shared/JobItem.vue";
 
 export default Vue.extend({
   name: "IndexPage",
+
   components: {
     JobItem,
   },
+
   props: {
     jobs: {
       type: Array,
@@ -29,9 +31,12 @@ export default Vue.extend({
       type: Boolean,
     },
   },
+
   data() {
     return {};
   },
+
+  methods: {},
 });
 </script>
 

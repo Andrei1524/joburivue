@@ -28,21 +28,3 @@ export default Vue.extend({
   methods: {},
 });
 </script>
-
-<style lang="scss" scoped>
-@import "./design/variables";
-
-.hero-wrapper {
-  background: #212940d9;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-}
-
-.hero-body {
-  background: url("~assets/hero.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-</style>
