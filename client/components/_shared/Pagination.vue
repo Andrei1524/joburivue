@@ -85,7 +85,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import "./design/variables";
 
-::v-deep .pagination-link.is-current {
+:deep .pagination-link.is-current {
   background-color: $chambray-blue;
 }
 </style>

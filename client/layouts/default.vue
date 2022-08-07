@@ -37,7 +37,7 @@ export default Vue.extend({
 
 @include media("<tablet") {
   .homepage {
-    ::v-deep .container {
+    :deep .container {
       padding: 0px 15px;
     }
   }

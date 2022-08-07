@@ -52,7 +52,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import _ from "lodash";
 import * as JobService from "~/services/job.service";
 import {
   formatRemoteType,
@@ -127,7 +126,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import "./design/variables";
 
-::v-deep ul {
+:deep ul {
   padding-left: 0;
 
   li {
