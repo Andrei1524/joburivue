@@ -8,7 +8,7 @@ const add_minutes = function (dt: Date, minutes: number) {
 const normalPlanDays = 35;
 const normalPlan = new Plan({
   name: 'NORMAL',
-  expireDate: add_minutes(new Date(), 10080).toISOString(),
+  expireDate: add_minutes(new Date(), normalPlanDays * 1440).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -20,7 +20,7 @@ const normalPlan = new Plan({
 const boostedPlanDays = 60;
 const boostedPlan = new Plan({
   name: 'BOOSTED',
-  expireDate: add_minutes(new Date(), 10080).toISOString(),
+  expireDate: add_minutes(new Date(), boostedPlanDays * 1440).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -32,7 +32,7 @@ const boostedPlan = new Plan({
 const proPlanDays = 60;
 const proPlan = new Plan({
   name: 'PRO',
-  expireDate: add_minutes(new Date(), 10080).toISOString(),
+  expireDate: add_minutes(new Date(), proPlanDays * 1440).toISOString(),
   isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
