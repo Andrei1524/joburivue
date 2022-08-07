@@ -46,13 +46,13 @@ export default Vue.extend({
 @import "./design/variables";
 
 .search {
-  ::v-deep .input {
+  :deep .input {
     background-color: $basic-white;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
   }
 
-  ::v-deep .field,
+  :deep .field,
   .control {
     width: 100%;
   }

@@ -130,7 +130,6 @@
 <script lang="ts">
 import { ValidationObserver } from "vee-validate";
 import Vue from "vue";
-import _ from "lodash";
 import * as JobService from "~/services/job.service";
 import TagSearch from "~/components/_shared/TagSearch.vue";
 import Input from "~/components/_shared/form/Input.vue";
@@ -268,7 +267,7 @@ export default Vue.extend({
 }
 
 @include media("<phone") {
-  ::v-deep .currencies {
+  :deep .currencies {
     .is-grouped {
       flex-wrap: wrap;
 
