@@ -38,7 +38,7 @@ export default Vue.extend({
   },
 
   async created() {
-    await this.handleGetJobs(0); // planStatus isActvie -> true
+    await this.handleGetJobs(0); // planStatus isActive -> true
   },
 
   methods: {

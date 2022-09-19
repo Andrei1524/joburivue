@@ -98,13 +98,19 @@ export default Vue.extend({
     goToJobPage() {
       const routeName = this.$route.name;
 
+      function decodeEntity(inputStr) {
+        const textarea = document.createElement("textarea");
+        textarea.innerHTML = inputStr;
+        return textarea.value;
+      }
+
       switch (routeName) {
         case "jobs-list":
           this.$router.push(`/jobs/create?id=${this.job.jobId}&option=preview`);
           break;
 
         default:
-          console.log("redirect to job page");
+          this.$router.push(`/jobs/${decodeEntity(this.job.title).toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '').replace(/-{1,}/g, '-')}#${this.job.jobId}`);
       }
     },
   },
