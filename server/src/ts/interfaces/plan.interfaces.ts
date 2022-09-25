@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 interface PlanInterface {
   name: string;
   promotedOnSocialChannels: boolean;
@@ -8,6 +8,7 @@ interface PlanInterface {
   expireDate: string;
   isPlanActive: boolean;
   boughtBy: Types.ObjectId;
+  updatedAt: string;
 }
 
 export { PlanInterface };

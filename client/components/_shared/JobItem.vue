@@ -70,7 +70,11 @@ export default Vue.extend({
 
   computed: {
     formattedCreatedAt() {
-      return this.$dayjs(this.job.createdAt).fromNow();
+      const updatedAt = this.job.plan._id
+        ? this.job.plan._id.updatedAt
+        : this.job.createdAt;
+
+      return this.$dayjs(updatedAt).fromNow();
     },
   },
 
@@ -110,7 +114,13 @@ export default Vue.extend({
           break;
 
         default:
-          this.$router.push(`/jobs/${decodeEntity(this.job.title).toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '').replace(/-{1,}/g, '-')}#${this.job.jobId}`);
+          this.$router.push(
+            `/jobs/${decodeEntity(this.job.title)
+              .toLowerCase()
+              .replace(/ /g, "-")
+              .replace(/[^\w-]+/g, "")
+              .replace(/-{1,}/g, "-")}#${this.job.jobId}`
+          );
       }
     },
   },
