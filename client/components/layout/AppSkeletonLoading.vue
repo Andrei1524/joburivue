@@ -1,9 +1,9 @@
 <template>
-  <section v-if="loading">
+  <section v-show="loading">
     <b-skeleton
       v-for="(bar, i) in bars"
       :key="i"
-      :width="`${100 / bar}%`"
+      :width="`${(i / bars) * 100}%`"
       :animated="loading"
     ></b-skeleton>
   </section>

@@ -1,33 +1,35 @@
 <template>
   <div>
     <AppHero>
-      <div v-if="!loading" class="is-flex is-justify-content-space-between">
-        <div class="is-flex">
-          <figure class="image is-48x48 mr-2">
-            <img src="~assets/job-item-logo-example.png" />
-          </figure>
+      <div>
+        <div v-if="!loading" class="is-flex is-justify-content-space-between">
+          <div class="is-flex">
+            <figure class="image is-48x48 mr-2">
+              <img src="~assets/job-item-logo-example.png" />
+            </figure>
+            <div>
+              <h2 class="title is-4 mb-0">{{ parseEscapedText(job.title) }}</h2>
+              <h3 class="is-3">
+                <span>{{ job.company }}</span> |
+                <span>☝ {{ formatRemoteType(job.remoteType) }}</span>
+              </h3>
+            </div>
+          </div>
           <div>
-            <h2 class="title is-4 mb-0">{{ parseEscapedText(job.title) }}</h2>
+            <h2 class="title is-4 mb-0">{{ formatJobType(job.type) }}</h2>
             <h3 class="is-3">
-              <span>{{ job.company }}</span> |
-              <span>☝ {{ formatRemoteType(job.remoteType) }}</span>
+              {{
+                `${formatCurrencySign(job.currency)}${formatMoney(
+                  job.minSalary
+                )} - ${formatCurrencySign(job.currency)}${formatMoney(
+                  job.maxSalary
+                )}`
+              }}
             </h3>
           </div>
         </div>
-        <div>
-          <h2 class="title is-4 mb-0">{{ formatJobType(job.type) }}</h2>
-          <h3 class="is-3">
-            {{
-              `${formatCurrencySign(job.currency)}${formatMoney(
-                job.minSalary
-              )} - ${formatCurrencySign(job.currency)}${formatMoney(
-                job.maxSalary
-              )}`
-            }}
-          </h3>
-        </div>
+        <AppSkeletonLoading :loading="loading" />
       </div>
-      <AppSkeletonLoading :loading="loading" />
     </AppHero>
 
     <!-- job content -->
@@ -45,17 +47,18 @@
         </div>
       </div>
 
-      <AppSkeletonLoading :loading="loading" />
+      <AppSkeletonLoading class="mt-4" :loading="loading" />
 
       <!-- skills & apply -->
       <div
+        v-if="!loading"
         class="is-flex is-justify-content-space-between is-align-items-center mt-6"
       >
         <div class="skills w-50">
           <h3 class="is-size-4">Skills</h3>
           <hr class="my-1" />
           <!-- TODO: move tags to own component -->
-          <div v-if="!loading">
+          <div>
             <b-tag
               v-for="tag in job.tags"
               :key="tag._id"
@@ -67,7 +70,6 @@
               {{ tag.name }}
             </b-tag>
           </div>
-          <AppSkeletonLoading :loading="loading" :bars="1" />
         </div>
 
         <div class="position-relative">
@@ -83,6 +85,7 @@
           </b-button>
         </div>
       </div>
+      <AppSkeletonLoading :loading="loading" :bars="3" />
     </div>
   </div>
 </template>
