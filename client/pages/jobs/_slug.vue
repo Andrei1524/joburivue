@@ -1,12 +1,7 @@
 <template>
   <div>
-    <b-loading
-      :active="loading"
-      :is-full-page="false"
-      :can-cancel="false"
-    ></b-loading>
-    <AppHero v-if="!loading">
-      <div class="is-flex is-justify-content-space-between">
+    <AppHero>
+      <div v-if="!loading" class="is-flex is-justify-content-space-between">
         <div class="is-flex">
           <figure class="image is-48x48 mr-2">
             <img src="~assets/job-item-logo-example.png" />
@@ -32,20 +27,25 @@
           </h3>
         </div>
       </div>
+      <AppSkeletonLoading :loading="loading" />
     </AppHero>
 
     <!-- job content -->
-    <div v-if="!loading" class="container is-max-desktop">
-      <div>
-        <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
-        <hr class="my-1" />
-        <p>job company description</p>
+    <div class="container is-max-desktop">
+      <div v-if="!loading">
+        <div>
+          <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
+          <hr class="my-1" />
+          <p>job company description</p>
+        </div>
+        <div class="mt-4">
+          <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
+          <hr class="my-1" />
+          <p v-html="parseTextWithBulmaTags(job.description)"></p>
+        </div>
       </div>
-      <div class="mt-4">
-        <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
-        <hr class="my-1" />
-        <p v-html="parseTextWithBulmaTags(job.description)"></p>
-      </div>
+
+      <AppSkeletonLoading :loading="loading" />
 
       <!-- skills & apply -->
       <div
@@ -55,17 +55,21 @@
           <h3 class="is-size-4">Skills</h3>
           <hr class="my-1" />
           <!-- TODO: move tags to own component -->
-          <b-tag
-            v-for="tag in job.tags"
-            :key="tag._id"
-            class="mr-1"
-            type="is-primary"
-            attached
-            aria-close-label="Close tag"
-          >
-            {{ tag.name }}
-          </b-tag>
+          <div v-if="!loading">
+            <b-tag
+              v-for="tag in job.tags"
+              :key="tag._id"
+              class="mr-1"
+              type="is-primary"
+              attached
+              aria-close-label="Close tag"
+            >
+              {{ tag.name }}
+            </b-tag>
+          </div>
+          <AppSkeletonLoading :loading="loading" :bars="1" />
         </div>
+
         <div class="position-relative">
           <img class="apply-drawing" src="~assets/apply_drawing.png" alt="" />
           <b-button
@@ -86,6 +90,8 @@
 <script lang="ts">
 import Vue from "vue";
 import AppHero from "~/components/layout/AppHero.vue";
+import AppSkeletonLoading from "~/components/layout/AppSkeletonLoading.vue";
+
 import * as JobService from "~/services/job.service";
 import {
   parseEscapedText,
@@ -100,6 +106,10 @@ export default Vue.extend({
   name: "AppJobPage",
   components: {
     AppHero,
+    AppSkeletonLoading,
+  },
+  transition: {
+    mode: "out-in",
   },
 
   data() {
