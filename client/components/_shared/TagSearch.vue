@@ -2,8 +2,8 @@
   <div class="tag-search">
     <b-field label="Taguri" grouped group-multiline>
       <b-field class="is-flex tags w-100 mb-2">
+        <!-- TODO: move tags to own component -->
         <div v-for="(tag, i) in value" :key="tag && tag._id" class="control">
-          <!-- TODO: handle fix NULL tags, get tags from BE -->
           <b-tag
             v-if="tag"
             :class="{ 'ml-2': i > 0 }"
