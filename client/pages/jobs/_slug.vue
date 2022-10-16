@@ -1,58 +1,48 @@
 <template>
   <div>
-    <AppHero>
+    <b-loading
+      :active="loading"
+      :is-full-page="false"
+      :can-cancel="false"
+    ></b-loading>
+    <AppHero v-if="!loading">
       <div class="is-flex is-justify-content-space-between">
         <div class="is-flex">
           <figure class="image is-48x48 mr-2">
             <img src="~assets/job-item-logo-example.png" />
           </figure>
           <div>
-            <h2 class="title is-4 mb-0">Vue Web Developer [Remote / WFH]</h2>
+            <h2 class="title is-4 mb-0">{{ parseEscapedText(job.title) }}</h2>
             <h3 class="is-3">
-              <span>Streem</span> |
-              <span>WFH ☝ Remote Allowed</span>
+              <span>{{ job.company }}</span> |
+              <span>☝ {{ formatRemoteType(job.remoteType) }}</span>
             </h3>
           </div>
         </div>
         <div>
-          <h2 class="title is-4 mb-0">Full-time</h2>
-          <h3 class="is-3">€50k - €70k</h3>
+          <h2 class="title is-4 mb-0">{{ formatJobType(job.type) }}</h2>
+          <h3 class="is-3">
+            {{
+              `${getCurrencySignFromJob()}${formatMoney(
+                job.minSalary
+              )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`
+            }}
+          </h3>
         </div>
       </div>
     </AppHero>
 
     <!-- job content -->
-    <div class="container is-max-desktop">
+    <div v-if="!loading" class="container is-max-desktop">
       <div>
         <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
         <hr class="my-1" />
-        <p>
-          ArborXR is device management for AR & VR (XR) devices. We are a fully
-          remote company with 20 employees that have been working for 5 years to
-          solve one of the most difficult problems preventing XR from scaling.
-          <br />
-          Companies are finding that using XR for training and collaboration
-          saves them time and money. The problem? Companies today are using
-          consumer hardware without software to help them scale. As they go from
-          pilot projects with a few headsets to larger deployments of hundreds
-          or thousands of headsets, they get stuck.
-        </p>
+        <p>job company description</p>
       </div>
       <div class="mt-4">
         <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
         <hr class="my-1" />
-        <p>
-          ArborXR is device management for AR & VR (XR) devices. We are a fully
-          remote company with 20 employees that have been working for 5 years to
-          solve one of the most difficult problems preventing XR from scaling.
-          Companies are finding that using XR for training and collaboration
-          saves them time and money.
-          <br />
-          The problem? Companies today are using consumer hardware without
-          software to help them scale. As they go from pilot projects with a few
-          headsets to larger deployments of hundreds or thousands of headsets,
-          they get stuck.
-        </p>
+        <p v-html="parseDescriptionWithBulmaTags"></p>
       </div>
 
       <!-- skills & apply -->
@@ -63,8 +53,15 @@
           <h3 class="is-size-4">Skills</h3>
           <hr class="my-1" />
           <!-- TODO: move tags to own component -->
-          <b-tag type="is-primary" attached aria-close-label="Close tag">
-            vue3
+          <b-tag
+            v-for="tag in job.tags"
+            :key="tag._id"
+            class="mr-1"
+            type="is-primary"
+            attached
+            aria-close-label="Close tag"
+          >
+            {{ tag.name }}
           </b-tag>
         </div>
         <div class="position-relative">
@@ -82,6 +79,11 @@
 import Vue from "vue";
 import AppHero from "~/components/layout/AppHero.vue";
 import * as JobService from "~/services/job.service";
+import {
+  parseEscapedText,
+  formatJobType,
+  formatRemoteType,
+} from "~/utils/jobs";
 
 export default Vue.extend({
   name: "AppJobPage",
@@ -92,21 +94,60 @@ export default Vue.extend({
   data() {
     return {
       job: {},
+      loading: false,
     };
   },
 
+  computed: {
+    parseDescriptionWithBulmaTags() {
+      const description = parseEscapedText(this.job.description);
+      let parsedDecr;
+      if (description) {
+        parsedDecr = description
+          .replaceAll("<h1>", "<h1 class='is-size-2'>")
+          .replaceAll("<h2>", "<h2 class='is-size-3'>")
+          .replaceAll("<h3>", "<h2 class='is-size-4'>")
+          .replaceAll("<h4>", "<h2 class='is-size-5'>")
+          .replaceAll("<h5>", "<h2 class='is-size-6'>");
+      }
+      return parsedDecr;
+    },
+  },
+
+  // TODO: to be improved with asyncData
   async created() {
+    this.loading = true;
     await this.handleGetData();
+    this.loading = false;
   },
 
   methods: {
+    parseEscapedText,
+    formatJobType,
+    formatRemoteType,
+
     async handleGetData() {
       try {
         const jobId = this.$route.hash.substr(1);
-
         const job = await JobService.getJob(this.$axios, jobId);
         this.job = job;
       } catch (error) {}
+    },
+
+    getCurrencySignFromJob() {
+      switch (this.job.currency) {
+        case "euro":
+          return "€";
+
+        case "ron":
+          return "RON";
+      }
+    },
+
+    formatMoney(value: number) {
+      return Math.abs(value) > 999
+        ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
+        : Math.sign(value) * Math.abs(value);
     },
   },
 });
