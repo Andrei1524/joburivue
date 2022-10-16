@@ -122,10 +122,10 @@ export default Vue.extend({
     };
   },
 
-  // async created() {
-  //   await this.handleGetData();
-  //   this.loading = false;
-  // },
+  async created() {
+    await this.handleGetData();
+    this.loading = false;
+  },
 
   methods: {
     parseEscapedText,
