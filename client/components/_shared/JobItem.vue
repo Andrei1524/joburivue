@@ -1,7 +1,7 @@
 <template>
-  <div
+  <nuxt-link
     class="columns job-item is-gapless is-align-items-center p-2"
-    @click="goToJobPage"
+    :to="goToJobPage()"
   >
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
@@ -40,7 +40,7 @@
         {{ formattedCreatedAt }}
       </div>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 <script lang="ts">
@@ -100,17 +100,14 @@ export default Vue.extend({
 
       switch (routeName) {
         case "jobs-list":
-          this.$router.push(`/jobs/create?id=${this.job.jobId}&option=preview`);
-          break;
+          return `/jobs/create?id=${this.job.jobId}&option=preview`;
 
         default:
-          this.$router.push(
-            `/jobs/${decodeEntity(this.job.title)
-              .toLowerCase()
-              .replace(/ /g, "-")
-              .replace(/[^\w-]+/g, "")
-              .replace(/-{1,}/g, "-")}#${this.job.jobId}`
-          );
+          return `/jobs/${decodeEntity(this.job.title)
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/-{1,}/g, "-")}#${this.job.jobId}`;
       }
     },
   },
