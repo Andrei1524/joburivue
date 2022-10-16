@@ -1,5 +1,5 @@
 <template>
-  <section v-show="loading">
+  <section v-if="loading">
     <b-skeleton
       v-for="(bar, i) in bars"
       :key="i"

@@ -115,18 +115,16 @@ export default Vue.extend({
     mode: "out-in",
   },
 
-  data() {
-    return {
-      job: {},
-      loading: false,
-    };
+  // TODO: to be improved with asyncData
+  asyncData({ route }) {
+    console.log(route);
   },
 
-  // TODO: to be improved with asyncData
-  async created() {
-    this.loading = true;
-    await this.handleGetData();
-    this.loading = false;
+  data() {
+    return {
+      job: null,
+      loading: true,
+    };
   },
 
   methods: {
