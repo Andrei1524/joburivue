@@ -81,6 +81,7 @@
 <script lang="ts">
 import Vue from "vue";
 import AppHero from "~/components/layout/AppHero.vue";
+import * as JobService from "~/services/job.service";
 
 export default Vue.extend({
   name: "AppJobPage",
@@ -89,12 +90,25 @@ export default Vue.extend({
   },
 
   data() {
-    return {};
+    return {
+      job: {},
+    };
   },
 
-  async created() {},
+  async created() {
+    await this.handleGetData();
+  },
 
-  methods: {},
+  methods: {
+    async handleGetData() {
+      try {
+        const jobId = this.$route.hash.substr(1);
+
+        const job = await JobService.getJob(this.$axios, jobId);
+        this.job = job;
+      } catch (error) {}
+    },
+  },
 });
 </script>
 
