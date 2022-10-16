@@ -5,7 +5,7 @@
         <AppNavbar />
       </div>
     </div>
-    <Nuxt />
+    <Nuxt :key="$route.fullPath" />
     <AppFooter class="mt-6" />
   </div>
 </template>

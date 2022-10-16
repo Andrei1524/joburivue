@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link
+  <NuxtLink
     class="columns job-item is-gapless is-align-items-center p-2"
     :to="goToJobPage()"
   >
@@ -40,7 +40,7 @@
         {{ formattedCreatedAt }}
       </div>
     </div>
-  </nuxt-link>
+  </NuxtLink>
 </template>
 
 <script lang="ts">
