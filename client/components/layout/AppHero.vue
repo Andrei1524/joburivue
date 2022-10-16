@@ -2,9 +2,12 @@
   <section class="hero is-success position-relative">
     <div class="hero-wrapper" />
     <div class="hero-body">
-      <div class="container has-text-centered">
+      <div v-if="title || subtitle" class="container has-text-centered">
         <p class="title">{{ title }}</p>
         <p v-if="subtitle" class="subtitle mt-2">{{ subtitle }}</p>
+      </div>
+      <div v-else class="container is-max-desktop">
+        <slot></slot>
       </div>
     </div>
   </section>

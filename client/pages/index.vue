@@ -37,6 +37,7 @@ export default Vue.extend({
       loading: false,
     };
   },
+
   methods: {
     handleGetData(data: []) {
       this.jobs = data;
