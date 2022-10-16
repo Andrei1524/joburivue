@@ -68,7 +68,13 @@
         </div>
         <div class="position-relative">
           <img class="apply-drawing" src="~assets/apply_drawing.png" alt="" />
-          <b-button type="is-primary" class="orange-btn px-5 ml-6">
+          <b-button
+            type="is-primary"
+            class="orange-btn px-5 ml-6"
+            tag="a"
+            :href="formatApplicationTarget(job.applicationTarget)"
+            target="_blank"
+          >
             Aplica
           </b-button>
         </div>
@@ -124,6 +130,21 @@ export default Vue.extend({
         const job = await JobService.getJob(this.$axios, jobId);
         this.job = job;
       } catch (error) {}
+    },
+
+    /* Check if string is email */
+    checkIfEmail(str) {
+      // Regular expression to check if string is email
+      const regexExp =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+
+      return regexExp.test(str);
+    },
+
+    formatApplicationTarget(applicationTarget) {
+      return this.checkIfEmail(applicationTarget)
+        ? `mailto:${applicationTarget}`
+        : applicationTarget;
     },
   },
 });
