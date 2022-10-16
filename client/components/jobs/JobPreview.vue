@@ -18,7 +18,7 @@
 
           <h3 class="title is-size-4 mb-0 mt-6">Descriere</h3>
           <hr class="my-1" />
-          <div v-html="parseDescriptionWithBulmaTags"></div>
+          <div v-html="parseTextWithBulmaTags(job.description)"></div>
         </div>
 
         <div class="buttons is-flex is-justify-content-space-between">
@@ -57,6 +57,7 @@ import {
   formatRemoteType,
   formatJobType,
   parseEscapedText,
+  parseTextWithBulmaTags,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -68,22 +69,6 @@ export default Vue.extend({
       jobPreviewLoading: false,
       job: null,
     };
-  },
-
-  computed: {
-    parseDescriptionWithBulmaTags() {
-      const description = parseEscapedText(this.job.description);
-      let parsedDecr;
-      if (description) {
-        parsedDecr = description
-          .replaceAll("<h1>", "<h1 class='is-size-2'>")
-          .replaceAll("<h2>", "<h2 class='is-size-3'>")
-          .replaceAll("<h3>", "<h2 class='is-size-4'>")
-          .replaceAll("<h4>", "<h2 class='is-size-5'>")
-          .replaceAll("<h5>", "<h2 class='is-size-6'>");
-      }
-      return parsedDecr;
-    },
   },
 
   watch: {
@@ -102,6 +87,7 @@ export default Vue.extend({
     formatRemoteType,
     formatJobType,
     parseEscapedText,
+    parseTextWithBulmaTags,
 
     fetchJob() {
       const { query } = this.$route;

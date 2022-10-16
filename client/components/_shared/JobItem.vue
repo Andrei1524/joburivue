@@ -24,9 +24,11 @@
       <div class="tags is-align-self-flex-end">
         <Tag
           class="mr-2"
-          :value="`${getCurrencySignFromJob()}${formatMoney(
+          :value="`${formatCurrencySign(job.currency)}${formatMoney(
             job.minSalary
-          )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`"
+          )} - ${formatCurrencySign(job.currency)}${formatMoney(
+            job.maxSalary
+          )}`"
           :tag-type="'salary-range'"
         />
         <Tag :value="'Romania'" :tag-type="'location'" />
@@ -48,6 +50,8 @@ import {
   formatRemoteType,
   formatJobType,
   parseEscapedText,
+  formatCurrencySign,
+  formatMoney,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -82,22 +86,8 @@ export default Vue.extend({
     formatRemoteType,
     formatJobType,
     parseEscapedText,
-
-    formatMoney(value: number) {
-      return Math.abs(value) > 999
-        ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
-        : Math.sign(value) * Math.abs(value);
-    },
-
-    getCurrencySignFromJob() {
-      switch (this.job.currency) {
-        case "euro":
-          return "€";
-
-        case "ron":
-          return "RON";
-      }
-    },
+    formatCurrencySign,
+    formatMoney,
 
     goToJobPage() {
       const routeName = this.$route.name;

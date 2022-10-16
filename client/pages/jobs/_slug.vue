@@ -23,9 +23,11 @@
           <h2 class="title is-4 mb-0">{{ formatJobType(job.type) }}</h2>
           <h3 class="is-3">
             {{
-              `${getCurrencySignFromJob()}${formatMoney(
+              `${formatCurrencySign(job.currency)}${formatMoney(
                 job.minSalary
-              )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`
+              )} - ${formatCurrencySign(job.currency)}${formatMoney(
+                job.maxSalary
+              )}`
             }}
           </h3>
         </div>
@@ -42,7 +44,7 @@
       <div class="mt-4">
         <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
         <hr class="my-1" />
-        <p v-html="parseDescriptionWithBulmaTags"></p>
+        <p v-html="parseTextWithBulmaTags(job.description)"></p>
       </div>
 
       <!-- skills & apply -->
@@ -83,6 +85,9 @@ import {
   parseEscapedText,
   formatJobType,
   formatRemoteType,
+  parseTextWithBulmaTags,
+  formatCurrencySign,
+  formatMoney,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -98,22 +103,6 @@ export default Vue.extend({
     };
   },
 
-  computed: {
-    parseDescriptionWithBulmaTags() {
-      const description = parseEscapedText(this.job.description);
-      let parsedDecr;
-      if (description) {
-        parsedDecr = description
-          .replaceAll("<h1>", "<h1 class='is-size-2'>")
-          .replaceAll("<h2>", "<h2 class='is-size-3'>")
-          .replaceAll("<h3>", "<h2 class='is-size-4'>")
-          .replaceAll("<h4>", "<h2 class='is-size-5'>")
-          .replaceAll("<h5>", "<h2 class='is-size-6'>");
-      }
-      return parsedDecr;
-    },
-  },
-
   // TODO: to be improved with asyncData
   async created() {
     this.loading = true;
@@ -125,6 +114,9 @@ export default Vue.extend({
     parseEscapedText,
     formatJobType,
     formatRemoteType,
+    parseTextWithBulmaTags,
+    formatCurrencySign,
+    formatMoney,
 
     async handleGetData() {
       try {
@@ -132,22 +124,6 @@ export default Vue.extend({
         const job = await JobService.getJob(this.$axios, jobId);
         this.job = job;
       } catch (error) {}
-    },
-
-    getCurrencySignFromJob() {
-      switch (this.job.currency) {
-        case "euro":
-          return "€";
-
-        case "ron":
-          return "RON";
-      }
-    },
-
-    formatMoney(value: number) {
-      return Math.abs(value) > 999
-        ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
-        : Math.sign(value) * Math.abs(value);
     },
   },
 });

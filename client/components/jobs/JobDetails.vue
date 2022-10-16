@@ -235,8 +235,6 @@ export default Vue.extend({
         createdBy: this.form.createdBy || this.$auth.user._id,
       };
 
-      console.log(payload);
-
       try {
         this.loadingSubmit = true;
         const createdJob = await JobService.createJob(this.$axios, payload);
