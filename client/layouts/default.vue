@@ -1,17 +1,8 @@
 <template>
   <div class="app">
-    <b-loading
-      :active="
-        !$auth.loggedIn && $auth.user && Object.keys($auth.user).length > 0
-      "
-      :is-full-page="true"
-    ></b-loading>
+    <b-loading :active="loading" :is-full-page="true"></b-loading>
 
-    <div
-      v-show="
-        $auth.loggedIn && $auth.user && Object.keys($auth.user).length > 0
-      "
-    >
+    <div v-show="!loading">
       <div class="navbar-wrapper position-relative">
         <div class="container">
           <AppNavbar />
@@ -36,6 +27,18 @@ export default Vue.extend({
   },
 
   mixins: [notificationServiceMixin],
+
+  data() {
+    return {
+      loading: true,
+    };
+  },
+
+  async created() {
+    // TODO: fix fetching user 2 times
+    await this.$auth.fetchUser();
+    this.loading = false;
+  },
 });
 </script>
 
