@@ -1,12 +1,16 @@
 <template>
   <div class="app">
-    <div class="navbar-wrapper position-relative">
-      <div class="container">
-        <AppNavbar />
+    <b-loading :active="!$auth.loggedIn" :is-full-page="true"></b-loading>
+
+    <div v-show="$auth.loggedIn">
+      <div class="navbar-wrapper position-relative">
+        <div class="container">
+          <AppNavbar />
+        </div>
       </div>
+      <Nuxt :key="$route.fullPath" />
+      <AppFooter class="mt-6" />
     </div>
-    <Nuxt :key="$route.fullPath" />
-    <AppFooter class="mt-6" />
   </div>
 </template>
 
