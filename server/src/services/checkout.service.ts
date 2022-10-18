@@ -1,4 +1,5 @@
 import Job from '../model/job.model';
+import Plan from '../model/plan.model';
 import { normalPlan, boostedPlan, proPlan } from '../seeds/seedPlans';
 import { planTypes } from '../ts/types/plan.types';
 const agenda = require('./_agenda.service');
@@ -7,9 +8,7 @@ async function handlePaymentCompleted(payload: any) {
   try {
     const [jobID, selectedPlan] = payload.client_reference_id.split('/');
     // fullfill job create on succesfull payment
-    await handleActionsOnSelectedPlan(selectedPlan, jobID);
-
-    return true;
+    return await handleActionsOnSelectedPlan(selectedPlan, jobID);
   } catch (error) {
     throw (error as Error).message;
   }
@@ -21,49 +20,70 @@ async function handleActionsOnSelectedPlan(
 ) {
   const foundJob = await Job.findOne({
     jobId: jobID,
-  });
+  }).populate('plan._id');
 
-  switch (selectedPlan) {
-    case 'NORMAL':
-      normalPlan.save(async function (err, savedDoc) {
-        if (err) {
-          console.log(err);
-          return err;
-        }
+  // if user is renewing to the same plan, dont create a new plan
+  if (foundJob!.plan._id && selectedPlan === foundJob!.plan._id.name) {
+    const foundPlan = await Plan.findById(foundJob!.plan._id);
 
-        foundJob!.plan._id = savedDoc._id;
-        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+    if (
+      foundPlan! &&
+      foundPlan!._id.toString() === foundJob!.plan._id._id.toString()
+    ) {
+      // renew plan
+      foundJob!.plan.isPlanActive = true;
+      foundPlan!.isPlanActive = true;
+      foundPlan!.updatedAt = new Date().toISOString();
 
-        await foundJob!.save();
-        await schedulePlanExpire(savedDoc, foundJob);
-      });
-      break;
-    case 'BOOSTED':
-      boostedPlan.save(async function (err, savedDoc) {
-        if (err) {
-          return err;
-        }
+      await foundPlan!.save();
+      await foundJob!.save();
+      await schedulePlanExpire(foundPlan, foundJob);
+    }
+  } else {
+    // TODO: handle this better instead of duplicating code
+    // TODO: expire old plan is renewing to a better plan
+    switch (selectedPlan) {
+      case 'NORMAL':
+        normalPlan.save(async function (err, savedDoc) {
+          if (err) {
+            console.log(err);
+            return err;
+          }
 
-        foundJob!.plan = savedDoc._id;
-        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+          foundJob!.plan._id = savedDoc._id;
+          foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
 
-        await foundJob!.save();
-        await schedulePlanExpire(savedDoc, foundJob);
-      });
-      break;
-    case 'PRO':
-      proPlan.save(async function (err, savedDoc) {
-        if (err) {
-          return err;
-        }
+          await foundJob!.save();
+          await schedulePlanExpire(savedDoc, foundJob);
+        });
+        break;
+      case 'BOOSTED':
+        boostedPlan.save(async function (err, savedDoc) {
+          if (err) {
+            return err;
+          }
 
-        foundJob!.plan = savedDoc._id;
-        foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+          foundJob!.plan._id = savedDoc._id;
+          foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
 
-        await foundJob!.save();
-        await schedulePlanExpire(savedDoc, foundJob);
-      });
-      break;
+          await foundJob!.save();
+          await schedulePlanExpire(savedDoc, foundJob);
+        });
+        break;
+      case 'PRO':
+        proPlan.save(async function (err, savedDoc) {
+          if (err) {
+            return err;
+          }
+
+          foundJob!.plan._id = savedDoc._id;
+          foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
+
+          await foundJob!.save();
+          await schedulePlanExpire(savedDoc, foundJob);
+        });
+        break;
+    }
   }
 }
 

@@ -14,7 +14,7 @@ import Vue from "vue";
 import JobItem from "~/components/_shared/JobItem.vue";
 
 export default Vue.extend({
-  name: "IndexPage",
+  name: "JobsList",
 
   components: {
     JobItem,

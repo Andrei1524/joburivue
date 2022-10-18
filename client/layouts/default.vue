@@ -1,12 +1,16 @@
 <template>
   <div class="app">
-    <div class="navbar-wrapper position-relative">
-      <div class="container">
-        <AppNavbar />
+    <b-loading :active="loading" :is-full-page="true"></b-loading>
+
+    <div v-show="!loading">
+      <div class="navbar-wrapper position-relative">
+        <div class="container">
+          <AppNavbar />
+        </div>
       </div>
+      <Nuxt :key="$route.fullPath" />
+      <AppFooter class="mt-6" />
     </div>
-    <Nuxt />
-    <AppFooter class="mt-6" />
   </div>
 </template>
 
@@ -23,6 +27,18 @@ export default Vue.extend({
   },
 
   mixins: [notificationServiceMixin],
+
+  data() {
+    return {
+      loading: true,
+    };
+  },
+
+  async created() {
+    // TODO: fix fetching user 2 times
+    await this.$auth.fetchUser();
+    this.loading = false;
+  },
 });
 </script>
 

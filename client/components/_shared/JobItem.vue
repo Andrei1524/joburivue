@@ -1,7 +1,7 @@
 <template>
-  <div
+  <NuxtLink
     class="columns job-item is-gapless is-align-items-center p-2"
-    @click="goToJobPage"
+    :to="goToJobPage()"
   >
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
@@ -24,9 +24,11 @@
       <div class="tags is-align-self-flex-end">
         <Tag
           class="mr-2"
-          :value="`${getCurrencySignFromJob()}${formatMoney(
+          :value="`${formatCurrencySign(job.currency)}${formatMoney(
             job.minSalary
-          )} - ${getCurrencySignFromJob()}${formatMoney(job.maxSalary)}`"
+          )} - ${formatCurrencySign(job.currency)}${formatMoney(
+            job.maxSalary
+          )}`"
           :tag-type="'salary-range'"
         />
         <Tag :value="'Romania'" :tag-type="'location'" />
@@ -38,7 +40,7 @@
         {{ formattedCreatedAt }}
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script lang="ts">
@@ -48,6 +50,8 @@ import {
   formatRemoteType,
   formatJobType,
   parseEscapedText,
+  formatCurrencySign,
+  formatMoney,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -70,7 +74,11 @@ export default Vue.extend({
 
   computed: {
     formattedCreatedAt() {
-      return this.$dayjs(this.job.createdAt).fromNow();
+      const updatedAt = this.job.plan._id
+        ? this.job.plan._id.updatedAt
+        : this.job.createdAt;
+
+      return this.$dayjs(updatedAt).fromNow();
     },
   },
 
@@ -78,33 +86,28 @@ export default Vue.extend({
     formatRemoteType,
     formatJobType,
     parseEscapedText,
-
-    formatMoney(value: number) {
-      return Math.abs(value) > 999
-        ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
-        : Math.sign(value) * Math.abs(value);
-    },
-
-    getCurrencySignFromJob() {
-      switch (this.job.currency) {
-        case "euro":
-          return "€";
-
-        case "ron":
-          return "RON";
-      }
-    },
+    formatCurrencySign,
+    formatMoney,
 
     goToJobPage() {
       const routeName = this.$route.name;
 
+      function decodeEntity(inputStr) {
+        const textarea = document.createElement("textarea");
+        textarea.innerHTML = inputStr;
+        return textarea.value;
+      }
+
       switch (routeName) {
         case "jobs-list":
-          this.$router.push(`/jobs/create?id=${this.job.jobId}&option=preview`);
-          break;
+          return `/jobs/create?id=${this.job.jobId}&option=preview`;
 
         default:
-          console.log("redirect to job page");
+          return `/jobs/${decodeEntity(this.job.title)
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/-{1,}/g, "-")}#${this.job.jobId}`;
       }
     },
   },

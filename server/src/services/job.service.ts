@@ -19,13 +19,13 @@ async function create(payload: JobInterface) {
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
       createdBy: payload.createdBy._id,
+      plan: { isPlanActive: false },
     };
 
     if (payload.jobId) {
-      newJob.jobId = payload.jobId;
       return await Job.findOneAndUpdate(
         { jobId: payload.jobId },
-        { ...newJob },
+        { ...payload },
         {
           new: true,
         }
@@ -49,6 +49,7 @@ async function getJobs(
 
     let jobs: any = [];
     let total_items = 0;
+
     const findQuery = {
       'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
     };
@@ -58,6 +59,7 @@ async function getJobs(
         $text: { $search: searchString },
         ...findQuery,
       })
+        .populate('plan._id')
         .sort({ createdAt: -1 })
         .lean()
         .exec();
@@ -65,6 +67,7 @@ async function getJobs(
       jobs = searchJobs;
     } else {
       jobs = await Job.find(findQuery)
+        .populate('plan._id')
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 })

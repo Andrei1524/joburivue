@@ -63,6 +63,7 @@
             Logout
           </b-navbar-item>
         </b-navbar-dropdown>
+
         <!-- LOGGED OUT -->
         <b-navbar-item
           v-show="!$store.state.auth.loggedIn"

@@ -86,7 +86,7 @@ export default {
         },
         user: {
           property: "user",
-          // autoFetch: true
+          // autoFetch: false,
         },
         // TODO: put '/api/v1' everywhere used to a constant maybe
         endpoints: {

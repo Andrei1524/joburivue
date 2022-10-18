@@ -184,6 +184,7 @@ export default Vue.extend({
         tags: [],
         location: "",
         applicationTarget: "",
+        // TODO: add input dropdown: remote, remote_allowed
         remoteType: "remote_allowed",
         currency: "",
         minSalary: "",

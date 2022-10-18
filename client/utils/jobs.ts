@@ -30,3 +30,33 @@ export const parseEscapedText = (escapedText) => {
 
   return dom.body.textContent;
 };
+
+export const parseTextWithBulmaTags = (text) => {
+  const description = parseEscapedText(text);
+  let parsedDecr;
+  if (description) {
+    parsedDecr = description
+      .replaceAll("<h1>", "<h1 class='is-size-2'>")
+      .replaceAll("<h2>", "<h2 class='is-size-3'>")
+      .replaceAll("<h3>", "<h2 class='is-size-4'>")
+      .replaceAll("<h4>", "<h2 class='is-size-5'>")
+      .replaceAll("<h5>", "<h2 class='is-size-6'>");
+  }
+  return parsedDecr;
+};
+
+export const formatMoney = (value: number) => {
+  return Math.abs(value) > 999
+    ? Math.sign(value) * Number((Math.abs(value) / 1000).toFixed(1)) + "k"
+    : Math.sign(value) * Math.abs(value);
+};
+
+export const formatCurrencySign = (currency) => {
+  switch (currency) {
+    case "euro":
+      return "€";
+
+    case "ron":
+      return "RON";
+  }
+};
