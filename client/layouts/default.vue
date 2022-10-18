@@ -1,8 +1,17 @@
 <template>
   <div class="app">
-    <b-loading :active="!$auth.loggedIn" :is-full-page="true"></b-loading>
+    <b-loading
+      :active="
+        !$auth.loggedIn && $auth.user && Object.keys($auth.user).length > 0
+      "
+      :is-full-page="true"
+    ></b-loading>
 
-    <div v-show="$auth.loggedIn">
+    <div
+      v-show="
+        $auth.loggedIn && $auth.user && Object.keys($auth.user).length > 0
+      "
+    >
       <div class="navbar-wrapper position-relative">
         <div class="container">
           <AppNavbar />
