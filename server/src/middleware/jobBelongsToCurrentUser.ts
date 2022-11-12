@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { NextFunction, Request, Response } from "express";
 import Job from "../model/job.model";
 import { authenticateJWT } from "./authenticateJWT";
