@@ -32,7 +32,8 @@ const jobBelongsToCurrentUser = async (
       return res.sendStatus(401);
     }
   } else {
-    return res.sendStatus(401);
+    // normal job page view
+    return next();
   }
 };
 

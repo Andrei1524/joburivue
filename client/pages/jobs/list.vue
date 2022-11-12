@@ -45,7 +45,7 @@ export default Vue.extend({
     async handleGetJobs(planStatus: boolean) {
       this.loading = true;
       const response = await this.$axios.get(
-        `jobs/userJobs?userJobs=true&isPlanActive=${!planStatus}&createdBy=${this.$auth.user._id}` // TODO: dont allow fetching jobs from other users ids
+        `jobs/userJobs?userJobs=true&isPlanActive=${!planStatus}&createdBy=${this.$auth.user._id}` // TODO: add to jobs services
       );
 
       this.jobs = response.data.data;
