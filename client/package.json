@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "NODE_OPTIONS=--openssl-legacy-provider nuxt generate",
+    "generate": "nuxt generate",
     "build-prod": "npm run generate && rimraf ../server/dist && mv dist ../server/",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
