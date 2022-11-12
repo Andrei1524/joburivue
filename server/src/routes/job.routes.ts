@@ -14,6 +14,14 @@ router.post(
 );
 
 router.get("/", JobController.getJobs);
+
+router.get(
+  "/userJobs",
+  authenticateJWT,
+  jobBelongsToCurrentUser,
+  JobController.getJobs
+);
+
 router.get("/:jobId/:option?", jobBelongsToCurrentUser, JobController.getJob);
 
 export = router;
