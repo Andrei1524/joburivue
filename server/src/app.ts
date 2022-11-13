@@ -8,7 +8,7 @@ import morgan from "morgan";
 // const api = require("./routes/api");
 import api from "./routes/api";
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 if (process.env.NODE_ENV === "production") {
   // TODO: uncomment this

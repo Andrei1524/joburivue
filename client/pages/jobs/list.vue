@@ -38,14 +38,14 @@ export default Vue.extend({
   },
 
   async created() {
-    await this.handleGetJobs(0); // planStatus isActive -> true
+    await this.handleGetJobs(false); // planStatus isActive -> true
   },
 
   methods: {
     async handleGetJobs(planStatus: boolean) {
       this.loading = true;
       const response = await this.$axios.get(
-        `/jobs?userJobs=true&isPlanActive=${!planStatus}`
+        `jobs/userJobs?userJobs=true&isPlanActive=${!planStatus}&createdBy=${this.$auth.user._id}` // TODO: add to jobs services
       );
 
       this.jobs = response.data.data;
