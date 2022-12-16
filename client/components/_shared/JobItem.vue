@@ -142,7 +142,7 @@ export default Vue.extend({
   border-radius: 5px;
   box-shadow: 3px 1px 5px #00000008;
   transition: all 0.5s;
-  
+
   &:hover {
     box-shadow: 3px 4px 5px #00000030;
 
