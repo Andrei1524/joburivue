@@ -2,43 +2,43 @@
   <div class="job-details">
     <div class="container is-max-desktop">
       <h1 class="title is-3">Creeaza jobul!</h1>
-      <div class="box mt-5" :loading="jobDetailsLoading">
+      <div :loading="jobDetailsLoading" class="box mt-5">
         <b-loading
           :active="jobDetailsLoading"
-          :is-full-page="false"
           :can-cancel="false"
+          :is-full-page="false"
         ></b-loading>
 
         <div class="sections">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
             <div class="position w-100">
               <h5 class="title is-5 mt-0 mb-4">Pozitie</h5>
-              <hr class="mt-0" />
+              <hr class="mt-0"/>
 
               <Input
                 v-model.trim="form.title"
                 :label="'Titlu Job'"
-                :rules="'required|min:8'"
                 :placeholder="'Adauga Titlul'"
+                :rules="'required|min:8'"
               />
 
               <b-field grouped>
                 <Select
                   v-model.trim="form.type"
-                  :options="jobTypes"
-                  :v-observer-class="'d-block w-100 mr-5'"
                   :label="'Tipul jobului'"
-                  :rules="'required'"
+                  :options="jobTypes"
                   :placeholder="'Selecteaza un nume'"
+                  :rules="'required'"
+                  :v-observer-class="'d-block w-100 mr-5'"
                 />
 
                 <Select
                   v-model.trim="form.level"
-                  :options="jobLevels"
-                  :v-observer-class="'d-block w-100'"
                   :label="'Nivel/optional'"
-                  :rules="'required'"
+                  :options="jobLevels"
                   :placeholder="'Selecteaza un nivel'"
+                  :rules="'required'"
+                  :v-observer-class="'d-block w-100'"
                 />
               </b-field>
 
@@ -46,64 +46,64 @@
                 <client-only>
                   <VueEditor
                     v-model="form.description"
-                    :placeholder="'Descrie jobul cat mai clar!'"
                     :editor-toolbar="customToolbar"
+                    :placeholder="'Descrie jobul cat mai clar!'"
                   />
                 </client-only>
               </b-field>
 
               <div class="tags-section mb-5">
-                <TagSearch v-model.trim="form.tags" />
+                <TagSearch v-model.trim="form.tags"/>
               </div>
 
               <Input
                 v-model.trim="form.location"
                 :label="'Locatia jobului'"
-                :rules="'required'"
                 :placeholder="'Introdu o locatie'"
+                :rules="'required'"
               />
             </div>
             <div class="application w-100">
               <h5 class="title is-5 mt-6 mb-4">Aplicare</h5>
-              <hr class="mt-0" />
+              <hr class="mt-0"/>
 
               <Input
                 v-model.trim="form.applicationTarget"
                 :label="'Link Aplicatie'"
-                :rules="'required'"
                 :placeholder="'Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.'"
+                :rules="'required'"
               />
             </div>
             <div class="compensation w-100">
               <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
-              <hr class="mt-0" />
+              <hr class="mt-0"/>
 
               <b-field class="currencies" grouped>
                 <Select
                   v-model.trim="form.currency"
-                  :options="jobCurrencies"
-                  :v-observer-class="'d-block w-100 mr-5'"
                   :label="'Valută'"
-                  :rules="'required'"
+                  :options="jobCurrencies"
                   :placeholder="'Selecteaza o valuta'"
+                  :rules="'required'"
+                  :v-observer-class="'d-block w-100 mr-5'"
                 />
 
                 <Input
                   v-model.trim="form.minSalary"
-                  :v-observer-class="'d-block w-100 mr-5'"
-                  :label="'Salariu Minim'"
-                  :rules="'required'"
-                  :placeholder="'Adauga salariu minim'"
                   :expanded="true"
+                  :label="'Salariu Minim'"
+                  :placeholder="'Adauga salariu minim'"
+                  :rules="'required'"
+                  :v-observer-class="'d-block w-100 mr-5'"
                 />
 
                 <Input
                   v-model.trim="form.maxSalary"
-                  :v-observer-class="'d-block w-100'"
-                  :label="'Salariu Maxim'"
-                  :rules="'required'"
-                  :placeholder="'Adauga salariu maxim'"
                   :expanded="true"
+                  :label="'Salariu Maxim'"
+                  :placeholder="'Adauga salariu maxim'"
+                  :rules="'required'"
+                  :v-observer-class="'d-block w-100'"
                 />
               </b-field>
             </div>
@@ -111,10 +111,10 @@
             <div class="buttons is-flex">
               <b-button
                 :loading="loadingSubmit"
-                type="is-primary"
-                size="is-medium"
                 class="orange-btn mt-5 ml-auto"
                 icon-left="login"
+                size="is-medium"
+                type="is-primary"
                 @click="handleSubmit(submit)"
               >
                 Salveaza si previzualizeaza!
@@ -128,16 +128,17 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver } from "vee-validate";
-import Vue from "vue";
-import * as JobService from "~/services/job.service";
-import TagSearch from "~/components/_shared/TagSearch.vue";
-import Input from "~/components/_shared/form/Input.vue";
-import Select from "~/components/_shared/form/Select.vue";
-import { parseEscapedText } from "~/utils/jobs";
+import { ValidationObserver } from 'vee-validate'
+import Vue from 'vue'
+import _ from 'lodash'
+import * as JobService from '~/services/job.service'
+import TagSearch from '~/components/_shared/TagSearch.vue'
+import Input from '~/components/_shared/form/Input.vue'
+import Select from '~/components/_shared/form/Select.vue'
+import { parseEscapedText } from '~/utils/jobs'
 
 export default Vue.extend({
-  name: "JobDetails",
+  name: 'JobDetails',
   components: {
     ValidationObserver,
 
@@ -145,71 +146,112 @@ export default Vue.extend({
     Input,
     Select,
   },
-  middleware: "auth",
+  middleware: 'auth',
 
-  data() {
+  data () {
     return {
       customToolbar: [
-        [{ header: [false, 1, 2, 3, 4, 5, 6] }, "bold", "italic", "underline"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "code-block"],
+        [{ header: [false, 1, 2, 3, 4, 5, 6] }, 'bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link', 'code-block'],
       ],
 
       jobTypes: [
-        { value: "full_time", label: "Full-Time" },
-        { value: "part_time", label: "Part-Time" },
-        { value: "freelance", label: "Freelance" },
-        { value: "internship", label: "Internship" },
-        { value: "temporary", label: "Temporary" },
+        {
+          value: 'full_time',
+          label: 'Full-Time'
+        },
+        {
+          value: 'part_time',
+          label: 'Part-Time'
+        },
+        {
+          value: 'freelance',
+          label: 'Freelance'
+        },
+        {
+          value: 'internship',
+          label: 'Internship'
+        },
+        {
+          value: 'temporary',
+          label: 'Temporary'
+        },
       ],
       jobLevels: [
-        { value: "begginner", label: "Begginer" },
-        { value: "junior", label: "Junior" },
-        { value: "mid_level", label: "Mid-level" },
-        { value: "senior", label: "Senior" },
-        { value: "lead", label: "Lead" },
+        {
+          value: 'begginner',
+          label: 'Begginer'
+        },
+        {
+          value: 'junior',
+          label: 'Junior'
+        },
+        {
+          value: 'mid_level',
+          label: 'Mid-level'
+        },
+        {
+          value: 'senior',
+          label: 'Senior'
+        },
+        {
+          value: 'lead',
+          label: 'Lead'
+        },
       ],
       jobCurrencies: [
-        { value: "euro", label: "Euro" },
-        { value: "ron", label: "RON" },
+        {
+          value: 'euro',
+          label: 'Euro'
+        },
+        {
+          value: 'ron',
+          label: 'RON'
+        },
       ],
-      tagSearch: "",
+      tagSearch: '',
 
       form: {
-        title: "",
-        type: "",
-        level: "",
-        description: "",
+        title: '',
+        type: '',
+        level: '',
+        description: '',
 
         tags: [],
-        location: "",
-        applicationTarget: "",
+        location: '',
+        applicationTarget: '',
         // TODO: add input dropdown: remote, remote_allowed
-        remoteType: "remote_allowed",
-        currency: "",
-        minSalary: "",
-        maxSalary: "",
+        remoteType: 'remote_allowed',
+        currency: '',
+        minSalary: '',
+        maxSalary: '',
       },
+      formClone: {},
+
       jobDetailsLoading: false,
       loadingSubmit: false,
-    };
+    }
   },
 
   fetch() {
-    const { query } = this.$route;
+    const { query } = this.$route
 
-    const payload = `${query.id}/${query.option}`;
+    const payload = `${query.id}/${query.option}`
 
     if (query.id || query.option) {
-      this.jobDetailsLoading = true;
+      this.jobDetailsLoading = true
 
       JobService.getJob(this.$axios, payload)
         .then((data) => {
-          this.form = { ...data };
-          this.form.description = this.parseEscapedText(this.form.description);
-          this.form.title = this.parseEscapedText(this.form.title);
+          this.form = { ...data }
+          this.form.description = this.parseEscapedText(this.form.description)
+          this.form.title = this.parseEscapedText(this.form.title)
+
+          this.formClone = _.cloneDeep(this.form)
+
         })
-        .finally(() => (this.jobDetailsLoading = false));
+        .finally(() => (this.jobDetailsLoading = false))
     }
   },
 
@@ -217,7 +259,7 @@ export default Vue.extend({
     $route() {
       if (!this.$route.query.id) {
         // TODO: clear form
-        this.form = {};
+        this.form = {}
       }
     },
   },
@@ -227,25 +269,31 @@ export default Vue.extend({
 
     async submit() {
       // TODO: handle company ID from actual company
-      const tagsIds = this.form.tags.map((tag) => tag && tag._id);
+      const tagsIds = this.form.tags.map((tag) => tag && tag._id)
       const payload = {
         ...this.form,
         tags: tagsIds,
-        company: "353aaaf5b353",
+        company: '353aaaf5b353',
         createdBy: this.form.createdBy || this.$auth.user._id,
-      };
+      }
+
+      // if form is not changed do not call POST req
+      if (_.isEqual(this.form, this.formClone)) {
+        return this.$router.push(`/jobs/create?id=${this.form.jobId}&option=preview`)
+      }
 
       try {
-        this.loadingSubmit = true;
-        const createdJob = await JobService.createJob(this.$axios, payload);
-        this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`);
-        this.loadingSubmit = false;
+        this.loadingSubmit = true
+        const createdJob = await JobService.createJob(this.$axios, payload)
+        this.loadingSubmit = false
 
-        this.$emit("submitJobDetails");
-      } catch (error) {}
+        await this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`)
+
+      } catch (error) {
+      }
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

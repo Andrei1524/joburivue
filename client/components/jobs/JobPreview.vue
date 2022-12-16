@@ -4,8 +4,8 @@
       <h1 class="title is-3">Previzualizeaza !</h1>
       <b-loading
         :active="jobPreviewLoading"
-        :is-full-page="false"
         :can-cancel="false"
+        :is-full-page="false"
       ></b-loading>
 
       <div v-if="job" class="box mt-5">
@@ -23,10 +23,10 @@
 
         <div class="buttons is-flex is-justify-content-space-between">
           <b-button
-            type="is-primary"
-            size="is-medium"
             class="orange-btn mt-5"
             icon-right="arrow-left-bold"
+            size="is-medium"
+            type="is-primary"
             @click="
               $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
             "
@@ -34,10 +34,10 @@
             Editeaza jobul
           </b-button>
           <b-button
-            type="is-primary"
-            size="is-medium"
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
+            size="is-medium"
+            type="is-primary"
             @click="
               $router.push(`/jobs/create?id=${$route.query.id}&option=checkout`)
             "
@@ -72,15 +72,14 @@ export default Vue.extend({
   },
 
   watch: {
-    $route() {
-      if (this.$route.query.id) {
-        this.fetchJob();
-      }
+    $route: {
+      handler() {
+        if (this.$route.query.id) {
+          this.fetchJob();
+        }
+      },
+      immediate: true
     },
-  },
-
-  mounted() {
-    this.fetchJob();
   },
 
   methods: {
@@ -101,6 +100,7 @@ export default Vue.extend({
           .then((data) => {
             this.job = { ...data };
             this.job.title = parseEscapedText(data.title);
+
           })
           .finally(() => (this.jobPreviewLoading = false));
       }

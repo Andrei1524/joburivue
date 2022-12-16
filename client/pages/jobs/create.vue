@@ -2,29 +2,28 @@
   <div class="create-job">
     <h1 class="title is-2 has-text-centered">Adauga un job</h1>
     <div class="container is-max-desktop">
-      <b-steps :value="currentStep" :has-navigation="false">
+      <b-steps :has-navigation="false" :value="currentStep">
         <b-step-item
           :clickable="isStepsClickable"
-          :label="progressSteps[0].title"
           :icon="progressSteps[0].icon"
+          :label="progressSteps[0].title"
         >
           <JobDetails
             v-if="currentStep === 0"
             class="mt-5"
-            @submitJobDetails="nextStep"
           />
         </b-step-item>
         <b-step-item
           :clickable="isStepsClickable"
-          :label="progressSteps[1].title"
           :icon="progressSteps[1].icon"
+          :label="progressSteps[1].title"
         >
           <JobPreview v-if="currentStep === 1" class="mt-5" />
         </b-step-item>
         <b-step-item
           :clickable="isStepsClickable"
-          :label="progressSteps[2].title"
           :icon="progressSteps[2].icon"
+          :label="progressSteps[2].title"
         >
           <JobCheckout v-if="currentStep === 2" class="mt-5" />
         </b-step-item>
