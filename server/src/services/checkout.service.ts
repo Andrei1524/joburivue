@@ -1,12 +1,12 @@
-import Job from '../model/job.model';
-import Plan from '../model/plan.model';
-import { normalPlan, boostedPlan, proPlan } from '../seeds/seedPlans';
-import { planTypes } from '../ts/types/plan.types';
-const agenda = require('./_agenda.service');
+import Job from "../model/job.model";
+import Plan from "../model/plan.model";
+import { normalPlan, boostedPlan, proPlan } from "../seeds/seedPlans";
+import { planTypes } from "../ts/types/plan.types";
+const agenda = require("./_agenda.service");
 
 async function handlePaymentCompleted(payload: any) {
   try {
-    const [jobID, selectedPlan] = payload.client_reference_id.split('/');
+    const [jobID, selectedPlan] = payload.client_reference_id.split("/");
     // fullfill job create on succesfull payment
     return await handleActionsOnSelectedPlan(selectedPlan, jobID);
   } catch (error) {
@@ -20,7 +20,7 @@ async function handleActionsOnSelectedPlan(
 ) {
   const foundJob = await Job.findOne({
     jobId: jobID,
-  }).populate('plan._id');
+  }).populate("plan._id");
 
   // if user is renewing to the same plan, dont create a new plan
   if (foundJob!.plan._id && selectedPlan === foundJob!.plan._id.name) {
@@ -43,7 +43,7 @@ async function handleActionsOnSelectedPlan(
     // TODO: handle this better instead of duplicating code
     // TODO: expire old plan is renewing to a better plan
     switch (selectedPlan) {
-      case 'NORMAL':
+      case "NORMAL":
         normalPlan.save(async function (err, savedDoc) {
           if (err) {
             console.log(err);
@@ -57,7 +57,7 @@ async function handleActionsOnSelectedPlan(
           await schedulePlanExpire(savedDoc, foundJob);
         });
         break;
-      case 'BOOSTED':
+      case "BOOSTED":
         boostedPlan.save(async function (err, savedDoc) {
           if (err) {
             return err;
@@ -70,7 +70,7 @@ async function handleActionsOnSelectedPlan(
           await schedulePlanExpire(savedDoc, foundJob);
         });
         break;
-      case 'PRO':
+      case "PRO":
         proPlan.save(async function (err, savedDoc) {
           if (err) {
             return err;
@@ -89,7 +89,7 @@ async function handleActionsOnSelectedPlan(
 
 async function schedulePlanExpire(plan: any, job: any) {
   try {
-    await agenda.schedule(plan.expireDate, 'schedule_plan_expire', {
+    await agenda.schedule(plan.expireDate, "schedule_plan_expire", {
       plan_id: plan._id,
       job_id: job._id,
     });
