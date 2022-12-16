@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
-    class="columns job-item is-gapless is-align-items-center p-2"
     :to="goToJobPage()"
+    class="columns job-item is-gapless is-align-items-center p-2"
   >
     <div class="column is-narrow">
       <figure class="image is-48x48 mr-2">
@@ -23,15 +23,15 @@
     >
       <div class="tags is-align-self-flex-end">
         <Tag
-          class="mr-2"
+          :tag-type="'salary-range'"
           :value="`${formatCurrencySign(job.currency)}${formatMoney(
             job.minSalary
           )} - ${formatCurrencySign(job.currency)}${formatMoney(
             job.maxSalary
           )}`"
-          :tag-type="'salary-range'"
+          class="mr-2"
         />
-        <Tag :value="'Romania'" :tag-type="'location'" />
+        <Tag :tag-type="'location'" :value="'Romania'" />
       </div>
       <div class="job-info-text is-align-self-flex-end">
         <span class="has-text-weight-bold mr-2">{{
@@ -139,6 +139,14 @@ export default Vue.extend({
   height: 80px;
   background-color: $basic-white;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 3px 1px 5px #00000008;
+  transition: all 0.5s;
+  
+  &:hover {
+    box-shadow: 3px 4px 5px #00000030;
+
+  }
 }
 
 @media only screen and (max-width: 769px) {
