@@ -67,14 +67,7 @@ const createPlan = (jobId: string, selectedPlan: string) => {
 };
 
 function returnSeedPlan(selectedPlan: string, jobId: string) {
-  switch (selectedPlan) {
-    case "NORMAL":
-      return createPlan(jobId, selectedPlan);
-    case "BOOSTED":
-      return createPlan(jobId, selectedPlan);
-    case "PRO":
-      return createPlan(jobId, selectedPlan);
-  }
+  return createPlan(jobId, selectedPlan);
 }
 
 // async function startSeedingPlans() {
