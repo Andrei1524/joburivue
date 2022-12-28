@@ -24,6 +24,7 @@ async function handleActionsOnSelectedPlan(
   console.log({ selectedPlan });
 
   // if user is renewing to the same plan, don't create a new plan
+  // TODO: fix renew a new plan
   if (
     foundJob &&
     foundJob.plan._id &&
