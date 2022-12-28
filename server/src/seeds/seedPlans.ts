@@ -8,58 +8,72 @@ const add_days = function (date: Date, days: number) {
 };
 
 const normalPlanDays = 35;
-const NORMAL = (jobId: string) =>
-  new Plan({
-    name: "NORMAL",
-    jobId,
-    expireDate: add_days(new Date(), normalPlanDays).toISOString(),
-    planDays: normalPlanDays,
-    isPlanActive: true,
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: false,
-    jobPinnedInSearches: false,
-    jobShowedInRecommendedCompanies: false,
-  });
+const normalPlanSettings = {
+  name: "NORMAL",
+  planDays: normalPlanDays,
+  isPlanActive: true,
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: false,
+  jobPinnedInSearches: false,
+  jobShowedInRecommendedCompanies: false,
+};
 
 const boostedPlanDays = 60;
-const BOOSTED = (jobId: string) =>
-  new Plan({
-    name: "BOOSTED",
-    jobId,
-    expireDate: add_days(new Date(), boostedPlanDays).toISOString(),
-    planDays: boostedPlanDays,
-    isPlanActive: true,
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: true,
-    jobPinnedInSearches: true,
-    jobShowedInRecommendedCompanies: false,
-  });
+const boostedPlanSettings = {
+  name: "BOOSTED",
+  isPlanActive: true,
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: true,
+  jobPinnedInSearches: true,
+  jobShowedInRecommendedCompanies: false,
+  planDays: boostedPlanDays,
+};
 
 const proPlanDays = 60;
-const PRO = (jobId: string) =>
-  new Plan({
-    name: "PRO",
-    jobId,
-    expireDate: add_days(new Date(), proPlanDays).toISOString(),
-    planDays: proPlanDays,
-    isPlanActive: true,
-    promotedOnSocialChannels: true,
-    listedOnWeeklyNewsletter: true,
-    promotedOnWeeklyNewsletter: true,
-    jobPinnedInSearches: true,
-    jobShowedInRecommendedCompanies: true,
-  });
+const proPlanSettings = {
+  name: "PRO",
+  isPlanActive: true,
+  promotedOnSocialChannels: true,
+  listedOnWeeklyNewsletter: true,
+  promotedOnWeeklyNewsletter: true,
+  jobPinnedInSearches: true,
+  jobShowedInRecommendedCompanies: true,
+  planDays: proPlanDays,
+};
+
+const createPlan = (jobId: string, selectedPlan: string) => {
+  switch (selectedPlan) {
+    case "NORMAL":
+      return new Plan({
+        jobId,
+        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
+        ...normalPlanSettings,
+      });
+    case "BOOSTED":
+      return new Plan({
+        jobId,
+        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
+        ...boostedPlanSettings,
+      });
+    case "PRO":
+      return new Plan({
+        jobId,
+        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
+        ...proPlanSettings,
+      });
+  }
+};
 
 function returnSeedPlan(selectedPlan: string, jobId: string) {
   switch (selectedPlan) {
     case "NORMAL":
-      return NORMAL(jobId);
+      return createPlan(jobId, selectedPlan);
     case "BOOSTED":
-      return BOOSTED(jobId);
+      return createPlan(jobId, selectedPlan);
     case "PRO":
-      return PRO(jobId);
+      return createPlan(jobId, selectedPlan);
   }
 }
 
