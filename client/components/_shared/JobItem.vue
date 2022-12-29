@@ -157,6 +157,7 @@ export default Vue.extend({
 
   .job-item {
     height: fit-content;
+    display: block;
 
     .subtitle {
       text-align: center !important;

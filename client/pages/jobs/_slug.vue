@@ -33,7 +33,7 @@
     </AppHero>
 
     <!-- job content -->
-    <div class="container is-max-desktop">
+    <div class="container is-max-desktop px-5 py-2">
       <div v-if="!loading">
         <div>
           <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <AppSkeletonLoading class="mt-4" :loading="loading" />
+      <AppSkeletonLoading :loading="loading" class="mt-4" />
 
       <!-- skills & apply -->
       <div
@@ -62,10 +62,10 @@
             <b-tag
               v-for="tag in job.tags"
               :key="tag._id"
+              aria-close-label="Close tag"
+              attached
               class="mr-1"
               type="is-primary"
-              attached
-              aria-close-label="Close tag"
             >
               {{ tag.name }}
             </b-tag>
@@ -73,19 +73,19 @@
         </div>
 
         <div class="position-relative">
-          <img class="apply-drawing" src="~assets/apply_drawing.png" alt="" />
+          <img alt="" class="apply-drawing" src="~assets/apply_drawing.png" />
           <b-button
-            type="is-primary"
+            :href="formatApplicationTarget(job.applicationTarget)"
             class="orange-btn px-5 ml-6"
             tag="a"
-            :href="formatApplicationTarget(job.applicationTarget)"
             target="_blank"
+            type="is-primary"
           >
             Aplica
           </b-button>
         </div>
       </div>
-      <AppSkeletonLoading :loading="loading" :bars="3" />
+      <AppSkeletonLoading :bars="3" :loading="loading" />
     </div>
   </div>
 </template>
@@ -161,7 +161,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .apply-drawing {
   position: absolute;
   top: -39px;
