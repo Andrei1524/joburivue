@@ -43,31 +43,51 @@ const proPlanSettings = {
   planDays: proPlanDays,
 };
 
-const createPlan = (jobId: string, selectedPlan: string) => {
+function returnPlanSettings(selectedPlan: string) {
   switch (selectedPlan) {
     case "NORMAL":
-      return new Plan({
-        jobId,
-        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
-        ...normalPlanSettings,
-      });
+      return normalPlanSettings;
     case "BOOSTED":
-      return new Plan({
-        jobId,
-        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
-        ...boostedPlanSettings,
-      });
+      return boostedPlanSettings;
     case "PRO":
-      return new Plan({
-        jobId,
-        expireDate: add_days(new Date(), normalPlanDays).toISOString(),
-        ...proPlanSettings,
-      });
+      return proPlanSettings;
+  }
+}
+
+const createPlan = async (selectedPlan: string, jobId: string) => {
+  const foundPlan = await Plan.findOne({ jobId }).exec();
+
+  if (foundPlan && foundPlan.isPlanActive) {
+    foundPlan.expireDate = add_days(
+      new Date(),
+      returnPlanSettings(selectedPlan)!.planDays
+    ).toISOString();
+    foundPlan.name = returnPlanSettings(selectedPlan)!.name;
+    foundPlan.isPlanActive = returnPlanSettings(selectedPlan)!.isPlanActive;
+    foundPlan.promotedOnSocialChannels =
+      returnPlanSettings(selectedPlan)!.promotedOnSocialChannels;
+    foundPlan.listedOnWeeklyNewsletter =
+      returnPlanSettings(selectedPlan)!.listedOnWeeklyNewsletter;
+    foundPlan.promotedOnWeeklyNewsletter =
+      returnPlanSettings(selectedPlan)!.promotedOnWeeklyNewsletter;
+    foundPlan.jobPinnedInSearches =
+      returnPlanSettings(selectedPlan)!.jobPinnedInSearches;
+    foundPlan.jobShowedInRecommendedCompanies =
+      returnPlanSettings(selectedPlan)!.jobShowedInRecommendedCompanies;
+    foundPlan.planDays = returnPlanSettings(selectedPlan)!.planDays;
+
+    return foundPlan;
+  } else {
+    return new Plan({
+      jobId,
+      expireDate: add_days(new Date(), normalPlanDays).toISOString(),
+      ...returnPlanSettings(selectedPlan),
+    });
   }
 };
 
-function returnSeedPlan(selectedPlan: string, jobId: string) {
-  return createPlan(jobId, selectedPlan);
+async function returnSeedPlan(selectedPlan: string, jobId: string) {
+  return await createPlan(selectedPlan, jobId);
 }
 
 // async function startSeedingPlans() {

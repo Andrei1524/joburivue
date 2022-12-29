@@ -5,6 +5,7 @@ interface PlanInterface {
   promotedOnSocialChannels: boolean;
   listedOnWeeklyNewsletter: boolean;
   jobPinnedInSearches: boolean;
+  promotedOnWeeklyNewsletter: boolean;
   jobShowedInRecommendedCompanies: boolean;
   expireDate: string;
   planDays: number;

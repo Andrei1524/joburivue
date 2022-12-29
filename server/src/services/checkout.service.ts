@@ -21,49 +21,15 @@ async function handleActionsOnSelectedPlan(
   const foundJob = await Job.findOne({
     jobId: jobID,
   }).populate("plan._id");
-  console.log({ selectedPlan });
 
-  // if user is renewing to the same plan, don't create a new plan
-  // TODO: fix renew a new plan
-  if (
-    foundJob &&
-    foundJob.plan._id &&
-    selectedPlan === foundJob.plan._id.name
-  ) {
-    const foundPlan = await Plan.findById(foundJob.plan._id);
+  if (foundJob) {
+    returnSeedPlan(selectedPlan, foundJob!._id)?.then(async (returnedPlan) => {
+      foundJob!.plan._id = returnedPlan!._id!;
+      foundJob!.plan.isPlanActive = returnedPlan!.isPlanActive;
 
-    if (
-      foundPlan &&
-      foundPlan._id.toString() === foundJob.plan._id._id.toString()
-    ) {
-      // renew plan
-      foundJob.plan.isPlanActive = true;
-      foundPlan.isPlanActive = true;
-      foundPlan.updatedAt = new Date().toISOString();
-      foundPlan.expireDate = add_days(
-        new Date(),
-        foundPlan.planDays
-      ).toISOString();
-
-      await foundPlan.save();
-      await foundJob.save();
-      await schedulePlanExpire(foundPlan, foundJob);
-    }
-  } else {
-    returnSeedPlan(selectedPlan, foundJob!._id)?.save(async function (
-      err,
-      savedDoc
-    ) {
-      if (err) {
-        console.log(err);
-        return err;
-      }
-
-      foundJob!.plan._id = savedDoc._id;
-      foundJob!.plan.isPlanActive = savedDoc.isPlanActive;
-
+      await returnedPlan!.save();
       await foundJob!.save();
-      await schedulePlanExpire(savedDoc, foundJob);
+      await schedulePlanExpire(returnedPlan, foundJob);
     });
   }
 }
