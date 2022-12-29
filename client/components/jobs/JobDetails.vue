@@ -268,7 +268,7 @@ export default Vue.extend({
     parseEscapedText,
 
     async submit() {
-      // TODO: handle company ID from actual company
+      // TODO: handle companies ID from actual companies
       const tagsIds = this.form.tags.map((tag) => tag && tag._id)
       const payload = {
         ...this.form,
