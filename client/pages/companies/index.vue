@@ -1,6 +1,6 @@
 <template>
   <div className="companies-page">
-    <AppHero :title="'Companiile mele'" />
+    <AppHero :title="'Companiile mele '" icon="domain"  />
   </div>
 </template>
 
