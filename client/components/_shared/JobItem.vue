@@ -142,10 +142,11 @@ export default Vue.extend({
   border-radius: 5px;
   box-shadow: 3px 1px 5px #00000008;
   transition: all 0.5s;
+  border: 1px solid #37648a24;
 
   &:hover {
     box-shadow: 3px 4px 5px #00000030;
-
+    border: 1px solid #37648ab0;
   }
 }
 
@@ -158,6 +159,7 @@ export default Vue.extend({
   .job-item {
     height: fit-content;
     display: block;
+
 
     .subtitle {
       text-align: center !important;
