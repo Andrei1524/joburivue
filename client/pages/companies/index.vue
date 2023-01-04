@@ -31,7 +31,7 @@
           >
             <div class="is-flex column is-narrow">
               <figure class="image is-48x48 mr-2">
-                <img src="~assets/job-item-logo-example.png" />
+                <img class="companyLogo" :src="companyPreviewUrl" />
               </figure>
               <div>
                 <h3 class="is-size-6 has-text-weight-bold">PolkaDot</h3>
@@ -61,32 +61,18 @@
                     accept=".jpg,.png,.jpeg,.webp,.svg"
                     drag-drop
                     expanded
+                    @input="fileLoaded"
                   >
                     <section class="section">
                       <div class="content has-text-centered">
                         <p>
                           <b-icon icon="upload" size="is-large"></b-icon>
                         </p>
-                        <p>UPLOAD LOGO</p>
+                        <p>UPLOAD LOGO (48x48 size preferable)</p>
                       </div>
                     </section>
                   </b-upload>
                 </b-field>
-
-                <div class="tags">
-                  <span
-                    v-for="(file, index) in companyLogo"
-                    :key="index"
-                    class="tag is-primary"
-                  >
-                    {{ file.name }}
-                    <button
-                      class="delete is-small"
-                      type="button"
-                      @click="deleteDropFile(index)"
-                    ></button>
-                  </span>
-                </div>
 
                 <b-field :label="'Descriere'">
                   <client-only>
@@ -126,7 +112,7 @@ import AppHero from "~/components/layout/AppHero.vue";
 import Input from "~/components/_shared/form/Input.vue";
 
 export default Vue.extend({
-  name: "AppLogin",
+  name: "AppCompanies",
   components: {
     AppHero,
     ValidationObserver,
@@ -145,6 +131,7 @@ export default Vue.extend({
       isCreateCompanyBoxOpen: false,
       loadingSubmit: false,
       companyLogo: null,
+      companyPreviewUrl: "",
 
       form: {
         companyName: "",
@@ -177,9 +164,11 @@ export default Vue.extend({
       // }
     },
 
-    deleteDropFile(index) {
-      this.companyLogo.splice(index, 1);
+    fileLoaded() {
+      this.companyPreviewUrl = URL.createObjectURL(this.companyLogo);
     },
+
+    deleteDropFile(index) {},
   },
 });
 </script>
@@ -198,5 +187,10 @@ export default Vue.extend({
 .create-company-box {
   background: $white;
   border: 1px solid rgb(33 41 64 / 39%);
+}
+
+.companyLogo {
+  height: 100%;
+  object-fit: cover;
 }
 </style>
