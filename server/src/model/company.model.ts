@@ -6,7 +6,7 @@ const CompanySchema = new Schema<CompanyInterface>(
     name: { type: String, required: true },
     logo: { type: String, required: false },
     website: { type: String, required: false },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
   },
 
   { timestamps: true }
