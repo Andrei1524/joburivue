@@ -141,6 +141,28 @@ export default Vue.extend({
     },
 
     deleteDropFile(index) {},
+
+    async submit() {
+      console.log("submit");
+      // const tagsIds = this.form.tags.map((tag) => tag && tag._id)
+      // const payload = {
+      //   ...this.form,
+      //   tags: tagsIds,
+      //   company: '353aaaf5b353',
+      //   createdBy: this.form.createdBy || this.$auth.user._id,
+      // }
+      // // if form is not changed do not call POST req
+      // if (_.isEqual(this.form, this.formClone)) {
+      //   return this.$router.push(`/jobs/create?id=${this.form.jobId}&option=preview`)
+      // }
+      // try {
+      //   this.loadingSubmit = true
+      //   const createdJob = await JobService.createJob(this.$axios, payload)
+      //   this.loadingSubmit = false
+      //   await this.$router.push(`/jobs/create?id=${createdJob.jobId}&option=preview`)
+      // } catch (error) {
+      // }
+    },
   },
 });
 </script>
