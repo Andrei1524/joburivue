@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import * as CompanyService from '../services/company.service';
-const { check, validationResult } = require('express-validator');
+import { NextFunction, Request, Response } from "express";
+import * as CompanyService from "../services/company.service";
+const { check, validationResult } = require("express-validator");
 
 const createCompanyValidate = [
-  check('companyName')
+  check("name")
     .exists()
-    .withMessage('Compania trebuie sa contina un titlu')
+    .withMessage("Compania trebuie sa contina un titlu")
     .trim()
     .escape(),
 ];
