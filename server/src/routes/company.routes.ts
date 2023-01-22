@@ -1,12 +1,16 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import { authenticateJWT } from '../middleware/authenticateJWT';
+import { authenticateJWT } from "../middleware/authenticateJWT";
 
-import * as CompanyController from '../controllers/company.controller';
+import * as CompanyController from "../controllers/company.controller";
+
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 router.post(
-  '/create',
+  "/create",
   authenticateJWT,
+  upload.single("logoFile"),
   CompanyController.createCompanyValidate,
   CompanyController.create
 );

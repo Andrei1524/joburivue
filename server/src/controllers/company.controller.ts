@@ -19,9 +19,8 @@ async function create(req: Request, res: Response, next: NextFunction) {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    const company = await CompanyService.create({
-      ...payload,
-    });
+
+    const company = await CompanyService.create(payload, req);
     return res.status(200).json(company);
   } catch (error) {
     if (error instanceof Error) {

@@ -1,13 +1,13 @@
 <template>
   <b-modal
     :active="modals[modalsConstants.CREATE_COMPANY_MODAL]"
+    :destroy-on-hide="false"
+    aria-label="Example Modal"
+    aria-modal
+    aria-role="dialog"
+    close-button-aria-label="Close"
     has-modal-card
     trap-focus
-    :destroy-on-hide="false"
-    aria-role="dialog"
-    aria-label="Example Modal"
-    close-button-aria-label="Close"
-    aria-modal
     @close="closeModal(modalConstant)"
   >
     <template #default="props">
@@ -16,7 +16,7 @@
       >
         <div class="is-flex column is-narrow">
           <figure class="image is-48x48 mr-2">
-            <img class="companyLogo" :src="companyPreviewUrl" />
+            <img :src="companyPreviewUrl" />
           </figure>
           <div>
             <h3 class="is-size-6 has-text-weight-bold">PolkaDot</h3>
@@ -26,23 +26,23 @@
         <div class="mt-5">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
             <Input
-              v-model.trim="form.companyName"
+              v-model.trim="form.name"
+              :expanded="true"
               :label="'Numele companiei'"
               :placeholder="'...numele companiei'"
               :rules="'required'"
-              :expanded="true"
             />
 
             <Input
-              v-model.trim="form.companyWebsite"
+              v-model.trim="form.website"
+              :expanded="true"
               :label="'Website'"
               :placeholder="'...link site companie'"
-              :expanded="true"
             />
 
             <b-field>
               <b-upload
-                v-model="companyLogo"
+                v-model="logo"
                 accept=".jpg,.png,.jpeg,.webp,.svg"
                 drag-drop
                 expanded
@@ -96,6 +96,8 @@ import { mapMutations, mapState } from "vuex";
 import { modalsConstants } from "~/utils/constants";
 import Input from "~/components/_shared/form/Input.vue";
 
+import * as CompanyService from "~/services/company.service";
+
 export default Vue.extend({
   name: "CreateCompanyModal",
   components: { ValidationObserver, Input },
@@ -116,13 +118,13 @@ export default Vue.extend({
       ],
 
       form: {
-        companyName: "",
-        companyWebsite: "",
+        name: "",
+        website: "",
         description: "",
       },
 
       loadingSubmit: false,
-      companyLogo: null,
+      logo: null,
       companyPreviewUrl: "",
 
       modalsConstants,
@@ -137,7 +139,7 @@ export default Vue.extend({
     ...mapMutations("modals", ["closeModal"]),
 
     fileLoaded() {
-      this.companyPreviewUrl = URL.createObjectURL(this.companyLogo);
+      this.companyPreviewUrl = URL.createObjectURL(this.logo);
     },
 
     deleteDropFile(index) {},
@@ -145,13 +147,19 @@ export default Vue.extend({
     async submit() {
       const payload = {
         ...this.form,
+        logoFile: this.logo,
       };
 
+      console.log(payload);
       try {
         this.loadingSubmit = true;
-        // const createdJob = await JobService.createJob(this.$axios, payload);
-        // this.loadingSubmit = false;
-      } catch (error) {}
+        await CompanyService.createCompany(this.$axios, payload);
+        this.loadingSubmit = false;
+
+        this.closeModal(this.modalConstant);
+      } catch (error) {
+        this.loadingSubmit = false;
+      }
     },
   },
 });
