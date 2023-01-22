@@ -4,17 +4,18 @@ import { Request } from "express";
 
 async function create(payload: CompanyInterface, req: Request) {
   try {
-    console.log(req.file);
+    const filePath = req.file ? req.file.path : "";
+
     if (payload._id) {
       return await Company.findOneAndUpdate(
         { _id: payload._id },
-        { ...payload },
+        { ...payload, logo: filePath },
         {
           new: true,
         }
       );
     } else {
-      return new Company({ ...payload }).save();
+      return new Company({ ...payload, logo: filePath }).save();
     }
   } catch (error) {
     throw (error as Error).message;
