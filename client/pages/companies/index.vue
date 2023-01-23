@@ -5,9 +5,12 @@
     <div
       class="is-flex is-flex-direction-column is-align-items-center container is-max-desktop"
     >
+      <!--   COMPANIES LIST   -->
+      <CompaniesList class="mb-0" />
+
       <!--  CREATE A COMPANY BUTTON-->
       <div
-        class="create-company-button is-flex is-align-items-center is-size-4 is-clickable p-3 mt-6"
+        class="create-company-button is-flex is-align-items-center is-size-4 is-clickable p-3"
         @click="openModal(modalsConstants.CREATE_COMPANY_MODAL)"
       >
         Creeaza o companie
@@ -29,12 +32,14 @@ import { modalsConstants } from "~/utils/constants";
 
 import AppHero from "~/components/layout/AppHero.vue";
 import CreateCompanyModal from "~/components/modals/CreateCompanyModal.vue";
+import CompaniesList from "~/components/companies/CompaniesList.vue";
 
 export default Vue.extend({
   name: "AppCompanies",
   components: {
     AppHero,
     CreateCompanyModal,
+    CompaniesList,
   },
   middleware: "auth",
 

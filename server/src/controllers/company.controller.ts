@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import * as CompanyService from "../services/company.service";
 const { check, validationResult } = require("express-validator");
 
+import { CompanyInterface } from "../ts/interfaces/company.interfaces";
+
 const createCompanyValidate = [
   check("name")
     .exists()
@@ -37,7 +39,7 @@ async function getUserCompanies(
   next: NextFunction
 ) {
   try {
-    const companies: unknown = await CompanyService.getUserCompanies(req);
+    const companies = await CompanyService.getUserCompanies(req);
 
     return res.status(200).json(companies);
   } catch (error) {

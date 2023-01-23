@@ -1,0 +1,99 @@
+<template>
+  <section class="section">
+    <div
+      v-for="company in data"
+      :key="company._id"
+      class="box company-item columns is-gapless is-align-items-center"
+    >
+      <div class="column is-narrow">
+        <figure class="image is-64x64 mr-2">
+          <img :src="returnServerHostUrl + company.logo" />
+        </figure>
+      </div>
+
+      <div class="column job-title is-narrow">
+        <h5 class="title is-5">{{ company.name }}</h5>
+      </div>
+
+      <div
+        class="column job-info is-flex is-flex-direction-column is-justify-content-space-between ml-6"
+      >
+        <div class="tags is-align-self-flex-end">
+          <a :href="company.website" class="is-underlined" target="_blank"
+            >website</a
+          >
+        </div>
+        <div class="job-info-text is-align-self-flex-end">
+          <div class="buttons is-flex">
+            <b-button
+              class="orange-btn mx-auto"
+              icon-left="login"
+              size="is-small"
+              type="is-primary"
+              @click="openEditCompanyModal"
+            >
+              Editeaza
+            </b-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+import * as CompanyService from "~/services/company.service";
+
+export default Vue.extend({
+  name: "CompaniesList",
+
+  data() {
+    return {
+      loading: false,
+      data: [],
+    };
+  },
+
+  fetch() {
+    this.loading = true;
+
+    CompanyService.getUserCompanies(this.$axios)
+      .then((data) => {
+        this.data = data;
+      })
+      .finally(() => (this.loading = false));
+  },
+
+  computed: {
+    returnServerHostUrl() {
+      console.log(
+        process.env.NODE_ENV === "production"
+          ? window.location.host
+          : "http://localhost:4000/"
+      );
+      return process.env.NODE_ENV === "production"
+        ? window.location.host
+        : "http://localhost:4000/";
+    },
+  },
+
+  methods: {
+    openEditCompanyModal() {
+      console.log("open company modal");
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+@import "./design/variables";
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.company-item {
+}
+</style>

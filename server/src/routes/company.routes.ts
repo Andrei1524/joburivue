@@ -49,7 +49,6 @@ router.post(
 router.get(
   "/userCompanies",
   authenticateJWT,
-  // jobBelongsToCurrentUser,
   CompanyController.getUserCompanies
 );
 

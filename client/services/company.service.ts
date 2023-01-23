@@ -18,4 +18,13 @@ async function createCompany(axios: any, payload: any) {
   }
 }
 
-export { createCompany };
+async function getUserCompanies(axios: any) {
+  try {
+    const response = await axios.get("/company/userCompanies");
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export { createCompany, getUserCompanies };
