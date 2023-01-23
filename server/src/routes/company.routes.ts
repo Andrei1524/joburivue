@@ -46,15 +46,11 @@ router.post(
   CompanyController.create
 );
 
-// router.get('/', JobController.getJobs);
-
-// router.get(
-//   '/userJobs',
-//   authenticateJWT,
-//   jobBelongsToCurrentUser,
-//   JobController.getJobs
-// );
-
-// router.get('/:jobId/:option?', jobBelongsToCurrentUser, JobController.getJob);
+router.get(
+  "/userCompanies",
+  authenticateJWT,
+  // jobBelongsToCurrentUser,
+  CompanyController.getUserCompanies
+);
 
 export = router;

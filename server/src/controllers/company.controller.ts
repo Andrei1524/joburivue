@@ -31,4 +31,22 @@ async function create(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { create, createCompanyValidate };
+async function getUserCompanies(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const companies: unknown = await CompanyService.getUserCompanies(req);
+
+    return res.status(200).json(companies);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+}
+
+export { create, getUserCompanies, createCompanyValidate };

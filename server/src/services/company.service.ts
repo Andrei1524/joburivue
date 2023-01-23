@@ -1,6 +1,7 @@
 import Company from "../model/company.model";
 import { CompanyInterface } from "../ts/interfaces/company.interfaces";
 import { Request } from "express";
+import Job from "../model/job.model";
 
 async function create(payload: CompanyInterface, req: Request) {
   try {
@@ -26,4 +27,14 @@ async function create(payload: CompanyInterface, req: Request) {
   }
 }
 
-export { create };
+async function getUserCompanies(req: Request) {
+  try {
+    const data: unknown = Company.find({ createdBy: req.user._id });
+
+    return data;
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
+export { create, getUserCompanies };
