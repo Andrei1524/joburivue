@@ -152,7 +152,7 @@ export default Vue.extend({
 
       try {
         this.loadingSubmit = true;
-        // await CompanyService.createCompany(this.$axios, payload);
+        await CompanyService.createCompany(this.$axios, payload);
         this.loadingSubmit = false;
 
         this.closeModal(this.modalConstant);
