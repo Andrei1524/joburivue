@@ -150,16 +150,24 @@ export default Vue.extend({
         logoFile: this.logo,
       };
 
-      console.log(payload);
       try {
         this.loadingSubmit = true;
-        await CompanyService.createCompany(this.$axios, payload);
+        // await CompanyService.createCompany(this.$axios, payload);
         this.loadingSubmit = false;
 
         this.closeModal(this.modalConstant);
+        this.clearForm();
       } catch (error) {
         this.loadingSubmit = false;
       }
+    },
+
+    clearForm() {
+      this.form.name = "";
+      this.form.website = "";
+      this.form.description = "";
+      this.logo = null;
+      this.companyPreviewUrl = "";
     },
   },
 });
