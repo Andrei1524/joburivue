@@ -5,7 +5,7 @@ async function createCompany(axios: any, payload: any) {
 
     formData.append("name", payload.name);
     formData.append("website", payload.website);
-    formData.append("description", payload.website);
+    formData.append("description", payload.description);
 
     if (payload._id) {
       formData.append("_id", payload._id);
