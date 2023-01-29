@@ -30,7 +30,7 @@
               icon-left="login"
               size="is-small"
               type="is-primary"
-              @click="openEditCompanyModal"
+              @click="openEditCompanyModal(company)"
             >
               Editeaza
             </b-button>
@@ -43,7 +43,9 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapMutations } from "vuex";
 import * as CompanyService from "~/services/company.service";
+import { modalsConstants } from "~/utils/constants";
 
 export default Vue.extend({
   name: "CompaniesList",
@@ -52,6 +54,8 @@ export default Vue.extend({
     return {
       loading: false,
       data: [],
+
+      modalsConstants,
     };
   },
 
@@ -66,12 +70,8 @@ export default Vue.extend({
   },
 
   computed: {
+    // TODO: put global function
     returnServerHostUrl() {
-      console.log(
-        process.env.NODE_ENV === "production"
-          ? window.location.host
-          : "http://localhost:4000/"
-      );
       return process.env.NODE_ENV === "production"
         ? window.location.host
         : "http://localhost:4000/";
@@ -79,8 +79,14 @@ export default Vue.extend({
   },
 
   methods: {
-    openEditCompanyModal() {
-      console.log("open company modal");
+    ...mapMutations("modals", ["openModal"]),
+
+    openEditCompanyModal(company) {
+      this.openModal({
+        constantName: modalsConstants.EDIT_COMPANY_MODAL,
+        open: true,
+        data: company,
+      });
     },
   },
 });

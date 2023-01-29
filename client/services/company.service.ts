@@ -7,7 +7,17 @@ async function createCompany(axios: any, payload: any) {
     formData.append("website", payload.website);
     formData.append("description", payload.website);
 
-    formData.append("logoFile", logoFile);
+    if (payload._id) {
+      formData.append("_id", payload._id);
+    }
+
+    if (logoFile) {
+      formData.append("logoFile", logoFile);
+    }
+
+    if (payload.logo) {
+      formData.append("logo", payload.logo);
+    }
 
     const headers = { "Content-Type": "multipart/form-data" };
     const response = await axios.post("/company/create", formData, { headers });

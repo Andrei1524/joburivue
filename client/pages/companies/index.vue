@@ -11,15 +11,27 @@
       <!--  CREATE A COMPANY BUTTON-->
       <div
         class="create-company-button is-flex is-align-items-center is-size-4 is-clickable p-3"
-        @click="openModal(modalsConstants.CREATE_COMPANY_MODAL)"
+        @click="
+          openModal({
+            constantName: modalsConstants.CREATE_COMPANY_MODAL,
+            open: true,
+          })
+        "
       >
         Creeaza o companie
         <b-icon class="ml-1" icon="plus-box" size="is-medium" />
       </div>
 
       <!--  CREATE A COMPANY MODAL BOX-->
-      <CreateCompanyModal
+      <CreateEditCompanyModal
+        v-show="modals[modalsConstants.CREATE_COMPANY_MODAL].open"
         :modal-constant="modalsConstants.CREATE_COMPANY_MODAL"
+      />
+
+      <!--      EDIT A COMPANY MODAL BOX-->
+      <CreateEditCompanyModal
+        v-show="modals[modalsConstants.EDIT_COMPANY_MODAL].open"
+        :modal-constant="modalsConstants.EDIT_COMPANY_MODAL"
       />
     </div>
   </div>
@@ -27,18 +39,18 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { modalsConstants } from "~/utils/constants";
 
 import AppHero from "~/components/layout/AppHero.vue";
-import CreateCompanyModal from "~/components/modals/CreateCompanyModal.vue";
+import CreateEditCompanyModal from "~/components/modals/CreateEditCompanyModal.vue";
 import CompaniesList from "~/components/companies/CompaniesList.vue";
 
 export default Vue.extend({
   name: "AppCompanies",
   components: {
     AppHero,
-    CreateCompanyModal,
+    CreateEditCompanyModal,
     CompaniesList,
   },
   middleware: "auth",
@@ -49,6 +61,9 @@ export default Vue.extend({
     };
   },
 
+  computed: {
+    ...mapState("modals", ["modals"]),
+  },
   methods: {
     ...mapMutations("modals", ["openModal"]),
   },

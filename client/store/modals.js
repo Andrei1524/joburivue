@@ -10,11 +10,17 @@ export const mutations = {
   },
 
   closeModal(state, constantName) {
-    state.modals[constantName] = false;
+    state.modals[constantName] = {
+      open: false,
+      data: null,
+    };
   },
 
-  openModal(state, constantName) {
-    state.modals[constantName] = true;
+  openModal(state, payload) {
+    state.modals[payload.constantName] = {
+      open: payload.open,
+      data: payload.data,
+    };
   },
 };
 
