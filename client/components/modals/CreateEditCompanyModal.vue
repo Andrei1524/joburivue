@@ -15,8 +15,11 @@
         class="modal-card create-company-box columns is-gapless is-flex-direction-column p-3 mt-4"
       >
         <div class="is-flex column is-narrow">
-          <figure class="image is-48x48 mr-2">
-            <img :src="companyPreviewUrl" />
+          <figure class="image is-64x64 mr-2">
+            <img
+              :src="companyPreviewUrl"
+              style="height: 100%; object-fit: cover"
+            />
           </figure>
           <div>
             <h3
@@ -44,7 +47,7 @@
               v-model.trim="form.website"
               :expanded="true"
               :label="'Website'"
-              :placeholder="'...link site companie'"
+              :placeholder="'ex: https://www.mywebsite.ro/'"
             />
 
             <b-field>
@@ -137,6 +140,7 @@ export default Vue.extend({
       loadingSubmit: false,
       logo: null,
       companyPreviewUrl: "",
+      storageId: null,
 
       modalsConstants,
     };
@@ -162,6 +166,7 @@ export default Vue.extend({
         ) {
           this.form = { ...this.modals[this.modalConstant].data };
           this.companyPreviewUrl = this.returnServerHostUrl + this.form.logo;
+          this.storageId = this.form.storageId;
         }
       },
       deep: true,
@@ -181,6 +186,7 @@ export default Vue.extend({
       const payload = {
         ...this.form,
         logoFile: this.logo,
+        companyStorageId: this.companyStorageId,
       };
 
       try {
@@ -190,6 +196,7 @@ export default Vue.extend({
         this.loadingSubmit = false;
 
         this.closeModal(this.modalConstant);
+        this.$nuxt.$emit("refreshCompaniesList");
         this.clearForm();
       } catch (error) {
         this.loadingSubmit = false;

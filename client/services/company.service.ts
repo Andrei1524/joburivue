@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 async function createCompany(axios: any, payload: any) {
   try {
     const logoFile = payload.logoFile;
@@ -17,6 +19,12 @@ async function createCompany(axios: any, payload: any) {
 
     if (payload.logo) {
       formData.append("logo", payload.logo);
+    }
+
+    if (payload.storageId) {
+      formData.append("storageId", payload.storageId);
+    } else {
+      formData.append("storageId", nanoid(12));
     }
 
     const headers = { "Content-Type": "multipart/form-data" };

@@ -6,8 +6,8 @@ interface CompanyInterface {
   logo: string;
   website?: string;
   description?: string;
-
   createdBy: Types.ObjectId;
+  storageId: string;
 }
 
 export { CompanyInterface };

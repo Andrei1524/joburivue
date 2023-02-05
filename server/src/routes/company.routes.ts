@@ -11,6 +11,8 @@ const storageFolder = "./uploads/";
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req: Request, file: any, cb: any) {
+    console.log(req);
+
     if (!fs.existsSync(storageFolder)) {
       fs.mkdir(storageFolder, (err) => {
         cb(null, storageFolder);
@@ -18,6 +20,10 @@ const storage = multer.diskStorage({
     } else {
       cb(null, storageFolder);
     }
+
+    // function createCompanyFolder() {
+    //   if (!fs.existsSync(storageFolder + req.u))
+    // }
   },
   filename: function (req: Request, file: any, cb: any) {
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);

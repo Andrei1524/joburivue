@@ -8,6 +8,7 @@ const CompanySchema = new Schema<CompanyInterface>(
     website: { type: String, required: false },
     description: { type: String, required: false },
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    storageId: { type: String, required: false },
   },
 
   { timestamps: true }

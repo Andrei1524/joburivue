@@ -59,14 +59,8 @@ export default Vue.extend({
     };
   },
 
-  fetch() {
-    this.loading = true;
-
-    CompanyService.getUserCompanies(this.$axios)
-      .then((data) => {
-        this.data = data;
-      })
-      .finally(() => (this.loading = false));
+  async fetch() {
+    await this.fetchCompanies();
   },
 
   computed: {
@@ -78,8 +72,22 @@ export default Vue.extend({
     },
   },
 
+  created() {
+    this.$nuxt.$on("refreshCompaniesList", this.fetchCompanies);
+  },
+
   methods: {
     ...mapMutations("modals", ["openModal"]),
+
+    fetchCompanies() {
+      this.loading = true;
+
+      CompanyService.getUserCompanies(this.$axios)
+        .then((data) => {
+          this.data = data;
+        })
+        .finally(() => (this.loading = false));
+    },
 
     openEditCompanyModal(company) {
       this.openModal({
