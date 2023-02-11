@@ -4,6 +4,7 @@ async function createCompany(axios: any, payload: any) {
   try {
     const logoFile = payload.logoFile;
     const formData = new FormData();
+    const storageId = payload.storageId;
 
     formData.append("name", payload.name);
     formData.append("website", payload.website);
@@ -21,14 +22,20 @@ async function createCompany(axios: any, payload: any) {
       formData.append("logo", payload.logo);
     }
 
-    if (payload.storageId) {
-      formData.append("storageId", payload.storageId);
+    if (storageId) {
+      formData.append("storageId", storageId);
     } else {
       formData.append("storageId", nanoid(12));
     }
 
     const headers = { "Content-Type": "multipart/form-data" };
-    const response = await axios.post("/company/create", formData, { headers });
+    const response = await axios.post(
+      `/company/create/${storageId}`,
+      formData,
+      {
+        headers,
+      }
+    );
 
     return response.data;
   } catch (error) {

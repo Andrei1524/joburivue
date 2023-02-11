@@ -91,3 +91,6 @@ sw.*
 
 # generated JS files
 server-dist/
+
+# uploads dir
+./uploads
