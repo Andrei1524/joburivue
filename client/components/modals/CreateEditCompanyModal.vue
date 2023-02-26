@@ -12,6 +12,7 @@
   >
     <template #default="props">
       <div
+        style="border-radius: 8px"
         class="modal-card create-company-box columns is-gapless is-flex-direction-column p-3 mt-4"
       >
         <div class="is-flex column is-narrow">
