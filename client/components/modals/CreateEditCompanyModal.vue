@@ -18,9 +18,11 @@
         <div class="is-flex column is-narrow">
           <figure class="image is-64x64 mr-2">
             <img
+              v-if="companyPreviewUrl"
               :src="companyPreviewUrl"
               style="height: 100%; object-fit: cover"
             />
+            <b-icon v-else icon="domain" size="is-medium" />
           </figure>
           <div>
             <h3
@@ -29,7 +31,7 @@
             >
               {{ form.name }}
             </h3>
-            <h5 class="is-size-7">
+            <h5 class="is-underlined is-size-7">
               <a :href="form.website" target="_blank"> company website ↗</a>
             </h5>
           </div>
@@ -221,5 +223,11 @@ export default Vue.extend({
 .create-company-box {
   background: $white;
   border: 1px solid rgb(33 41 64 / 39%);
+}
+
+figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
