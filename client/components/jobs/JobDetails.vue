@@ -11,6 +11,50 @@
 
         <div class="sections">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+            <!-- company select -->
+            <div class="w-100 mb-6">
+              <h5 class="title is-5 mt-0 mb-4">Companie</h5>
+              <hr class="mt-0 mb-2" />
+
+              <!-- dropdown select -->
+              <b-dropdown v-model="form.company" aria-role="list">
+                <template #trigger="{ active }">
+                  <div class="company-select media">
+                    <figure class="image is-64x64 mr-2">
+                      <img
+                        src="http://localhost:4000/uploads/BLyoDtxzWzuT/2023-02-26T11-54-03.939Z.JPG"
+                        style="height: 100%; object-fit: cover"
+                      />
+                    </figure>
+                    <div class="media-content">
+                      <h3>Streem</h3>
+                      <small>Company website</small>
+                    </div>
+
+                    <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
+                  </div>
+                </template>
+
+                <b-dropdown-item
+                  :value="{ name: 'streem' }"
+                  aria-role="listitem"
+                >
+                  <div class="media">
+                    <figure class="image is-64x64 mr-2">
+                      <img
+                        src="http://localhost:4000/uploads/BLyoDtxzWzuT/2023-02-26T11-54-03.939Z.JPG"
+                        style="height: 100%; object-fit: cover"
+                      />
+                    </figure>
+                    <div class="media-content">
+                      <h3>Streem</h3>
+                      <small>Company website</small>
+                    </div>
+                  </div>
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
+
             <div class="position w-100">
               <h5 class="title is-5 mt-0 mb-4">Pozitie</h5>
               <hr class="mt-0" />
@@ -213,6 +257,7 @@ export default Vue.extend({
       tagSearch: "",
 
       form: {
+        company: {},
         title: "",
         type: "",
         level: "",
@@ -316,6 +361,13 @@ export default Vue.extend({
   > div {
     width: 100%;
   }
+}
+
+.company-select {
+  user-select: none;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #304f8c52;
 }
 
 @include media("<phone") {
