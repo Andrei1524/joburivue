@@ -18,17 +18,31 @@
 
               <!-- dropdown select -->
               <b-dropdown v-model="form.company" aria-role="list">
-                <template #trigger="{ active }">
-                  <div class="company-select media">
+                <template v-if="!loadingUserCompanies" #trigger="{ active }">
+                  <div v-if="form.company.name" class="company-select media">
                     <figure class="image is-64x64 mr-2">
                       <img
-                        src="http://localhost:4000/uploads/BLyoDtxzWzuT/2023-02-26T11-54-03.939Z.JPG"
+                        :src="returnServerHostUrl + form.company.logo"
                         style="height: 100%; object-fit: cover"
                       />
                     </figure>
                     <div class="media-content">
                       <h3>{{ form.company.name }}</h3>
                       <small>{{ form.company.website }}</small>
+                    </div>
+
+                    <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
+                  </div>
+
+                  <div
+                    v-else
+                    class="company-select media is-align-items-center"
+                  >
+                    <figure>
+                      <b-icon size="is-large" icon="domain"></b-icon>
+                    </figure>
+                    <div class="ml-2 media-content">
+                      <h3>Select company</h3>
                     </div>
 
                     <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
