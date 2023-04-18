@@ -27,8 +27,8 @@
                       />
                     </figure>
                     <div class="media-content">
-                      <h3>Streem</h3>
-                      <small>Company website</small>
+                      <h3>{{ form.company.name }}</h3>
+                      <small>{{ form.company.website }}</small>
                     </div>
 
                     <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
@@ -36,19 +36,21 @@
                 </template>
 
                 <b-dropdown-item
-                  :value="{ name: 'streem' }"
+                  v-for="(company, i) in userCompanies"
+                  :key="i"
+                  :value="company"
                   aria-role="listitem"
                 >
                   <div class="media">
                     <figure class="image is-64x64 mr-2">
                       <img
-                        src="http://localhost:4000/uploads/BLyoDtxzWzuT/2023-02-26T11-54-03.939Z.JPG"
+                        :src="returnServerHostUrl + company.logo"
                         style="height: 100%; object-fit: cover"
                       />
                     </figure>
                     <div class="media-content">
-                      <h3>Streem</h3>
-                      <small>Company website</small>
+                      <h3>{{ company.name }}</h3>
+                      <small>{{ company.website }}</small>
                     </div>
                   </div>
                 </b-dropdown-item>
@@ -180,6 +182,7 @@ import TagSearch from "~/components/_shared/TagSearch.vue";
 import Input from "~/components/_shared/form/Input.vue";
 import Select from "~/components/_shared/form/Select.vue";
 import { parseEscapedText } from "~/utils/jobs";
+import * as CompanyService from "~/services/company.service";
 
 export default Vue.extend({
   name: "JobDetails",
@@ -194,6 +197,7 @@ export default Vue.extend({
 
   data() {
     return {
+      userCompanies: [],
       customToolbar: [
         [{ header: [false, 1, 2, 3, 4, 5, 6] }, "bold", "italic", "underline"],
         [{ list: "ordered" }, { list: "bullet" }],
@@ -276,27 +280,28 @@ export default Vue.extend({
 
       jobDetailsLoading: false,
       loadingSubmit: false,
+      loadingUserCompanies: false,
     };
   },
 
-  fetch() {
+  async fetch() {
     const { query } = this.$route;
-
-    const payload = `${query.id}/${query.option}`;
 
     if (query.id || query.option) {
       this.jobDetailsLoading = true;
 
-      JobService.getJob(this.$axios, payload)
-        .then((data) => {
-          this.form = { ...data };
-          this.form.description = this.parseEscapedText(this.form.description);
-          this.form.title = this.parseEscapedText(this.form.title);
-
-          this.formClone = _.cloneDeep(this.form);
-        })
-        .finally(() => (this.jobDetailsLoading = false));
+      await this.fetchJob(query);
+      await this.fetchUserCompanies();
     }
+  },
+
+  computed: {
+    // TODO: put global function
+    returnServerHostUrl() {
+      return process.env.NODE_ENV === "production"
+        ? window.location.host
+        : "http://localhost:4000/";
+    },
   },
 
   watch: {
@@ -338,6 +343,31 @@ export default Vue.extend({
         );
       } catch (error) {
         this.loadingSubmit = false;
+      }
+    },
+
+    async fetchUserCompanies() {
+      this.loadingUserCompanies = true;
+      try {
+        const data = await CompanyService.getUserCompanies(this.$axios);
+        this.userCompanies = data;
+      } finally {
+        this.loadingUserCompanies = false;
+      }
+    },
+
+    async fetchJob(query) {
+      const payload = `${query.id}/${query.option}`;
+
+      try {
+        const data = await JobService.getJob(this.$axios, payload);
+        this.form = { ...data };
+        this.form.description = this.parseEscapedText(this.form.description);
+        this.form.title = this.parseEscapedText(this.form.title);
+
+        this.formClone = _.cloneDeep(this.form);
+      } finally {
+        this.jobDetailsLoading = false;
       }
     },
   },
