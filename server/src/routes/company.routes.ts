@@ -11,22 +11,22 @@ const storageFolder = './uploads/';
 
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: function (req: Request, file: any, cb: any) {
+  destination: async function (req: Request, file: any, cb: any) {
     const storageId = req.params.storageId;
 
     const storageDir = storageFolder + storageId;
 
-    // this saves photo to storage ref
-    if (!fs.existsSync(storageDir)) {
-      fs.mkdir(storageDir, (err) => {
-        cb(null, storageDir);
-      });
-    } else {
-      // clear div of the photo after uploading another
+    const savePhotoToFolder = (folder: any) => {
+      fs.mkdir(storageDir, { recursive: true }, (err) => {
+        if (err) throw err;
 
-      fsExtra.emptyDirSync(storageDir);
-      cb(null, storageDir);
-    }
+        // clear div of the photo after uploading another
+        fsExtra.emptyDirSync(storageDir);
+        cb(null, folder);
+      });
+    };
+
+    savePhotoToFolder(storageDir);
   },
   filename: function (req: Request, file: any, cb: any) {
     const ext = file.originalname
