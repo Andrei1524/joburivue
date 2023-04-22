@@ -1,11 +1,11 @@
 import express, { Request } from 'express';
 const router = express.Router();
-import path from 'path';
 import fs from 'fs';
 import { authenticateJWT } from '../middleware/authenticateJWT';
 const fsExtra = require('fs-extra');
 
 import * as CompanyController from '../controllers/company.controller';
+import companyBelongsToCurrentUser from '../middleware/companyBelongsToCurrentUser';
 
 const storageFolder = './uploads/';
 
@@ -68,6 +68,11 @@ router.get(
 );
 
 // TODO: dont allow another user to delete another user company
-router.delete('/:id', authenticateJWT, CompanyController.deleteCompany);
+router.delete(
+  '/:id',
+  authenticateJWT,
+  companyBelongsToCurrentUser,
+  CompanyController.deleteCompany
+);
 
 export = router;

@@ -135,5 +135,8 @@ img {
 }
 
 .company-item {
+  img {
+    object-fit: contain;
+  }
 }
 </style>

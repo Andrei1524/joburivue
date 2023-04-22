@@ -44,6 +44,7 @@ async function deleteCompany(req: Request, res: Response, next: NextFunction) {
     }
 
     await CompanyService.deleteCompany(data, req);
+
     return res.sendStatus(200);
   } catch (error) {
     if (error instanceof Error) {
