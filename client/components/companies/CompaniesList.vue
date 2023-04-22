@@ -26,13 +26,22 @@
         <div class="job-info-text is-align-self-flex-end">
           <div class="buttons is-flex">
             <b-button
-              class="orange-btn mx-auto"
+              class="mx-auto"
               icon-left="login"
               size="is-small"
               type="is-primary"
               @click="openEditCompanyModal(company)"
             >
               Editeaza
+            </b-button>
+            <b-button
+              class="orange-btn ml-2"
+              icon-left="delete"
+              size="is-small"
+              type="is-primary"
+              @click="confirmDelete(company)"
+            >
+              Delete
             </b-button>
           </div>
         </div>
@@ -94,6 +103,22 @@ export default Vue.extend({
         constantName: modalsConstants.EDIT_COMPANY_MODAL,
         open: true,
         data: company,
+      });
+    },
+
+    confirmDelete(company) {
+      const deleteCompany = (company) => {
+        console.log(company);
+      };
+
+      this.$buefy.dialog.confirm({
+        title: "Deleting company",
+        message:
+          "Are you sure you want to <b>delete</b> this company? This action cannot be undone.",
+        confirmText: "Delete Company",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: () => deleteCompany(company),
       });
     },
   },

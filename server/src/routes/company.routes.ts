@@ -67,4 +67,7 @@ router.get(
   CompanyController.getUserCompanies
 );
 
+// TODO: dont allow another user to delete another user company
+router.delete('/:id', authenticateJWT, CompanyController.deleteCompany);
+
 export = router;

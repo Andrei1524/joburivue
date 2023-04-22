@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import * as CompanyService from "../services/company.service";
-const { check, validationResult } = require("express-validator");
+import { NextFunction, Request, Response } from 'express';
+import * as CompanyService from '../services/company.service';
+const { check, validationResult } = require('express-validator');
 
-import { CompanyInterface } from "../ts/interfaces/company.interfaces";
+import { CompanyInterface } from '../ts/interfaces/company.interfaces';
 
 const createCompanyValidate = [
-  check("name")
+  check('name')
     .exists()
-    .withMessage("Compania trebuie sa contina un titlu")
+    .withMessage('Compania trebuie sa contina un titlu')
     .trim()
     .escape(),
 ];
@@ -24,6 +24,27 @@ async function create(req: Request, res: Response, next: NextFunction) {
 
     const company = await CompanyService.create(payload, req);
     return res.status(200).json(company);
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(400).json({ status: 400, message: error.message });
+    } else {
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+}
+
+async function deleteCompany(req: Request, res: Response, next: NextFunction) {
+  try {
+    const payload = req.params;
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    await CompanyService.deleteCompany(payload, req);
+    return res.sendStatus(200);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
@@ -51,4 +72,4 @@ async function getUserCompanies(
   }
 }
 
-export { create, getUserCompanies, createCompanyValidate };
+export { create, deleteCompany, getUserCompanies, createCompanyValidate };

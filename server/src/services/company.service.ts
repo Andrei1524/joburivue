@@ -1,11 +1,11 @@
-import Company from "../model/company.model";
-import { CompanyInterface } from "../ts/interfaces/company.interfaces";
-import { Request } from "express";
-import Job from "../model/job.model";
+import Company from '../model/company.model';
+import { CompanyInterface } from '../ts/interfaces/company.interfaces';
+import { Request } from 'express';
+import Job from '../model/job.model';
 
 async function create(payload: CompanyInterface, req: Request) {
   try {
-    const filePath = req.file ? req.file.path : "";
+    const filePath = req.file ? req.file.path : '';
 
     if (payload._id) {
       return await Company.findOneAndUpdate(
@@ -27,6 +27,14 @@ async function create(payload: CompanyInterface, req: Request) {
   }
 }
 
+async function deleteCompany(payload: any, req: Request) {
+  try {
+    return await Company.findOneAndDelete({ _id: payload.id });
+  } catch (error) {
+    throw (error as Error).message;
+  }
+}
+
 async function getUserCompanies(req: Request) {
   try {
     const data: unknown = Company.find({ createdBy: req.user._id });
@@ -37,4 +45,4 @@ async function getUserCompanies(req: Request) {
   }
 }
 
-export { create, getUserCompanies };
+export { create, getUserCompanies, deleteCompany };
