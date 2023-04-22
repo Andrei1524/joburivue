@@ -44,9 +44,11 @@ async function createCompany(axios: any, payload: any) {
   }
 }
 
-async function deleteUserCompany(axios: any, id) {
+async function deleteUserCompany(axios: any, payload) {
   try {
-    const response = await axios.delete(`/company/${id}`);
+    const response = await axios.delete(`/company/${payload._id}`, {
+      data: payload,
+    });
     return response.data;
   } catch (error) {
     return Promise.reject(error);

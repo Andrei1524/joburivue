@@ -35,7 +35,7 @@ async function create(req: Request, res: Response, next: NextFunction) {
 
 async function deleteCompany(req: Request, res: Response, next: NextFunction) {
   try {
-    const payload = req.params;
+    const data = req.body;
 
     const errors = validationResult(req);
 
@@ -43,7 +43,7 @@ async function deleteCompany(req: Request, res: Response, next: NextFunction) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    await CompanyService.deleteCompany(payload, req);
+    await CompanyService.deleteCompany(data, req);
     return res.sendStatus(200);
   } catch (error) {
     if (error instanceof Error) {

@@ -2,6 +2,7 @@ import Company from '../model/company.model';
 import { CompanyInterface } from '../ts/interfaces/company.interfaces';
 import { Request } from 'express';
 import Job from '../model/job.model';
+import fs from 'fs';
 
 async function create(payload: CompanyInterface, req: Request) {
   try {
@@ -29,7 +30,15 @@ async function create(payload: CompanyInterface, req: Request) {
 
 async function deleteCompany(payload: any, req: Request) {
   try {
-    return await Company.findOneAndDelete({ _id: payload.id });
+    const storageFolder = './uploads/';
+    const storageDir = storageFolder + payload.storageId;
+
+    await Company.findOneAndDelete({ _id: payload._id });
+
+    //  also delete company logo from the storage
+    fs.rm(storageDir, { recursive: true }, async (err) => {
+      if (err) return err;
+    });
   } catch (error) {
     throw (error as Error).message;
   }

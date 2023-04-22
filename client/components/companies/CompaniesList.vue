@@ -108,7 +108,7 @@ export default Vue.extend({
 
     confirmDelete(company) {
       const deleteCompany = async (company) => {
-        await CompanyService.deleteUserCompany(this.$axios, company._id);
+        await CompanyService.deleteUserCompany(this.$axios, company);
         await this.fetchCompanies();
       };
 
