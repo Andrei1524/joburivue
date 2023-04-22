@@ -1,7 +1,7 @@
 <template>
   <div class="job-details">
     <div class="container is-max-desktop">
-      <h1 class="title is-3">Creeaza jobul!!!</h1>
+      <!-- <h1 class="title is-3">Creeaza jobul!</h1> -->
       <div :loading="jobDetailsLoading" class="box mt-5">
         <b-loading
           :active="jobDetailsLoading"
