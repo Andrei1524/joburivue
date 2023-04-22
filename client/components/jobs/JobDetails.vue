@@ -49,25 +49,40 @@
                   </div>
                 </template>
 
-                <b-dropdown-item
-                  v-for="(company, i) in userCompanies"
-                  :key="i"
-                  :value="company"
-                  aria-role="listitem"
-                >
-                  <div class="media">
-                    <figure class="image is-64x64 mr-2">
-                      <img
-                        :src="returnServerHostUrl + company.logo"
-                        style="height: 100%; object-fit: cover"
-                      />
-                    </figure>
-                    <div class="media-content">
-                      <h3>{{ company.name }}</h3>
-                      <small>{{ company.website }}</small>
+                <template v-if="userCompanies.length">
+                  <b-dropdown-item
+                    v-for="(company, i) in userCompanies"
+                    :key="i"
+                    :value="company"
+                    aria-role="listitem"
+                  >
+                    <div class="media">
+                      <figure class="image is-64x64 mr-2">
+                        <img
+                          :src="returnServerHostUrl + company.logo"
+                          style="height: 100%; object-fit: cover"
+                        />
+                      </figure>
+                      <div class="media-content">
+                        <h3>{{ company.name }}</h3>
+                        <small>{{ company.website }}</small>
+                      </div>
                     </div>
-                  </div>
-                </b-dropdown-item>
+                  </b-dropdown-item>
+                </template>
+
+                <!-- dropdown option to create a modal  -->
+                <template v-else>
+                  <b-dropdown-item value="null">
+                    <div
+                      class="is-flex is-align-items-center is-justify-content-space-between"
+                      @click="$router.push('/companies')"
+                    >
+                      <b-icon icon="plus" size="is-medium" />
+                      <h3 class="ml-1">Create a company</h3>
+                    </div>
+                  </b-dropdown-item>
+                </template>
               </b-dropdown>
             </div>
 
@@ -305,8 +320,9 @@ export default Vue.extend({
       this.jobDetailsLoading = true;
 
       await this.fetchJob(query);
-      await this.fetchUserCompanies();
     }
+
+    await this.fetchUserCompanies();
   },
 
   computed: {
