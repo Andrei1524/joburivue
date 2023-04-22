@@ -43,6 +43,15 @@ async function createCompany(axios: any, payload: any) {
   }
 }
 
+async function deleteUserCompany(axios: any, id) {
+  try {
+    const response = await axios.delete(`/company/${id}`);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 async function getUserCompanies(axios: any) {
   try {
     const response = await axios.get("/company/userCompanies");
@@ -52,4 +61,4 @@ async function getUserCompanies(axios: any) {
   }
 }
 
-export { createCompany, getUserCompanies };
+export { createCompany, getUserCompanies, deleteUserCompany };
