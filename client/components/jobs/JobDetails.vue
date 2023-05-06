@@ -337,13 +337,13 @@ export default Vue.extend({
   async fetch() {
     const { query } = this.$route;
 
+    await this.fetchUserCompanies();
+
     if (query.id || query.option) {
       this.jobDetailsLoading = true;
 
       await this.fetchJob(query);
     }
-
-    await this.fetchUserCompanies();
   },
 
   computed: {
@@ -385,15 +385,13 @@ export default Vue.extend({
       }
 
       try {
-        // this.loadingSubmit = true;
-        // const createdJob = await JobService.createJob(this.$axios, payload);
-        // this.loadingSubmit = false;
+        this.loadingSubmit = true;
+        const createdJob = await JobService.createJob(this.$axios, payload);
+        this.loadingSubmit = false;
 
-        // await this.$router.push(
-        //   `/jobs/create?id=${createdJob.jobId}&option=preview`
-        // );
-
-        console.log(payload);
+        await this.$router.push(
+          `/jobs/create?id=${createdJob.jobId}&option=preview`
+        );
       } catch (error) {
         this.loadingSubmit = false;
       }
@@ -417,6 +415,9 @@ export default Vue.extend({
         this.form = { ...data };
         this.form.description = this.parseEscapedText(this.form.description);
         this.form.title = this.parseEscapedText(this.form.title);
+        this.form.company = this.userCompanies.find(
+          (comp) => comp._id === this.form.company
+        );
 
         this.formClone = _.cloneDeep(this.form);
       } finally {

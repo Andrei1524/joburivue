@@ -4,8 +4,11 @@
     class="columns job-item is-gapless is-align-items-center p-2"
   >
     <div class="column is-narrow">
-      <figure class="image is-48x48 mr-2">
-        <img src="~assets/job-item-logo-example.png" />
+      <figure class="image is-64x64 mr-2">
+        <img
+          style="height: 100%; object-fit: cover"
+          :src="returnServerHostUrl + job.company.logo"
+        />
       </figure>
     </div>
     <div class="column job-title is-narrow">
@@ -79,6 +82,13 @@ export default Vue.extend({
         : this.job.createdAt;
 
       return this.$dayjs(updatedAt).fromNow();
+    },
+
+    // TODO: put global function
+    returnServerHostUrl() {
+      return process.env.NODE_ENV === "production"
+        ? window.location.host
+        : "http://localhost:4000/";
     },
   },
 
@@ -159,7 +169,6 @@ export default Vue.extend({
   .job-item {
     height: fit-content;
     display: block;
-
 
     .subtitle {
       text-align: center !important;
