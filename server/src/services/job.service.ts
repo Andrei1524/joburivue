@@ -53,6 +53,7 @@ async function getJobs(
     let jobs: any = [];
     let total_items = 0;
 
+    // TODO: remove this and use a function check against date expiration, also remove Agenda jobs, I dont need it anymore
     const findQuery: any = {
       'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
     };
