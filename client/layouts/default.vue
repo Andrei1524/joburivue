@@ -36,8 +36,12 @@ export default Vue.extend({
 
   async created() {
     // TODO: fix fetching user 2 times
-    await this.$auth.fetchUser();
-    this.loading = false;
+    try {
+      await this.$auth.fetchUser();
+      this.loading = false;
+    } catch (e) {
+      this.loading = false;
+    }
   },
 });
 </script>

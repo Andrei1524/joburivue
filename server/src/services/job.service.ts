@@ -1,14 +1,14 @@
-import Job from "../model/job.model";
-import { JobInterface } from "../ts/interfaces/job.interfaces";
-import { nanoid } from "nanoid";
-import { Request } from "express";
+import Job from '../model/job.model';
+import { JobInterface } from '../ts/interfaces/job.interfaces';
+import { nanoid } from 'nanoid';
+import { Request } from 'express';
 
 async function create(payload: JobInterface) {
   try {
     const newJob = {
       jobId: nanoid(8),
       title: payload.title,
-      company: payload.company,
+      company: payload.company._id,
       type: payload.type,
       level: payload.level,
       description: payload.description,
@@ -54,11 +54,11 @@ async function getJobs(
     let total_items = 0;
 
     const findQuery: any = {
-      "plan.isPlanActive": queries.userJobs ? queries.isPlanActive : true,
+      'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
     };
 
     if (queries.userJobs) {
-      findQuery["createdBy"] = createdBy;
+      findQuery['createdBy'] = createdBy;
     }
 
     if (searchString) {
@@ -66,7 +66,8 @@ async function getJobs(
         $text: { $search: searchString },
         ...findQuery,
       })
-        .populate("plan._id")
+        .populate('plan._id')
+        .populate('company')
         .sort({ createdAt: -1 })
         .lean()
         .exec();
@@ -74,7 +75,8 @@ async function getJobs(
       jobs = searchJobs;
     } else {
       jobs = await Job.find(findQuery)
-        .populate("plan._id")
+        .populate('plan._id')
+        .populate('company')
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 })
@@ -92,7 +94,7 @@ async function getJobs(
 
 async function getJob(jobId: any) {
   try {
-    const foundJob = Job.findOne({ jobId }).populate("tags");
+    const foundJob = Job.findOne({ jobId }).populate('tags');
     return foundJob;
   } catch (error) {
     throw (error as Error).message;

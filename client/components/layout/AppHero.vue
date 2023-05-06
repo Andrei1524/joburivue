@@ -3,7 +3,10 @@
     <div class="hero-wrapper" />
     <div class="hero-body">
       <div v-if="title || subtitle" class="container has-text-centered">
-        <p class="title">{{ title }}</p>
+        <div class="is-flex is-align-items-center is-flex-direction-row is-justify-content-center">
+          <b-icon v-if="icon" :icon="icon" class="mr-3" size="is-medium" />
+          <p class="title">{{ title }}</p>
+        </div>
         <p v-if="subtitle" class="subtitle mt-2">{{ subtitle }}</p>
       </div>
       <div v-else class="container is-max-desktop">
@@ -25,6 +28,10 @@ export default Vue.extend({
       default: () => "",
     },
     subtitle: {
+      type: String,
+      default: () => "",
+    },
+    icon: {
       type: String,
       default: () => "",
     },

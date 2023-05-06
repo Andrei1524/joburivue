@@ -41,6 +41,7 @@ export default {
     { src: "~/plugins/vee-validate.js", ssr: true },
     "~/plugins/axios",
     { src: "~/plugins/vue-stripe.js", ssr: false },
+    { ssr: false, src: "~plugins/startup" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
