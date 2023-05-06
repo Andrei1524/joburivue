@@ -17,73 +17,93 @@
               <hr class="mt-0 mb-2" />
 
               <!-- dropdown select -->
-              <b-dropdown v-model="form.company" aria-role="list">
-                <template v-if="!loadingUserCompanies" #trigger="{ active }">
-                  <div v-if="form.company.name" class="company-select media">
-                    <figure class="image is-64x64 mr-2">
-                      <img
-                        :src="returnServerHostUrl + form.company.logo"
-                        style="height: 100%; object-fit: cover"
-                      />
-                    </figure>
-                    <div class="media-content">
-                      <h3>{{ form.company.name }}</h3>
-                      <small>{{ form.company.website }}</small>
-                    </div>
-
-                    <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
-                  </div>
-
-                  <div
-                    v-else
-                    class="company-select media is-align-items-center"
-                  >
-                    <figure>
-                      <b-icon size="is-large" icon="domain"></b-icon>
-                    </figure>
-                    <div class="ml-2 media-content">
-                      <h3>Select company</h3>
-                    </div>
-
-                    <b-icon :icon="active ? 'menu-up' : 'menu-down'"> </b-icon>
-                  </div>
-                </template>
-
-                <template v-if="userCompanies.length">
-                  <b-dropdown-item
-                    v-for="(company, i) in userCompanies"
-                    :key="i"
-                    :value="company"
-                    aria-role="listitem"
-                  >
-                    <div class="media">
-                      <figure class="image is-64x64 mr-2">
-                        <img
-                          :src="returnServerHostUrl + company.logo"
-                          style="height: 100%; object-fit: cover"
-                        />
-                      </figure>
-                      <div class="media-content">
-                        <h3>{{ company.name }}</h3>
-                        <small>{{ company.website }}</small>
-                      </div>
-                    </div>
-                  </b-dropdown-item>
-                </template>
-
-                <!-- dropdown option to create a modal  -->
-                <template v-else>
-                  <b-dropdown-item value="null">
-                    <div
-                      class="is-flex is-align-items-center is-justify-content-space-between"
-                      @click="$router.push('/companies')"
+              <ValidationProvider
+                v-slot="{ errors, valid }"
+                rules="required"
+                class="d-block mb-5"
+              >
+                <b-field
+                  :label="''"
+                  :type="{ 'is-danger': errors[0], 'is-success': valid }"
+                  :message="errors"
+                >
+                  <b-dropdown v-model="form.company" aria-role="list">
+                    <template
+                      v-if="!loadingUserCompanies"
+                      #trigger="{ active }"
                     >
-                      <b-icon icon="plus" size="is-medium" />
-                      <h3 class="ml-1">Create a company</h3>
-                    </div>
-                  </b-dropdown-item>
-                </template>
-              </b-dropdown>
+                      <div
+                        v-if="form.company?.name"
+                        class="company-select media"
+                      >
+                        <figure class="image is-64x64 mr-2">
+                          <img
+                            :src="returnServerHostUrl + form.company?.logo"
+                            style="height: 100%; object-fit: cover"
+                          />
+                        </figure>
+                        <div class="media-content">
+                          <h3>{{ form.company?.name }}</h3>
+                          <small>{{ form.company?.website }}</small>
+                        </div>
+
+                        <b-icon :icon="active ? 'menu-up' : 'menu-down'">
+                        </b-icon>
+                      </div>
+
+                      <div
+                        v-else
+                        class="company-select media is-align-items-center"
+                      >
+                        <figure>
+                          <b-icon size="is-large" icon="domain"></b-icon>
+                        </figure>
+                        <div class="ml-2 media-content">
+                          <h3>Select company</h3>
+                        </div>
+
+                        <b-icon :icon="active ? 'menu-up' : 'menu-down'">
+                        </b-icon>
+                      </div>
+                    </template>
+
+                    <template v-if="userCompanies.length">
+                      <b-dropdown-item
+                        v-for="(company, i) in userCompanies"
+                        :key="i"
+                        :value="company"
+                        aria-role="listitem"
+                      >
+                        <div class="media">
+                          <figure class="image is-64x64 mr-2">
+                            <img
+                              :src="returnServerHostUrl + company.logo"
+                              style="height: 100%; object-fit: cover"
+                            />
+                          </figure>
+                          <div class="media-content">
+                            <h3>{{ company.name }}</h3>
+                            <small>{{ company.website }}</small>
+                          </div>
+                        </div>
+                      </b-dropdown-item>
+                    </template>
+
+                    <!-- dropdown option to create a modal  -->
+                    <template v-else>
+                      <b-dropdown-item value="undefined">
+                        <div
+                          class="is-flex is-align-items-center is-justify-content-space-between"
+                          @click="$router.push('/companies')"
+                        >
+                          <b-icon icon="plus" size="is-medium" />
+                          <h3 class="ml-1">Create a company</h3>
+                        </div>
+                      </b-dropdown-item>
+                    </template>
+                  </b-dropdown>
+                </b-field>
+              </ValidationProvider>
             </div>
 
             <div class="position w-100">
@@ -203,7 +223,7 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 import Vue from "vue";
 import _ from "lodash";
 import * as JobService from "~/services/job.service";
@@ -217,6 +237,7 @@ export default Vue.extend({
   name: "JobDetails",
   components: {
     ValidationObserver,
+    ValidationProvider,
 
     TagSearch,
     Input,
@@ -290,7 +311,7 @@ export default Vue.extend({
       tagSearch: "",
 
       form: {
-        company: {},
+        company: undefined,
         title: "",
         type: "",
         level: "",
@@ -352,7 +373,7 @@ export default Vue.extend({
       const payload = {
         ...this.form,
         tags: tagsIds,
-        company: "353aaaf5b353",
+        company: this.form.company,
         createdBy: this.form.createdBy || this.$auth.user._id,
       };
 
@@ -364,13 +385,15 @@ export default Vue.extend({
       }
 
       try {
-        this.loadingSubmit = true;
-        const createdJob = await JobService.createJob(this.$axios, payload);
-        this.loadingSubmit = false;
+        // this.loadingSubmit = true;
+        // const createdJob = await JobService.createJob(this.$axios, payload);
+        // this.loadingSubmit = false;
 
-        await this.$router.push(
-          `/jobs/create?id=${createdJob.jobId}&option=preview`
-        );
+        // await this.$router.push(
+        //   `/jobs/create?id=${createdJob.jobId}&option=preview`
+        // );
+
+        console.log(payload);
       } catch (error) {
         this.loadingSubmit = false;
       }
