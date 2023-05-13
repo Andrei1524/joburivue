@@ -5,11 +5,8 @@
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <b-tabs v-model="activeTab" type="is-boxed" @input="handleGetJobs">
-          <b-tab-item label="Active" value="true" icon="check-all">
+          <b-tab-item label="Joburi" value="true" icon="check-all">
             <JobsList v-if="jobs.length" :jobs="jobs" :loading="loading" />
-          </b-tab-item>
-          <b-tab-item label="Inactive" value="false" icon="clipboard-text-off">
-            <JobsList v-if="jobs" :jobs="jobs" :loading="loading" />
           </b-tab-item>
         </b-tabs>
       </div>
@@ -45,7 +42,7 @@ export default Vue.extend({
     async handleGetJobs(planStatus: boolean) {
       this.loading = true;
       const response = await this.$axios.get(
-        `jobs/userJobs?userJobs=true&isPlanActive=${!planStatus}&createdBy=${this.$auth.user._id}` // TODO: add to jobs services
+        `jobs/userJobs?userJobs=true&createdBy=${this.$auth.user._id}`
       );
 
       this.jobs = response.data.data;

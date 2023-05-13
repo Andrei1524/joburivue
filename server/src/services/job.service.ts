@@ -20,7 +20,6 @@ async function create(payload: JobInterface) {
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
       createdBy: payload.createdBy._id,
-      plan: { isPlanActive: false },
     };
 
     if (payload.jobId) {
@@ -54,19 +53,17 @@ async function getJobs(
     let total_items = 0;
 
     // TODO: remove this and use a function check against date expiration, also remove Agenda jobs, I dont need it anymore
-    const findQuery: any = {
-      'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
-    };
+    // const findQuery: any = {
+    //   'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
+    // };
 
-    if (queries.userJobs) {
-      findQuery['createdBy'] = createdBy;
-    }
+    // if (queries.userJobs) {
+    //   findQuery['createdBy'] = createdBy;
+    // }
 
+    // TODO: only return jobs that have a Plan active
     if (searchString) {
-      const searchJobs = await Job.find({
-        $text: { $search: searchString },
-        ...findQuery,
-      })
+      const searchJobs = await Job.find({})
         .populate('plan._id')
         .populate('company')
         .sort({ createdAt: -1 })
@@ -75,7 +72,7 @@ async function getJobs(
 
       jobs = searchJobs;
     } else {
-      jobs = await Job.find(findQuery)
+      jobs = await Job.find({})
         .populate('plan._id')
         .populate('company')
         .skip(skip)

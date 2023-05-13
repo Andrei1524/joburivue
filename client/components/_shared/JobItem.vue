@@ -77,7 +77,7 @@ export default Vue.extend({
 
   computed: {
     formattedCreatedAt() {
-      const updatedAt = this.job.plan._id
+      const updatedAt = this.job.plan?._id
         ? this.job.plan._id.updatedAt
         : this.job.createdAt;
 

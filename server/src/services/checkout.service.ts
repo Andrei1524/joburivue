@@ -1,6 +1,5 @@
 import Job from '../model/job.model';
-import Plan from '../model/plan.model';
-import { returnSeedPlan } from '../seeds/seedPlans';
+import { returnPlanSettings } from '../seeds/seedPlans';
 import { planTypes } from '../ts/types/plan.types';
 
 async function handlePaymentCompleted(payload: any) {
@@ -22,13 +21,8 @@ async function handleActionsOnSelectedPlan(
   }).populate('plan._id');
 
   if (foundJob) {
-    returnSeedPlan(selectedPlan, foundJob!._id)?.then(async (returnedPlan) => {
-      foundJob!.plan._id = returnedPlan!._id!;
-      foundJob!.plan.isPlanActive = returnedPlan!.isPlanActive;
-
-      await returnedPlan!.save();
-      await foundJob!.save();
-    });
+    // TODO: only update expire date
+    // if the job is found only update the plan inside the Job
   }
 }
 
