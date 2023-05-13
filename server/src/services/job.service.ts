@@ -63,8 +63,7 @@ async function getJobs(
 
     // TODO: only return jobs that have a Plan active
     if (searchString) {
-      const searchJobs = await Job.find({})
-        .populate('plan._id')
+      const searchJobs = await Job.find({ $text: { $search: searchString } })
         .populate('company')
         .sort({ createdAt: -1 })
         .lean()
@@ -73,7 +72,6 @@ async function getJobs(
       jobs = searchJobs;
     } else {
       jobs = await Job.find({})
-        .populate('plan._id')
         .populate('company')
         .skip(skip)
         .limit(limit)
@@ -92,7 +90,9 @@ async function getJobs(
 
 async function getJob(jobId: any) {
   try {
-    const foundJob = Job.findOne({ jobId }).populate('tags');
+    const foundJob = Job.findOne({ jobId })
+      .populate('tags')
+      .populate('company');
     return foundJob;
   } catch (error) {
     throw (error as Error).message;
