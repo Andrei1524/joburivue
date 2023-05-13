@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 // import { startSeedingPlans } from './seedPlans';
 
 // startSeedingPlans();
