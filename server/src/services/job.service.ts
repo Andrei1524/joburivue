@@ -50,7 +50,6 @@ async function getJobs(
     const skip = (page - 1) * limit;
 
     let jobs: any = [];
-    let total_items = 0;
 
     // TODO: remove this and use a function check against date expiration, also remove Agenda jobs, I dont need it anymore
     // const findQuery: any = {
@@ -63,13 +62,13 @@ async function getJobs(
 
     // TODO: only return jobs that have a Plan active
     if (searchString) {
-      const searchJobs = await Job.find({ $text: { $search: searchString } })
+      const searchedJobs = await Job.find({ title: { $regex: searchString } })
         .populate('company')
         .sort({ createdAt: -1 })
         .lean()
         .exec();
 
-      jobs = searchJobs;
+      jobs = searchedJobs;
     } else {
       jobs = await Job.find({})
         .populate('company')
@@ -80,9 +79,7 @@ async function getJobs(
         .exec();
     }
 
-    total_items = jobs.length;
-
-    return { jobs, total_items: total_items };
+    return { jobs, total_items: jobs.length };
   } catch (error) {
     throw (error as Error).message;
   }
