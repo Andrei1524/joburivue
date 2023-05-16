@@ -52,15 +52,7 @@ async function getJobs(
     let jobs: any = [];
 
     // TODO: remove this and use a function check against date expiration, also remove Agenda jobs, I dont need it anymore
-    // const findQuery: any = {
-    //   'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
-    // };
-
-    // if (queries.userJobs) {
-    //   findQuery['createdBy'] = createdBy;
-    // }
-
-    // TODO: only return jobs that have a Plan active
+    // only return jobs that have a Plan active
     if (searchString) {
       const searchedJobs = await Job.find({ title: { $regex: searchString } })
         .populate('company')
