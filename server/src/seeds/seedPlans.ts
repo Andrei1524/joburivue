@@ -1,5 +1,3 @@
-import { mongoConnect, mongoDisconnect } from '../services/_mongo.service';
-
 const add_days = function (date: Date, days: number) {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
@@ -7,7 +5,11 @@ const add_days = function (date: Date, days: number) {
 };
 
 const normalPlanDays = 35;
+const boostedPlanDays = 60;
+const proPlanDays = 60;
+
 const normalPlanSettings = {
+  expireDate: add_days(new Date(), normalPlanDays).toUTCString(),
   name: 'NORMAL',
   planDays: normalPlanDays,
   promotedOnSocialChannels: true,
@@ -17,8 +19,8 @@ const normalPlanSettings = {
   jobShowedInRecommendedCompanies: false,
 };
 
-const boostedPlanDays = 60;
 const boostedPlanSettings = {
+  expireDate: add_days(new Date(), boostedPlanDays).toUTCString(),
   name: 'BOOSTED',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -28,8 +30,8 @@ const boostedPlanSettings = {
   planDays: boostedPlanDays,
 };
 
-const proPlanDays = 60;
 const proPlanSettings = {
+  expireDate: add_days(new Date(), proPlanDays).toUTCString(),
   name: 'PRO',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -47,6 +49,9 @@ function returnPlanSettings(selectedPlan: string) {
       return boostedPlanSettings;
     case 'PRO':
       return proPlanSettings;
+
+    default:
+      throw Error('No plan string returned');
   }
 }
 

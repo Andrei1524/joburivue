@@ -6,23 +6,25 @@ async function handlePaymentCompleted(payload: any) {
   try {
     const [jobID, selectedPlan] = payload.client_reference_id.split('/');
     // fullfill job create on succesfull payment
-    return await handleActionsOnSelectedPlan(selectedPlan, jobID);
+    return await handleActionsOnSelectedPlan(jobID, selectedPlan);
   } catch (error) {
     throw (error as Error).message;
   }
 }
 
 async function handleActionsOnSelectedPlan(
-  selectedPlan: planTypes,
-  jobID: string
+  jobID: string,
+  selectedPlan: planTypes
 ) {
   const foundJob = await Job.findOne({
     jobId: jobID,
-  }).populate('plan._id');
+  }).populate('company');
 
   if (foundJob) {
-    // TODO: only update expire date
-    // if the job is found only update the plan inside the Job
+    const plan = returnPlanSettings(selectedPlan);
+
+    foundJob!.plan = plan;
+    await foundJob!.save();
   }
 }
 
