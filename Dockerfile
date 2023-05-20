@@ -17,7 +17,6 @@ RUN npm run install-server --only=production
 
 COPY client/ client/
 RUN npm run build-prod --prefix client
-RUN npm 
 
 COPY server/ server/
 
