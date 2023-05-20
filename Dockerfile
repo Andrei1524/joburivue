@@ -23,7 +23,7 @@ COPY server/ server/
 ## use this USER for security (least permission node user has)
 USER node
 
-CMD ["npm", "server"]
+CMD ["npm", "run", "server"]
 
 # port
 EXPOSE 4000
