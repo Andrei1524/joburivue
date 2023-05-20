@@ -5,12 +5,12 @@
         <div v-if="!loading" class="is-flex is-justify-content-space-between">
           <div class="is-flex">
             <figure class="image is-48x48 mr-2">
-              <img src="~assets/job-item-logo-example.png" />
+              <img :src="returnServerHostUrl + job.company?.logo" />
             </figure>
             <div>
               <h2 class="title is-4 mb-0">{{ parseEscapedText(job.title) }}</h2>
               <h3 class="is-3">
-                <span>{{ job.company }}</span> |
+                <span>{{ job.company.name }}</span> |
                 <span>☝ {{ formatRemoteType(job.remoteType) }}</span>
               </h3>
             </div>
@@ -38,7 +38,7 @@
         <div>
           <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
           <hr class="my-1" />
-          <p>job company description</p>
+          <p v-html="parseTextWithBulmaTags(job.company.description)"></p>
         </div>
         <div class="mt-4">
           <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
@@ -120,6 +120,15 @@ export default Vue.extend({
       job: null,
       loading: true,
     };
+  },
+
+  computed: {
+    // TODO: put global function
+    returnServerHostUrl() {
+      return process.env.NODE_ENV === "production"
+        ? window.location.host
+        : "http://localhost:4000/";
+    },
   },
 
   async created() {

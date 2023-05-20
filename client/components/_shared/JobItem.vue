@@ -7,7 +7,7 @@
       <figure class="image is-64x64 mr-2">
         <img
           style="height: 100%; object-fit: cover"
-          :src="returnServerHostUrl + job.company.logo"
+          :src="returnServerHostUrl + job.company?.logo"
         />
       </figure>
     </div>
@@ -16,7 +16,7 @@
         {{ parseEscapedText(job.title) }}
       </h5>
       <h6 class="subtitle has-text-left is-6">
-        <span class="has-text-weight-bold">{{ job.company.name }}</span>
+        <span class="has-text-weight-bold">{{ job.company?.name }}</span>
         {{ job.location }} <span class="hand">&#9757;</span>
         {{ formatRemoteType(job.remoteType) }}
       </h6>
@@ -77,7 +77,7 @@ export default Vue.extend({
 
   computed: {
     formattedCreatedAt() {
-      const updatedAt = this.job.plan._id
+      const updatedAt = this.job.plan?._id
         ? this.job.plan._id.updatedAt
         : this.job.createdAt;
 

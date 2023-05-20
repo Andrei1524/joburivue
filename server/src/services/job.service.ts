@@ -20,7 +20,6 @@ async function create(payload: JobInterface) {
       minSalary: payload.minSalary,
       maxSalary: payload.maxSalary,
       createdBy: payload.createdBy._id,
-      plan: { isPlanActive: false },
     };
 
     if (payload.jobId) {
@@ -47,35 +46,30 @@ async function getJobs(
   req: Request
 ) {
   try {
-    const { createdBy } = queries;
+    const { userJobs } = queries;
     const skip = (page - 1) * limit;
 
     let jobs: any = [];
-    let total_items = 0;
-
-    const findQuery: any = {
-      'plan.isPlanActive': queries.userJobs ? queries.isPlanActive : true,
-    };
-
-    if (queries.userJobs) {
-      findQuery['createdBy'] = createdBy;
-    }
 
     if (searchString) {
-      const searchJobs = await Job.find({
-        $text: { $search: searchString },
-        ...findQuery,
+      const searchedJobs = await Job.find({
+        title: { $regex: searchString },
       })
-        .populate('plan._id')
         .populate('company')
         .sort({ createdAt: -1 })
         .lean()
         .exec();
 
-      jobs = searchJobs;
+      jobs = searchedJobs;
     } else {
-      jobs = await Job.find(findQuery)
-        .populate('plan._id')
+      // TODO: use this query to filter non expired jobs
+      // jobs = await Job.find({
+      //   'plan.expireDate': {
+      //     $lte: new Date().toUTCString(),
+      //   },
+      // });
+
+      jobs = await Job.find({})
         .populate('company')
         .skip(skip)
         .limit(limit)
@@ -84,9 +78,15 @@ async function getJobs(
         .exec();
     }
 
-    total_items = jobs.length;
+    if (!userJobs) {
+      // homepage jobs - filter jobs to return only non expired plans
+      jobs = jobs.filter((job: any) => {
+        // TODO: use a better date library to handle dates, I dont trust this because I save expireDate as UTC string
+        return new Date(job.plan?.expireDate) >= new Date();
+      });
+    }
 
-    return { jobs, total_items: total_items };
+    return { jobs, total_items: jobs.length };
   } catch (error) {
     throw (error as Error).message;
   }
@@ -94,7 +94,9 @@ async function getJobs(
 
 async function getJob(jobId: any) {
   try {
-    const foundJob = Job.findOne({ jobId }).populate('tags');
+    const foundJob = Job.findOne({ jobId })
+      .populate('tags')
+      .populate('company');
     return foundJob;
   } catch (error) {
     throw (error as Error).message;

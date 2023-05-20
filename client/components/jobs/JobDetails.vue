@@ -415,9 +415,6 @@ export default Vue.extend({
         this.form = { ...data };
         this.form.description = this.parseEscapedText(this.form.description);
         this.form.title = this.parseEscapedText(this.form.title);
-        this.form.company = this.userCompanies.find(
-          (comp) => comp._id === this.form.company
-        );
 
         this.formClone = _.cloneDeep(this.form);
       } finally {

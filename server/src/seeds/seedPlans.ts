@@ -1,6 +1,3 @@
-import { mongoConnect, mongoDisconnect } from "../services/_mongo.service";
-import Plan from "../model/plan.model";
-
 const add_days = function (date: Date, days: number) {
   const result = new Date(date);
   result.setDate(result.getDate() + days);
@@ -8,10 +5,13 @@ const add_days = function (date: Date, days: number) {
 };
 
 const normalPlanDays = 35;
+const boostedPlanDays = 60;
+const proPlanDays = 60;
+
 const normalPlanSettings = {
-  name: "NORMAL",
+  expireDate: add_days(new Date(), normalPlanDays).toUTCString(),
+  name: 'NORMAL',
   planDays: normalPlanDays,
-  isPlanActive: true,
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: false,
@@ -19,10 +19,9 @@ const normalPlanSettings = {
   jobShowedInRecommendedCompanies: false,
 };
 
-const boostedPlanDays = 60;
 const boostedPlanSettings = {
-  name: "BOOSTED",
-  isPlanActive: true,
+  expireDate: add_days(new Date(), boostedPlanDays).toUTCString(),
+  name: 'BOOSTED',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: true,
@@ -31,10 +30,9 @@ const boostedPlanSettings = {
   planDays: boostedPlanDays,
 };
 
-const proPlanDays = 60;
 const proPlanSettings = {
-  name: "PRO",
-  isPlanActive: true,
+  expireDate: add_days(new Date(), proPlanDays).toUTCString(),
+  name: 'PRO',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
   promotedOnWeeklyNewsletter: true,
@@ -45,68 +43,16 @@ const proPlanSettings = {
 
 function returnPlanSettings(selectedPlan: string) {
   switch (selectedPlan) {
-    case "NORMAL":
+    case 'NORMAL':
       return normalPlanSettings;
-    case "BOOSTED":
+    case 'BOOSTED':
       return boostedPlanSettings;
-    case "PRO":
+    case 'PRO':
       return proPlanSettings;
+
+    default:
+      throw Error('No plan string returned');
   }
 }
 
-const createPlan = async (selectedPlan: string, jobId: string) => {
-  const foundPlan = await Plan.findOne({ jobId }).exec();
-
-  if (foundPlan && foundPlan.isPlanActive) {
-    foundPlan.expireDate = add_days(
-      new Date(),
-      returnPlanSettings(selectedPlan)!.planDays
-    ).toISOString();
-    foundPlan.name = returnPlanSettings(selectedPlan)!.name;
-    foundPlan.isPlanActive = returnPlanSettings(selectedPlan)!.isPlanActive;
-    foundPlan.promotedOnSocialChannels =
-      returnPlanSettings(selectedPlan)!.promotedOnSocialChannels;
-    foundPlan.listedOnWeeklyNewsletter =
-      returnPlanSettings(selectedPlan)!.listedOnWeeklyNewsletter;
-    foundPlan.promotedOnWeeklyNewsletter =
-      returnPlanSettings(selectedPlan)!.promotedOnWeeklyNewsletter;
-    foundPlan.jobPinnedInSearches =
-      returnPlanSettings(selectedPlan)!.jobPinnedInSearches;
-    foundPlan.jobShowedInRecommendedCompanies =
-      returnPlanSettings(selectedPlan)!.jobShowedInRecommendedCompanies;
-    foundPlan.planDays = returnPlanSettings(selectedPlan)!.planDays;
-
-    return foundPlan;
-  } else {
-    return new Plan({
-      jobId,
-      expireDate: add_days(new Date(), normalPlanDays).toISOString(),
-      ...returnPlanSettings(selectedPlan),
-    });
-  }
-};
-
-async function returnSeedPlan(selectedPlan: string, jobId: string) {
-  return await createPlan(selectedPlan, jobId);
-}
-
-// async function startSeedingPlans() {
-//   try {
-//     await mongoConnect();
-//
-//     await Plan.deleteMany({});
-//
-//     plans.map(async (plan, index) => {
-//       await plan.save(async (err, result) => {
-//         if (index === plans.length - 1) {
-//           console.log("SEEDED PLANS!");
-//           await mongoDisconnect();
-//         }
-//       });
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-export { returnSeedPlan };
+export { returnPlanSettings };
