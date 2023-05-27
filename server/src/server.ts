@@ -1,8 +1,8 @@
-import http from "http";
-require("dotenv").config();
+import http from 'http';
+require('dotenv').config();
 
-import appServer from "./app";
-import { mongoConnect } from "./services/_mongo.service";
+import appServer from './app';
+import { mongoConnect } from './services/_mongo.service';
 
 const httpServer = http.createServer(appServer);
 
@@ -12,7 +12,7 @@ async function startServer() {
   await mongoConnect();
 
   httpServer.listen(PORT, () => {
-    console.log("server listening on port, ", PORT);
+    console.log('server listening on port, ', PORT);
   });
 }
 

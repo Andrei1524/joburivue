@@ -11,19 +11,22 @@ COPY client/package*.json client/
 RUN npm run install-client --only=production
 
 COPY server/package*.json server/
+COPY server/tsconfig.json /server/
 RUN npm run install-server --only=production
+# RUN npm run build --prefix server
 
 #build our client (this will put build files into the /public IN server)
-
 COPY client/ client/
 RUN npm run build-prod --prefix client
 
 COPY server/ server/
+# COPY server/.env server/server-dist
 
 ## use this USER for security (least permission node user has)
 USER node
 
-CMD ["npm", "run", "server"]
+
+CMD ["npm", "run", "start"]
 
 # port
 EXPOSE 4000
