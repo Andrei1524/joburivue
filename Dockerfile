@@ -23,10 +23,12 @@ COPY server/ server/
 # COPY server/.env server/server-dist
 
 ## use this USER for security (least permission node user has)
-USER node
-
-
-CMD ["npm", "run", "start"]
 
 # port
 EXPOSE 4000
+
+USER node
+
+CMD ["npm", "run", "start"]
+
+
