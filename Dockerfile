@@ -27,7 +27,7 @@ COPY server/ server/
 # port
 EXPOSE 4000
 
-# USER node
+USER node
 
 CMD ["npm", "run", "start"]
 
