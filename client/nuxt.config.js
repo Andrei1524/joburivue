@@ -113,7 +113,7 @@ export default {
     axios: {
       browserBaseURL:
         process.env.NODE_ENV === "production"
-          ? process.env.BASE_URL + "api/v1"
+          ? process.env.BASE_URL
           : "http://localhost:4000/api/v1",
     },
   },
