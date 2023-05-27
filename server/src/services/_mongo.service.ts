@@ -12,13 +12,10 @@ mongoose.connection.on('error', (error: Error) => {
 });
 
 async function mongoConnect() {
-  await mongoose.connect(
-    'mongodb+srv://andrei:pHRNxcwQiLAyMVAR@cluster0.aq3dp.mongodb.net/joburivue?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
+  await mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 async function mongoDisconnect() {
