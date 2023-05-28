@@ -120,7 +120,7 @@ export default {
 
   privateRuntimeConfig: {
     axios: {
-      browserBaseURL:
+      baseURL:
         process.env.NODE_ENV === "production"
           ? process.env.BASE_URL
           : "http://localhost:4000/api/v1",
