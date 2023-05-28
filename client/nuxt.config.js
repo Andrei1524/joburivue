@@ -118,6 +118,15 @@ export default {
     },
   },
 
+  privateRuntimeConfig: {
+    axios: {
+      browserBaseURL:
+        process.env.NODE_ENV === "production"
+          ? process.env.BASE_URL
+          : "http://localhost:4000/api/v1",
+    },
+  },
+
   env: {
     STRIPE_PK: process.env.STRIPE_PK,
   },
