@@ -27,6 +27,8 @@ RUN npm run deploy
 # port
 EXPOSE 4000
 
+RUN mkdir -p ./uploads
+RUN chown node ./uploads
 USER node
 
 CMD ["npm", "run", "start"]

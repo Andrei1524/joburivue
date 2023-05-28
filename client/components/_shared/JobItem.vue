@@ -87,7 +87,7 @@ export default Vue.extend({
     // TODO: put global function
     returnServerHostUrl() {
       return process.env.NODE_ENV === "production"
-        ? window.location.host
+        ? window.location.origin + "/"
         : "http://localhost:4000/";
     },
   },
