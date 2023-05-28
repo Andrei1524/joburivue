@@ -102,7 +102,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "/", // Used as fallback if no runtime config is provided
+    baseURL: "/api/v1", // Used as fallback if no runtime config is provided
   },
 
   dayjs: {
@@ -118,19 +118,8 @@ export default {
     },
   },
 
-  privateRuntimeConfig: {
-    baseURL:
-      process.env.NODE_ENV === "production"
-        ? process.env.BASE_URL
-        : "http://localhost:4000/api/v1",
-  },
-
   env: {
     STRIPE_PK: process.env.STRIPE_PK,
-    baseURL:
-      process.env.NODE_ENV === "production"
-        ? process.env.BASE_URL
-        : "http://localhost:4000/api/v1",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
