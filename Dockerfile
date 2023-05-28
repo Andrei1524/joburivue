@@ -20,7 +20,7 @@ COPY client/ client/
 RUN npm run build-prod --prefix client
 
 COPY server/ server/
-# COPY server/.env server/server-dist
+RUN npm run deploy
 
 ## use this USER for security (least permission node user has)
 
