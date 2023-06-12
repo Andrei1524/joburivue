@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
       .slice(1)
       .join('.');
 
-    cb(null, new Date().toISOString().replace(/:/g, '-') + '.' + ext);
+    cb(null, 'logo.' + ext);
   },
 });
 
