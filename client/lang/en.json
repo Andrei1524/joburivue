@@ -8,6 +8,33 @@
     "buttons": {
       "add_job": "Add job",
       "login_signup": "Login / Signup"
+    },
+    "general": {
+      "account": "Account",
+      "vue_profile": "VueJS Profile",
+      "my_jobs": "My Jobs",
+      "companies": "Companies",
+      "logout": "logout",
+      "see_all_jobs": "See all jobs",
+      "labels": {
+        "search_jobs": "Search jobs",
+        "search": "Search",
+        "search_label": "Location, job type..."
+      }
+    },
+    "landing": {
+      "text": {
+        "landing_message": "Unlock Vue-tiful career opportunities and connect with passionate VueJS companies at JoburiVue, your gateway to the world of VueJS jobs!",
+        "recommended_companies": "Recommended companies"
+      }
+    },
+    "footer": {
+      "about_vuejobs": "About JoburiVue",
+      "terms_and_policies": "Terms and Policies",
+      "referal": "Referral",
+      "contact": "Contact",
+      "terms_and_conditions": "Terms and Conditions",
+      "lets_talk": "Let's talk!"
     }
   }
 }

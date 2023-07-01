@@ -43,24 +43,24 @@
         >
           <b-navbar-item :to="{ path: '/account' }" tag="router-link">
             <b-icon class="mr-1" icon="account" />
-            Cont
+            {{ $t("app.general.account") }}
           </b-navbar-item>
           <b-navbar-item>
             <b-icon class="mr-1" icon="code-braces" />
-            Profil Vue.js
+            {{ $t("app.general.vue_profile") }}
           </b-navbar-item>
           <hr class="dropdown-divider my-2" />
           <b-navbar-item :to="{ path: '/jobs/list' }" tag="router-link">
             <b-icon class="mr-1" icon="briefcase" />
-            Joburile mele
+            {{ $t("app.general.my_jobs") }}
           </b-navbar-item>
           <b-navbar-item :to="{ path: '/companies' }" tag="router-link">
             <b-icon class="mr-1" icon="domain" />
-            Companii
+            {{ $t("app.general.companies") }}
           </b-navbar-item>
           <b-navbar-item @click="logout">
             <b-icon class="mr-1" icon="logout" />
-            Logout
+            {{ $t("app.general.logout") }}
           </b-navbar-item>
         </b-navbar-dropdown>
 

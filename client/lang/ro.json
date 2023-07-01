@@ -8,6 +8,33 @@
     "buttons": {
       "add_job": "Adauga Job",
       "login_signup": "Intră in cont / Creează cont"
+    },
+    "general": {
+      "account": "Cont",
+      "vue_profile": "Profil VueJS",
+      "my_jobs": "Joburile mele",
+      "companies": "Companiile mele",
+      "logout": "Logout",
+      "see_all_jobs": "Vezi toate joburile",
+      "labels": {
+        "search_jobs": "Cauta joburi",
+        "search": "Cauta",
+        "search_label": "Locatie, tip job..."
+      }
+    },
+    "landing": {
+      "text": {
+        "landing_message": "Descoperă oportunități de carieră Vue-tiful și conectează-te cu companii pasionate de VueJS!",
+        "recommended_companies": "Companii Recomandate"
+      }
+    },
+    "footer": {
+      "about_vuejobs": "Despre JoburiVue",
+      "terms_and_policies": "Termeni și Politici",
+      "referal": "Afiliere",
+      "contact": "Contact",
+      "terms_and_conditions": "Termeni si Conditii",
+      "lets_talk": "Let's talk!"
     }
   }
 }

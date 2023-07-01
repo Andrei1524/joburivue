@@ -1,7 +1,9 @@
 <template>
   <div class="container is-max-desktop">
     <div class="featured-companies pt-2 px-4 pb-5">
-      <h6 class="title is-6 has-text-left mb-4">Companii Recomandate</h6>
+      <h6 class="title is-6 has-text-left mb-4">
+        {{ $t("app.landing.text.recommended_companies") }}
+      </h6>
 
       <JobItem v-for="job in featuredJobs" :key="job.id" :job="job" />
     </div>
@@ -10,7 +12,7 @@
       class="see-all-jobs is-relative is-flex is-flex-direction-column is-align-items-center pb-5"
     >
       <b-button type="is-primary" size="is-medium" class="orange-btn mb-2">
-        Vezi toate joburile
+        {{ $t("app.general.see_all_jobs") }}
       </b-button>
       <b-icon
         class="see-all-jobs-icon"
