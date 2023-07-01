@@ -27,7 +27,6 @@ export default Vue.extend({
   },
 
   mixins: [notificationServiceMixin],
-
   data() {
     return {
       loading: true,

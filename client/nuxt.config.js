@@ -81,6 +81,8 @@ export default {
       },
     ],
     langDir: "lang/",
+    parsePages: false,
+    strategy: "no_prefix",
     defaultLocale: "en",
     vueI18n: {
       fallbackLocale: "en",

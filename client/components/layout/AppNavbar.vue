@@ -23,16 +23,13 @@
 
         <b-navbar-item tag="div">
           <b-field>
-            <b-select
-              v-model="selectedLanguage"
-              :placeholder="selectedLanguage"
-              icon="earth"
-              @input="changeLanguage"
+            <span
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              class="is-clickable"
+              @click="$i18n.setLocale(locale.code)"
+              >{{ locale.code }}</span
             >
-              <option v-for="lng in languages" :key="lng" :value="lng">
-                {{ lng }}
-              </option>
-            </b-select>
           </b-field>
         </b-navbar-item>
 
@@ -93,15 +90,12 @@ export default Vue.extend({
   },
 
   data() {
-    return {
-      selectedLanguage: "en",
-      languages: ["ro", "en"],
-    };
+    return {};
   },
-
-  created() {
-    this.selectedLanguage =
-      this.$i18n.getLocaleCookie() || this.$i18n.defaultLocale;
+  computed: {
+    availableLocales() {
+      return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale);
+    },
   },
 
   methods: {
@@ -111,12 +105,6 @@ export default Vue.extend({
           refresh_token: this.$auth.strategy.refreshToken.get(),
         },
       });
-    },
-
-    changeLanguage(langCode) {
-      this.$i18n.setLocale(langCode);
-      this.$i18n.setLocaleCookie(langCode);
-      this.$i18n.locale = langCode;
     },
   },
 });
