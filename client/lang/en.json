@@ -1,0 +1,13 @@
+{
+  "app": {
+    "navbar": {
+      "jobs": "Jobs",
+      "about": "About",
+      "prices": "Prices"
+    },
+    "buttons": {
+      "add_job": "Add job",
+      "login_signup": "Login / Signup"
+    }
+  }
+}

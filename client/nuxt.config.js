@@ -62,7 +62,30 @@ export default {
     "@nuxtjs/auth-next",
     "vue2-editor/nuxt",
     "@nuxtjs/dayjs",
+    "@nuxtjs/i18n",
   ],
+
+  i18n: {
+    locales: [
+      {
+        name: "English",
+        code: "en",
+        iso: "en-US",
+        file: "en.json",
+      },
+      {
+        name: "Romanian",
+        code: "ro",
+        iso: "ro-RO",
+        file: "ro.json",
+      },
+    ],
+    langDir: "lang/",
+    defaultLocale: "en",
+    vueI18n: {
+      fallbackLocale: "en",
+    },
+  },
 
   auth: {
     strategies: {

@@ -5,11 +5,7 @@
     "moduleResolution": "Node",
     "noImplicitThis": false,
     "noImplicitAny": false,
-    "lib": [
-      "ESNext",
-      "ESNext.AsyncIterable",
-      "DOM"
-    ],
+    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
@@ -18,12 +14,8 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./*"
-      ],
-      "@/*": [
-        "./*"
-      ]
+      "~/*": ["./*"],
+      "@/*": ["./*"]
     },
     "types": [
       "@nuxt/types",
@@ -34,11 +26,8 @@
       "@types/lodash",
       "@nuxtjs/dayjs",
       "dayjs/plugin/relativeTime",
+      "@nuxtjs/i18n"
     ]
   },
-  "exclude": [
-    "node_modules",
-    ".nuxt",
-    "dist"
-  ]
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }

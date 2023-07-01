@@ -1,0 +1,13 @@
+{
+  "app": {
+    "navbar": {
+      "jobs": "Joburi",
+      "about": "Despre",
+      "prices": "Preturi"
+    },
+    "buttons": {
+      "add_job": "Adauga Job",
+      "login_signup": "Intră in cont / Creează cont"
+    }
+  }
+}

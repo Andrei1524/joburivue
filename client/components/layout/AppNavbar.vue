@@ -6,17 +6,19 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item href="#"> Joburi </b-navbar-item>
-      <b-navbar-item href="#"> Despre </b-navbar-item>
-      <b-navbar-item :to="{ path: '/pricing' }" tag="router-link"
-        >Preturi</b-navbar-item
-      >
+      <b-navbar-item href="#">{{ $t("app.navbar.jobs") }}</b-navbar-item>
+      <b-navbar-item href="#">{{ $t("app.navbar.about") }}</b-navbar-item>
+      <b-navbar-item :to="{ path: '/pricing' }" tag="router-link">{{
+        $t("app.navbar.prices")
+      }}</b-navbar-item>
     </template>
 
     <template #end>
       <div class="is-flex is-align-items-center">
         <b-navbar-item :to="{ path: '/jobs/create' }" tag="router-link">
-          <b-button type="is-primary"> Adauga Job </b-button>
+          <b-button type="is-primary">
+            {{ $t("app.buttons.add_job") }}
+          </b-button>
         </b-navbar-item>
 
         <b-navbar-item tag="div">
@@ -25,6 +27,7 @@
               v-model="selectedLanguage"
               :placeholder="selectedLanguage"
               icon="earth"
+              @input="changeLanguage"
             >
               <option v-for="lng in languages" :key="lng" :value="lng">
                 {{ lng }}
@@ -71,7 +74,7 @@
           tag="router-link"
         >
           <b-button icon-left="account-plus" type="is-primary">
-            Intră in cont / Creează cont
+            {{ $t("app.buttons.login_signup") }}
           </b-button>
         </b-navbar-item>
       </div>
@@ -91,9 +94,14 @@ export default Vue.extend({
 
   data() {
     return {
-      selectedLanguage: "ro",
+      selectedLanguage: "en",
       languages: ["ro", "en"],
     };
+  },
+
+  created() {
+    this.selectedLanguage =
+      this.$i18n.getLocaleCookie() || this.$i18n.defaultLocale;
   },
 
   methods: {
@@ -103,6 +111,12 @@ export default Vue.extend({
           refresh_token: this.$auth.strategy.refreshToken.get(),
         },
       });
+    },
+
+    changeLanguage(langCode) {
+      this.$i18n.setLocale(langCode);
+      this.$i18n.setLocaleCookie(langCode);
+      this.$i18n.locale = langCode;
     },
   },
 });
