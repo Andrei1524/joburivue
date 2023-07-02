@@ -5,7 +5,7 @@
       :subtitle="$t('app.pricing.choose_a_plan_which_suits_you')"
     />
 
-    <PricePlans />
+    <PricePlans :key="$t('app.pricing.choose_plan')" />
   </div>
 </template>
 
