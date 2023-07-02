@@ -41,6 +41,13 @@
       },
       "choose_plan": "Alege plan"
     },
+    "account": {
+      "account_settings": "Setările contului"
+    },
+    "jobs": {
+      "created_jobs": "Joburi create",
+      "jobs": "Joburi"
+    },
     "footer": {
       "about_vuejobs": "Despre JoburiVue",
       "terms_and_policies": "Termeni și Politici",

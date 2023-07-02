@@ -1,11 +1,15 @@
 <template>
   <div class="jobs-list-page">
-    <AppHero :title="'Joburi create'" />
+    <AppHero :title="$t('app.jobs.created_jobs')" />
 
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <b-tabs v-model="activeTab" type="is-boxed" @input="handleGetJobs">
-          <b-tab-item label="Joburi" value="true" icon="check-all">
+          <b-tab-item
+            :label="$t('app.jobs.jobs')"
+            value="true"
+            icon="check-all"
+          >
             <JobsList v-if="jobs.length" :jobs="jobs" :loading="loading" />
           </b-tab-item>
         </b-tabs>

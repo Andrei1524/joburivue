@@ -41,6 +41,13 @@
       },
       "choose_plan": "Choose Plan"
     },
+    "account": {
+      "account_settings": "Account Settings"
+    },
+    "jobs": {
+      "created_jobs": "Created Jobs",
+      "jobs": "Jobs"
+    },
     "footer": {
       "about_vuejobs": "About JoburiVue",
       "terms_and_policies": "Terms and Policies",
