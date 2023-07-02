@@ -28,6 +28,19 @@
         "recommended_companies": "Companii Recomandate"
       }
     },
+    "pricing": {
+      "services_list_benefits": "List of services and benefits",
+      "choose_a_plan_which_suits_you": "Choose a plan which suits you",
+      "plans": {
+        "job_active_35_days": "Job activ timp de 35 zile.",
+        "included_in_promovation_campaigns": "Inclus in campaniile de promovare (facebook, twitter, instagram)",
+        "listed_in_weekly_newsletter": "Listat in weekly newsletter.",
+        "job_active_60_days": "Job activ timp de 60 zile.",
+        "job_fixed_in_search_based_by_relevant_searches": "Job “fixat” in primele cautari bazat pe cautari relevante",
+        "job_in_recommended_comapnies": "Afisat in “Companii recomandate” pe prima pagina"
+      },
+      "choose_plan": "Choose Plan"
+    },
     "footer": {
       "about_vuejobs": "Despre JoburiVue",
       "terms_and_policies": "Termeni și Politici",

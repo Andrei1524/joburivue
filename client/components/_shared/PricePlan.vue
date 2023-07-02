@@ -29,7 +29,7 @@
         :loading="planLoading"
         @click="choosePlan"
       >
-        Alege plan
+        {{ $t("app.pricing.choose_plan") }}
       </b-button>
     </div>
   </div>

@@ -28,6 +28,19 @@
         "recommended_companies": "Recommended companies"
       }
     },
+    "pricing": {
+      "services_list_benefits": "List of services and benefits",
+      "choose_a_plan_which_suits_you": "Choose a plan which suits you",
+      "plans": {
+        "job_active_35_days": "Active job for 35 days.",
+        "included_in_promovation_campaigns": "Included in promotion campaigns (facebook, twitter, instagram)",
+        "listed_in_weekly_newsletter": "Listed in the weekly newsletter.",
+        "job_active_60_days": "Active job for 60 days.",
+        "job_fixed_in_search_based_by_relevant_searches": "Job “fixed” in the first searches based on relevant searches",
+        "job_in_recommended_comapnies": "Displayed in “Recommended companies“ on the first page"
+      },
+      "choose_plan": "Choose Plan"
+    },
     "footer": {
       "about_vuejobs": "About JoburiVue",
       "terms_and_policies": "Terms and Policies",
