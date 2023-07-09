@@ -16,6 +16,9 @@
       "companies": "Companiile mele",
       "logout": "Logout",
       "see_all_jobs": "Vezi toate joburile",
+      "edit": "Editeaza",
+      "delete": "Sterge",
+      "save": "Salveaza",
       "labels": {
         "search_jobs": "Cauta joburi",
         "search": "Cauta",
@@ -47,6 +50,13 @@
     "jobs": {
       "created_jobs": "Joburi create",
       "jobs": "Joburi"
+    },
+    "companies": {
+      "my_companies": "Companiile mele",
+      "create_a_comapny": "Creeaza o companie",
+      "company_name": "Nume companie",
+      "website": "Website",
+      "description": "Descriere companie"
     },
     "footer": {
       "about_vuejobs": "Despre JoburiVue",

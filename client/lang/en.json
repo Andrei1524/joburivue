@@ -16,6 +16,9 @@
       "companies": "Companies",
       "logout": "logout",
       "see_all_jobs": "See all jobs",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
       "labels": {
         "search_jobs": "Search jobs",
         "search": "Search",
@@ -47,6 +50,13 @@
     "jobs": {
       "created_jobs": "Created Jobs",
       "jobs": "Jobs"
+    },
+    "companies": {
+      "my_companies": "My Companies",
+      "create_a_comapny": "Create a company",
+      "company_name": "Company name",
+      "website": "Website",
+      "description": "Description"
     },
     "footer": {
       "about_vuejobs": "About JoburiVue",
