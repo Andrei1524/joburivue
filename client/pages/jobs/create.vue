@@ -1,6 +1,8 @@
 <template>
   <div class="create-job">
-    <h1 class="title is-2 has-text-centered">Adauga un job</h1>
+    <h1 class="title is-2 has-text-centered">
+      {{ $t("app.jobs.add_a_job") }}
+    </h1>
     <div class="container is-max-desktop">
       <b-steps :has-navigation="false" :value="currentStep">
         <b-step-item
@@ -8,10 +10,7 @@
           :icon="progressSteps[0].icon"
           :label="progressSteps[0].title"
         >
-          <JobDetails
-            v-if="currentStep === 0"
-            class="mt-5"
-          />
+          <JobDetails v-if="currentStep === 0" class="mt-5" />
         </b-step-item>
         <b-step-item
           :clickable="isStepsClickable"
@@ -50,15 +49,15 @@ export default Vue.extend({
       isStepsClickable: false,
       progressSteps: [
         {
-          title: "Detalii job",
+          title: this.$t("app.jobs.job_details"),
           icon: "pencil-box-multiple",
         },
         {
-          title: "Preview",
+          title: this.$t("app.jobs.job_preview"),
           icon: "file-find",
         },
         {
-          title: "Checkout",
+          title: this.$t("app.jobs.job_checkout"),
           icon: "credit-card",
         },
       ],

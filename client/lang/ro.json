@@ -19,6 +19,27 @@
       "edit": "Editeaza",
       "delete": "Sterge",
       "save": "Salveaza",
+      "company": "Companie",
+      "position": "Pozitie",
+      "job_title": "Titlu job",
+      "add_title": "Adauga Titlul Jobului",
+      "job_type": "Tipul Jobului",
+      "select_a_type": "Selecteaza un tip",
+      "job_level": "Nivel job (optional)",
+      "select_a_level": "Selecteaza un nivel",
+      "describe_job_clear": "Descrie jobul cat mai clar!",
+      "job_location": "Locatia jobului",
+      "add_a_location": "Adauga o locatie",
+      "application": "Aplicare",
+      "application_link": "Link aplicare",
+      "application_label": "Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.",
+      "compensation": "Compensare",
+      "currency": "Valuta",
+      "minimum_salary": "Salariu minim",
+      "maximum_salary": "Salariu maxim",
+      "add_min_salary": "Adauga un salariu minim",
+      "add_max_salary": "Adauga un salariu maxim",
+      "select_currency": "Alege o valuta",
       "labels": {
         "search_jobs": "Cauta joburi",
         "search": "Cauta",
@@ -49,14 +70,18 @@
     },
     "jobs": {
       "created_jobs": "Joburi create",
-      "jobs": "Joburi"
+      "jobs": "Joburi",
+      "add_a_job": "Adauga un job",
+      "job_details": "Detalii Job",
+      "job_preview": "Previzualizeaza",
+      "job_checkout": "Plata"
     },
     "companies": {
       "my_companies": "Companiile mele",
       "create_a_comapny": "Creeaza o companie",
       "company_name": "Nume companie",
       "website": "Website",
-      "description": "Descriere companie"
+      "description": "Descriere"
     },
     "footer": {
       "about_vuejobs": "Despre JoburiVue",

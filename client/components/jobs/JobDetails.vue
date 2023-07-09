@@ -13,7 +13,9 @@
           <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
             <!-- company select -->
             <div class="w-100 mb-6">
-              <h5 class="title is-5 mt-0 mb-4">Companie</h5>
+              <h5 class="title is-5 mt-0 mb-4">
+                {{ $t("app.general.company") }}
+              </h5>
               <hr class="mt-0 mb-2" />
 
               <!-- dropdown select -->
@@ -107,42 +109,44 @@
             </div>
 
             <div class="position w-100">
-              <h5 class="title is-5 mt-0 mb-4">Pozitie</h5>
+              <h5 class="title is-5 mt-0 mb-4">
+                {{ $t("app.general.position") }}
+              </h5>
               <hr class="mt-0" />
 
               <Input
                 v-model.trim="form.title"
-                :label="'Titlu Job'"
-                :placeholder="'Adauga Titlul'"
+                :label="$t('app.general.job_title')"
+                :placeholder="$t('app.general.add_title')"
                 :rules="'required|min:8'"
               />
 
               <b-field grouped>
                 <Select
                   v-model.trim="form.type"
-                  :label="'Tipul jobului'"
+                  :label="$t('app.general.job_type')"
                   :options="jobTypes"
-                  :placeholder="'Selecteaza un nume'"
+                  :placeholder="$t('app.general.select_a_type')"
                   :rules="'required'"
                   :v-observer-class="'d-block w-100 mr-5'"
                 />
 
                 <Select
                   v-model.trim="form.level"
-                  :label="'Nivel/optional'"
+                  :label="$t('app.general.job_level')"
                   :options="jobLevels"
-                  :placeholder="'Selecteaza un nivel'"
+                  :placeholder="$t('app.general.select_a_level')"
                   :rules="'required'"
                   :v-observer-class="'d-block w-100'"
                 />
               </b-field>
 
-              <b-field :label="'Descriere'">
+              <b-field :label="$t('app.companies.description')">
                 <client-only>
                   <VueEditor
                     v-model="form.description"
                     :editor-toolbar="customToolbar"
-                    :placeholder="'Descrie jobul cat mai clar!'"
+                    :placeholder="$t('app.general.describe_job_clear')"
                   />
                 </client-only>
               </b-field>
@@ -153,32 +157,36 @@
 
               <Input
                 v-model.trim="form.location"
-                :label="'Locatia jobului'"
-                :placeholder="'Introdu o locatie'"
+                :label="$t('app.general.job_location')"
+                :placeholder="$t('app.general.add_a_location')"
                 :rules="'required'"
               />
             </div>
             <div class="application w-100">
-              <h5 class="title is-5 mt-6 mb-4">Aplicare</h5>
+              <h5 class="title is-5 mt-6 mb-4">
+                {{ $t("app.general.application") }}
+              </h5>
               <hr class="mt-0" />
 
               <Input
                 v-model.trim="form.applicationTarget"
-                :label="'Link Aplicatie'"
-                :placeholder="'Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.'"
+                :label="$t('app.general.application_link')"
+                :placeholder="$t('app.general.application_label')"
                 :rules="'required'"
               />
             </div>
             <div class="compensation w-100">
-              <h5 class="title is-5 mt-6 mb-4">Compensare</h5>
+              <h5 class="title is-5 mt-6 mb-4">
+                {{ $t("app.general.compensation") }}
+              </h5>
               <hr class="mt-0" />
 
               <b-field class="currencies" grouped>
                 <Select
                   v-model.trim="form.currency"
-                  :label="'Valută'"
+                  :label="$t('app.general.currency')"
                   :options="jobCurrencies"
-                  :placeholder="'Selecteaza o valuta'"
+                  :placeholder="$t('app.general.select_currency')"
                   :rules="'required'"
                   :v-observer-class="'d-block w-100 mr-5'"
                 />
@@ -186,8 +194,8 @@
                 <Input
                   v-model.trim="form.minSalary"
                   :expanded="true"
-                  :label="'Salariu Minim'"
-                  :placeholder="'Adauga salariu minim'"
+                  :label="$t('app.general.minimum_salary')"
+                  :placeholder="$t('app.general.add_min_salary')"
                   :rules="'required'"
                   :v-observer-class="'d-block w-100 mr-5'"
                 />
@@ -195,8 +203,8 @@
                 <Input
                   v-model.trim="form.maxSalary"
                   :expanded="true"
-                  :label="'Salariu Maxim'"
-                  :placeholder="'Adauga salariu maxim'"
+                  :label="$t('app.general.maximum_salary')"
+                  :placeholder="$t('app.general.add_max_salary')"
                   :rules="'required'"
                   :v-observer-class="'d-block w-100'"
                 />
