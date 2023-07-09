@@ -7,22 +7,22 @@
       <b-steps :has-navigation="false" :value="currentStep">
         <b-step-item
           :clickable="isStepsClickable"
-          :icon="progressSteps[0].icon"
-          :label="progressSteps[0].title"
+          icon="pencil-box-multiple"
+          :label="$t('app.jobs.job_details')"
         >
           <JobDetails v-if="currentStep === 0" class="mt-5" />
         </b-step-item>
         <b-step-item
           :clickable="isStepsClickable"
-          :icon="progressSteps[1].icon"
-          :label="progressSteps[1].title"
+          icon="file-find"
+          :label="$t('app.jobs.job_preview')"
         >
           <JobPreview v-if="currentStep === 1" class="mt-5" />
         </b-step-item>
         <b-step-item
           :clickable="isStepsClickable"
-          :icon="progressSteps[2].icon"
-          :label="progressSteps[2].title"
+          icon="credit-card"
+          :label="$t('app.jobs.job_checkout')"
         >
           <JobCheckout v-if="currentStep === 2" class="mt-5" />
         </b-step-item>
@@ -47,20 +47,6 @@ export default Vue.extend({
     return {
       currentStep: 0,
       isStepsClickable: false,
-      progressSteps: [
-        {
-          title: this.$t("app.jobs.job_details"),
-          icon: "pencil-box-multiple",
-        },
-        {
-          title: this.$t("app.jobs.job_preview"),
-          icon: "file-find",
-        },
-        {
-          title: this.$t("app.jobs.job_checkout"),
-          icon: "credit-card",
-        },
-      ],
     };
   },
 

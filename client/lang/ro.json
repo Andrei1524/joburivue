@@ -17,8 +17,10 @@
       "logout": "Logout",
       "see_all_jobs": "Vezi toate joburile",
       "edit": "Editeaza",
+      "edit_job": "Editeaza jobul",
       "delete": "Sterge",
       "save": "Salveaza",
+      "finish": " Finalizează",
       "company": "Companie",
       "position": "Pozitie",
       "job_title": "Titlu job",
@@ -40,6 +42,7 @@
       "add_min_salary": "Adauga un salariu minim",
       "add_max_salary": "Adauga un salariu maxim",
       "select_currency": "Alege o valuta",
+      "save_and_preview": "Salveaza si previzualizeaza!",
       "labels": {
         "search_jobs": "Cauta joburi",
         "search": "Cauta",
@@ -63,7 +66,7 @@
         "job_fixed_in_search_based_by_relevant_searches": "Job “fixat” in primele cautari bazat pe cautari relevante",
         "job_in_recommended_comapnies": "Afisat in “Companii recomandate” pe prima pagina"
       },
-      "choose_plan": "Alege plan"
+      "choose_plan": "Alege un plan!"
     },
     "account": {
       "account_settings": "Setările contului"
@@ -73,7 +76,7 @@
       "jobs": "Joburi",
       "add_a_job": "Adauga un job",
       "job_details": "Detalii Job",
-      "job_preview": "Previzualizeaza",
+      "job_preview": "Previzualizare job",
       "job_checkout": "Plata"
     },
     "companies": {

@@ -1,7 +1,7 @@
 <template>
   <div class="job-preview">
     <div class="container is-max-desktop">
-      <h1 class="title is-3">Previzualizeaza !</h1>
+      <h1 class="title is-3">{{ $t("app.jobs.job_preview") }}</h1>
       <b-loading
         :active="jobPreviewLoading"
         :can-cancel="false"
@@ -16,7 +16,9 @@
           </div>
           <h2 class="is-size-5">{{ job.location }}</h2>
 
-          <h3 class="title is-size-4 mb-0 mt-6">Descriere</h3>
+          <h3 class="title is-size-4 mb-0 mt-6">
+            {{ $t("app.companies.description") }}
+          </h3>
           <hr class="my-1" />
           <div v-html="parseTextWithBulmaTags(job.description)"></div>
         </div>
@@ -31,7 +33,7 @@
               $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
             "
           >
-            Editeaza jobul
+            {{ $t("app.general.edit_job") }}
           </b-button>
           <b-button
             class="orange-btn mt-5"
@@ -42,7 +44,7 @@
               $router.push(`/jobs/create?id=${$route.query.id}&option=checkout`)
             "
           >
-            Finalizează
+            {{ $t("app.general.finish") }}
           </b-button>
         </div>
       </div>
@@ -78,7 +80,7 @@ export default Vue.extend({
           this.fetchJob();
         }
       },
-      immediate: true
+      immediate: true,
     },
   },
 
@@ -100,7 +102,6 @@ export default Vue.extend({
           .then((data) => {
             this.job = { ...data };
             this.job.title = parseEscapedText(data.title);
-
           })
           .finally(() => (this.jobPreviewLoading = false));
       }

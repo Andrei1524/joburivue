@@ -220,7 +220,7 @@
                 type="is-primary"
                 @click="handleSubmit(submit)"
               >
-                Salveaza si previzualizeaza!
+                {{ $t("app.general.save_and_preview") }}
               </b-button>
             </div>
           </ValidationObserver>

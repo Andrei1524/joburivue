@@ -17,8 +17,10 @@
       "logout": "logout",
       "see_all_jobs": "See all jobs",
       "edit": "Edit",
+      "edit_job": "Edit job",
       "delete": "Delete",
       "save": "Save",
+      "finish": "Finish",
       "company": "Company",
       "position": "Role",
       "job_title": "Job Title",
@@ -41,6 +43,7 @@
       "add_min_salary": "Add minimum salary",
       "add_max_salary": "Add maximum salary",
       "select_currency": "Select currency",
+      "save_and_preview": "Save and preview!",
       "labels": {
         "search_jobs": "Search jobs",
         "search": "Search",
@@ -64,7 +67,7 @@
         "job_fixed_in_search_based_by_relevant_searches": "Job “fixed” in the first searches based on relevant searches",
         "job_in_recommended_comapnies": "Displayed in “Recommended companies“ on the first page"
       },
-      "choose_plan": "Choose Plan"
+      "choose_plan": "Choose Plan!"
     },
     "account": {
       "account_settings": "Account Settings"
@@ -74,7 +77,7 @@
       "jobs": "Jobs",
       "add_a_job": "Add a job",
       "job_details": "Details",
-      "job_preview": "Preview",
+      "job_preview": "Preview job",
       "job_checkout": "Checkout"
     },
     "companies": {
