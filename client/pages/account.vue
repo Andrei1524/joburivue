@@ -1,6 +1,8 @@
 <template>
   <div class="login-page">
-    <h1 class="title is-1 has-text-centered">Setările contului</h1>
+    <h1 class="title is-1 has-text-centered">
+      {{ $t("app.account.account_settings") }}
+    </h1>
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <div class="account">Account page</div>

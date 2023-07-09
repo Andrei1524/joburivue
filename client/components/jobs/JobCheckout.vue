@@ -1,6 +1,6 @@
 <template>
   <div class="job-checkout">
-    <h1 class="title is-3">Selecteaza un plan!</h1>
+    <h1 class="title is-3">{{ $t("app.pricing.choose_plan") }}</h1>
     <PricePlans />
     <Checkout />
   </div>

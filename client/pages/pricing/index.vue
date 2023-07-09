@@ -1,11 +1,11 @@
 <template>
   <div class="pricing-page">
     <AppHero
-      :title="'Lista servicii si beneficii'"
-      :subtitle="'Alege un plan care ti se potriveste'"
+      :title="$t('app.pricing.services_list_benefits')"
+      :subtitle="$t('app.pricing.choose_a_plan_which_suits_you')"
     />
 
-    <PricePlans />
+    <PricePlans :key="$t('app.pricing.choose_plan')" />
   </div>
 </template>
 

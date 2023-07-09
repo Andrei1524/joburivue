@@ -32,7 +32,7 @@
               type="is-primary"
               @click="openEditCompanyModal(company)"
             >
-              Editeaza
+              {{ $t("app.general.edit") }}
             </b-button>
             <b-button
               class="orange-btn ml-2"
@@ -41,7 +41,7 @@
               type="is-primary"
               @click="confirmDelete(company)"
             >
-              Delete
+              {{ $t("app.general.delete") }}
             </b-button>
           </div>
         </div>

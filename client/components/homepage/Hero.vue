@@ -5,7 +5,7 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">
-          Angajați developeri Vue.js & găsiți locuri de muncă cu Vue.js
+          {{ $t("app.landing.text.landing_message") }}
         </p>
         <FeaturedCompanies class="mt-6" />
       </div>
@@ -14,23 +14,23 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import FeaturedCompanies from '~/components/_shared/FeaturedCompanies.vue'
+import Vue from "vue";
+import FeaturedCompanies from "~/components/_shared/FeaturedCompanies.vue";
 
 export default Vue.extend({
-  name: 'AppHero',
+  name: "AppHero",
   components: {
-    FeaturedCompanies
+    FeaturedCompanies,
   },
 
-  data () {
-    return {}
-  }
-})
+  data() {
+    return {};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
+@import "./design/variables";
 
 .hero-wrapper {
   background: #212940b0;
@@ -40,7 +40,7 @@ export default Vue.extend({
 }
 
 .hero-body {
-  background: url('~assets/hero.jpg');
+  background: url("~assets/hero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

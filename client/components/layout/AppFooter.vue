@@ -8,40 +8,41 @@
 
         <div class="column links is-flex">
           <ul>
-            <li><a href="#">Despre JoburiVue</a></li>
-            <li><a href="#">Preturi</a></li>
-            <li><a href="#">Termeni și politici</a></li>
+            <li>
+              <a href="#">{{ $t("app.footer.about_vuejobs") }}</a>
+            </li>
+            <li>
+              <a href="#">{{ $t("app.navbar.prices") }}</a>
+            </li>
+            <li>
+              <a href="#">{{ $t("app.footer.terms_and_policies") }}</a>
+            </li>
           </ul>
           <ul>
-            <li><a href="#">Afiliere</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Termeni si conditii</a></li>
+            <li>
+              <a href="#">{{ $t("app.footer.referal") }}</a>
+            </li>
+            <li>
+              <a href="#">{{ $t("app.footer.contact") }}</a>
+            </li>
+            <li>
+              <a href="#">{{ $t("app.footer.terms_and_conditions") }}</a>
+            </li>
           </ul>
         </div>
 
         <div class="column has-text-right">
-          <h4 class="lets-talk mb-0">
-            Let's talk!
-          </h4>
+          <h4 class="lets-talk mb-0">{{ $t("app.footer.lets_talk") }}</h4>
           <a class="mail" href="#">hello@joburivue.ro</a>
           <div class="icons mt-2">
             <a href="#">
-              <b-icon
-                icon="facebook"
-                size="is-medium"
-              />
+              <b-icon icon="facebook" size="is-medium" />
             </a>
             <a href="#">
-              <b-icon
-                icon="linkedin"
-                size="is-medium"
-              />
+              <b-icon icon="linkedin" size="is-medium" />
             </a>
             <a href="#">
-              <b-icon
-                icon="twitter"
-                size="is-medium"
-              />
+              <b-icon icon="twitter" size="is-medium" />
             </a>
           </div>
         </div>
@@ -51,24 +52,24 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Logo from '~/components/layout/Logo.vue'
+import Vue from "vue";
+import Logo from "~/components/layout/Logo.vue";
 
 export default Vue.extend({
-  name: 'AppFooter',
+  name: "AppFooter",
   components: {
-    Logo
+    Logo,
   },
 
-  data () {
-    return {}
-  }
-})
+  data() {
+    return {};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@import './design/variables';
-@import 'include-media';
+@import "./design/variables";
+@import "include-media";
 
 .footer {
   background-color: $yankees-blue;

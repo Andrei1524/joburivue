@@ -1,6 +1,6 @@
 <template>
   <div className="companies-page">
-    <AppHero :title="'Companiile mele '" icon="domain" />
+    <AppHero :title="$t('app.companies.my_companies')" icon="domain" />
 
     <div
       class="is-flex is-flex-direction-column is-align-items-center container is-max-desktop"
@@ -18,7 +18,7 @@
           })
         "
       >
-        Creeaza o companie
+        {{ $t("app.companies.create_a_comapny") }}
         <b-icon class="ml-1" icon="plus-box" size="is-medium" />
       </div>
 

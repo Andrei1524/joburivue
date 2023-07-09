@@ -49,15 +49,15 @@
             <Input
               v-model.trim="form.name"
               :expanded="true"
-              :label="'Numele companiei'"
-              :placeholder="'...numele companiei'"
+              :label="$t('app.companies.company_name')"
+              :placeholder="$t('app.companies.company_name') + '...'"
               :rules="'required'"
             />
 
             <Input
               v-model.trim="form.website"
               :expanded="true"
-              :label="'Website'"
+              :label="$t('app.companies.website')"
               :placeholder="'ex: https://www.mywebsite.ro/'"
             />
 
@@ -80,12 +80,11 @@
               </b-upload>
             </b-field>
 
-            <b-field :label="'Descriere'">
+            <b-field :label="$t('app.companies.description')">
               <client-only>
                 <VueEditor
                   v-model="form.description"
                   :editor-toolbar="customToolbar"
-                  :placeholder="'...descriere companie'"
                 />
               </client-only>
             </b-field>
@@ -101,8 +100,8 @@
               >
                 {{
                   modalConstant === modalsConstants.CREATE_COMPANY_MODAL
-                    ? "Salveaza"
-                    : "Editeaza"
+                    ? $t("app.general.save")
+                    : $t("app.general.edit")
                 }}
               </b-button>
             </div>

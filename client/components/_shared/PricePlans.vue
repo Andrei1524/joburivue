@@ -27,9 +27,9 @@ export default Vue.extend({
           title: "NORMAL",
           price: 75,
           features: [
-            "Job activ timp de 35 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Listat in weekly newsletter.",
+            this.$t("app.pricing.plans.job_active_35_days"),
+            this.$t("app.pricing.plans.included_in_promovation_campaigns"),
+            this.$t("app.pricing.plans.listed_in_weekly_newsletter"),
           ],
         },
         {
@@ -37,10 +37,12 @@ export default Vue.extend({
           title: "BOOSTED",
           price: 160,
           features: [
-            "Job activ timp de 60 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Promovare in weekly newsletter.",
-            "Job “fixat” in primele cautari bazat pe cautari relevante",
+            this.$t("app.pricing.plans.job_active_60_days"),
+            this.$t("app.pricing.plans.included_in_promovation_campaigns"),
+            this.$t("app.pricing.plans.listed_in_weekly_newsletter"),
+            this.$t(
+              "app.pricing.plans.job_fixed_in_search_based_by_relevant_searches"
+            ),
           ],
         },
         {
@@ -48,11 +50,13 @@ export default Vue.extend({
           title: "PRO",
           price: 250,
           features: [
-            "Job activ timp de 60 zile.",
-            "Inclus in campaniile de promovare (facebook, twitter, instagram)",
-            "Promovare in weekly newsletter.",
-            "Job “fixat” in primele cautari bazat pe cautari relevante",
-            "Afisat in “Companii recomandate” pe prima pagina",
+            this.$t("app.pricing.plans.job_active_60_days"),
+            this.$t("app.pricing.plans.included_in_promovation_campaigns"),
+            this.$t("app.pricing.plans.listed_in_weekly_newsletter"),
+            this.$t(
+              "app.pricing.plans.job_fixed_in_search_based_by_relevant_searches"
+            ),
+            this.$t("app.pricing.plans.job_in_recommended_comapnies"),
           ],
         },
       ],

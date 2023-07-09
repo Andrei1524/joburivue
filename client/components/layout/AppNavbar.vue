@@ -6,30 +6,30 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item href="#"> Joburi </b-navbar-item>
-      <b-navbar-item href="#"> Despre </b-navbar-item>
-      <b-navbar-item :to="{ path: '/pricing' }" tag="router-link"
-        >Preturi</b-navbar-item
-      >
+      <b-navbar-item href="#">{{ $t("app.navbar.jobs") }}</b-navbar-item>
+      <b-navbar-item href="#">{{ $t("app.navbar.about") }}</b-navbar-item>
+      <b-navbar-item :to="{ path: '/pricing' }" tag="router-link">{{
+        $t("app.navbar.prices")
+      }}</b-navbar-item>
     </template>
 
     <template #end>
       <div class="is-flex is-align-items-center">
         <b-navbar-item :to="{ path: '/jobs/create' }" tag="router-link">
-          <b-button type="is-primary"> Adauga Job </b-button>
+          <b-button type="is-primary">
+            {{ $t("app.buttons.add_job") }}
+          </b-button>
         </b-navbar-item>
 
         <b-navbar-item tag="div">
           <b-field>
-            <b-select
-              v-model="selectedLanguage"
-              :placeholder="selectedLanguage"
-              icon="earth"
+            <span
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              class="is-clickable"
+              @click="$i18n.setLocale(locale.code)"
+              >{{ locale.code }}</span
             >
-              <option v-for="lng in languages" :key="lng" :value="lng">
-                {{ lng }}
-              </option>
-            </b-select>
           </b-field>
         </b-navbar-item>
 
@@ -43,24 +43,24 @@
         >
           <b-navbar-item :to="{ path: '/account' }" tag="router-link">
             <b-icon class="mr-1" icon="account" />
-            Cont
+            {{ $t("app.general.account") }}
           </b-navbar-item>
           <b-navbar-item>
             <b-icon class="mr-1" icon="code-braces" />
-            Profil Vue.js
+            {{ $t("app.general.vue_profile") }}
           </b-navbar-item>
           <hr class="dropdown-divider my-2" />
           <b-navbar-item :to="{ path: '/jobs/list' }" tag="router-link">
             <b-icon class="mr-1" icon="briefcase" />
-            Joburile mele
+            {{ $t("app.general.my_jobs") }}
           </b-navbar-item>
           <b-navbar-item :to="{ path: '/companies' }" tag="router-link">
             <b-icon class="mr-1" icon="domain" />
-            Companii
+            {{ $t("app.general.companies") }}
           </b-navbar-item>
           <b-navbar-item @click="logout">
             <b-icon class="mr-1" icon="logout" />
-            Logout
+            {{ $t("app.general.logout") }}
           </b-navbar-item>
         </b-navbar-dropdown>
 
@@ -71,7 +71,7 @@
           tag="router-link"
         >
           <b-button icon-left="account-plus" type="is-primary">
-            Intră in cont / Creează cont
+            {{ $t("app.buttons.login_signup") }}
           </b-button>
         </b-navbar-item>
       </div>
@@ -90,10 +90,12 @@ export default Vue.extend({
   },
 
   data() {
-    return {
-      selectedLanguage: "ro",
-      languages: ["ro", "en"],
-    };
+    return {};
+  },
+  computed: {
+    availableLocales() {
+      return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale);
+    },
   },
 
   methods: {
