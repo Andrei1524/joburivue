@@ -104,7 +104,10 @@
       "forgot_password": "Forgot your password?",
       "reset_password_here": "Reset your password here!",
       "no_account": "Don't have an account?",
-      "create_account": "Create account"
+      "create_an_account": "Create an account!",
+      "name": "Name",
+      "confirm_password": "Confirm password",
+      "send_weekly_message": "Send me weekly job alerts and more Vue.js related emails"
     }
   }
 }

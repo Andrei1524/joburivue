@@ -1,6 +1,8 @@
 <template>
   <div class="register-page">
-    <h1 class="title is-1 has-text-centered">Creează-ti un cont!</h1>
+    <h1 class="title is-1 has-text-centered">
+      {{ $t("app.auth.sign_in_account_message") }}
+    </h1>
     <div class="container is-max-desktop register">
       <div class="box mt-4">
         <div class="register">
@@ -11,7 +13,7 @@
               name="Nume"
             >
               <b-field
-                label="Nume"
+                :label="$t('app.auth.create_an_account')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -25,7 +27,7 @@
               name="Email"
             >
               <b-field
-                label="Email"
+                :label="$t('app.auth.email')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -40,7 +42,7 @@
               name="Parola"
             >
               <b-field
-                label="Parola"
+                :label="$t('app.auth.password')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -59,7 +61,7 @@
               name="Confirmă Parola"
             >
               <b-field
-                label="Confirmă Parola"
+                :label="$t('app.auth.confirm_password')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -74,8 +76,7 @@
 
             <b-field class="mt-5">
               <b-checkbox v-model="form.weeklyJobAlerts">
-                Trimite-mi săptămânal alerte de locuri de muncă și alte
-                e-mailuri legate de Vue.js
+                {{ $t("app.auth.send_weekly_message") }}
               </b-checkbox>
             </b-field>
 
@@ -88,7 +89,7 @@
               expanded
               @click="handleSubmit(submit)"
             >
-              Creează cont
+              {{ $t("app.auth.create_an_account") }}
             </b-button>
           </ValidationObserver>
         </div>
