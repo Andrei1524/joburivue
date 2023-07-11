@@ -94,6 +94,17 @@
       "contact": "Contact",
       "terms_and_conditions": "Terms and Conditions",
       "lets_talk": "Let's talk!"
+    },
+    "auth": {
+      "sign_in_account_message": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "login": "Login",
+      "signup": "Signup",
+      "forgot_password": "Forgot your password?",
+      "reset_password_here": "Reset your password here!",
+      "no_account": "Don't have an account?",
+      "create_account": "Create account"
     }
   }
 }
