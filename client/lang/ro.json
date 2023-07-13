@@ -93,6 +93,20 @@
       "contact": "Contact",
       "terms_and_conditions": "Termeni si Conditii",
       "lets_talk": "Let's talk!"
+    },
+    "auth": {
+      "sign_in_account_message": "Intră în contul tău",
+      "email": "Email",
+      "password": "Parola",
+      "confirm_password": "Confirmă Parola",
+      "login": "Login",
+      "signup": "Creează cont",
+      "forgot_password": "   Ti-ai uitat parola?",
+      "reset_password_here": "Resetați parola aici!",
+      "no_account": "Nu ai un cont?",
+      "create_an_account": "Creează-ti un cont!",
+      "name": "Nume",
+      "send_weekly_message": "Trimite-mi săptămânal alerte de locuri de muncă și alte e-mailuri legate de Vue.js"
     }
   }
 }
