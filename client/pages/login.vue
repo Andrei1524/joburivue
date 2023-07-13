@@ -74,7 +74,7 @@
                 icon-left="account-plus"
                 expanded
               >
-                {{ $t("app.auth.create_account") }}
+                {{ $t("app.auth.create_an_account") }}
               </b-button>
             </div>
           </ValidationObserver>
