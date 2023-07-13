@@ -141,9 +141,14 @@ export default {
           ? process.env.BASE_URL
           : "http://localhost:4000/api/v1",
     },
+    STRIPE_PK: process.env.STRIPE_PK,
   },
 
   env: {
+    STRIPE_PK: process.env.STRIPE_PK,
+  },
+
+  privateRuntimeConfig: {
     STRIPE_PK: process.env.STRIPE_PK,
   },
 
