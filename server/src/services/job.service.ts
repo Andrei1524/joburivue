@@ -46,7 +46,7 @@ async function getJobs(
   req: Request
 ) {
   try {
-    const { userJobs } = queries;
+    const { userJobs, createdBy } = queries;
     const skip = (page - 1) * limit;
 
     let jobs: any = [];
@@ -61,14 +61,15 @@ async function getJobs(
         .exec();
 
       jobs = searchedJobs;
+    } else if (createdBy) {
+      jobs = await Job.find({ createdBy })
+        .populate('company')
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
     } else {
-      // TODO: use this query to filter non expired jobs
-      // jobs = await Job.find({
-      //   'plan.expireDate': {
-      //     $lte: new Date().toUTCString(),
-      //   },
-      // });
-
       jobs = await Job.find({})
         .populate('company')
         .skip(skip)

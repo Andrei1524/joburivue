@@ -1,44 +1,44 @@
-import { NextFunction, Request, Response } from "express";
-import * as JobService from "../services/job.service";
-const { check, validationResult } = require("express-validator");
-import { pageLimit } from "../config";
-import { authenticateJWT } from "../middleware/authenticateJWT";
+import { NextFunction, Request, Response } from 'express';
+import * as JobService from '../services/job.service';
+const { check, validationResult } = require('express-validator');
+import { pageLimit } from '../config';
+import { authenticateJWT } from '../middleware/authenticateJWT';
 
-type remoteTypes = "work_remotely" | "remote_only";
+type remoteTypes = 'work_remotely' | 'remote_only';
 
 const createJobValidate = [
-  check("title")
+  check('title')
     .exists()
-    .withMessage("Jobul trebuie sa contina un titlu!")
+    .withMessage('Jobul trebuie sa contina un titlu!')
     .isLength({ min: 8 })
-    .withMessage("Titlul trebuie sa fie de cel putin 8 caractere!")
+    .withMessage('Titlul trebuie sa fie de cel putin 8 caractere!')
     .trim()
     .escape(),
-  check("type")
+  check('type')
     .exists()
     .not()
     .isEmpty()
-    .withMessage("Specificati tipul jobului!"),
-  check("description")
+    .withMessage('Specificati tipul jobului!'),
+  check('description')
     .exists()
     .not()
     .isEmpty()
     .escape()
-    .withMessage("Adaugati o descriere!"),
-  check("location")
+    .withMessage('Adaugati o descriere!'),
+  check('location')
     .custom((value: string, { req }: any) => {
       if (value && value.length > 0) {
         return true;
       } else {
-        return req.body.remoteType === "remote_only";
+        return req.body.remoteType === 'remote_only';
       }
     }) // TODO: add remote types to a TS types
-    .withMessage("Locatia este necesara daca jobul este optional remote!"),
-  check("applicationTarget")
+    .withMessage('Locatia este necesara daca jobul este optional remote!'),
+  check('applicationTarget')
     .exists()
     .not()
     .isEmpty()
-    .withMessage("Adaugati p metoda de aplicare!"),
+    .withMessage('Adaugati p metoda de aplicare!'),
 ];
 
 async function create(req: Request, res: Response, next: NextFunction) {

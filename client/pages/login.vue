@@ -1,6 +1,8 @@
 <template>
   <div class="login-page">
-    <h1 class="title is-1 has-text-centered">Intră în contul tău</h1>
+    <h1 class="title is-1 has-text-centered">
+      {{ $t("app.auth.sign_in_account_message") }}
+    </h1>
     <div class="container is-max-desktop login">
       <div class="box mt-4">
         <div class="login">
@@ -11,7 +13,7 @@
               name="Email"
             >
               <b-field
-                label="Email"
+                :label="$t('app.auth.email')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -26,7 +28,7 @@
               name="Parola"
             >
               <b-field
-                label="Parola"
+                :label="$t('app.auth.password')"
                 :type="{ 'is-danger': errors[0], 'is-success': valid }"
                 :message="errors"
               >
@@ -53,14 +55,17 @@
 
             <div class="reset-pass">
               <p class="mt-4">
-                Ti-ai uitat parola? <a href="#">Resetați parola aici!</a>
+                {{ $t("app.auth.forgot_password") }}
+                <a href="#">{{ $t("app.auth.reset_password_here") }}</a>
               </p>
             </div>
 
             <hr />
 
             <div class="register-acc">
-              <h5 class="title is-5 mt-2 mb-3">Nu ai un cont?</h5>
+              <h5 class="title is-5 mt-2 mb-3">
+                {{ $t("app.auth.no_account") }}
+              </h5>
               <b-button
                 tag="router-link"
                 to="register"
@@ -69,7 +74,7 @@
                 icon-left="account-plus"
                 expanded
               >
-                Creează cont
+                {{ $t("app.auth.create_an_account") }}
               </b-button>
             </div>
           </ValidationObserver>

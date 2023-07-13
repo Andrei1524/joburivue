@@ -94,6 +94,20 @@
       "contact": "Contact",
       "terms_and_conditions": "Terms and Conditions",
       "lets_talk": "Let's talk!"
+    },
+    "auth": {
+      "sign_in_account_message": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm password",
+      "login": "Login",
+      "signup": "Signup",
+      "forgot_password": "Forgot your password?",
+      "reset_password_here": "Reset your password here!",
+      "no_account": "Don't have an account?",
+      "create_an_account": "Create an account!",
+      "name": "Name",
+      "send_weekly_message": "Send me weekly job alerts and more Vue.js related emails"
     }
   }
 }

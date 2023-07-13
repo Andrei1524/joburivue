@@ -37,6 +37,7 @@ export default Vue.extend({
   },
 
   mounted() {
+    console.log(this.publishableKey);
     const { query } = this.$route;
 
     this.$nuxt.$on("choosePlan", (plan) => {
