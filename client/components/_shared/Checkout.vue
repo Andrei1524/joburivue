@@ -21,7 +21,7 @@ export default Vue.extend({
 
   data() {
     return {
-      publishableKey: process.env.STRIPE_PK,
+      publishableKey: this.$config.STRIPE_PK,
       selectedPlan: null,
       lineItems: [
         {
