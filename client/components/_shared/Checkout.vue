@@ -4,7 +4,7 @@
       ref="checkoutRef"
       mode="payment"
       :client-reference-id="`${$route.query.id}/${selectedPlan}`"
-      :pk="publishableKey"
+      :pk="$config.STRIPE_PK"
       :line-items="lineItems"
       :success-url="successURL"
       :cancel-url="cancelURL"
@@ -21,7 +21,6 @@ export default Vue.extend({
 
   data() {
     return {
-      publishableKey: this.$config.STRIPE_PK,
       selectedPlan: null,
       lineItems: [
         {
@@ -37,7 +36,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    console.log(this.publishableKey);
+    console.log(this.$config.STRIPE_PK);
     const { query } = this.$route;
 
     this.$nuxt.$on("choosePlan", (plan) => {

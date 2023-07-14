@@ -144,10 +144,6 @@ export default {
     STRIPE_PK: process.env.STRIPE_PK,
   },
 
-  env: {
-    STRIPE_PK: process.env.STRIPE_PK,
-  },
-
   privateRuntimeConfig: {
     STRIPE_PK: process.env.STRIPE_PK,
   },
