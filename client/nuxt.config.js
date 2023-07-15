@@ -141,11 +141,11 @@ export default {
           ? process.env.BASE_URL
           : "http://localhost:4000/api/v1",
     },
-    STRIPE_PK: process.env.STRIPE_PK,
+    NUXT_STRIPE_PK: process.env.NUXT_STRIPE_PK,
   },
 
   privateRuntimeConfig: {
-    STRIPE_PK: process.env.STRIPE_PK,
+    NUXT_STRIPE_PK: process.env.NUXT_STRIPE_PK,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

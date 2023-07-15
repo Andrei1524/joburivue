@@ -4,7 +4,7 @@
       ref="checkoutRef"
       mode="payment"
       :client-reference-id="`${$route.query.id}/${selectedPlan}`"
-      :pk="$config.STRIPE_PK"
+      :pk="$config.NUXT_STRIPE_PK"
       :line-items="lineItems"
       :success-url="successURL"
       :cancel-url="cancelURL"
@@ -36,7 +36,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    console.log(this.$config.STRIPE_PK);
+    console.log(this.$config.NUXT_STRIPE_PK);
     const { query } = this.$route;
 
     this.$nuxt.$on("choosePlan", (plan) => {
