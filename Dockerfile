@@ -23,6 +23,7 @@ COPY server/ server/
 RUN npm run deploy
 
 ## use this USER for security (least permission node user has)
+COPY server/.env ./
 
 # port
 EXPOSE 4000
