@@ -2,9 +2,7 @@
   <div class="app">
     <div class="navbar-wrapper position-relative">
       <div class="container">
-        <client-only>
-          <AppNavbar />
-        </client-only>
+        <AppNavbar />
       </div>
     </div>
     <Nuxt :key="$route.fullPath" />
