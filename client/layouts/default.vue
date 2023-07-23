@@ -1,16 +1,14 @@
 <template>
   <div class="app">
-    <b-loading :active="loading" :is-full-page="true"></b-loading>
-
-    <div v-show="!loading">
-      <div class="navbar-wrapper position-relative">
-        <div class="container">
+    <div class="navbar-wrapper position-relative">
+      <div class="container">
+        <client-only>
           <AppNavbar />
-        </div>
+        </client-only>
       </div>
-      <Nuxt :key="$route.fullPath" />
-      <AppFooter class="mt-6" />
     </div>
+    <Nuxt :key="$route.fullPath" />
+    <AppFooter class="mt-6" />
   </div>
 </template>
 
@@ -31,16 +29,6 @@ export default Vue.extend({
     return {
       loading: true,
     };
-  },
-
-  async created() {
-    // TODO: fix fetching user 2 times
-    try {
-      await this.$auth.fetchUser();
-      this.loading = false;
-    } catch (e) {
-      this.loading = false;
-    }
   },
 });
 </script>

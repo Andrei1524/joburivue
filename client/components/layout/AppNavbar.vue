@@ -35,7 +35,7 @@
 
         <!-- LOGGED IN -->
         <b-navbar-dropdown
-          v-show="$store.state.auth.loggedIn"
+          v-show="$auth.loggedIn"
           :label="
             $store.state.auth.loggedIn ? $auth.user && $auth.user.name : ''
           "
@@ -66,7 +66,7 @@
 
         <!-- LOGGED OUT -->
         <b-navbar-item
-          v-show="!$store.state.auth.loggedIn"
+          v-show="!$auth.loggedIn"
           :to="{ path: '/login' }"
           tag="router-link"
         >
@@ -96,6 +96,10 @@ export default Vue.extend({
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale);
     },
+  },
+
+  created() {
+    console.log(this.$auth.loggedIn);
   },
 
   methods: {
