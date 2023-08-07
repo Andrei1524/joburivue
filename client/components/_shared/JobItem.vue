@@ -113,10 +113,9 @@ export default Vue.extend({
     },
 
     formattedCreatedAt() {
-      const renewedDate = this.job.plan?.planRenewed;
-
-      console.log(renewedDate);
-      return renewedDate ? this.$dayjs(renewedDate).fromNow() : "";
+      return this.job.plan?.planRenewed
+        ? this.$dayjs(this.job.plan?.planRenewed).fromNow()
+        : "";
     },
 
     // TODO: put global function
