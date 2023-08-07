@@ -38,6 +38,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: "~/plugins/vuex-persist", ssr: false },
     { src: "~/plugins/vee-validate.js", ssr: true },
     "~/plugins/axios",
     { src: "~/plugins/vue-stripe.js", ssr: false },
@@ -153,4 +154,6 @@ export default {
     postcss: null,
     transpile: ["vee-validate/dist/rules"],
   },
+
+  transpileDependencies: ["vuex-persist"],
 };

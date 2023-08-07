@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import _ from "lodash";
 import AppHero from "~/components/layout/AppHero.vue";
 import JobsList from "~/components/_shared/JobsList.vue";
 
@@ -49,7 +50,13 @@ export default Vue.extend({
         `jobs/userJobs?userJobs=true&createdBy=${this.$auth.user._id}`
       );
 
-      this.jobs = response.data.data;
+      this.jobs = response.data.data.sort((a, b) => {
+        return (
+          new Date(b.plan.expireDate).valueOf() -
+          new Date(a.plan.expireDate).valueOf()
+        );
+      });
+
       this.loading = false;
     },
   },

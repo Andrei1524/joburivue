@@ -23,6 +23,9 @@ async function handleActionsOnSelectedPlan(
   if (foundJob) {
     const plan = returnPlanSettings(selectedPlan);
 
+    // update planRenewed on succesfully checkout
+    plan.planRenewed = new Date().toUTCString();
+
     foundJob!.plan = plan;
     await foundJob!.save();
   }

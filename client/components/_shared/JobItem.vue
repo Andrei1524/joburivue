@@ -2,6 +2,12 @@
   <NuxtLink
     :to="goToJobPage()"
     class="columns job-item is-gapless is-align-items-center p-2"
+    :class="{
+      'job-item > active':
+        new Date(job.plan?.expireDate) >= new Date() && showPlanExpireDate,
+      'job-item > inactive':
+        job.plan !== undefined && new Date(job.plan?.expireDate) < new Date(),
+    }"
   >
     <div class="column is-narrow">
       <figure class="image is-64x64 mr-2">
@@ -14,6 +20,17 @@
     <div class="column job-title is-narrow">
       <h5 class="title is-5">
         {{ parseEscapedText(job.title) }}
+
+        <template v-if="showPlanExpireDate">
+          <span
+            v-if="
+              planTimeRemaining && new Date(job.plan?.expireDate) >= new Date()
+            "
+            class="plan-time-diff > active"
+            >Active &#183; {{ planTimeRemaining }} days remaining
+          </span>
+          <span v-else class="plan-time-diff > inactive">Expired</span>
+        </template>
       </h5>
       <h6 class="subtitle has-text-left is-6">
         <span class="has-text-weight-bold">{{ job.company?.name }}</span>
@@ -76,12 +93,30 @@ export default Vue.extend({
   },
 
   computed: {
-    formattedCreatedAt() {
-      const updatedAt = this.job.plan?._id
-        ? this.job.plan._id.updatedAt
-        : this.job.createdAt;
+    planTimeRemaining() {
+      if (!this.job.plan) return "";
 
-      return this.$dayjs(updatedAt).fromNow();
+      const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+      const diffDays = Math.round(
+        Math.abs(
+          (new Date(this.job.plan.expireDate).getTime() -
+            new Date().getTime()) /
+            oneDay
+        )
+      );
+
+      return diffDays;
+    },
+
+    showPlanExpireDate() {
+      return this.job.plan && this.$route.path !== "/";
+    },
+
+    formattedCreatedAt() {
+      const renewedDate = this.job.plan?.planRenewed;
+
+      console.log(renewedDate);
+      return renewedDate ? this.$dayjs(renewedDate).fromNow() : "";
     },
 
     // TODO: put global function
@@ -158,6 +193,14 @@ export default Vue.extend({
     box-shadow: 3px 4px 5px #00000030;
     border: 1px solid #37648ab0;
   }
+
+  &.active {
+    border: 1px solid green;
+  }
+
+  &.inactive {
+    border: 1px solid red;
+  }
 }
 
 @media only screen and (max-width: 769px) {
@@ -186,6 +229,19 @@ export default Vue.extend({
     .job-info-text {
       align-self: unset !important;
     }
+  }
+}
+
+.plan-time-diff {
+  font-weight: bold;
+  font-size: 14px;
+
+  &.active {
+    color: green;
+  }
+
+  &.inactive {
+    color: red;
   }
 }
 </style>

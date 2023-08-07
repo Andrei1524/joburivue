@@ -8,8 +8,10 @@ const normalPlanDays = 35;
 const boostedPlanDays = 60;
 const proPlanDays = 60;
 
+// TODO: refactor these from a base job, and just extend
 const normalPlanSettings = {
   expireDate: add_days(new Date(), normalPlanDays).toUTCString(),
+  planRenewed: new Date().toUTCString(),
   name: 'NORMAL',
   planDays: normalPlanDays,
   promotedOnSocialChannels: true,
@@ -21,6 +23,7 @@ const normalPlanSettings = {
 
 const boostedPlanSettings = {
   expireDate: add_days(new Date(), boostedPlanDays).toUTCString(),
+  planRenewed: new Date().toUTCString(),
   name: 'BOOSTED',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
@@ -32,6 +35,7 @@ const boostedPlanSettings = {
 
 const proPlanSettings = {
   expireDate: add_days(new Date(), proPlanDays).toUTCString(),
+  planRenewed: new Date().toUTCString(),
   name: 'PRO',
   promotedOnSocialChannels: true,
   listedOnWeeklyNewsletter: true,
