@@ -50,7 +50,13 @@ export default Vue.extend({
         `jobs/userJobs?userJobs=true&createdBy=${this.$auth.user._id}`
       );
 
-      this.jobs = _.sortBy(response.data.data, ["plan.expireDate"]);
+      this.jobs = response.data.data.sort((a, b) => {
+        return (
+          new Date(b.plan.expireDate).valueOf() -
+          new Date(a.plan.expireDate).valueOf()
+        );
+      });
+
       this.loading = false;
     },
   },

@@ -6,7 +6,7 @@
       'job-item > active':
         new Date(job.plan?.expireDate) >= new Date() && showPlanExpireDate,
       'job-item > inactive':
-        job.plan === undefined || new Date(job.plan?.expireDate) < new Date(),
+        job.plan !== undefined && new Date(job.plan?.expireDate) < new Date(),
     }"
   >
     <div class="column is-narrow">
@@ -22,7 +22,11 @@
         {{ parseEscapedText(job.title) }}
 
         <template v-if="showPlanExpireDate">
-          <span v-if="planTimeRemaining" class="plan-time-diff > active"
+          <span
+            v-if="
+              planTimeRemaining && new Date(job.plan?.expireDate) >= new Date()
+            "
+            class="plan-time-diff > active"
             >Active &#183; {{ planTimeRemaining }} days remaining
           </span>
           <span v-else class="plan-time-diff > inactive">Expired</span>
@@ -105,15 +109,14 @@ export default Vue.extend({
     },
 
     showPlanExpireDate() {
-      return this.$route.path !== "/";
+      return this.job.plan && this.$route.path !== "/";
     },
 
     formattedCreatedAt() {
-      const updatedAt = this.job.plan?._id
-        ? this.job.plan._id.updatedAt
-        : this.job.createdAt;
+      const renewedDate = this.job.plan?.planRenewed;
 
-      return this.$dayjs(updatedAt).fromNow();
+      console.log(renewedDate);
+      return renewedDate ? this.$dayjs(renewedDate).fromNow() : "";
     },
 
     // TODO: put global function

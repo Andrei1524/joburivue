@@ -50,7 +50,7 @@
               expanded
               @click="handleSubmit(submit)"
             >
-              Intră in cont
+              {{ $t("app.auth.login") }}
             </b-button>
 
             <div class="reset-pass">

@@ -98,10 +98,6 @@ export default Vue.extend({
     },
   },
 
-  created() {
-    console.log(this.$auth.loggedIn);
-  },
-
   methods: {
     async logout() {
       await this.$auth.logout({
