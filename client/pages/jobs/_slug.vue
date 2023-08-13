@@ -107,10 +107,12 @@ import {
 
 export default Vue.extend({
   name: "AppJobPage",
+
   components: {
     AppHero,
     AppSkeletonLoading,
   },
+  layout: "default",
   transition: {
     mode: "out-in",
   },

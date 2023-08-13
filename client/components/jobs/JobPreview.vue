@@ -36,6 +36,7 @@
             {{ $t("app.general.edit_job") }}
           </b-button>
           <b-button
+            :disabled="new Date(job.plan?.expireDate) >= new Date()"
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
             size="is-medium"
