@@ -113,9 +113,6 @@ export default Vue.extend({
     AppSkeletonLoading,
   },
   layout: "default",
-  transition: {
-    mode: "out-in",
-  },
 
   data() {
     return {
