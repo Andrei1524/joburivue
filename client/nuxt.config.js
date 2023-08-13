@@ -154,6 +154,14 @@ export default {
   build: {
     postcss: null,
     transpile: ["vee-validate/dist/rules"],
+    extend(config, { isDev, isClient }) {
+      if (isClient) {
+        config.node = {
+          fs: "empty",
+          child_process: "empty",
+        };
+      }
+    },
   },
 
   transpileDependencies: ["vuex-persist"],

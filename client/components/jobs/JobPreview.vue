@@ -20,7 +20,7 @@
             {{ $t("app.companies.description") }}
           </h3>
           <hr class="my-1" />
-          <div v-html="parseTextWithBulmaTags(job.description)"></div>
+          <div v-html="parseEscapedText(job.description)"></div>
         </div>
 
         <div class="buttons is-flex is-justify-content-space-between">
@@ -58,7 +58,6 @@ import {
   formatRemoteType,
   formatJobType,
   parseEscapedText,
-  parseTextWithBulmaTags,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -87,7 +86,6 @@ export default Vue.extend({
     formatRemoteType,
     formatJobType,
     parseEscapedText,
-    parseTextWithBulmaTags,
 
     fetchJob() {
       const { query } = this.$route;
