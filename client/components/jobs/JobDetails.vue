@@ -388,7 +388,7 @@ export default Vue.extend({
       // if form is not changed do not call POST req
       if (_.isEqual(this.form, this.formClone)) {
         return this.$router.push(
-          `/jobs/create?id=${this.form.jobId}&option=preview`
+          `/add-job?id=${this.form.jobId}&option=preview`
         );
       }
 
@@ -398,7 +398,7 @@ export default Vue.extend({
         this.loadingSubmit = false;
 
         await this.$router.push(
-          `/jobs/create?id=${createdJob.jobId}&option=preview`
+          `/add-job?id=${createdJob.jobId}&option=preview`
         );
       } catch (error) {
         this.loadingSubmit = false;

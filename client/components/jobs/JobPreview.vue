@@ -29,9 +29,7 @@
             icon-right="arrow-left-bold"
             size="is-medium"
             type="is-primary"
-            @click="
-              $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
-            "
+            @click="$router.push(`/add-job?id=${$route.query.id}&option=edit`)"
           >
             {{ $t("app.general.edit_job") }}
           </b-button>
@@ -42,7 +40,7 @@
             size="is-medium"
             type="is-primary"
             @click="
-              $router.push(`/jobs/create?id=${$route.query.id}&option=checkout`)
+              $router.push(`/add-job?id=${$route.query.id}&option=checkout`)
             "
           >
             {{ $t("app.general.finish") }}

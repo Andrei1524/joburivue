@@ -141,10 +141,9 @@ export default Vue.extend({
         textarea.innerHTML = inputStr;
         return textarea.value;
       }
-
       switch (routeName) {
-        case "jobs-list":
-          return `/jobs/create?id=${this.job.jobId}&option=preview`;
+        case "account-jobs-list":
+          return `/add-job?id=${this.job.jobId}&option=preview`;
 
         default:
           return `/jobs/${decodeEntity(this.job.title)
