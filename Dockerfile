@@ -6,9 +6,10 @@ WORKDIR /app
 #only copy if new packages were installed in local PC
 # * is to copy package.lock
 COPY package*.json ./
+RUN npm install
 
 COPY client/package*.json client/
-RUN npm run install-client --only=production
+RUN npm run install-client
 
 COPY server/package*.json server/
 COPY server/tsconfig.json /server/
@@ -26,6 +27,10 @@ RUN npm run deploy
 
 # port
 EXPOSE 3000
+EXPOSE 4000
+
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
 
 RUN mkdir -p ./uploads
 RUN chown node ./uploads
