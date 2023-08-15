@@ -20,7 +20,7 @@
             {{ $t("app.companies.description") }}
           </h3>
           <hr class="my-1" />
-          <div v-html="parseTextWithBulmaTags(job.description)"></div>
+          <div v-html="parseEscapedText(job.description)"></div>
         </div>
 
         <div class="buttons is-flex is-justify-content-space-between">
@@ -29,19 +29,18 @@
             icon-right="arrow-left-bold"
             size="is-medium"
             type="is-primary"
-            @click="
-              $router.push(`/jobs/create?id=${$route.query.id}&option=edit`)
-            "
+            @click="$router.push(`/add-job?id=${$route.query.id}&option=edit`)"
           >
             {{ $t("app.general.edit_job") }}
           </b-button>
           <b-button
+            :disabled="new Date(job.plan?.expireDate) >= new Date()"
             class="orange-btn mt-5"
             icon-left="arrow-right-bold"
             size="is-medium"
             type="is-primary"
             @click="
-              $router.push(`/jobs/create?id=${$route.query.id}&option=checkout`)
+              $router.push(`/add-job?id=${$route.query.id}&option=checkout`)
             "
           >
             {{ $t("app.general.finish") }}
@@ -59,7 +58,6 @@ import {
   formatRemoteType,
   formatJobType,
   parseEscapedText,
-  parseTextWithBulmaTags,
 } from "~/utils/jobs";
 
 export default Vue.extend({
@@ -88,7 +86,6 @@ export default Vue.extend({
     formatRemoteType,
     formatJobType,
     parseEscapedText,
-    parseTextWithBulmaTags,
 
     fetchJob() {
       const { query } = this.$route;

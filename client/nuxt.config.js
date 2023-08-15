@@ -1,6 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: "static",
+  target: "server",
+  mode: "universal",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -46,7 +47,7 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -58,6 +59,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     ["nuxt-buefy", { css: false }],
+    ["@nuxt/http"],
     "@nuxtjs/axios",
     "nuxt-leaflet",
     "@nuxtjs/auth-next",

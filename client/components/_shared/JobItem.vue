@@ -113,10 +113,9 @@ export default Vue.extend({
     },
 
     formattedCreatedAt() {
-      const renewedDate = this.job.plan?.planRenewed;
-
-      console.log(renewedDate);
-      return renewedDate ? this.$dayjs(renewedDate).fromNow() : "";
+      return this.job.plan?.planRenewed
+        ? this.$dayjs(this.job.plan?.planRenewed).fromNow()
+        : "";
     },
 
     // TODO: put global function
@@ -142,10 +141,9 @@ export default Vue.extend({
         textarea.innerHTML = inputStr;
         return textarea.value;
       }
-
       switch (routeName) {
-        case "jobs-list":
-          return `/jobs/create?id=${this.job.jobId}&option=preview`;
+        case "account-jobs-list":
+          return `/add-job?id=${this.job.jobId}&option=preview`;
 
         default:
           return `/jobs/${decodeEntity(this.job.title)

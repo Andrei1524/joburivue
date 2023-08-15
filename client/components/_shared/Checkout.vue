@@ -40,7 +40,7 @@ export default Vue.extend({
 
     this.$nuxt.$on("choosePlan", (plan) => {
       // console.log(plan);
-      this.cancelURL = `${location.origin}/jobs/create?id=${query.id}&option=checkout`;
+      this.cancelURL = `${location.origin}/add-job?id=${query.id}&option=checkout`;
       this.lineItems[0].price = plan.api_id;
       this.selectedPlan = plan.title;
       this.$refs.checkoutRef.redirectToCheckout();

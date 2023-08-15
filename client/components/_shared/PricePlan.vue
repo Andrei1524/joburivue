@@ -64,7 +64,7 @@ export default Vue.extend({
 
         this.$nuxt.$emit("choosePlan", plan);
       } else {
-        this.$router.push("/jobs/create");
+        this.$router.push("/add-job");
       }
     },
   },

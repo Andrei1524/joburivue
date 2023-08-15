@@ -2,7 +2,7 @@
   <div>
     <AppHero>
       <div>
-        <div v-if="!loading" class="is-flex is-justify-content-space-between">
+        <div v-if="job" class="is-flex is-justify-content-space-between">
           <div class="is-flex">
             <figure class="image is-48x48 mr-2">
               <img :src="returnServerHostUrl + job.company?.logo" />
@@ -15,6 +15,7 @@
               </h3>
             </div>
           </div>
+
           <div>
             <h2 class="title is-4 mb-0">{{ formatJobType(job.type) }}</h2>
             <h3 class="is-3">
@@ -28,30 +29,30 @@
             </h3>
           </div>
         </div>
-        <AppSkeletonLoading :loading="loading" />
+        <AppSkeletonLoading :loading="job === null" />
       </div>
     </AppHero>
 
     <!-- job content -->
     <div class="container is-max-desktop px-5 py-2">
-      <div v-if="!loading">
+      <div v-if="!job">
         <div>
           <h3 class="is-size-4 mb-0 mt-2">Descriere companie</h3>
           <hr class="my-1" />
-          <p v-html="parseTextWithBulmaTags(job.company.description)"></p>
+          <p v-html="parseEscapedText(job.company.description)"></p>
         </div>
         <div class="mt-4">
           <h3 class="is-size-4 mb-0 mt-2">Descriere job</h3>
           <hr class="my-1" />
-          <p v-html="parseTextWithBulmaTags(job.description)"></p>
+          <p v-html="parseEscapedText(job.description)"></p>
         </div>
       </div>
 
-      <AppSkeletonLoading :loading="loading" class="mt-4" />
+      <AppSkeletonLoading :loading="job === null" class="mt-4" />
 
       <!-- skills & apply -->
       <div
-        v-if="!loading"
+        v-if="job"
         class="is-flex is-justify-content-space-between is-align-items-center mt-6"
       >
         <div class="skills w-50">
@@ -85,7 +86,7 @@
           </b-button>
         </div>
       </div>
-      <AppSkeletonLoading :bars="3" :loading="loading" />
+      <AppSkeletonLoading :bars="3" :loading="job === null" />
     </div>
   </div>
 </template>
@@ -100,19 +101,25 @@ import {
   parseEscapedText,
   formatJobType,
   formatRemoteType,
-  parseTextWithBulmaTags,
   formatCurrencySign,
   formatMoney,
 } from "~/utils/jobs";
 
 export default Vue.extend({
   name: "AppJobPage",
+
   components: {
     AppHero,
     AppSkeletonLoading,
   },
-  transition: {
-    mode: "out-in",
+  layout: "default",
+
+  async asyncData({ params, $axios }) {
+    const jobId = "b6QfaTy9";
+    // const job = await JobService.getJob(this.$axios, jobId);
+    const data = await $axios.get(`http://localhost:4000/api/v1/jobs/${jobId}`);
+    console.log(data.data);
+    return { job: data.data };
   },
 
   data() {
@@ -131,16 +138,10 @@ export default Vue.extend({
     },
   },
 
-  async created() {
-    await this.handleGetData();
-    this.loading = false;
-  },
-
   methods: {
     parseEscapedText,
     formatJobType,
     formatRemoteType,
-    parseTextWithBulmaTags,
     formatCurrencySign,
     formatMoney,
 

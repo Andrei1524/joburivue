@@ -52,8 +52,8 @@ export default Vue.extend({
 
       this.jobs = response.data.data.sort((a, b) => {
         return (
-          new Date(b.plan.expireDate).valueOf() -
-          new Date(a.plan.expireDate).valueOf()
+          new Date(b.plan?.expireDate).valueOf() -
+          new Date(a.plan?.expireDate).valueOf()
         );
       });
 

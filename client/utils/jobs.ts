@@ -22,27 +22,13 @@ export const formatJobType = (jobType) => {
 };
 
 export const parseEscapedText = (escapedText) => {
-  const parser = new DOMParser();
-  const dom = parser.parseFromString(
-    "<!doctype html><body>" + escapedText,
-    "text/html"
-  );
-
-  return dom.body.textContent;
-};
-
-export const parseTextWithBulmaTags = (text) => {
-  const description = parseEscapedText(text);
-  let parsedDecr;
-  if (description) {
-    parsedDecr = description
-      .replaceAll("<h1>", "<h1 class='is-size-2'>")
-      .replaceAll("<h2>", "<h2 class='is-size-3'>")
-      .replaceAll("<h3>", "<h2 class='is-size-4'>")
-      .replaceAll("<h4>", "<h2 class='is-size-5'>")
-      .replaceAll("<h5>", "<h2 class='is-size-6'>");
-  }
-  return parsedDecr;
+  return escapedText;
+  // const parser = new DOMParser();
+  // const dom = parser.parseFromString(
+  //   "<!doctype html><body>" + escapedText,
+  //   "text/html"
+  // );
+  // return dom.body.textContent;
 };
 
 export const formatMoney = (value: number) => {

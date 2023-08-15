@@ -15,7 +15,7 @@
 
     <template #end>
       <div class="is-flex is-align-items-center">
-        <b-navbar-item :to="{ path: '/jobs/create' }" tag="router-link">
+        <b-navbar-item :to="{ path: '/add-job' }" tag="router-link">
           <b-button type="is-primary">
             {{ $t("app.buttons.add_job") }}
           </b-button>
@@ -50,11 +50,11 @@
             {{ $t("app.general.vue_profile") }}
           </b-navbar-item>
           <hr class="dropdown-divider my-2" />
-          <b-navbar-item :to="{ path: '/jobs/list' }" tag="router-link">
+          <b-navbar-item :to="{ path: '/account/jobs-list' }" tag="router-link">
             <b-icon class="mr-1" icon="briefcase" />
             {{ $t("app.general.my_jobs") }}
           </b-navbar-item>
-          <b-navbar-item :to="{ path: '/companies' }" tag="router-link">
+          <b-navbar-item :to="{ path: '/account/companies' }" tag="router-link">
             <b-icon class="mr-1" icon="domain" />
             {{ $t("app.general.companies") }}
           </b-navbar-item>
