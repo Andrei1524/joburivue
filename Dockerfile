@@ -25,7 +25,7 @@ RUN npm run deploy
 ## use this USER for security (least permission node user has)
 
 # port
-EXPOSE 4000
+EXPOSE 3000
 
 RUN mkdir -p ./uploads
 RUN chown node ./uploads
