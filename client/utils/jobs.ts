@@ -1,5 +1,3 @@
-import { parse } from "node-html-parser";
-
 export const formatRemoteType = (type: string) => {
   if (type === "remote_allowed") {
     return "Remote Allowed";
@@ -24,7 +22,13 @@ export const formatJobType = (jobType) => {
 };
 
 export const parseEscapedText = (escapedText) => {
-  return parse(escapedText);
+  return escapedText;
+  // const parser = new DOMParser();
+  // const dom = parser.parseFromString(
+  //   "<!doctype html><body>" + escapedText,
+  //   "text/html"
+  // );
+  // return dom.body.textContent;
 };
 
 export const formatMoney = (value: number) => {

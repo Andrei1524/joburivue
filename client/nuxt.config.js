@@ -1,7 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: "server",
-  ssr: true,
+  mode: "universal",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -59,6 +59,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     ["nuxt-buefy", { css: false }],
+    ["@nuxt/http"],
     "@nuxtjs/axios",
     "nuxt-leaflet",
     "@nuxtjs/auth-next",
@@ -154,14 +155,6 @@ export default {
   build: {
     postcss: null,
     transpile: ["vee-validate/dist/rules"],
-    extend(config, { isDev, isClient }) {
-      if (isClient) {
-        config.node = {
-          fs: "empty",
-          child_process: "empty",
-        };
-      }
-    },
   },
 
   transpileDependencies: ["vuex-persist"],
