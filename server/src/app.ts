@@ -24,14 +24,15 @@ app.use((req, res, next) => {
 });
 
 // server public nuxt code
-app.use(express.static(path.join(__dirname, '..', 'dist')));
+// app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // serve public uploads folder
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/v1', api);
-app.get('/*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
-});
+
+// app.get('/*', (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
+// });
 
 export = app;
