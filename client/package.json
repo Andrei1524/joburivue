@@ -11,7 +11,15 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/google-fonts": "^3.0.2",
+    "@nuxtjs/i18n": "^8.0.0-rc.3",
+    "@nuxtjs/tailwindcss": "^6.8.0",
     "@types/node": "^18.17.3",
     "nuxt": "^3.6.5"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "daisyui": "^3.5.1",
+    "pinia": "^2.1.6"
   }
 }

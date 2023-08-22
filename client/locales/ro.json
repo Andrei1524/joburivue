@@ -1,0 +1,112 @@
+{
+  "app": {
+    "navbar": {
+      "jobs": "Joburi",
+      "about": "Despre",
+      "prices": "Preturi"
+    },
+    "buttons": {
+      "add_job": "Adauga Job",
+      "login_signup": "Intră in cont / Creează cont"
+    },
+    "general": {
+      "account": "Cont",
+      "vue_profile": "Profil VueJS",
+      "my_jobs": "Joburile mele",
+      "companies": "Companiile mele",
+      "logout": "Logout",
+      "see_all_jobs": "Vezi toate joburile",
+      "edit": "Editeaza",
+      "edit_job": "Editeaza jobul",
+      "delete": "Sterge",
+      "save": "Salveaza",
+      "finish": " Finalizează",
+      "company": "Companie",
+      "position": "Pozitie",
+      "job_title": "Titlu job",
+      "add_title": "Adauga Titlul Jobului",
+      "job_type": "Tipul Jobului",
+      "select_a_type": "Selecteaza un tip",
+      "job_level": "Nivel job (optional)",
+      "select_a_level": "Selecteaza un nivel",
+      "describe_job_clear": "Descrie jobul cat mai clar!",
+      "job_location": "Locatia jobului",
+      "add_a_location": "Adauga o locatie",
+      "application": "Aplicare",
+      "application_link": "Link aplicare",
+      "application_label": "Trimiteți aplicațiile la această adresă de e-mail sau furnizați adrese URL.",
+      "compensation": "Compensare",
+      "currency": "Valuta",
+      "minimum_salary": "Salariu minim",
+      "maximum_salary": "Salariu maxim",
+      "add_min_salary": "Adauga un salariu minim",
+      "add_max_salary": "Adauga un salariu maxim",
+      "select_currency": "Alege o valuta",
+      "save_and_preview": "Salveaza si previzualizeaza!",
+      "labels": {
+        "search_jobs": "Cauta joburi",
+        "search": "Cauta",
+        "search_label": "Locatie, tip job..."
+      }
+    },
+    "landing": {
+      "text": {
+        "landing_message": "Descoperă oportunități de carieră Vue-tiful și conectează-te cu companii pasionate de VueJS!",
+        "recommended_companies": "Companii Recomandate"
+      }
+    },
+    "pricing": {
+      "services_list_benefits": "List of services and benefits",
+      "choose_a_plan_which_suits_you": "Choose a plan which suits you",
+      "plans": {
+        "job_active_35_days": "Job activ timp de 35 zile.",
+        "included_in_promovation_campaigns": "Inclus in campaniile de promovare (facebook, twitter, instagram)",
+        "listed_in_weekly_newsletter": "Listat in weekly newsletter.",
+        "job_active_60_days": "Job activ timp de 60 zile.",
+        "job_fixed_in_search_based_by_relevant_searches": "Job “fixat” in primele cautari bazat pe cautari relevante",
+        "job_in_recommended_comapnies": "Afisat in “Companii recomandate” pe prima pagina"
+      },
+      "choose_plan": "Alege un plan!"
+    },
+    "account": {
+      "account_settings": "Setările contului"
+    },
+    "jobs": {
+      "created_jobs": "Joburi create",
+      "jobs": "Joburi",
+      "add_a_job": "Adauga un job",
+      "job_details": "Detalii Job",
+      "job_preview": "Previzualizare job",
+      "job_checkout": "Plata"
+    },
+    "companies": {
+      "my_companies": "Companiile mele",
+      "create_a_comapny": "Creeaza o companie",
+      "company_name": "Nume companie",
+      "website": "Website",
+      "description": "Descriere"
+    },
+    "footer": {
+      "about_vuejobs": "Despre JoburiVue",
+      "terms_and_policies": "Termeni și Politici",
+      "referal": "Afiliere",
+      "contact": "Contact",
+      "terms_and_conditions": "Termeni si Conditii",
+      "lets_talk": "Let's talk!"
+    },
+    "auth": {
+      "sign_in_account_message": "Intră în contul tău",
+      "email": "Email",
+      "password": "Parola",
+      "confirm_password": "Confirmă Parola",
+      "login": "Intră in cont",
+      "signup": "Creează cont",
+      "forgot_password": "   Ti-ai uitat parola?",
+      "reset_password_here": "Resetați parola aici!",
+      "no_account": "Nu ai un cont?",
+      "create_an_account": "Creează-ti un cont!",
+      "name": "Nume",
+      "send_weekly_message": "Trimite-mi săptămânal alerte de locuri de muncă și alte e-mailuri legate de Vue.js"
+    }
+  }
+}

@@ -1,7 +1,5 @@
 <template>
   <div>
-    dynamic job page test
-
     {{ data }}
   </div>
 </template>
