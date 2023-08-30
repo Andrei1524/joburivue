@@ -2,12 +2,16 @@
   <div class="container mx-auto py-2">
     <div class="navbar bg-base-100 p-0 px-10">
       <div class="flex-1">
-        <Logo />
+        <Logo @click="navigateTo('/')" />
       </div>
       <div class="flex-none space-x-6">
-        <AppPrimaryButton />
-
-        <div class="flex flex-row items-center">
+        <AppButton :text="$t('app.buttons.add_job')" />
+        <AppButton
+          @click="navigateTo('/login')"
+          :text="$t('app.buttons.login_signup')"
+        >
+        </AppButton>
+        <div v-if="user" class="flex flex-row items-center">
           <span class="item-center pr-3">Mandrican andrei</span>
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -37,6 +41,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { user } = useAuthStore();
+</script>
 
 <style scoped></style>

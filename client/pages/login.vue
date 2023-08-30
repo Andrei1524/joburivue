@@ -1,37 +1,53 @@
 <template>
-  <div class="login-page">
-    <h1 class="title is-1 has-text-centered">
+  <div class="login-page container mx-auto">
+    <h1 class="text-3xl text-center">
       {{ $t('app.auth.sign_in_account_message') }}
     </h1>
-    <div class="container is-max-desktop login">
-      <div class="box mt-4">
-        <div class="login">
-          email input password input button
+    <div>
+      <Form v-slot="{ errors }" @submit="onSubmit">
+        <Field name="email" :rules="required" />
 
-          <div class="reset-pass">
-            <p class="mt-4">
-              {{ $t('app.auth.forgot_password') }}
-              <a href="#">{{ $t('app.auth.reset_password_here') }}</a>
-            </p>
-          </div>
+        <span>{{ errors.email }}</span>
 
-          <hr />
-
-          <div class="register-acc">
-            <h5 class="title is-5 mt-2 mb-3">
-              {{ $t('app.auth.no_account') }}
-            </h5>
-            create acc butn
-          </div>
+        <div class="reset-pass">
+          <p class="mt-4">
+            {{ $t('app.auth.forgot_password') }}
+            <a href="#">{{ $t('app.auth.reset_password_here') }}</a>
+          </p>
         </div>
-      </div>
+
+        <hr />
+
+        <div class="register-acc">
+          <h5 class="title is-5 mt-2 mb-3">
+            {{ $t('app.auth.no_account') }}
+          </h5>
+          <AppButton
+            :btn-bg="'bg-orange'"
+            :text="$t('app.auth.create_an_account')"
+          />
+        </div>
+      </Form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { $api } = useNuxtApp();
-const data = await $api.AuthService.registerUser();
+// const { $api } = useNuxtApp();
+// const data = await $api.AuthService.registerUser();
+
+import { Field, Form } from 'vee-validate';
+
+// Validation, or use `yup` or `zod`
+function required(value) {
+  return value ? true : 'This field is required';
+}
+
+// Submit handler
+function onSubmit(values) {
+  // Submit to API
+  console.log(values);
+}
 </script>
 
 <style scoped></style>

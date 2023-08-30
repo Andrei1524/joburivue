@@ -3,7 +3,7 @@
     <h1
       :class="[
         invertColors ? 'text-basic-white' : 'text-yankees-blue',
-        'text-3xl',
+        'text-3xl select-none cursor-pointer',
       ]"
     >
       Joburi<span :class="invertColors ? 'text-basic-white' : 'text-queen-blue'"

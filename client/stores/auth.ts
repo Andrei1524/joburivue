@@ -7,9 +7,3 @@ export const useAuthStore = defineStore('auth', () => {
 
   return { user, setUser };
 });
-
-// In Setup Stores:
-
-// ref()s become state properties
-// computed()s become getters
-// function()s become actions

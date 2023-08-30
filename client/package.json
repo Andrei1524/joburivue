@@ -20,6 +20,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
     "daisyui": "^3.5.1",
-    "pinia": "^2.1.6"
+    "pinia": "^2.1.6",
+    "vee-validate": "^4.11.3"
   }
 }
