@@ -34,7 +34,7 @@
                 </a>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li @click="logout()"><a>Logout</a></li>
             </ul>
           </div>
         </div>
@@ -83,8 +83,17 @@
 </template>
 
 <script setup lang="ts">
-const { user, isAuthenticated } = useAuthStore();
+const { user, isAuthenticated, clearAuthStates } = useAuthStore();
+const { $api } = useNuxtApp();
+
 const isMobileNavOpen = ref(false);
+
+async function logout() {
+  try {
+    await $api.AuthService.logout();
+    clearAuthStates();
+  } catch (error) {}
+}
 </script>
 
 <style scoped>

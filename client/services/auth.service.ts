@@ -15,7 +15,13 @@ const AuthService = {
   getCurrentUser: async (accessToken: string) => {
     const { pending, error, data } = await useFetchData('/auth/me', {
       method: 'get',
-      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return { pending, error, data };
+  },
+
+  logout: async () => {
+    const { pending, error, data } = await useFetchData('/auth/logout', {
+      method: 'post',
     });
     return { pending, error, data };
   },

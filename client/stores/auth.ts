@@ -7,14 +7,30 @@ export const useAuthStore = defineStore('auth', () => {
   const accessToken = ref();
   const refreshToken = ref();
 
+  //  AUTH COOKIES
+  const userCookie = useCookie('user', {
+    maxAge: 604800,
+  });
+
+  const accessTokenCookie = useCookie('accessToken', {
+    httpOnly: config.public.NODE_ENV === 'dev' ? false : true,
+    secure: config.public.NODE_ENV === 'dev' ? false : true,
+    maxAge: 604800,
+  });
+
+  // TODO: set max age
+  const refreshTokenCookie = useCookie('refreshToken', {
+    httpOnly: config.public.NODE_ENV === 'dev' ? false : true,
+    secure: config.public.NODE_ENV === 'dev' ? false : true,
+    maxAge: 60 * 60 * 24 * 30,
+  });
+
   function setUser(data: any, saveInCookies = false) {
     user.value = data;
 
     if (saveInCookies) {
       // set user in local storage for persisting of usage
-      const userCookie = useCookie('user', {
-        maxAge: 604800,
-      });
+
       userCookie.value = data;
     }
   }
@@ -23,12 +39,6 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken.value = data;
 
     if (saveInCookies) {
-      // TODO: set max age
-      const accessTokenCookie = useCookie('accessToken', {
-        httpOnly: config.public.NODE_ENV === 'dev' ? false : true,
-        secure: config.public.NODE_ENV === 'dev' ? false : true,
-        maxAge: 604800,
-      });
       accessTokenCookie.value = data;
     }
   }
@@ -37,19 +47,22 @@ export const useAuthStore = defineStore('auth', () => {
     refreshToken.value = data;
 
     if (saveInCookies) {
-      // TODO: set max age
-      const refreshTokenCookie = useCookie('refreshToken', {
-        httpOnly: config.public.NODE_ENV === 'dev' ? false : true,
-        secure: config.public.NODE_ENV === 'dev' ? false : true,
-        maxAge: 60 * 60 * 24 * 30,
-      });
-
       refreshTokenCookie.value = data;
     }
   }
 
   function isAuthenticated() {
     return user.value && Object.keys(user.value).length !== 0;
+  }
+
+  function clearAuthStates() {
+    user.value = {} as UserInterface;
+    accessToken.value = undefined;
+    refreshToken.value = undefined;
+
+    userCookie.value = undefined;
+    accessTokenCookie.value = undefined;
+    refreshTokenCookie.value = undefined;
   }
 
   return {
@@ -60,5 +73,6 @@ export const useAuthStore = defineStore('auth', () => {
     setAccessToken,
     setRefreshToken,
     isAuthenticated,
+    clearAuthStates,
   };
 });
