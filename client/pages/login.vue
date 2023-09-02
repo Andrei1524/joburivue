@@ -1,33 +1,75 @@
 <template>
   <div class="login-page container mx-auto">
-    <h1 class="text-3xl text-center">
+    <h1 class="text-5xl mt-5 text-center font-bold">
       {{ $t('app.auth.sign_in_account_message') }}
     </h1>
     <div>
-      <Form v-slot="{ errors }" @submit="onSubmit">
-        <Field name="email" :rules="required" />
+      <div class="hero min-h-[60vh]">
+        <div class="hero-content flex-col w-full">
+          <div
+            class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:w-[400px]"
+          >
+            <div class="card-body">
+              <Form v-slot="{ errors }" @submit="onSubmit">
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-bold">Email</span>
+                    <span class="text-orange text-sm">{{ errors.email }}</span>
+                  </label>
 
-        <span>{{ errors.email }}</span>
+                  <Field
+                    class="input input-bordered"
+                    name="email"
+                    rules="required|email"
+                    placeholder="johndoe@gmail.com"
+                  />
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text font-bold">Password</span>
+                    <span class="text-orange text-sm">{{
+                      errors.password
+                    }}</span>
+                  </label>
 
-        <div class="reset-pass">
-          <p class="mt-4">
-            {{ $t('app.auth.forgot_password') }}
-            <a href="#">{{ $t('app.auth.reset_password_here') }}</a>
-          </p>
+                  <Field
+                    class="input input-bordered"
+                    name="password"
+                    rules="required|min:6"
+                    placeholder="password123"
+                  />
+                  <label class="label">
+                    <a href="#" class="label-text-alt link link-hover"
+                      >Forgot password?</a
+                    >
+                  </label>
+                </div>
+                <div class="form-control mt-2">
+                  <AppButton
+                    :btn-bg="'bg-orange'"
+                    :text="$t('app.auth.login')"
+                  />
+                </div>
+
+                <div class="divider"></div>
+
+                <div>
+                  <h5 class="text-lg font-bold">
+                    {{ $t('app.auth.no_account') }}
+                  </h5>
+
+                  <div class="form-control mt-2">
+                    <AppButton
+                      :btn-bg="'bg-chambray-blue'"
+                      :text="$t('app.auth.create_an_account')"
+                    />
+                  </div>
+                </div>
+              </Form>
+            </div>
+          </div>
         </div>
-
-        <hr />
-
-        <div class="register-acc">
-          <h5 class="title is-5 mt-2 mb-3">
-            {{ $t('app.auth.no_account') }}
-          </h5>
-          <AppButton
-            :btn-bg="'bg-orange'"
-            :text="$t('app.auth.create_an_account')"
-          />
-        </div>
-      </Form>
+      </div>
     </div>
   </div>
 </template>
@@ -37,11 +79,6 @@
 // const data = await $api.AuthService.registerUser();
 
 import { Field, Form } from 'vee-validate';
-
-// Validation, or use `yup` or `zod`
-function required(value) {
-  return value ? true : 'This field is required';
-}
 
 // Submit handler
 function onSubmit(values) {

@@ -1,10 +1,11 @@
 <template>
-  <div class="container mx-auto py-2">
-    <div class="navbar bg-base-100 p-0 px-10">
+  <div class="container my-0 py-2 bg-white min-w-full">
+    <div class="navbar p-0 px-10">
       <div class="flex-1">
         <Logo @click="navigateTo('/')" />
       </div>
-      <div class="flex-none space-x-6">
+
+      <div class="flex-none space-x-6 hidden sm:block">
         <AppButton :text="$t('app.buttons.add_job')" />
         <AppButton
           @click="navigateTo('/login')"
@@ -37,12 +38,65 @@
           </div>
         </div>
       </div>
+
+      <div class="sm-block sm:hidden">
+        <label
+          @click="isMobileNavOpen = !isMobileNavOpen"
+          tabindex="0"
+          class="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
+        <div
+          v-show="isMobileNavOpen"
+          @click="isMobileNavOpen = !isMobileNavOpen"
+          class="menu menu-sm dropdown-content !fixed bg-basic-white min-h-full w-full left-0 top-[80px] z-[2] mobile-nav-bg-image"
+        >
+          <span
+            class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
+            >{{ $t('app.buttons.add_job') }}</span
+          >
+          <span
+            class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
+            @click="navigateTo('/login')"
+          >
+            {{ $t('app.buttons.login_signup') }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const { user } = useAuthStore();
+const isMobileNavOpen = ref(false);
 </script>
 
-<style scoped></style>
+<style scoped>
+.mobile-nav-link {
+  color: #ffffff;
+  padding-right: 12px;
+
+  border-radius: 4px;
+}
+
+.mobile-nav-bg-image {
+  background-image: url(https://media3.giphy.com/media/26xBFB9pA6Rjv2s7u/giphy.gif?cid=ecf05e470rhn5y4yvno010svtlc7ugtf06r5zw3o0c2992s4&ep=v1_gifs_search&rid=giphy.gif&ct=g);
+  background-position: center;
+  background-size: cover;
+}
+</style>
