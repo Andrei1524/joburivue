@@ -1,9 +1,33 @@
-export const useAuthStore = defineStore('auth', () => {
-  const user = ref();
+import { UserInterface } from 'interfaces/general';
 
-  function setUser(user) {
-    user.value = user;
+export const useAuthStore = defineStore('auth', () => {
+  let user = reactive({ value: {} as UserInterface });
+  const accessToken = ref();
+  const refreshToken = ref();
+
+  function setUser(data: any) {
+    user.value = data;
   }
 
-  return { user, setUser };
+  function setAccessToken(data: string) {
+    accessToken.value = data;
+  }
+
+  function setRefreshToken(data: string) {
+    refreshToken.value = data;
+  }
+
+  function isAuthenticated() {
+    return Object.keys(user.value).length !== 0;
+  }
+
+  return {
+    user,
+    setUser,
+    accessToken,
+    refreshToken,
+    setAccessToken,
+    setRefreshToken,
+    isAuthenticated,
+  };
 });

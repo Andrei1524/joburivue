@@ -3,4 +3,12 @@ interface AlertInterface {
   show: boolean;
 }
 
-export { AlertInterface };
+interface UserInterface {
+  __v: number;
+  _id: string;
+  email: string;
+  name: string;
+  refreshToken: string;
+}
+
+export { AlertInterface, UserInterface };

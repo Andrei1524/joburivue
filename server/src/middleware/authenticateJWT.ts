@@ -1,7 +1,7 @@
-import _ from "lodash";
-import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
-import User from "../model/user.model";
+import _ from 'lodash';
+import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import User from '../model/user.model';
 
 const authenticateJWT = async (
   req: Request,
@@ -11,7 +11,7 @@ const authenticateJWT = async (
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
 
     jwt.verify(
       token,
@@ -23,7 +23,7 @@ const authenticateJWT = async (
 
         // assign current user details to the req
         req.user = await User.findOne({ email: user.email })
-          .select(["-password"])
+          .select(['-password'])
           .lean()
           .exec();
 

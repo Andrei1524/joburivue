@@ -4,10 +4,18 @@ interface LoginInterface {
 }
 
 const AuthService = {
-  registerUser: async ({ email, password }: LoginInterface) => {
+  loginUser: async ({ email, password }: LoginInterface) => {
     const { pending, error, data } = await useFetchData('/auth/login', {
       method: 'post',
       body: { email, password },
+    });
+    return { pending, error, data };
+  },
+
+  getCurrentUser: async (accessToken: string) => {
+    const { pending, error, data } = await useFetchData('/auth/me', {
+      method: 'get',
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
     return { pending, error, data };
   },

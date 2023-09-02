@@ -5,17 +5,18 @@
         <Logo @click="navigateTo('/')" />
       </div>
 
-      <div class="flex-none space-x-6 hidden sm:block">
+      <div class="hidden sm:flex space-x-6">
         <AppButton :text="$t('app.buttons.add_job')" />
         <AppButton
+          v-if="!isAuthenticated()"
           @click="navigateTo('/login')"
           :text="$t('app.buttons.login_signup')"
         >
         </AppButton>
-        <div v-if="user" class="flex flex-row items-center">
-          <span class="item-center pr-3">Mandrican andrei</span>
+        <div v-if="isAuthenticated()" class="flex flex-row items-center">
           <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <label tabindex="0" class="btn avatar">
+              <span class="item-center pr-3">{{ user.value.name }}</span>
               <div class="w-10 rounded-full">
                 <img
                   src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -82,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-const { user } = useAuthStore();
+const { user, isAuthenticated } = useAuthStore();
 const isMobileNavOpen = ref(false);
 </script>
 

@@ -45,10 +45,12 @@
                   </label>
                 </div>
                 <div class="form-control mt-2">
-                  <AppButton
-                    :btn-bg="'bg-orange'"
-                    :text="$t('app.auth.login')"
-                  />
+                  <AppButton :btn-bg="'bg-orange'" :text="$t('app.auth.login')">
+                    <span
+                      v-if="loading"
+                      class="loading loading-ring loading-sm"
+                    ></span>
+                  </AppButton>
                 </div>
 
                 <div class="divider"></div>
@@ -75,16 +77,39 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'guest',
+});
+
 const { $api } = useNuxtApp();
+const authStore = useAuthStore();
 
 import { Field, Form } from 'vee-validate';
+const loading = ref(false);
 
 // Submit handler
 async function onSubmit(values) {
-  // Submit to API
-  const res = await $api.AuthService.registerUser({ ...values });
+  if (loading.value) return;
 
-  console.log(res);
+  // Submit to API
+  loading.value = true;
+
+  try {
+    // set auth tokens
+    const { data } = await $api.AuthService.loginUser({ ...values });
+    authStore.setAccessToken(data.value.access_token);
+    authStore.setRefreshToken(data.value.refresh_token);
+
+    //get current user
+    const userData = await $api.AuthService.getCurrentUser(
+      data.value.access_token
+    );
+
+    authStore.setUser(userData.data.value.user);
+    navigateTo('/');
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 

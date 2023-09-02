@@ -4,6 +4,7 @@
     :class="btnBg"
   >
     {{ text }}
+    <slot />
   </button>
 </template>
 
