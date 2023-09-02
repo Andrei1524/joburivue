@@ -12,7 +12,10 @@ export const useFetchData = async (url: string, config = {}) => {
   );
 
   if (error.value) {
-    generalStore.setAlert({ text: error.value.message, show: true });
+    generalStore.setAlert({
+      text: error.value.data.message || error.value.message,
+      show: true,
+    });
   }
 
   return { data, error, pending };

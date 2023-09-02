@@ -1,18 +1,18 @@
-import { NextFunction, Request, Response } from "express";
-const bcrypt = require("bcrypt");
-import * as AuthService from "../services/auth.service";
-const { check, validationResult } = require("express-validator");
-import User from "../model/user.model";
+import { NextFunction, Request, Response } from 'express';
+const bcrypt = require('bcrypt');
+import * as AuthService from '../services/auth.service';
+const { check, validationResult } = require('express-validator');
+import User from '../model/user.model';
 
 const registerValidate = [
-  check("email", "Must be a valid email address")
+  check('email', 'Must be a valid email address')
     .isEmail()
     .trim()
     .escape()
     .normalizeEmail(),
-  check("password")
+  check('password')
     .isLength({ min: 8 })
-    .withMessage("Password Must Be at Least 8 Characters")
+    .withMessage('Password Must Be at Least 8 Characters')
     // .matches("[0-9]")
     // .withMessage("Password Must Contain a Number")
     // .matches("[A-Z]")
@@ -20,18 +20,18 @@ const registerValidate = [
     .trim()
     .escape()
     .exists(),
-  check("confirmPassword", "Parolele trebuie sa fie la fel")
+  check('confirmPassword', 'Parolele trebuie sa fie la fel')
     .exists()
     .custom((value: string, { req }: any) => value === req.body.password),
 ];
 
 const loginValidate = [
-  check("email", "Must be a valid email address")
+  check('email', 'Must be a valid email address')
     .isEmail()
     .trim()
     .escape()
     .normalizeEmail(),
-  check("password")
+  check('password')
     .not()
     .isEmpty()
     .withMessage('"Must be a valid password"')
@@ -46,7 +46,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const user = await User.findOne({ email }).exec();
 
     if (!user) {
-      throw Error("Combinația de e-mail și parolă este invalidă");
+      throw Error('Combinația de e-mail și parolă este invalidă');
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
@@ -55,7 +55,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
       const tokens = await AuthService.login(req.body);
       return res.status(200).json(tokens);
     } else {
-      throw Error("Combinația de e-mail și parolă este invalidă");
+      throw Error('Combinația de e-mail și parolă este invalidă');
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -81,7 +81,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
       .exec();
 
     if (foundUserByEmail) {
-      throw Error("Un user cu aceste credențiale deja există!");
+      throw Error('Un user cu aceste credențiale deja există!');
     }
 
     await AuthService.register(payload);
@@ -90,7 +90,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
     } else {
-      return res.status(400).json({ status: 400, message: "Unexpected error" });
+      return res.status(400).json({ status: 400, message: 'Unexpected error' });
     }
   }
 }
@@ -118,7 +118,7 @@ async function logout(req: Request, res: Response, next: NextFunction) {
     if (error instanceof Error) {
       return res.status(400).json({ status: 400, message: error.message });
     } else {
-      return res.status(400).json({ status: 400, message: "Unexpected error" });
+      return res.status(400).json({ status: 400, message: 'Unexpected error' });
     }
   }
 }
@@ -134,7 +134,7 @@ async function refreshToken(req: Request, res: Response, next: NextFunction) {
       return res.status(400).json({ status: 400, message: error.message });
     } else {
       console.log(error);
-      return res.status(400).json({ status: 400, message: "Unexpected error" });
+      return res.status(400).json({ status: 400, message: 'Unexpected error' });
     }
   }
 }

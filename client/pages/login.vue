@@ -75,15 +75,16 @@
 </template>
 
 <script setup lang="ts">
-// const { $api } = useNuxtApp();
-// const data = await $api.AuthService.registerUser();
+const { $api } = useNuxtApp();
 
 import { Field, Form } from 'vee-validate';
 
 // Submit handler
-function onSubmit(values) {
+async function onSubmit(values) {
   // Submit to API
-  console.log(values);
+  const res = await $api.AuthService.registerUser({ ...values });
+
+  console.log(res);
 }
 </script>
 

@@ -20,18 +20,17 @@
 </template>
 
 <script setup lang="ts">
-import { AlertInterface } from '~/interfaces/general';
 const generalStore = useGeneralStore();
 
-const props = defineProps<{
-  alert: AlertInterface;
-}>();
+const alert = generalStore.alert;
 
-if (props.alert!.show) {
-  setTimeout(() => {
-    generalStore.setAlert({ text: '', show: false });
-  }, 2000);
-}
+watch(alert, (newAlert) => {
+  if (alert.show) {
+    setTimeout(() => {
+      generalStore.setAlert({ text: '', show: false });
+    }, 2000);
+  }
+});
 </script>
 
 <style scoped></style>
