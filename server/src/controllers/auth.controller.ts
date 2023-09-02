@@ -46,7 +46,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const user = await User.findOne({ email }).exec();
 
     if (!user) {
-      throw Error('Combinația de e-mail și parolă este invalidă');
+      throw Error('The email and password combination is invalid');
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
@@ -55,7 +55,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
       const tokens = await AuthService.login(req.body);
       return res.status(200).json(tokens);
     } else {
-      throw Error('Combinația de e-mail și parolă este invalidă');
+      throw Error('The email and password combination is invalid');
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -81,7 +81,8 @@ async function register(req: Request, res: Response, next: NextFunction) {
       .exec();
 
     if (foundUserByEmail) {
-      throw Error('Un user cu aceste credențiale deja există!');
+      // TODO: improve by registering with an email code
+      throw Error('A user with these credentials already exists!');
     }
 
     await AuthService.register(payload);
