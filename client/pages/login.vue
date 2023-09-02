@@ -97,15 +97,15 @@ async function onSubmit(values) {
   try {
     // set auth tokens
     const { data } = await $api.AuthService.loginUser({ ...values });
-    authStore.setAccessToken(data.value.access_token);
-    authStore.setRefreshToken(data.value.refresh_token);
+    authStore.setAccessToken(data.value.access_token, true);
+    authStore.setRefreshToken(data.value.refresh_token, true);
 
     //get current user
     const userData = await $api.AuthService.getCurrentUser(
       data.value.access_token
     );
 
-    authStore.setUser(userData.data.value.user);
+    authStore.setUser(userData.data.value.user, true);
     navigateTo('/');
   } finally {
     loading.value = false;

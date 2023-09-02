@@ -49,4 +49,10 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     defaultLocale: 'en',
   },
+  runtimeConfig: {
+    // Keys within public, will be also exposed to the client-side
+    public: {
+      NODE_ENV: '',
+    },
+  },
 });

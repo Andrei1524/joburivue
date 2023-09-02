@@ -10,7 +10,7 @@
     "server": "npm run watch --prefix server",
     "client": "npm run dev --prefix client",
     "watch": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "concurrently \"node server/server-dist/server.js\" \"node server/.output/server/index.mjs\""
+    "start": "concurrently \"node server/server-dist/server.js\" \"node NUXT_PUBLIC_NODE_ENV=production server/.output/server/index.mjs\""
   },
   "author": "Mandrican Andrei <adyta094@gmail.com>",
   "license": "MIT",
