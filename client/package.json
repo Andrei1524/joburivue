@@ -16,6 +16,7 @@
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "^18.17.3",
+    "dayjs-nuxt": "^1.1.2",
     "nuxt": "^3.6.5"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@vee-validate/rules": "^4.11.3",
     "daisyui": "^3.5.1",
     "pinia": "^2.1.6",
+    "sass": "^1.66.1",
     "vee-validate": "^4.11.3"
   }
 }

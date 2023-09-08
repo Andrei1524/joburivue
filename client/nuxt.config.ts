@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   components: [
     { path: '~/components/layout' },
     { path: '~/components/buttons' },
+    { path: '~/components/_shared' },
     '~/components',
   ],
   devtools: { enabled: true },
@@ -11,6 +12,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/i18n',
     '@pinia/nuxt',
+    'dayjs-nuxt',
   ],
   imports: {
     dirs: ['./stores'],

@@ -1,7 +1,19 @@
 <template>
-  <div>homepage</div>
+  <div>
+    <section class="mt-4">
+      <JobItem
+        v-for="job in data.data"
+        :key="job._id"
+        class="mb-3"
+        :job="job"
+      />
+    </section>
+  </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+const { $api } = useNuxtApp();
+const { data } = await $api.JobService.getJobs();
+</script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
