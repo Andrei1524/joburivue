@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-0 py-2 bg-white min-w-full">
+  <div class="container bg-basic-white my-0 py-2 min-w-full">
     <div class="navbar p-0 px-10">
       <div class="flex-1">
         <Logo @click="navigateTo('/')" />
@@ -68,13 +68,13 @@
         >
           <span
             class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
-            >{{ $t('app.buttons.add_job') }}</span
+            >{{ $t("app.buttons.add_job") }}</span
           >
           <span
             class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
             @click="navigateTo('/login')"
           >
-            {{ $t('app.buttons.login_signup') }}
+            {{ $t("app.buttons.login_signup") }}
           </span>
         </div>
       </div>

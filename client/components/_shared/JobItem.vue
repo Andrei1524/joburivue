@@ -2,7 +2,7 @@
   <NuxtLink
     v-if="job"
     :to="goToJobPage()"
-    class="flex job-item items-center justify-between p-2 container mx-auto border"
+    class="flex job-item items-center justify-between p-2 container mx-auto rounded-md"
     :class="{
       'job-item > active':
         new Date(job.plan?.expireDate) >= new Date() && showPlanExpireDate(),
@@ -73,14 +73,14 @@ import {
   parseEscapedText,
   formatCurrencySign,
   formatMoney,
-} from '~/utils/jobs';
+} from "~/utils/jobs";
 
 const props = defineProps({
   job: { type: Object, required: true },
 });
 
 function planTimeRemaining() {
-  if (!props.job.plan) return '';
+  if (!props.job.plan) return "";
 
   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
   const diffDays = Math.round(
@@ -94,27 +94,27 @@ function planTimeRemaining() {
 }
 
 function showPlanExpireDate() {
-  return props.job.plan && route.path !== '/';
+  return props.job.plan && route.path !== "/";
 }
 
 function formattedCreatedAt() {
   return props.job.plan?.planRenewed
     ? dayjs(props.job.plan?.planRenewed).fromNow()
-    : '';
+    : "";
 }
 
 // TODO: put global function
 function returnServerHostUrl() {
-  return process.env.NODE_ENV === 'production'
-    ? window.location.origin + '/'
-    : 'http://localhost:4000/';
+  return process.env.NODE_ENV === "production"
+    ? window.location.origin + "/"
+    : "http://localhost:4000/";
 }
 
 function goToJobPage() {
   const routeName = route.name;
 
   switch (routeName) {
-    case 'account-jobs-list':
+    case "account-jobs-list":
       return `/add-job?id=${props.job.jobId}&option=preview`;
     default:
       return `/jobs/123`; // TODO: handle routing on job id like this: company + job title
@@ -123,8 +123,10 @@ function goToJobPage() {
 </script>
 
 <style lang="scss" scoped>
+@import "./design/variables";
+
 .job-item {
-  background-color: #fbfbfb; // TODO: replace with variable
+  background-color: #ffffff; // TODO: replace with variable
   &.active {
     border: 1px solid green;
   }

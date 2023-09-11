@@ -6,9 +6,7 @@
         'text-3xl select-none cursor-pointer',
       ]"
     >
-      Joburi<span :class="invertColors ? 'text-basic-white' : 'text-queen-blue'"
-        >V</span
-      >ue
+      Joburi<span class="text-queen-blue">V</span>ue
     </h1>
   </div>
 </template>
@@ -16,7 +14,7 @@
 <script setup lang="ts">
 const props = defineProps({
   invertColors: { type: Boolean, default: false },
-  fontSize: { type: String, default: '4' },
+  fontSize: { type: String, default: "4" },
 });
 </script>
 
