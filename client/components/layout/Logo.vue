@@ -14,7 +14,6 @@
 <script setup lang="ts">
 const props = defineProps({
   invertColors: { type: Boolean, default: false },
-  fontSize: { type: String, default: "4" },
 });
 </script>
 

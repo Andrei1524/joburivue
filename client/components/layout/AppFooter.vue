@@ -1,48 +1,45 @@
 <template>
-  <footer class="footer py-6">
-    <div class="content container is-max-desktop">
-      <div class="columns is-vcentered">
-        <div class="column is-one-fifth">
-          <Logo :invert-colors="true" :font-size="'3'" />
-        </div>
+  <footer class="footer py-6 bg-yankees-blue">
+    <div class="content container mx-auto py-6">
+      <div class="flex items-center w-full columns-4 gap-8">
+        <Logo :invert-colors="true" />
+        <ul>
+          <li>
+            <a href="#">{{ $t('app.footer.about_vuejobs') }}</a>
+          </li>
+          <li>
+            <a href="#">{{ $t('app.navbar.prices') }}</a>
+          </li>
+          <li>
+            <a href="#">{{ $t('app.footer.terms_and_policies') }}</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="#">{{ $t('app.footer.referal') }}</a>
+          </li>
+          <li>
+            <a href="#">{{ $t('app.footer.contact') }}</a>
+          </li>
+          <li>
+            <a href="#">{{ $t('app.footer.terms_and_conditions') }}</a>
+          </li>
+        </ul>
 
-        <div class="column links is-flex">
-          <ul>
-            <li>
-              <a href="#">{{ $t("app.footer.about_vuejobs") }}</a>
-            </li>
-            <li>
-              <a href="#">{{ $t("app.navbar.prices") }}</a>
-            </li>
-            <li>
-              <a href="#">{{ $t("app.footer.terms_and_policies") }}</a>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <a href="#">{{ $t("app.footer.referal") }}</a>
-            </li>
-            <li>
-              <a href="#">{{ $t("app.footer.contact") }}</a>
-            </li>
-            <li>
-              <a href="#">{{ $t("app.footer.terms_and_conditions") }}</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="column has-text-right">
-          <h4 class="lets-talk mb-0">{{ $t("app.footer.lets_talk") }}</h4>
-          <a class="mail" href="#">hello@joburivue.ro</a>
+        <div class="ml-auto">
+          <h4 class="text-orange mb-0 text-2xl font-bold">
+            {{ $t('app.footer.lets_talk') }}
+          </h4>
+          <a class="text-base !text-basic-white" href="#">hello@joburivue.ro</a>
           <div class="icons mt-2">
             <a href="#">
-              <b-icon icon="facebook" size="is-medium" />
+              <!-- <b-icon icon="facebook" size="is-medium" /> -->
             </a>
             <a href="#">
-              <b-icon icon="linkedin" size="is-medium" />
+              <!-- <b-icon icon="linkedin" size="is-medium" /> -->
             </a>
             <a href="#">
-              <b-icon icon="twitter" size="is-medium" />
+              <!-- <b-icon icon="twitter" size="is-medium" /> -->
             </a>
           </div>
         </div>
@@ -54,30 +51,14 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-@import "./design/variables";
+@import './design/variables';
 
 .footer {
-  background-color: $yankees-blue;
-
-  ul {
-    list-style-type: none;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-
-  a {
+  ul li a {
     color: $white;
     font-weight: 300;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .lets-talk {
-    color: $orange;
+    display: block;
+    margin: 10px 0;
   }
 
   .icons {
