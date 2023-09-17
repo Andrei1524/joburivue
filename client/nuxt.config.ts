@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@pinia/nuxt',
     'dayjs-nuxt',
+    'nuxt-icon',
   ],
   imports: {
     dirs: ['./stores'],

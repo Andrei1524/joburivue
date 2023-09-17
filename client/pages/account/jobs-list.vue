@@ -2,63 +2,36 @@
   <div class="jobs-list-page">
     <AppHero :title="$t('app.jobs.created_jobs')" />
 
-    <div class="container is-max-desktop login">
-      <div class="box mt-4">
-        <b-tabs v-model="activeTab" type="is-boxed" @input="handleGetJobs">
-          <b-tab-item
-            :label="$t('app.jobs.jobs')"
-            value="true"
-            icon="check-all"
-          >
-            <JobsList v-if="jobs.length" :jobs="jobs" :loading="loading" />
-          </b-tab-item>
-        </b-tabs>
+    <div class="container mx-auto my-4">
+      <div class="tabs">
+        <div class="tab tab-lifted tab-active">{{ $t('app.jobs.jobs') }}</div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import _ from 'lodash';
-import AppHero from '~/components/layout/AppHero.vue';
-import JobsList from '~/components/_shared/JobsList.vue';
+<script setup lang="ts">
+const { user } = useAuthStore();
+const { $api } = useNuxtApp();
 
-export default Vue.extend({
-  name: 'AppJobsList',
-  components: {
-    AppHero,
-    JobsList,
-  },
+const activeTab = ref(0);
+const jobs = ref([]);
+const loading = ref(false);
 
-  data() {
-    return {
-      activeTab: 0,
-      jobs: [],
-      loading: false,
-    };
-  },
+try {
+  loading.value = true;
+  const { data } = await $api.JobService.getJobsCreatedByUser(user);
 
-  async created() {
-    await this.handleGetJobs(false); // planStatus isActive -> true
-  },
-
-  methods: {
-    async handleGetJobs(planStatus: boolean) {
-      this.loading = true;
-      const response = await this.$axios.get(
-        `jobs/userJobs?userJobs=true&createdBy=${this.$auth.user._id}`
-      );
-
-      this.jobs = response.data.data.sort((a, b) => {
-        return (
-          new Date(b.plan?.expireDate).valueOf() -
-          new Date(a.plan?.expireDate).valueOf()
-        );
-      });
-
-      this.loading = false;
-    },
-  },
-});
+  const rawJobs = JSON.parse(JSON.stringify(data))._value.data;
+  jobs.value = rawJobs.sort((a, b) => {
+    return (
+      new Date(b.plan?.expireDate).valueOf() -
+      new Date(a.plan?.expireDate).valueOf()
+    );
+  });
+} catch (error) {
+  console.log(error);
+} finally {
+  loading.value = false;
+}
 </script>
