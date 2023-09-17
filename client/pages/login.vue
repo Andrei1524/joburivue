@@ -22,6 +22,7 @@
                     name="email"
                     rules="required|email"
                     placeholder="johndoe@gmail.com"
+                    type="email"
                   />
                 </div>
                 <div class="form-control">
@@ -37,6 +38,7 @@
                     name="password"
                     rules="required|min:6"
                     placeholder="password123"
+                    type="password"
                   />
                   <label class="label">
                     <a href="#" class="label-text-alt link link-hover"

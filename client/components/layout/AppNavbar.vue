@@ -13,6 +13,7 @@
           :text="$t('app.buttons.login_signup')"
         >
         </AppButton>
+
         <div v-if="isAuthenticated()" class="flex flex-row items-center">
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn avatar">
@@ -28,12 +29,13 @@
               class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a class="justify-between">
-                  Profile
-                  <span class="badge">New</span>
-                </a>
+                <NuxtLink to="/account">Account</NuxtLink>
               </li>
               <li><a>Settings</a></li>
+              <li></li>
+              <li>
+                <NuxtLink to="/account/jobs-list">Jobs</NuxtLink>
+              </li>
               <li @click="logout()"><a>Logout</a></li>
             </ul>
           </div>
@@ -68,13 +70,13 @@
         >
           <span
             class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
-            >{{ $t("app.buttons.add_job") }}</span
+            >{{ $t('app.buttons.add_job') }}</span
           >
           <span
             class="py-2 cursor-pointer select-none bg-transparent font-light text-yankees-blue text-4xl text-right mt-4 mix-blend-luminosity backdrop-blur-sm bg-blue-400 mobile-nav-link"
             @click="navigateTo('/login')"
           >
-            {{ $t("app.buttons.login_signup") }}
+            {{ $t('app.buttons.login_signup') }}
           </span>
         </div>
       </div>
