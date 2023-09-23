@@ -1,4 +1,4 @@
-import { toRaw } from 'Vue';
+import { toRaw } from 'vue';
 
 export const useFetchData = async (url: string, config = {}) => {
   const generalStore = useGeneralStore();
